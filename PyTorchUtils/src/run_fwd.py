@@ -10,7 +10,7 @@ import dataprovider as dp
 import forward
 import utils
 import models
-
+import numpy as np
 
 def main(noeval, **args):
 
@@ -68,8 +68,8 @@ def fill_params(expt_name, chkpt_num, gpus,
                             "/home/wanglab/Documents/python/3dunet_cnn/3dunettraining/")
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
-    params["input_spec"]  = collections.OrderedDict(input=(10,32,32)) #dp dataset spec
-    params["scan_spec"]   = collections.OrderedDict(psd=(1,10,32,32)) #changed zmd 20180919
+    params["input_spec"]  = collections.OrderedDict(input=(18,160,160)) #dp dataset spec
+    params["scan_spec"]   = collections.OrderedDict(psd=(1,18,160,160)) 
     params["scan_params"] = dict(stride=(0.5,0.5,0.5), blend="bump")
 
     #Use-specific Module imports
@@ -93,12 +93,13 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
     """ Creates a DataProvider ForwardScanner from a dset name """
 
     # Reading EM image
-    img = utils.read_h5(os.path.join(os.path.join(data_dir, 'inputTestRawImages'), dset_name + "_inputRawImages.h5"))
+    img = utils.read_h5(os.path.join(os.path.join(data_dir, 'inputTestRawImages'), dset_name + ".h5"))
     img = (img / 2000.).astype("float32")
-
+#    img = np.lib.format.open_memmap(os.path.join(os.path.join(data_dir, 'inputTestRawImages'), dset_name + ".dat"), dtype = 'float32', mode = 'r+')
+#    img = (img / 2000.).astype("float32")
+    
     # Creating DataProvider Dataset
     vd = dp.VolumeDataset()
-
     vd.add_raw_data(key="input", data=img)
     vd.set_spec(input_spec)
 
@@ -123,10 +124,7 @@ def save_output(output, dset_name, chkpt_num, fwd_dir, output_tag, **params):
 
         utils.write_h5(output_data[0,:,:,:], full_fname)
 
-
-#============================================================
-
-
+#====================================================================================================================================================
 
 if __name__ == "__main__":
 
