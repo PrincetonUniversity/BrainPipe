@@ -55,10 +55,10 @@ class Sampler(object):
 
     def build_dataset(self, datadir, spec, dset_name):
       
-      img = read_file(os.path.join(os.path.join(datadir, 'inputRawImages'), dset_name + "_inputRawImages.h5")) #+'/inputRawImages' added by zmd 20180917      
+      img = read_file(os.path.join(os.path.join(datadir, 'inputRawImages'), dset_name + ".h5")) #+'/inputRawImages' added by zmd 20180917      
       #print '\n     Read raw file correctly!\n'
       
-      lbl = read_file(os.path.join(os.path.join(datadir, 'inputLabelImages'), dset_name + "_inputLabelImages.h5")).astype("float32") #+'/inputInputImages' added by zmd 20180917
+      lbl = read_file(os.path.join(os.path.join(datadir, 'inputLabelImages'), dset_name + ".h5")).astype("float32") #+'/inputInputImages' added by zmd 20180917
       #print '\n     Read label file correctly!\n'
       
       img = dp.transform.divideby(img, val=2000.0, dtype="float32")

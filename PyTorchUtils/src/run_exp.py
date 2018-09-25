@@ -19,6 +19,7 @@ import train
 import loss
 import models
 import samplers
+from sklearn.model_selection import train_test_split
 
 
 def main(**args):
@@ -48,84 +49,42 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
 
     #Model params
     params["in_dim"]       = 1
-    params["output_spec"]  = collections.OrderedDict(soma_label=1)
+    params["output_spec"]  = collections.OrderedDict(soma_label = 1)
     params["depth"]        = 4
     params["batch_norm"]   = True
 
     #Training procedure params
-    params["max_iter"]    = 5000 #originally 1000000
+    params["max_iter"]    = 1000000 #originally 1000000
     params["lr"]          = 0.0001 #originally 0.001
     params["test_intv"]   = 1000 #originally 1000
     params["test_iter"]   = 100 #originally 100
     params["avgs_intv"]   = 50
-    params["chkpt_intv"]  = 50500 #originally 500
+    params["chkpt_intv"]  = 5000 #originally 500
     params["warm_up"]     = 50
     params["chkpt_num"]   = chkpt_num
     params["batch_size"]  = batch_sz
 
     #Sampling params
-    params["data_dir"]     = os.path.expanduser("/home/wanglab/Documents/python/3dunet/3dunettraining/")
+    params["data_dir"]     = os.path.expanduser('/tigress/zmd/wang/zahra/3dunet_cnn/training')
+    
+    #split into train, val, and test data
+    raw = os.listdir(params["data_dir"]+'/inputRawImages'); raw.sort()
+    raw = [xx[:-18] for xx in raw]
+    
+    train, test = train_test_split(raw, test_size = 0.3, train_size = 0.7, random_state = 1)   
+    val, test = train_test_split(test, test_size = 0.666, train_size = 0.333, random_state = 1)
+    
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
-    params["train_sets"]   = [
-                               '20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00_00',
-                               '20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', 
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_03_500-550',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_06_500-550',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_07_500-550',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_00',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_01',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_04',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_00',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_01']
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_03',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_04',
-#                               '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y1000-1350_x2050-2400',
-#                               '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y4500-4850_x3450-3800',
-#                               '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_00',
-#                               '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_01',
-#                               '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_00',
-#                               '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_01',
-#                               '20170130_tp_bl6_sim_1750r_03_647_010na_1hfds_z7d5um_50msec_10povlp_ch00_z200-400_y2050-2400_x1350-1700',
-#                               '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1000-1350_x2050-2400',
-#                               '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y2050-2400_x3100-3450'
-#                               ]
-                               #'20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y2400-2750_x4500-4850'
-                               #'20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y3800-4150_x2400-2750'
+    params["train_sets"]   = train
                                
-    params["val_sets"]     = [
-#                               '20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00_00',
-#                               '20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', 
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_03_500-550',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_06_500-550',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_07_500-550',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_00',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_01',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_04',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_00',
-#                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_01',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_03',
-                               '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_04',
-                               '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y1000-1350_x2050-2400',
-                               '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y4500-4850_x3450-3800',
-                               '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_00',
-                               '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_01',
-                               '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_00',
-                               '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_01',
-                               '20170130_tp_bl6_sim_1750r_03_647_010na_1hfds_z7d5um_50msec_10povlp_ch00_z200-400_y2050-2400_x1350-1700',
-                               '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1000-1350_x2050-2400',
-                               '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y2050-2400_x3100-3450'
-                               ]
-                               #'20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y2400-2750_x4500-4850'
-                               #'20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y3800-4150_x2400-2750'
+    params["val_sets"]     = val
                                
     #GPUS
     params["gpus"] = gpus
 
     #IO/Record params
     params["expt_name"]  = expt_name
-    params["expt_dir"]   = "experiments/{}".format(expt_name)
+    params["expt_dir"]   = os.path.join(params["data_dir"], 'experiments/{}'.format(expt_name)
     params["model_dir"]  = os.path.join(params["expt_dir"], "models")
     params["log_dir"]    = os.path.join(params["expt_dir"], "logs")
     params["fwd_dir"]    = os.path.join(params["expt_dir"], "forward")
