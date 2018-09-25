@@ -53,6 +53,10 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["depth"]        = 4
     params["batch_norm"]   = True
 
+
+alias gpu='git push -u origin $(git symbolic-ref --short HEAD)'
+
+
     #Training procedure params
     params["max_iter"]    = 1000000 #originally 1000000
     params["lr"]          = 0.0001 #originally 0.001
