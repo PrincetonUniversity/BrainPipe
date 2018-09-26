@@ -21,14 +21,14 @@ def read_file(fname):
 
 class Sampler(object):
 
-    def __init__(self, datadir, dsets=[], 
-                                mode="train", patchsz=(32, 256, 256)): #original: 18 x 160 x 160
+    def __init__(self, datadir, dsets, 
+                                mode="train", patchsz=(18, 160, 160)): #original: 18 x 160 x 160
 
       assert mode in ["train","val","test"]
 
       datadir = os.path.expanduser(datadir)
   
-      volnames = ["input", "cell_label"]
+      volnames = ["input", "soma_label"]
       spec = { name : patchsz for name in volnames }
 
       self.dp = self.build_data_provider(datadir, spec, mode, dsets)
@@ -55,10 +55,10 @@ class Sampler(object):
 
     def build_dataset(self, datadir, spec, dset_name):
       
-      img = read_file(os.path.join(os.path.join(datadir, 'inputRawImages'), dset_name + "_inputRawImages.h5")) #+'/inputRawImages' added by zmd 20180917      
+      img = read_file(os.path.join(os.path.join(datadir, 'inputRawImages'), dset_name + "_inputRawImages.h5")) # added by zmd 20180917      
       #print '\n     Read raw file correctly!\n'
       
-      lbl = read_file(os.path.join(os.path.join(datadir, 'inputLabelImages'), dset_name + "inputLabelImages-segmentation.h5")).astype("float32") #+'/inputInputImages' added by zmd 20180917
+      lbl = read_file(os.path.join(os.path.join(datadir, 'inputLabelImages'), dset_name + "_inputLabelImages-segmentation.h5")).astype("float32") #+ added by zmd 20180917
       #print '\n     Read label file correctly!\n'
       
       img = dp.transform.divideby(img, val=2000.0, dtype="float32")
@@ -66,7 +66,7 @@ class Sampler(object):
 
       vd = dp.VolumeDataset()
       vd.add_raw_data(key="input",       data=img)
-      vd.add_raw_data(key="cell_label",  data=lbl)
+      vd.add_raw_data(key="soma_label",  data=lbl)
       
       vd.set_spec(spec)
       
