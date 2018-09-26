@@ -65,7 +65,7 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["batch_size"]  = batch_sz
 
     #Sampling params
-    params["data_dir"]     = os.path.expanduser('/tigress/zmd/wang/zahra/3dunet_cnn/training')
+    params["data_dir"]     = os.path.expanduser('/scratch/gpfs/zmd')
     
     #split into train, val, and test data
     raw = os.listdir(params["data_dir"]+'/inputRawImages'); raw.sort()
@@ -84,7 +84,7 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
 
     #IO/Record params
     params["expt_name"]  = expt_name
-    params["expt_dir"]   = os.path.join(params["data_dir"], 'experiments/{}'.format(expt_name)
+    params["expt_dir"]   = os.path.join(params["data_dir"], 'experiments/{}'.format(expt_name))
     params["model_dir"]  = os.path.join(params["expt_dir"], "models")
     params["log_dir"]    = os.path.join(params["expt_dir"], "logs")
     params["fwd_dir"]    = os.path.join(params["expt_dir"], "forward")

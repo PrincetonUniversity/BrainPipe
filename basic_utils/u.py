@@ -5,7 +5,7 @@
 
 import numpy as np
 import h5py
-import tifffile
+from skimage.external import tifffile
 import os
 
 
@@ -41,11 +41,13 @@ def write_h5(data, fname):
 	f.close()
 
 def h5write(data, fname, path="/main"):
-        "Version of write_h5 for writing multiple dsets to a single file"
+    '''
+    Version of write_h5 for writing multiple dsets to a single file
+    '''
 
-        f = h5py.File(fname)
-        f.create_dataset(path, data=data)
-        f.close()
+    f = h5py.File(fname)
+    f.create_dataset(path, data=data)
+    f.close()
 
 def write_chunked_h5(data, fname):
 
