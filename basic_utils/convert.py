@@ -90,7 +90,7 @@ def fullsizedata_to_h5(dst, dct, memmap = True):
         fp = load_memmap_arr(dct, mode='r+')
             
     #save out h5 file    
-    with h5py.File(h5_filename, driver = 'core') as h5_file:
+    with h5py.File(h5_filename) as h5_file:
         h5_file.create_dataset('/main', data = fp)
    
     #delete mmemp array - is this necessary???
@@ -135,8 +135,8 @@ def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
 #%%
 if __name__ == "__main__":
    
-   dct = '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob7_500r_09'
+   dct = '/jukebox/LightSheetTransfer/cnn/test/20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp.npy'
    dst = '/jukebox/LightSheetTransfer/cnn/test/'
    
-   fullsizedata_to_h5(dst, dct, memmap = False)
+   fullsizedata_to_h5(dst, dct, memmap = True)
    

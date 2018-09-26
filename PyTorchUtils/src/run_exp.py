@@ -65,11 +65,11 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["batch_size"]  = batch_sz
 
     #Sampling params
-    params["data_dir"]     = os.path.expanduser('/scratch/gpfs/zmd')
+    params["data_dir"]     = '/scratch/gpfs/zmd'
     
     #split into train, val, and test data
     raw = os.listdir(params["data_dir"]+'/inputRawImages'); raw.sort()
-    raw = [xx[:-18] for xx in raw]
+    raw = [xx[:-18] for xx in raw] #because we add the extension back in sampler, can change later
     
     train, test = train_test_split(raw, test_size = 0.3, train_size = 0.7, random_state = 1)   
     val, test = train_test_split(test, test_size = 0.666, train_size = 0.333, random_state = 1)
@@ -78,7 +78,8 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["train_sets"]   = train
                                
     params["val_sets"]     = val
-                               
+    params["patchsz"] = (18,320,320) #zmd added
+
     #GPUS
     params["gpus"] = gpus
 
@@ -90,7 +91,7 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["fwd_dir"]    = os.path.join(params["expt_dir"], "forward")
     params["tb_train"]   = os.path.join(params["expt_dir"], "tb/train")
     params["tb_val"]     = os.path.join(params["expt_dir"], "tb/val")
-
+    
     #Use-specific Module imports
     sampler_module = getattr(samplers,sampler_name)
     params["sampler_class"] = sampler_module.Sampler
@@ -110,7 +111,7 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     return params
 
 
-def start_training(model_class, model_args, model_kwargs, sampler_class,
+def start_training(model_class, model_args, model_kwargs, sampler_class, patchsz,
                    chkpt_num, lr, train_sets, val_sets, data_dir,
                    model_dir, log_dir, tb_train, tb_val,
                    **params):
@@ -127,10 +128,10 @@ def start_training(model_class, model_args, model_kwargs, sampler_class,
 
     #DataProvider Sampler
     train_sampler = utils.AsyncSampler(sampler_class(data_dir, dsets=train_sets,
-                                                     mode="train"))
+                                                     mode="train"), patchsz)
 
     val_sampler   = utils.AsyncSampler(sampler_class(data_dir, dsets=val_sets,
-                                                     mode="val"))
+                                                     mode="val"), patchsz)
 
     loss_fn = loss.BinomialCrossEntropyWithLogits()
     optimizer = torch.optim.Adam(net.parameters(), lr=lr)
