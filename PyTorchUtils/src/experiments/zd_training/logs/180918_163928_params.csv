@@ -1,0 +1,29 @@
+expt_dir;experiments/zd_training
+in_dim;1
+warm_up;50
+fwd_dir;experiments/zd_training/forward
+model_kwargs;{'bn': True}
+test_intv;1000
+expt_name;zd_training
+data_dir;/home/wanglab/Documents/python/3dunet/3dunettraining/
+output_spec;OrderedDict([('soma_label', 1)])
+train_sets;['20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00_00', '20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_03_500-550', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_06_500-550', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_07_500-550', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_00', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_01', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_626-675_04', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_00', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_01']
+log_dir;experiments/zd_training/logs
+model_dir;experiments/zd_training/models
+test_iter;100
+lr;0.0001
+chkpt_num;0
+modules_used;['run_exp.py', '/home/wanglab/Documents/python/3dunet/PyTorchUtils/src/models/RSUNet.pyc', '/home/wanglab/Documents/python/3dunet/PyTorchUtils/src/samplers/sampler.pyc', 'loss.py']
+sampler_class;<class 'samplers.sampler.Sampler'>
+max_iter;5000
+val_sets;['20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_03', '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_C00_300-375_04', '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y1000-1350_x2050-2400', '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y4500-4850_x3450-3800', '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_00', '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_01', '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_00', '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_01', '20170130_tp_bl6_sim_1750r_03_647_010na_1hfds_z7d5um_50msec_10povlp_ch00_z200-400_y2050-2400_x1350-1700', '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1000-1350_x2050-2400', '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y2050-2400_x3100-3450']
+chkpt_intv;5000
+model_args;[1, OrderedDict([('soma_label', 1)]), 4]
+tb_val;experiments/zd_training/tb/val
+batch_size;32
+gpus;['0']
+avgs_intv;50
+depth;4
+tb_train;experiments/zd_training/tb/train
+model_class;<class 'models.RSUNet.RSUNet'>
+batch_norm;True
