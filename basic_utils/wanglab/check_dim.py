@@ -9,7 +9,7 @@ Created on Fri Sep 28 15:10:47 2018
 import os, h5py
 import numpy as np
 
-src ='/home/wanglab/Documents/python/3dunet_cnn/3dunettraining/inputTestRawImages/'
+src = '/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/otsu/inputRawImages'
 for i, fn in enumerate(os.listdir(src)):
     f = h5py.File(os.path.join(src,fn))
     d = f["/main"].value
