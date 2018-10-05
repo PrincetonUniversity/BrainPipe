@@ -20,7 +20,7 @@ if __name__ == '__main__':
     
     #transfer from globus
     src = '/tigress/zmd/wang/zahra/3dunet_cnn/experiments/20181001_zd_train/forward'
-    dest = '/jukebox/LightSheetTransfer/cnn/zmd' #wanglab endpoint assumes default directory of /home/wanglab/
+    dest = '/jukebox/LightSheetTransfer/cnn/zmd'
     label = 'model_20181001'
     transfer(src, dest, label, other_endpoint = False)
         
