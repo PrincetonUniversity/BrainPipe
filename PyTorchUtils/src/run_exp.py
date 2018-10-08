@@ -65,27 +65,26 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["batch_size"]  = batch_sz
 
     #Sampling params
-    params["data_dir"]     = '/scratch/gpfs/zmd'
+    params["data_dir"]     = '/home/wanglab/Documents/python/3dunet_data/training_data'
     
     #split into train, val, and test data
     raw = os.listdir(params["data_dir"]+'/inputRawImages'); raw.sort()
     raw = [xx[:-18] for xx in raw] #because we add the extension back in sampler, can change later
     
     train, test = train_test_split(raw, test_size = 0.3, train_size = 0.7, random_state = 1)   
-    val, test = train_test_split(test, test_size = 0.666, train_size = 0.333, random_state = 1)
+    val, test = train_test_split(test, test_size = 0.333, train_size = 0.666, random_state = 1)
     
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["train_sets"]   = train
                                
     params["val_sets"]     = val
-    params["patchsz"] = (18,320,320) #zmd added
 
     #GPUS
     params["gpus"] = gpus
 
     #IO/Record params
     params["expt_name"]  = expt_name
-    params["expt_dir"]   = os.path.join(params["data_dir"], 'experiments/{}'.format(expt_name))
+    params["expt_dir"]   = '/home/wanglab/Documents/python/3dunet_data/experiments/{}'.format(expt_name)
     params["model_dir"]  = os.path.join(params["expt_dir"], "models")
     params["log_dir"]    = os.path.join(params["expt_dir"], "logs")
     params["fwd_dir"]    = os.path.join(params["expt_dir"], "forward")

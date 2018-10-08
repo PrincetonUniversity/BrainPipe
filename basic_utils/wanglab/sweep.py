@@ -16,6 +16,7 @@ import h5py
 import subprocess as sp
 from tools.conv_net.functions.bipartite import pairwise_distance_metrics
 
+#%%
 if __name__ == '__main__':
     
     #transfer from globus
@@ -34,9 +35,10 @@ if __name__ == '__main__':
 #            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550', 
 #            'JGANNOTATION_20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', 
 #            '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1350-1700_x3100-3450']
-    
+
+#%%    
     #after transfer, set relevant paths
-    pth = '/jukebox/LightSheetTransfer/cnn/zmd/20180929_360000chkpnt_xy160z20/forward'
+    pth = '/home/wanglab/Documents/python/3dunet_data/experiments/20181005_zd_train/forward'
     points_dict = load_dictionary('/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/filename_points_dictionary.p')
     
 #******************************************************************************************************************************************    
@@ -84,7 +86,7 @@ def transfer(src, dest, label, other_endpoint = False):
     sp.call(['globus', 'transfer', tigress_pth, lst_pth, '--recursive', '--label', label]) #run command line call
     
     
-def probabiltymap_to_centers_thresh(src, threshold = (0.1,1), numZSlicesPerSplit = 200, overlapping_planes = 40, cores = 4, return_pixels = False, verbose = True, structure_rank_order = 2):
+def probabiltymap_to_centers_thresh(src, threshold = (0.1,1), numZSlicesPerSplit = 200, overlapping_planes = 40, cores = 4, return_pixels = False, verbose = False, structure_rank_order = 2):
     '''
     by tpisano
     
@@ -98,7 +100,7 @@ def probabiltymap_to_centers_thresh(src, threshold = (0.1,1), numZSlicesPerSplit
     cores: number of parallel jobs to do at once. Adjust this and numZSlicesPerSplit based on memory constraints
     overlapping_planes: number of planes on each side to overlap by, this should be comfortably larger than the maximum z distances of a single object
     structure_rank_order: Optional. If true provides the structure element to used in ndimage.measurements.labels, 2 seems to be the most specific
-    save (optional) 'True', 'False', str of path and file name to save with extension .p. If multiple cell channels.
+    save (optional) 'True', 'False', str of path and file name to save with extension .p. If multiple cell /jukebox/LightSheetTransfer/cnn/zmd/20180929_395000chkpnt_xy160z20/channels.
     return_pixels, if True return centers and all pixels associated with that center
 
     Returns single list of

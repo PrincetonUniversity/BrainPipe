@@ -1,3 +1,0 @@
-dct = '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob7_500r_09'
-dst = '/home/wanglab/Documents/python/3dunet_cnn/3dunettraining/inputTestRawImages'
-img_pth = '/home/wanglab/Documents/python/3dunet_cnn/PyTorchUtils/src/experiments/zd_training/forward/20170130_tp_bl6_sim_1750r_03_647_010na_1hfds_z7d5um_50msec_10povlp_ch00_z200-400_y2400-2750_x4500-4850_psd_5000_noeval.h5'
