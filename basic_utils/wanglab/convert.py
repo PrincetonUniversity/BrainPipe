@@ -16,27 +16,20 @@ from glob import glob
 
 if __name__ == '__main__':
 
-    src = '/jukebox/wang/zahra/3dunet/forward_pass/20181001_train_192x192_tiger2_160x160/'
+    src = '/home/wanglab/Documents/python/data/training_data/inputRawImages/'
     for img in os.listdir(src):
         impth = os.path.join(src, img)
         h5_to_tiff(impth)
         
-    test = ['20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_02', #for 20181001 net
-            'JGANNOTATION_20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_750-785_00', 
-            '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_01', 
-            '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y4500-4850_x3450-3800', 
-            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_03_500-550', 
-            '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_00', 
-            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550', 
-            'JGANNOTATION_20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', 
-            '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1350-1700_x3100-3450']    
-    
-    pth = '/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/otsu/inputRawImages/'
-    
-    for img in test:
-        impth = os.path.join(pth, img+'_inputRawImages.h5')
-        tifpth = os.path.join(src, img+'.tif')
-        h5_to_tiff(impth, tifpth)
+#    test = ['20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_02', #for 20181001 net
+#            'JGANNOTATION_20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_750-785_00', 
+#            '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_01', 
+#            '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y4500-4850_x3450-3800', 
+#            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_03_500-550', 
+#            '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_00', 
+#            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550', 
+#            'JGANNOTATION_20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', 
+#            '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1350-1700_x3100-3450']    
         
 #%%
 def convert_tiff(tiff_filename):
