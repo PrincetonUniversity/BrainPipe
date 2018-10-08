@@ -56,7 +56,7 @@ def fill_params(expt_name, chkpt_num, gpus,
 
     #IO/Record params
     params["expt_name"]   = expt_name
-    params["expt_dir"]    = "experiments/{}".format(expt_name)
+    params["expt_dir"]    = "/home/wanglab/Documents/python/3dunet_data/experiments/{}".format(expt_name)
     params["model_dir"]   = os.path.join(params["expt_dir"], "models")
     params["log_dir"]     = os.path.join(params["expt_dir"], "logs")
     params["fwd_dir"]     = os.path.join(params["expt_dir"], "forward")
@@ -65,11 +65,11 @@ def fill_params(expt_name, chkpt_num, gpus,
 
     #Dataset params
     params["data_dir"]    = os.path.expanduser(
-                            "/home/wanglab/Documents/python/3dunet_cnn/3dunettraining/")
+                            "/home/wanglab/Documents/python/3dunet_data/training_data/")
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
-    params["input_spec"]  = collections.OrderedDict(input=(18,160,160)) #dp dataset spec
-    params["scan_spec"]   = collections.OrderedDict(psd=(1,18,160,160)) 
+    params["input_spec"]  = collections.OrderedDict(input=(20,128,128)) #dp dataset spec
+    params["scan_spec"]   = collections.OrderedDict(psd=(1,20,128,128)) 
     params["scan_params"] = dict(stride=(0.5,0.5,0.5), blend="bump")
 
     #Use-specific Module imports
@@ -93,10 +93,8 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
     """ Creates a DataProvider ForwardScanner from a dset name """
 
     # Reading EM image
-    img = utils.read_h5(os.path.join(os.path.join(data_dir, 'inputTestRawImages'), dset_name + ".h5"))
+    img = utils.read_h5(os.path.join(os.path.join(data_dir, 'inputRawImages'), dset_name + "_inputRawImages.h5"))
     img = (img / 2000.).astype("float32")
-#    img = np.lib.format.open_memmap(os.path.join(os.path.join(data_dir, 'inputTestRawImages'), dset_name + ".dat"), dtype = 'float32', mode = 'r+')
-#    img = (img / 2000.).astype("float32")
     
     # Creating DataProvider Dataset
     vd = dp.VolumeDataset()
