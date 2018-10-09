@@ -21,7 +21,7 @@ raw = [xx[:-19] for xx in raw] #because we add the extension back in sampler, ca
 
 #%70-20-10 train-validation-test
 train, test = train_test_split(raw, test_size = 0.3, train_size = 0.7, random_state = 1)   
-val, test = train_test_split(test, test_size = 0.666, train_size = 0.333, random_state = 1)
+val, test = train_test_split(test, test_size = 0.333, train_size = 0.666, random_state = 1)
 
 #FIXME: messy, make it easier to do without changing all paths
 #test
