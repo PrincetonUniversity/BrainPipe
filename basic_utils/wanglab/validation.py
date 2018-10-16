@@ -21,8 +21,9 @@ loss = [float(xx) for xx in loss if str(xx)]
 #plot
 plt.figure()
 plt.plot(loss[1:], 'r')
+plt.ylim(0, 0.002)
 plt.xlabel('# of iterations in thousands')
 plt.ylabel('loss value')
 plt.title('3D U-net validation curve for H129')          
-plt.savefig('val.pdf', dpi = 300, transparent = True)
+plt.savefig('val_zoom_initial_test_omitted.pdf', dpi = 300, transparent = True)
 plt.close()
