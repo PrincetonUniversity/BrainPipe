@@ -9,9 +9,9 @@ Created on Fri Oct  5 15:00:47 2018
 from sklearn.model_selection import train_test_split
 import os, shutil
 
-data_pth = '/home/wanglab/Documents/python/data/training_data'
-pth = '/home/wanglab/Documents/python/data/training_data/inputRawImages'
-lbl = '/home/wanglab/Documents/python/data/training_data/inputLabelImages'
+data_pth = '/home/wanglab/Documents/training_data'
+pth = '/home/wanglab/Documents/inputRawImages'
+lbl = '/home/wanglab/Documents/inputLabelImages'
 
 #split into train, val, and test data
 raw = os.listdir(pth)
@@ -27,26 +27,38 @@ val, test = train_test_split(test, test_size = 0.333, train_size = 0.666, random
 #test
 for i in test: #move raw and labels to appropriate bins
     t = os.path.join(lbl, i+'_inputLabelImages-segmentation.tif')
-    shutil.move(t, data_pth+'/test/label')
+    drc = data_pth+'/test/label'
+    if not os.path.exists(drc): os.makedirs(drc)
+    shutil.move(t, drc)
     
 for i in test:
     t = os.path.join(pth, i+'_inputRawImages.tif')
-    shutil.move(t, data_pth+'/test/raw')
+    drc = data_pth+'/test/raw'
+    if not os.path.exists(drc): os.makedirs(drc)
+    shutil.move(t, drc)
     
 #train
 for i in train: 
     t = os.path.join(lbl, i+'_inputLabelImages-segmentation.tif')
-    shutil.move(t, data_pth+'/train/label')
+    drc = data_pth+'/train/label'
+    if not os.path.exists(drc): os.makedirs(drc)
+    shutil.move(t, drc)
     
 for i in train:
     t = os.path.join(pth, i+'_inputRawImages.tif')
-    shutil.move(t, data_pth+'/train/raw')
+    drc = data_pth+'/train/raw'
+    if not os.path.exists(drc): os.makedirs(drc)
+    shutil.move(t, drc)
     
 #val
 for i in val: 
     t = os.path.join(lbl, i+'_inputLabelImages-segmentation.tif')
-    shutil.move(t, data_pth+'/val/label')
+    drc = data_pth+'/val/label'
+    if not os.path.exists(drc): os.makedirs(drc)
+    shutil.move(t, drc)
     
 for i in val:
     t = os.path.join(pth, i+'_inputRawImages.tif')
-    shutil.move(t, data_pth+'/val/raw')
+    drc = data_pth+'/val/raw'
+    if not os.path.exists(drc): os.makedirs(drc)
+    shutil.move(t, drc)

@@ -16,7 +16,7 @@ from glob import glob
 
 if __name__ == '__main__':
 
-    src = '/home/wanglab/Documents/python/data/training_data/inputRawImages/'
+    src = '/home/wanglab/Documents/inputLabelImages/'
     for img in os.listdir(src):
         impth = os.path.join(src, img)
         h5_to_tiff(impth)
