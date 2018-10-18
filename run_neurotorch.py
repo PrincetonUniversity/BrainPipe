@@ -6,7 +6,7 @@ Created on Tue Oct  2 13:14:05 2018
 @author: wanglab
 """
 
-from neurotorch.datasets.dataset import TiffVolume
+from neurotorch.datasets.filetypes import TiffVolume
 from neurotorch.core.trainer import Trainer
 from neurotorch.nets.RSUNet import RSUNet
 from neurotorch.core.predictor import Predictor
@@ -21,6 +21,8 @@ def main():
     net = torch.nn.DataParallel(RSUNet())  # Initialize the U-Net architecture - zmd modified
 
     inputs = TiffVolume('/home/wanglab/Documents/training_data/train/raw/20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1350-1700_x3100-3450_inputRawImages.tif')  # Create a volume containing inputs
+    inputs.__enter__()
+    
 #    labels = TiffVolume('/home/wanglab/Documents/training_data/train/label/20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1350-1700_x3100-3450_inputLabelImages-segmentation.tif')  # Create a volume containing labels
 #
 #    print ('**************************************************************************************\n\n      Inputs and Labels read correctly. Starting training...\n\n') #zmd added
@@ -34,22 +36,22 @@ def main():
 #
 #    trainer.run_training()  # Start training
 
-    outputs = TiffVolume('/home/wanglab/Documents/training_data/val/raw/20170130_tp_bl6_sim_1750r_03_647_010na_1hfds_z7d5um_50msec_10povlp_ch00_z200-400_y2050-2400_x1350-1700_inputRawImages.tif') # Create a volume for predictions
-
+    outputs = TiffVolume('/home/wanglab/Documents/python/NeuroTorch/data') # Create a volume for predictions
+    outputs.__enter__()
+    
     print ('*********************************************************************************************\n\n\
            Finished training :) Starting predictions...\n\n') #zmd added
     
     # Setup a predictor for computing outputs
-    predictor = Predictor(net, checkpoint='./iteration_100.ckpt', gpu_device=0) #zmd added gpu device
+    predictor = Predictor(net, checkpoint='/jukebox/LightSheetTransfer/cnn/zmd/experiment_dirs/20181001_zd_train/models/model129000.chkpt', gpu_device=0) #zmd added gpu device
 
-    predictor.run(inputs, outputs, batch_size=1)  # Run prediction
+    predictor.run(inputs, outputs, batch_size=10)  # Run prediction
 
     print ('*********************************************************************************************\n\n\
            Finishing predictions :) Saving... \n\n') #zmd added
     
-    # S outputs - zmd modified
-    print (outputs.getArray())  #print probability arrayave
-    tifffile.imsave('outputs.tif', outputs.getArray().astype('float32')) #save output array as tiff
-
+#    print (outputs.get().getArray())
+#    tifffile.imsave('outputs.tif', outputs.get().getArray())    
+    
 if __name__ == '__main__':
     main()
