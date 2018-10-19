@@ -43,9 +43,9 @@ def main():
            Finished training :) Starting predictions...\n\n') #zmd added
     
     # Setup a predictor for computing outputs
-    predictor = Predictor(net, checkpoint='/jukebox/LightSheetTransfer/cnn/zmd/experiment_dirs/20181001_zd_train/models/model129000.chkpt', gpu_device=0) #zmd added gpu device
+    predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/20181009_zd_train/models/model715000.chkpt', gpu_device=0) #zmd added gpu device
 
-    predictor.run(inputs, outputs, batch_size=10)  # Run prediction
+    predictor.run(inputs, outputs, batch_size=1)  # Run prediction
 
     print ('*********************************************************************************************\n\n\
            Finishing predictions :) Saving... \n\n') #zmd added
