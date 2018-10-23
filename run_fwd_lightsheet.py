@@ -33,28 +33,28 @@ def main():
 #    pooled_vol.add(input1)    
 #    pooled_vol.add(input2)        
 #    
-##    for f in os.listdir(data_pth):
-##        tif = TiffVolume(os.path.join(data_pth, f), BoundingBox(Vector(0, 0, 0),
-##                                                         Vector(1000, 1000, 1)))  # Create a volume to feed into predictor
-##        tif.__enter__()
-##        pooled_vol.add(tif)
+#    for f in os.listdir(data_pth):
+#        tif = TiffVolume(os.path.join(data_pth, f), BoundingBox(Vector(0, 0, 0),
+#                                                         Vector(1000, 1000, 1)))  # Create a volume to feed into predictor
+#        tif.__enter__()
+#        pooled_vol.add(tif)
 #        
 #    inputs = pooled_vol
     
     sys.stdout.write('*******************************************************************************\n\n\
            Starting predictions...\n\n') 
     
-    outputs = Array(inputs_dataset.getBoundingBox().getNumpyDim()) #initialise output array
-    
     # Setup a predictor for computing outputs
-    predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model715000.chkpt', gpu_device=0) #zmd added gpu device
-
-    predictor.run(pooled_vol, outputs, batch_size=6)  # Run prediction
+    predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model715000.chkpt', gpu_device=0)
+    
+    outputs = Array(np.zeros(inputs_dataset.getBoundingBox().getNumpyDim())) #initialise output array
+    
+    predictor.run(inputs_dataset, outputs, batch_size=6)  # Run prediction
 
     sys.stdout.write('*******************************************************************************\n\n\
            Finishing predictions :) Saving... \n\n') 
     
-    tifffile.imsave("test_prediction.tif", pooled_vol.get().getArray().astype(np.float32)) #saves image output, zeros = cells??? so bizarre
+    tifffile.imsave("test_prediction.tif", outputs.getArray().astype(np.float32)) #saves image output, zeros = cells??? so bizarre
     
     sys.stdout.write('*******************************************************************************\n\n\
             Saved!')
