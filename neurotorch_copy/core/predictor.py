@@ -1,6 +1,6 @@
 import torch
 from torch.autograd import Variable
-import numpy as np
+import numpy as np, sys
 from neurotorch.datasets.dataset import Data
 
 
@@ -33,9 +33,12 @@ class Predictor:
                           for i in range(0,
                                          len(input_volume),
                                          self.getBatchSize())]
-
+        
             for batch_index in batch_list:
                 batch = [input_volume[i] for i in batch_index]
+                
+                sys.stdout.write('              Running batch with index of: {}...\
+                       Bounding box for batch: \n\ {}'.format(batch_index, batch[0].getBoundingBox())); sys.stdout.flush()
 
                 self.run_batch(batch, output_volume)
 
@@ -50,14 +53,14 @@ class Predictor:
         inputs = Variable(arrays).float()
 
         outputs = self.getNet()(inputs)
-
+        sys.stdout.write('            Calculated probability maps...'); sys.stdout.flush()
+        
         data_list = self.toData(outputs, bounding_boxes)
         for data in data_list:
             output_volume.blend(data)
-            #zmd added
-            probmap = data.getArray()
-            print (probmap, probmap.shape)
-
+            
+        sys.stdout.write('              Finished predicting and blending.\n'); sys.stdout.flush()
+        
     def toArray(self, data):
         torch_data = data.getArray().astype(np.float)
         torch_data = torch_data.reshape(1, 1, *torch_data.shape)

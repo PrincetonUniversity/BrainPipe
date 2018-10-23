@@ -22,12 +22,9 @@ def main():
 
     inputs = TiffVolume('/home/wanglab/Documents/python/NeuroTorch/data')  # Create a volume to feed into predictor
     inputs.__enter__()
-
-#    outputs = TiffVolume('/home/wanglab/Documents/python/NeuroTorch/data') # Create a volume for predictions
-#    outputs.__enter__()
     
     print ('*******************************************************************************\n\n\
-           Finished training :) Starting predictions...\n\n') 
+           Starting predictions...\n\n') 
     
     # Setup a predictor for computing outputs
     predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/20181009_zd_train/models/model715000.chkpt', gpu_device=0) #zmd added gpu device
@@ -35,10 +32,8 @@ def main():
     predictor.run(inputs, outputs, batch_size=1)  # Run prediction
 
     print ('*******************************************************************************\n\n\
-           Finishing predictions :) Saving... \n\n') #zmd added
+           Finishing predictions :) Saving... \n\n') 
     
-#    print (outputs.get().getArray())
-#    tifffile.imsave('outputs.tif', outputs.get().getArray())    
     
 if __name__ == '__main__':
     main()
