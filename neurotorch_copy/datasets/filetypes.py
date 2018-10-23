@@ -64,6 +64,14 @@ containing TIFF files
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        if os.path.isfile(self.getFile()):
+            try:
+                tif.imsave(self.getFile(), self.getArray())
+
+            except IOError:
+                raise IOError("TIFF file {} could not be " +
+                              "opened".format(self.getFile()))
+
         self.setArray(None)
 
 
@@ -107,7 +115,7 @@ class LargeVolume(Volume):
         def ceil(x):
             return int(round(x))
 
-        self.element_vec = Vector(*map(lambda L, l, s: ceil((L-l)/s+1),
+        self.element_vec = Vector(*list(map(lambda L, l, s: ceil((L-l)/s+1)),
                                        self.getBoundingBox().getEdges()[1].getComponents(),
                                        self.iteration_size.getEdges()[1].getComponents(),
                                        self.stride.getComponents()))
@@ -294,4 +302,8 @@ volume dataset
                 self.setArray(array)
 
     def __exit__(self, exc_type, exc_value, traceback):
+        if os.path.isfile(self.getFile()):
+            with h5py.File(self.getFile(), 'w') as f:
+                f[self.getDataset()].value = self.getArray()
+
         self.setArray(None)

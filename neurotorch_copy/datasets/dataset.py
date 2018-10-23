@@ -130,8 +130,7 @@ dataset iterable. The displacement proceeds first from X then to Y then to Z.
                           stride=stride)
         super().__init__()
 
-    def get(self, bounding_box: BoundingBox=BoundingBox(Vector(0, 0, 0),
-                                                         Vector(128, 128, 20))) -> Data:
+    def get(self, bounding_box: BoundingBox) -> Data:
         """
         Requests a data sample from the volume. If the bounding box does
 not exist, then the method raises a ValueError.
@@ -627,19 +626,29 @@ class PooledVolume(Volume):
 
     def __len__(self) -> int:
         if self.volumes_changed:
-            self.volume_index = map(lambda volume: len(volume), self.volumes)
+            self.volume_index = list(map(lambda volume: len(volume), self.volumes))
             for index, length in enumerate(self.volume_index):
                 if index > 0:
                     self.volume_index[index] += self.volume_index[index-1]
-            self.length = reduce(lambda x, y: x + y, self.length_list)
+            length = reduce(lambda x, y: x + y, self.volume_index)
 
-        return self.length
+        return length
 
+#    def __getitem__(self, idx: int) -> Data:
+#        index = 0
+#        while self.volume_index[index] < idx:
+#            index += 1
+#        index += -1
+#        _idx = idx-self.volume_index[index]
+#        return self.volumes[index][_idx]
+    
     def __getitem__(self, idx: int) -> Data:
         index = 0
-        while self.volume_index[index] < idx:
+        while self.volume_index[index]-1 < idx:
             index += 1
-        index += -1
-        _idx = idx-self.volume_index[index]
+            _idx = idx - self.volume_index[index-1]
+        
+        _idx = idx
+#        index += -1
 
         return self.volumes[index][_idx]

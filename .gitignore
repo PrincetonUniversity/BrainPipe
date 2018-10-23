@@ -2,3 +2,4 @@
 PytorchUtils/src/experiments/
 *.out
 *.pdf
+test/
