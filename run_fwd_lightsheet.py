@@ -20,36 +20,21 @@ def main():
     
     sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct
     
-    net = torch.nn.DataParallel(RSUNet())  # Initialize the U-Net architecture
+    net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net
     
     data_pth = '/home/wanglab/Documents/python/NeuroTorch/data'
     inputs_dataset = TiffVolume(data_pth, BoundingBox(Vector(0, 0, 0), Vector(3000, 3500, 20)))
     inputs_dataset.__enter__()
-#    
-#    input2 = TiffVolume(data_pth, BoundingBox(Vector(3001, 3501, 0), Vector(6000, 7000, 20)))
-#    input2.__enter__()
-#    
-#    pooled_vol = PooledVolume(stack_size = 20)
-#    pooled_vol.add(input1)    
-#    pooled_vol.add(input2)        
-#    
-#    for f in os.listdir(data_pth):
-#        tif = TiffVolume(os.path.join(data_pth, f), BoundingBox(Vector(0, 0, 0),
-#                                                         Vector(1000, 1000, 1)))  # Create a volume to feed into predictor
-#        tif.__enter__()
-#        pooled_vol.add(tif)
-#        
-#    inputs = pooled_vol
     
     sys.stdout.write('*******************************************************************************\n\n\
            Starting predictions...\n\n') 
     
-    # Setup a predictor for computing outputs
-    predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model715000.chkpt', gpu_device=0)
+    predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model715000.chkpt', 
+                          gpu_device=0) #setup a predictor for computing outputs
     
     outputs = Array(np.zeros(inputs_dataset.getBoundingBox().getNumpyDim())) #initialise output array
     
-    predictor.run(inputs_dataset, outputs, batch_size=6)  # Run prediction
+    predictor.run(inputs_dataset, outputs, batch_size = 6)  #run prediction
 
     sys.stdout.write('*******************************************************************************\n\n\
            Finishing predictions :) Saving... \n\n') 
@@ -62,9 +47,12 @@ def main():
 if __name__ == '__main__':
     
     main()
-    
 
-
+#**********************************************************************************************************************************
+#**********************************************************************************************************************************    
+#example from package
+#**********************************************************************************************************************************
+#**********************************************************************************************************************************    
 #if not os.path.isdir('./tests/checkpoints'):
 #    os.mkdir('tests/checkpoints')
 #
