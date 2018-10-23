@@ -23,15 +23,13 @@ def main():
     net = torch.nn.DataParallel(RSUNet())  # Initialize the U-Net architecture
     
     data_pth = '/home/wanglab/Documents/python/NeuroTorch/data'
-    input1 = TiffVolume(data_pth, BoundingBox(Vector(0, 0, 0),
-                                                 Vector(3840, 3840, 20)))
-    input1.__enter__()
+    inputs_dataset = TiffVolume(data_pth, BoundingBox(Vector(0, 0, 0), Vector(3000, 3500, 20)))
+    inputs_dataset.__enter__()
 #    
-#    input2 = TiffVolume('/home/wanglab/Documents/python/3dunet_helper_scripts/test/test2.tif', BoundingBox(Vector(0, 0, 50),
-#                                                 Vector(1024, 512, 100)))
+#    input2 = TiffVolume(data_pth, BoundingBox(Vector(3001, 3501, 0), Vector(6000, 7000, 20)))
 #    input2.__enter__()
 #    
-#    pooled_vol = PooledVolume(stack_size = 10)
+#    pooled_vol = PooledVolume(stack_size = 20)
 #    pooled_vol.add(input1)    
 #    pooled_vol.add(input2)        
 #    
@@ -46,17 +44,17 @@ def main():
     sys.stdout.write('*******************************************************************************\n\n\
            Starting predictions...\n\n') 
     
-    outputs = Array(np.zeros((20, 3840, 3840))) #initialise output array
+    outputs = Array(inputs_dataset.getBoundingBox().getNumpyDim()) #initialise output array
     
     # Setup a predictor for computing outputs
     predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model715000.chkpt', gpu_device=0) #zmd added gpu device
 
-    predictor.run(input1, outputs, batch_size=6)  # Run prediction
+    predictor.run(pooled_vol, outputs, batch_size=6)  # Run prediction
 
     sys.stdout.write('*******************************************************************************\n\n\
            Finishing predictions :) Saving... \n\n') 
     
-    tifffile.imsave("test_prediction.tif", outputs.getArray().astype(np.float32)) #saves image output, zeros = cells??? so bizarre
+    tifffile.imsave("test_prediction.tif", pooled_vol.get().getArray().astype(np.float32)) #saves image output, zeros = cells??? so bizarre
     
     sys.stdout.write('*******************************************************************************\n\n\
             Saved!')
