@@ -37,8 +37,8 @@ class Predictor:
             for batch_index in batch_list:
                 batch = [input_volume[i] for i in batch_index]
                 
-                sys.stdout.write('              Running batch with index of: {}...\
-                       Bounding box for batch: \n\ {}'.format(batch_index, batch[0].getBoundingBox())); sys.stdout.flush()
+                sys.stdout.write('      Running batch with index of: {}...\
+                                 Bounding box for batch: \n {}\n'.format(batch_index, batch[0].getBoundingBox())); sys.stdout.flush()
 
                 self.run_batch(batch, output_volume)
 
@@ -53,13 +53,13 @@ class Predictor:
         inputs = Variable(arrays).float()
 
         outputs = self.getNet()(inputs)
-        sys.stdout.write('            Calculated probability maps...'); sys.stdout.flush()
+        sys.stdout.write('\n            Calculated probability maps...'); sys.stdout.flush()
         
         data_list = self.toData(outputs, bounding_boxes)
         for data in data_list:
             output_volume.blend(data)
             
-        sys.stdout.write('              Finished predicting and blending.\n'); sys.stdout.flush()
+        sys.stdout.write('\n            Finished predicting and blending.\n\n'); sys.stdout.flush()
         
     def toArray(self, data):
         torch_data = data.getArray().astype(np.float)
