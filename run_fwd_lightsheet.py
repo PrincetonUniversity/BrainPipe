@@ -13,7 +13,7 @@ from neurotorch.nets.RSUNet import RSUNet
 from neurotorch.core.predictor import Predictor
 import torch
 from skimage.external import tifffile
-import numpy as np, os, sys
+import numpy as np, sys
 
 #%%
 def main():
@@ -23,7 +23,7 @@ def main():
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net
     
     data_pth = '/home/wanglab/Documents/python/NeuroTorch/data'
-    inputs_dataset = TiffVolume(data_pth, BoundingBox(Vector(0, 0, 0), Vector(3000, 3500, 20)))
+    inputs_dataset = TiffVolume(data_pth, BoundingBox(Vector(0, 0, 0), Vector(3200, 3200, 20)))
     inputs_dataset.__enter__()
     
     sys.stdout.write('*******************************************************************************\n\n\
