@@ -13,7 +13,8 @@ from neurotorch.core.predictor import Predictor
 import torch
 from skimage.external import tifffile
 import numpy as np, sys
-#%%
+
+
 def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     '''Function to load memmaped array.
 
@@ -45,38 +46,39 @@ def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
         arr = np.lib.format.open_memmap(pth, dtype = dtype, mode = mode)
     return arr
 
-
+#%%
 def main():
     
     sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct
     
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net
     
-    data_pth = '/home/wanglab/Downloads/patched_memmap_array.npy'
+    data_pth = '/home/wanglab/Documents/data/chunk_test/patched_memmap_array.npy'
     
     inputs = load_memmap_arr(data_pth)
     
-    out_pth = '/home/wanglab/Downloads/probability_array.npy'
+    out_pth = '/home/wanglab/Documents/data/chunk_test/probability_array.npy'
     
     out_map = load_memmap_arr(out_pth, mode = 'w+', shape = inputs.shape) #initialise output array
         
-    for i in range(67760):
-        inpt_dataset = Array(inputs[i,:,:,:]) #first chunk
+    for i in range(len(inputs[:,0,0,0])): #len(inputs[0])
+        
+        inpt_dataset = Array(inputs[i,:,:,:]) #grab chunk
         
         sys.stdout.write('*******************************************************************************\n\n\
-           Starting predictions for patch: {}...\n\n'.format(i))
+           Starting predictions for patch #: {}...\n\n'.format(i))
     
         predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model715000.chkpt', 
                           gpu_device=0) #setup a predictor for computing outputs
         
-        out_dataset = Array(out_map[i,:,:,:])
+        out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
         
         predictor.run(inpt_dataset, out_dataset, batch_size = 2)  #run prediction
 
         sys.stdout.write('*******************************************************************************\n\n\
                Finishing predictions :) Saving... \n\n') 
     
-        out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #saves image output, zeros = cells??? so bizarre
+        out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #saves image output
         
         sys.stdout.write('*******************************************************************************\n\n\
                 Saved!')
