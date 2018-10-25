@@ -9,7 +9,6 @@ from neurotorch.datasets.dataset import Array
 from neurotorch.nets.RSUNet import RSUNet
 from neurotorch.core.predictor import Predictor
 import torch
-from skimage.external import tifffile
 import numpy as np, sys, time
 
 
@@ -45,16 +44,13 @@ def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     return arr
 
 
-def main():
+def main(data_pth, out_pth, chkpnt_num):    
     
     sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct - use 0.4.1
     
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net
     
-    data_pth = '/home/wanglab/Documents/data/chunk_test/patched_memmap_array.npy'
-    inputs = load_memmap_arr(data_pth) #load input patched array
-    
-    out_pth = '/home/wanglab/Documents/data/chunk_test/probability_array.npy'
+    inputs = load_memmap_arr(data_pth) #load input patched array    
     out_map = load_memmap_arr(out_pth, mode = 'w+', shape = inputs.shape) #initialise output array
     
     initial = time.time()
@@ -64,26 +60,27 @@ def main():
         inpt_dataset = Array(inputs[i,:,:,:]) #grab chunk
         
         sys.stdout.write('*******************************************************************************\n\n\
-           Starting predictions for patch #: {}\n\n'.format(i))
-    
-        predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/models/model995000.chkpt', 
-                          gpu_device=0) #setup a predictor for computing outputs
+           Starting predictions for patch #: {}\n\n'.format(i)); sys.stdout.flush()
         
         out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
-        predictor.run(inpt_dataset, out_dataset, batch_size=2)  #run prediction
+        
+        predictor = Predictor(net, checkpoint = chkpnt_num, gpu_device=0) #setup a predictor for computing outputs
+        predictor.run(inpt_dataset, out_dataset, batch_size=7)  #run prediction
 
-        sys.stdout.write('*******************************************************************************\n\n\
-           Finishing predictions :) Saving... \n\n') 
+        sys.stdout.write('Finishing predictions & saving :]... \n\n'); sys.stdout.flush() 
     
         out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #save output array into initialised probability map
        
-        sys.stdout.write('Elapsed {} minutes\n\n'.format(round((time.time()-start)/60, 1)))
-#        sys.stdout.write('*******************************************************************************\n\n\
-#                Saved!')
+        sys.stdout.write('Elapsed {} minutes\n\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
         
-    sys.stdout.write('Time spent predicting: {} minutes\n\n'.format(round((time.time()-initial)/60, 1)))
+    sys.stdout.write('Time spent predicting: {} minutes'.format(round((time.time()-initial)/60, 1))); sys.stdout.flush()
 
 #%%    
-if __name__ == '__main__':
+if __name__ == '__main__':  
     
-    main()
+    data_pth = '/home/wanglab/Documents/data/chunk_test/patched_memmap_array.npy'
+    out_pth = '/home/wanglab/Documents/data/chunk_test/probability_array.npy'
+    chkpnt_num = '/jukebox/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/models/model995000.chkpt'
+    
+    main(data_pth, out_pth, chkpnt_num)
+    
