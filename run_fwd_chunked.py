@@ -5,14 +5,12 @@ Created on Tue Oct 23 16:41:28 2018
 
 @author: wanglab
 """
-from neurotorch.datasets.filetypes import TiffVolume
-from neurotorch.datasets.dataset import PooledVolume, Array
-from neurotorch.datasets.datatypes import BoundingBox, Vector
+from neurotorch.datasets.dataset import Array
 from neurotorch.nets.RSUNet import RSUNet
 from neurotorch.core.predictor import Predictor
 import torch
 from skimage.external import tifffile
-import numpy as np, sys
+import numpy as np, sys, time
 
 
 def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
@@ -46,7 +44,7 @@ def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
         arr = np.lib.format.open_memmap(pth, dtype = dtype, mode = mode)
     return arr
 
-#%%
+
 def main():
     
     sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct - use 0.4.1
@@ -54,34 +52,36 @@ def main():
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net
     
     data_pth = '/home/wanglab/Documents/data/chunk_test/patched_memmap_array.npy'
-    
     inputs = load_memmap_arr(data_pth) #load input patched array
     
     out_pth = '/home/wanglab/Documents/data/chunk_test/probability_array.npy'
-    
     out_map = load_memmap_arr(out_pth, mode = 'w+', shape = inputs.shape) #initialise output array
-        
-    for i in range(len(inputs[:,0,0,0])): #len(inputs[0])
-        
+    
+    initial = time.time()
+    
+    for i in range(len(inputs[:,0,0,0])): #len(inputs[0])       
+        start = time.time()
         inpt_dataset = Array(inputs[i,:,:,:]) #grab chunk
         
         sys.stdout.write('*******************************************************************************\n\n\
-           Starting predictions for patch #: {}...\n\n'.format(i))
+           Starting predictions for patch #: {}\n\n'.format(i))
     
-        predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/20181009_zd_train/models/model995000.chkpt', 
+        predictor = Predictor(net, checkpoint='/jukebox/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/models/model995000.chkpt', 
                           gpu_device=0) #setup a predictor for computing outputs
         
         out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
-        
         predictor.run(inpt_dataset, out_dataset, batch_size=2)  #run prediction
 
         sys.stdout.write('*******************************************************************************\n\n\
-               Finishing predictions :) Saving... \n\n') 
+           Finishing predictions :) Saving... \n\n') 
     
         out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #save output array into initialised probability map
+       
+        sys.stdout.write('Elapsed {} minutes\n\n'.format(round((time.time()-start)/60, 1)))
+#        sys.stdout.write('*******************************************************************************\n\n\
+#                Saved!')
         
-        sys.stdout.write('*******************************************************************************\n\n\
-                Saved!')
+    sys.stdout.write('Time spent predicting: {} minutes\n\n'.format(round((time.time()-initial)/60, 1)))
 
 #%%    
 if __name__ == '__main__':
