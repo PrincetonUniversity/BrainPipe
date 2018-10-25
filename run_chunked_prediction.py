@@ -9,7 +9,7 @@ from neurotorch.datasets.dataset import Array
 from neurotorch.nets.RSUNet import RSUNet
 from neurotorch.core.predictor import Predictor
 import torch
-import numpy as np, sys, time
+import numpy as np, sys, time, os
 
 
 def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
@@ -44,14 +44,22 @@ def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     return arr
 
 
-def main(data_pth, out_pth, chkpnt_num):    
+def run_prediction(data_pth, chkpnt_num):    
+    '''
+    Main function to run neurotorch prediction functions using patched large data set.
     
+    Inputs:
+        data_pth = directory in which patched input memory mapped array is stored 
+        chkpnt_num = checkpoint from training to run prediction
+    Returns:
+        path of patched probability array needed for reconstruction
+    '''
     sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct - use 0.4.1
     
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net
     
-    inputs = load_memmap_arr(data_pth) #load input patched array    
-    out_map = load_memmap_arr(out_pth, mode = 'w+', shape = inputs.shape) #initialise output array
+    inputs = load_memmap_arr(os.path.join(data_pth, 'patched_memmap_array.npy')) #load input patched array 
+    out_map = load_memmap_arr(os.path.join(data_pth, 'patched_prediction_array.npy'), mode = 'w+', shape = inputs.shape) #initialise output array
     
     initial = time.time()
     
@@ -74,13 +82,14 @@ def main(data_pth, out_pth, chkpnt_num):
         sys.stdout.write('Elapsed {} minutes\n\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
         
     sys.stdout.write('Time spent predicting: {} minutes'.format(round((time.time()-initial)/60, 1))); sys.stdout.flush()
+    
+    return os.path.join(data_pth, 'patched_prediction_array.npy')
 
 #%%    
 if __name__ == '__main__':  
     
-    data_pth = '/home/wanglab/Documents/data/chunk_test/patched_memmap_array.npy'
-    out_pth = '/home/wanglab/Documents/data/chunk_test/probability_array.npy'
+    data_pth = '/home/wanglab/Documents/data/chunk_test'
     chkpnt_num = '/jukebox/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/models/model995000.chkpt'
     
-    main(data_pth, out_pth, chkpnt_num)
+    run_prediction(data_pth, chkpnt_num)
     
