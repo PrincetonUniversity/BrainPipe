@@ -14,6 +14,8 @@ import numpy as np, sys, time, os
 
 def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     '''Function to load memmaped array.
+    
+    by @tpisano
 
     Inputs
     -----------
@@ -61,9 +63,12 @@ def run_prediction(data_pth, chkpnt_num):
     inputs = load_memmap_arr(os.path.join(data_pth, 'patched_memmap_array.npy')) #load input patched array 
     out_map = load_memmap_arr(os.path.join(data_pth, 'patched_prediction_array.npy'), mode = 'w+', shape = inputs.shape) #initialise output array
     
+    predictor = Predictor(net, checkpoint = chkpnt_num, gpu_device = 0) #setup a predictor for computing outputs
+    
     initial = time.time()
     
-    for i in range(len(inputs[:,0,0,0])): #len(inputs[0])       
+    for i in range(len(inputs[:,0,0,0])): #iterates through each large patch to run inference #len(inputs[0])       
+        
         start = time.time()
         inpt_dataset = Array(inputs[i,:,:,:]) #grab chunk
         
@@ -71,14 +76,11 @@ def run_prediction(data_pth, chkpnt_num):
            Starting predictions for patch #: {}\n\n'.format(i)); sys.stdout.flush()
         
         out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
-        
-        predictor = Predictor(net, checkpoint = chkpnt_num, gpu_device=0) #setup a predictor for computing outputs
-        predictor.run(inpt_dataset, out_dataset, batch_size=7)  #run prediction
+        predictor.run(inpt_dataset, out_dataset, batch_size = 7)  #run prediction
 
         sys.stdout.write('Finishing predictions & saving :]... \n\n'); sys.stdout.flush() 
-    
         out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #save output array into initialised probability map
-       
+        
         sys.stdout.write('Elapsed {} minutes\n\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
         
     sys.stdout.write('Time spent predicting: {} minutes'.format(round((time.time()-initial)/60, 1))); sys.stdout.flush()
