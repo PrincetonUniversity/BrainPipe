@@ -72,16 +72,17 @@ def run_prediction(data_pth, chkpnt_num):
         start = time.time()
         inpt_dataset = Array(inputs[i,:,:,:]) #grab chunk
         
-        sys.stdout.write('*******************************************************************************\n\n\
-           Starting predictions for patch #: {}\n\n'.format(i)); sys.stdout.flush()
+        sys.stdout.write('*******************************************************************************\n\
+           Starting predictions for patch #: {} of {} \n\n'.format(i, len(inputs[:,0,0,0]))); sys.stdout.flush()
         
         out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
-        predictor.run(inpt_dataset, out_dataset, batch_size = 7)  #run prediction
+        predictor.run(inpt_dataset, out_dataset, batch_size = 20)  #run prediction
 
-        sys.stdout.write('Finishing predictions & saving :]... \n\n'); sys.stdout.flush() 
+        sys.stdout.write('Finishing predictions & saving :]... '); sys.stdout.flush() 
         out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #save output array into initialised probability map
+        out_map.flush()
         
-        sys.stdout.write('Elapsed {} minutes\n\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
+        sys.stdout.write('Elapsed {} minutes\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
         
     sys.stdout.write('Time spent predicting: {} minutes'.format(round((time.time()-initial)/60, 1))); sys.stdout.flush()
     
@@ -90,7 +91,7 @@ def run_prediction(data_pth, chkpnt_num):
 #%%    
 if __name__ == '__main__':  
     
-    data_pth = '/home/wanglab/Documents/data/chunk_test'
+    data_pth = '/home/wanglab/Documents/data/20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00'
     chkpnt_num = '/jukebox/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/models/model995000.chkpt'
     
     run_prediction(data_pth, chkpnt_num)
