@@ -14,14 +14,14 @@ from skimage.util import view_as_windows, regular_grid
 if __name__ == '__main__':
     patchsize = (40,3200,3200)
     dtype = 'float32'
-    batchsize = 2
+    batchsize = 7
     stridesize = (20,3072,3072)
     cores = 12
-    verbose=True 
-    cleanup = False #if True, files will be deleted when they aren't needed. Keep false while testing
+    verbose = True 
+    cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing
     mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
-    src = '/home/wanglab/Documents/data/chunk_test'
-    dst = '/home/wanglab/Documents/data/chunk_test'
+    src = '/home/wanglab/Documents/data/20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00'
+    dst = '/home/wanglab/Documents/data/20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00'
    
     #convert folder into memmap array
     in_dst = os.path.join(dst, 'input_memmap_array.npy') 
@@ -35,6 +35,7 @@ if __name__ == '__main__':
     patch_dst = os.path.join(dst, 'patched_memmap_array.npy')
     patch_memmap_array = generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = mode, verbose = verbose)
     if cleanup: shutil.rmtree(input_arr)
+    
     #run CNN on each patch, outputing into another memmaped array of same dims as patch_memmap_array
     
     
@@ -127,7 +128,7 @@ def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, pat
         for i,p in enumerate(patchlist):
             v = input_arr[p[0]:p[0]+patchsize[0], p[1]:p[1]+patchsize[1], p[2]:p[2]+patchsize[2]]
             tifffile.imsave(os.path.join(patch_dst, 'patch_{}.tif'.format(str(i).zfill(10))), v.astype('float32'), compress=1)
-            if i%100==0 and verbose: print('{} of {}'.format(i, len(patchlist)))
+            if i%10==0 and verbose: print('{} of {}'.format(i, len(patchlist)))
     #return
     return patch_dst
    
