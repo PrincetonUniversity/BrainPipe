@@ -116,7 +116,7 @@ def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, pat
         for i,p in enumerate(patchlist):
             v = input_arr[p[0]:p[0]+patchsize[0], p[1]:p[1]+patchsize[1], p[2]:p[2]+patchsize[2]]
             patch_array[i, :v.shape[0], :v.shape[1], :v.shape[2]] = v
-            if i%100==0: 
+            if i%10==0: 
                 patch_array.flush()
                 if verbose: print('{} of {}'.format(i, len(patchlist)))
         patch_array.flush()
