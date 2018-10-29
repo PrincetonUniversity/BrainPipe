@@ -80,7 +80,9 @@ def reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputsh
         if not a.shape == b.shape: b = b[:a.shape[0], :a.shape[1], :a.shape[2]]
         nvol = np.maximum(a,b)
         recon_array[p[0]:p[0]+zps, p[1]:p[1]+yps, p[2]:p[2]+xps] = nvol
-        recon_array.flush()
+        if i%10==0: 
+            print('Flushing...')
+            recon_array.flush()
         if verbose: print('{} of {}'.format(i, len(patchlist)))
 
     return recon_dst

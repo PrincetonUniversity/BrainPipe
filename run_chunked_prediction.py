@@ -55,8 +55,9 @@ def run_prediction(data_pth, chkpnt_num, verbose = False):
         chkpnt_num = checkpoint from training to run prediction
     Returns:
         path of patched probability array needed for reconstruction
+        
     '''
-    sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct - use 0.4.1
+    if verbose: sys.stdout.write('\n\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct - use 0.4.1
     
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net using nick turner's pytorchutils
     
