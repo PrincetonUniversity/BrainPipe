@@ -1,93 +1,46 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Mon Oct 22 16:32:31 2018
+Created on Mon Oct 29 14:01:57 2018
 
-@author: tpisano
+@author: wanglab
 """
-
 import numpy as np, os, sys, multiprocessing as mp, shutil
 from skimage.external import tifffile
 from skimage.util import view_as_windows, regular_grid
 
+#set params
+patchsize = (64,3840,3040) #patchsize = (40,3200,3200)
+dtype = 'float32'
+batchsize = 14
+stridesize = (44,3712,2912) #stridesize = (20,3072,3072)
+cores = 8
+verbose = True 
+cleanup = False #if True, files will be deleted when they aren't needed. Keep false while testing
+mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
+src = '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob45_ml_11/full_sizedatafld/20170116_tp_bl6_lob45_ml_11_488_555_010na_z7d5um_30msec_10povlp_ch00'
+dst = '/jukebox/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11'
 
 if __name__ == '__main__':
-    patchsize = (64,3840,3040) #patchsize = (40,3200,3200)
-    dtype = 'float32'
-    batchsize = 12
-    stridesize = (44,3712,2912) #stridesize = (20,3072,3072)
-    cores = 12
-    verbose = True 
-    cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing
-    mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
-    src = '/home/wanglab/mounts/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob45_ml_11/full_sizedatafld/20170116_tp_bl6_lob45_ml_11_488_555_010na_z7d5um_30msec_10povlp_ch00'
-    dst = '/home/wanglab/mounts/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11'
-   
-    #convert folder into memmap array
-    in_dst = os.path.join(dst, 'input_memmap_array.npy') 
-    input_arr = make_memmap_from_tiff_list(src, in_dst, cores, dtype=dtype)
     
-    #make patches
-    inputshape = get_dims_from_folder(src)
-    patchlist = make_indices(inputshape, stridesize)
+    jobid = int(sys.argv[1])
     
-    #generate memmap array of patches
-    patch_dst = os.path.join(dst, 'patched_memmap_array.npy')
-    patch_memmap_array = generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = mode, verbose = verbose)
-    if cleanup: shutil.rmtree(input_arr)
+    if jobid == 0:
+        #convert folder into memmap array
+        in_dst = os.path.join(dst, 'input_memmap_array.npy') 
+        input_arr = make_memmap_from_tiff_list(src, in_dst, cores, dtype=dtype)
     
-    #run CNN on each patch, outputing into another memmaped array of same dims as patch_memmap_array
+        #make patches
+        inputshape = get_dims_from_folder(src)
+        patchlist = make_indices(inputshape, stridesize)
     
-    
-    #now reconstruct...
-    if cleanup: shutil.rmtree(patch_memmap_array)
-    cnn_src = '/jukebox/wang/zahra/conv_net/inference/chunk_test1_output/probability_array.npy'
-    recon_dst = os.path.join(dst, 'reconst_array.npy')
-    reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputshape, patchlist, patchsize, verbose = verbose)
-    if cleanup: shutil.rmtree(cnn_src)
+    if jobid == 1:
+        #generate memmap array of patches
+        patch_dst = os.path.join(dst, 'patched_memmap_array.npy')
+        patch_memmap_array = generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = mode, verbose = verbose)
+        if cleanup: shutil.rmtree(input_arr)
     
 #%%
-def reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputshape, patchlist, patchsize, verbose=True):
-    '''Function to take CNN probablity map memory mapped array of shape (patches, patchsize_z, patchsize_y, patchsize_x) and built into single 3d volume
-    
-    Inputs
-    ---------------
-    src = cnn_memory_mapped array of shape (patches, patchsize_z, patchsize_y, patchsize_x)
-    recon_dst = path to generate numpy array
-    inputshape = (Z,Y,X) shape of original input array
-    patchlist = list of patches generated from make_indices function
-    stridesize = (90,90,30) - stride size in 3d ZYX
-    patchsize = (180,180,60) - size of window ZYX
-    
-    Returns
-    ------------
-    location of memory mapped array of inputshape
-    '''
-    
-    #load
-    cnn_array = load_np(cnn_src)
-    
-    #init new array
-    recon_array = load_memmap_arr(recon_dst, mode='w+', shape = inputshape, dtype = 'uint16')
-    
-    #patchsize
-    zps, yps, xps = patchsize
-    
-    #iterate
-    for i,p in enumerate(patchlist):    
-        a = recon_array[p[0]:p[0]+zps, p[1]:p[1]+yps, p[2]:p[2]+xps]
-        b =  cnn_array[i]
-        if not a.shape == b.shape: b = b[:a.shape[0], :a.shape[1], :a.shape[2]]
-        nvol = np.maximum(a,b)
-        recon_array[p[0]:p[0]+zps, p[1]:p[1]+yps, p[2]:p[2]+xps] = nvol
-        if i%10==0: 
-            print('Flushing...')
-            recon_array.flush()
-        if verbose: print('{} of {}'.format(i, len(patchlist)))
-
-    return recon_dst
-
-
 def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = 'folder', verbose = True):
     '''Function to patch up data and make into memory mapped array
     
@@ -118,10 +71,11 @@ def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, pat
         for i,p in enumerate(patchlist):
             v = input_arr[p[0]:p[0]+patchsize[0], p[1]:p[1]+patchsize[1], p[2]:p[2]+patchsize[2]]
             patch_array[i, :v.shape[0], :v.shape[1], :v.shape[2]] = v
-            if i%10==0: 
+            if i%5==0: 
                 patch_array.flush()
                 if verbose: print('{} of {}'.format(i, len(patchlist)))
         patch_array.flush()
+        
     if mode == 'folder':
         print('Mode == folder')
         if patch_dst[-4:]=='.npy': patch_dst = patch_dst[:-4]
