@@ -46,7 +46,7 @@ def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     return arr
 
 
-def run_prediction(data_pth, chkpnt_num):    
+def run_prediction(data_pth, chkpnt_num, verbose = False):    
     '''
     Main function to run neurotorch prediction functions using patched large data set.
     
@@ -72,17 +72,18 @@ def run_prediction(data_pth, chkpnt_num):
         start = time.time()
         inpt_dataset = Array(inputs[i,:,:,:]) #grab chunk
         
-        sys.stdout.write('*******************************************************************************\n\
+        if verbose:
+            sys.stdout.write('*******************************************************************************\n\
            Starting predictions for patch #: {} of {} \n\n'.format(i, len(inputs[:,0,0,0]))); sys.stdout.flush()
         
         out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
-        predictor.run(inpt_dataset, out_dataset, batch_size = 20)  #run prediction
+        predictor.run(inpt_dataset, out_dataset, batch_size = 22)  #run prediction
 
-        sys.stdout.write('Finishing predictions & saving :]... '); sys.stdout.flush() 
+        if verbose: sys.stdout.write('Finishing predictions & saving :]... '); sys.stdout.flush() 
         out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #save output array into initialised probability map
-        out_map.flush()
+        if i%25==0: out_map.flush()
         
-        sys.stdout.write('Elapsed {} minutes\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
+        sys.stdout.write('Elapsed time: {} minutes\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
         
     sys.stdout.write('Time spent predicting: {} minutes'.format(round((time.time()-initial)/60, 1))); sys.stdout.flush()
     
