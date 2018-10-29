@@ -62,7 +62,7 @@ def run_prediction(data_pth, chkpnt_num, verbose = False):
     net = torch.nn.DataParallel(RSUNet())  #initialize the U-Net architecture - use torch.nn.DataParallel if you used this to train the net using nick turner's pytorchutils
     
     inputs = load_memmap_arr(os.path.join(data_pth, 'patched_memmap_array.npy')) #load input patched array 
-    out_map = load_memmap_arr(os.path.join(data_pth, 'patched_prediction_array.npy'), mode = 'w+', shape = inputs.shape) #initialise output probability map
+    out_map = load_memmap_arr(os.path.join(data_pth, 'patched_prediction_array.npy'), mode = 'w+', dtype = 'float32', shape = inputs.shape) #initialise output probability map
     
     predictor = Predictor(net, checkpoint = chkpnt_num, gpu_device = 0) #setup a predictor for computing outputs
     
