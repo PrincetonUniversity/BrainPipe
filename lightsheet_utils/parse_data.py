@@ -12,10 +12,10 @@ from skimage.util import view_as_windows, regular_grid
 
 
 if __name__ == '__main__':
-    patchsize = (40,3200,3200)
+    patchsize = (64,3840,3040) #patchsize = (40,3200,3200)
     dtype = 'float32'
-    batchsize = 7
-    stridesize = (20,3072,3072)
+    batchsize = 12
+    stridesize = (44,3712,2912) #stridesize = (20,3072,3072)
     cores = 12
     verbose = True 
     cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing
@@ -68,7 +68,7 @@ def reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputsh
     cnn_array = load_np(cnn_src)
     
     #init new array
-    recon_array = load_memmap_arr(recon_dst, mode='w+', shape = inputshape, dtype = 'float32')
+    recon_array = load_memmap_arr(recon_dst, mode='w+', shape = inputshape, dtype = 'uint16')
     
     #patchsize
     zps, yps, xps = patchsize
@@ -208,6 +208,7 @@ def listdirfull(x, keyword=False):
         return [os.path.join(x, xx) for xx in os.listdir(x) if xx[0] != '.' and '~' not in xx and 'Thumbs.db' not in xx]
     else:
         return [os.path.join(x, xx) for xx in os.listdir(x) if xx[0] != '.' and '~' not in xx and 'Thumbs.db' not in xx and keyword in xx]
+
 def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     '''Function to load memmaped array.
 
