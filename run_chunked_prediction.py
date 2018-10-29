@@ -12,7 +12,7 @@ import torch
 import numpy as np, sys, time, os
 
 
-def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
+def load_memmap_arr(pth, mode='r', dtype = 'float32', shape = False):
     '''Function to load memmaped array.
     
     by @tpisano
@@ -86,7 +86,7 @@ def run_prediction(data_pth, chkpnt_num, verbose = False):
         
         sys.stdout.write('Elapsed time: {} minutes\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
         
-    sys.stdout.write('Time spent predicting: {} minutes'.format(round((time.time()-initial)/60, 1))); sys.stdout.flush()
+    sys.stdout.write('Time spent predicting: {}hr{}min'.format(round((time.time()-initial)/3600, 0), round((time.time()-initial)/60, 0))); sys.stdout.flush()
     
     return os.path.join(data_pth, 'patched_prediction_array.npy')
 
