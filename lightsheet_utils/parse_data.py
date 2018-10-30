@@ -20,8 +20,8 @@ if __name__ == '__main__':
     verbose = True 
     cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing
     mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
-    src = '/home/wanglab/mounts/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob45_ml_11/full_sizedatafld/20170116_tp_bl6_lob45_ml_11_488_555_010na_z7d5um_30msec_10povlp_ch00'
-    dst = '/home/wanglab/mounts/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11'
+    src = '/home/wanglab/mounts/wang/pisano/tracing_output/antero_4x/20170115_tp_bl6_lob6b_500r_05/full_sizedatafld/20170115_tp_bl6_lob6b_500r_05_647_010na_z7d5um_75msec_10povlp_ch00'
+    dst = '/home/wanglab/mounts/LightSheetTransfer/cnn/chunk_testing/20170115_tp_bl6_lob6b_500r_05'
    
     #convert folder into memmap array
     in_dst = os.path.join(dst, 'input_memmap_array.npy') 
@@ -122,6 +122,7 @@ def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, pat
                 patch_array.flush()
                 if verbose: print('{} of {}'.format(i, len(patchlist)))
         patch_array.flush()
+    
     if mode == 'folder':
         print('Mode == folder')
         if patch_dst[-4:]=='.npy': patch_dst = patch_dst[:-4]
