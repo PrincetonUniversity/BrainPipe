@@ -78,13 +78,13 @@ def run_prediction(data_pth, chkpnt_num, verbose = False):
            Starting predictions for patch #: {} of {} \n\n'.format(i, len(inputs[:,0,0,0]))); sys.stdout.flush()
         
         out_dataset = Array(out_map[i,:,:,:]) #initialise output array of chunk
-        predictor.run(inpt_dataset, out_dataset, batch_size = 22)  #run prediction
+        predictor.run(inpt_dataset, out_dataset, batch_size = 20)  #run prediction
 
         if verbose: sys.stdout.write('Finishing predictions & saving :]... '); sys.stdout.flush() 
         out_map[i,:,:,:] = out_dataset.getArray().astype(np.float32) #save output array into initialised probability map
         if i%25==0: out_map.flush()
         
-        sys.stdout.write('Elapsed time: {} minutes\n'.format(round((time.time()-start)/60, 1))); sys.stdout.flush()
+        sys.stdout.write('Patch {}: {} minutes\n'.format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
         
     sys.stdout.write('Time spent predicting: {}hr{}min'.format(round((time.time()-initial)/3600, 0), round((time.time()-initial)/60, 0))); sys.stdout.flush()
     
@@ -93,7 +93,7 @@ def run_prediction(data_pth, chkpnt_num, verbose = False):
 #%%    
 if __name__ == '__main__':  
     
-    data_pth = '/home/wanglab/Documents/data/20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00'
+    data_pth = '/jukebox/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11'
     chkpnt_num = '/jukebox/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/models/model995000.chkpt'
     
     run_prediction(data_pth, chkpnt_num)
