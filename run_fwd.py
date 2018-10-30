@@ -18,8 +18,8 @@ cores = 8
 verbose = True 
 cleanup = False #if True, files will be deleted when they aren't needed. Keep false while testing
 mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
-src = '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob45_ml_11/full_sizedatafld/20170116_tp_bl6_lob45_ml_11_488_555_010na_z7d5um_30msec_10povlp_ch00'
-dst = '/jukebox/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11'
+src = '/jukebox/wang/pisano/tracing_output/antero_4x/20170115_tp_bl6_lob6a_500r_01/full_sizedatafld/20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00'
+dst = '/jukebox/LightSheetTransfer/cnn/chunk_testing/20170115_tp_bl6_lob6a_500r_01'
 
 if __name__ == '__main__':
     
