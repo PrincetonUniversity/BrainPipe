@@ -57,16 +57,19 @@ def main(noeval, **args):
                 
         start = time.time()
         
-        dset = inputs[i,:,:,:]
-                
+        dset = inputs[i,:,:,:] #grabs chunk
+                        
         fs = make_forward_scanner(dset, **params)
                 
         output = forward.forward(net, fs, params["scan_spec"],
                                  activation=params["activation"])
 
-        output_arr[i,:,:,:] = save_output(output, output_arr[i,:,:,:], **params)
+        output_arr[i,:,:,:] = save_output(output, output_arr[i,:,:,:], **params) #saves probability array
+                   
+        if i%10==0: output_arr.flush()
+        fs._init() #clear out scanner
         
-        sys.stdout.write("Patch {}: {} minutes\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
+        sys.stdout.write("Patch {}: {} minutes\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()        
 
     sys.stdout.write("Total time spent predicting: {}hr{}min".format(round((time.time()-initial)/3600, 0), round((time.time()-initial)/60, 0))); sys.stdout.flush()
     
@@ -134,7 +137,7 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
 
     # Returning DataProvider ForwardScanner
     return dp.ForwardScanner(vd, scan_spec, params=scan_params)
-
+    del img, vd
 
 def save_output(output, output_arr, **params):
     """ Saves the volumes within a DataProvider ForwardScanner """
