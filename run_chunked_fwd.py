@@ -59,19 +59,19 @@ def main(noeval, **args):
         
         dset = inputs[i,:,:,:] #grabs chunk
                         
-        fs = make_forward_scanner(dset, **params)
+        fs = make_forward_scanner(dset, **params) #makes scanner
                 
-        output = forward.forward(net, fs, params["scan_spec"],
+        output = forward.forward(net, fs, params["scan_spec"], #runs forward pass
                                  activation=params["activation"])
 
         output_arr[i,:,:,:] = save_output(output, output_arr[i,:,:,:], **params) #saves probability array
                    
-        if i%10==0: output_arr.flush()
+        if i%10==0: output_arr.flush() #flush out output array to harddrive
         fs._init() #clear out scanner
         
-        sys.stdout.write("Patch {}: {} minutes\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()        
+        sys.stdout.write("Patch {}: {} min\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()        
 
-    sys.stdout.write("Total time spent predicting: {}hr{}min".format(round((time.time()-initial)/3600, 0), round((time.time()-initial)/60, 0))); sys.stdout.flush()
+    sys.stdout.write("Total time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
     
 def fill_params(expt_name, chkpt_num, gpus,
                 nobn, model_name, dset_names, tag):
@@ -102,8 +102,8 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["data_dir"]    = os.path.expanduser("/jukebox/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11")
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
-    params["input_spec"]  = collections.OrderedDict(input=(18,160,160)) #dp dataset spec
-    params["scan_spec"]   = collections.OrderedDict(psd=(1,18,160,160))
+    params["input_spec"]  = collections.OrderedDict(input=(20,160,160)) #dp dataset spec
+    params["scan_spec"]   = collections.OrderedDict(psd=(1,20,160,160))
     params["scan_params"] = dict(stride=(0.5,0.5,0.5), blend="bump")
 
     #Use-specific Module imports
@@ -180,3 +180,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(**vars(args))
+
