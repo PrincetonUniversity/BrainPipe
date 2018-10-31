@@ -182,10 +182,10 @@ def load_np(src, mode='r'):
 if __name__ == '__main__':
    
     #set params
-    patchsize = (64,3840,3040) #patchsize = (40,3200,3200)
+    patchsize = (64,3840,3136) #patchsize = (40,3200,3200)
     dtype = 'float32'
     batchsize = 14
-    stridesize = (44,3712,2912) #stridesize = (20,3072,3072)
+    stridesize = (44,3680,2976) #stridesize = (20,3072,3072)
     cores = 8
     verbose = True 
     cleanup = False #if True, files will be deleted when they aren't needed. Keep false while testing
