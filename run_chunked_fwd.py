@@ -99,7 +99,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = os.path.expanduser("/jukebox/LightSheetTransfer/cnn/chunk_testing/20170116_tp_bl6_lob45_ml_11")
+    params["data_dir"]    = "/home/wanglab/mounts/scratch/zmd/20180327_jg40_bl6_sim_03"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
     params["input_spec"]  = collections.OrderedDict(input=(20,160,160)) #dp dataset spec
