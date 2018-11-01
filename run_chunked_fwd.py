@@ -53,8 +53,10 @@ def main(noeval, **args):
     
     initial = time.time()
     
-    for i in range(len(inputs[:,0,0,0])): #iterates through each large patch to run inference #len(inputs[0])       
-                
+    for i in range(inputs.shape[0]): #iterates through each large patch to run inference #len(inputs[0])       
+        
+        sys.stdout.write('\n***************************************************************************************\
+                         Starting patch {}\n'.format(i+1)); sys.stdout.flush()        
         start = time.time()
         
         dset = inputs[i,:,:,:] #grabs chunk
@@ -69,10 +71,13 @@ def main(noeval, **args):
         if i%10==0: output_arr.flush() #flush out output array to harddrive
         fs._init() #clear out scanner
         
-        sys.stdout.write("Patch {}: {} min\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()        
+        sys.stdout.write("\nPatch {}: {} min".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
+        del dset; gc.collect()        
 
-    sys.stdout.write("Total time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
-    
+     sys.stdout.write("\n***************************************************************************************\
+                     \nTotal time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
+
+
 def fill_params(expt_name, chkpt_num, gpus,
                 nobn, model_name, dset_names, tag):
 
