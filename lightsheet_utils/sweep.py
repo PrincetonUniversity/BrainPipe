@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
 #%%    
     #after transfer, set relevant paths
-    pth = '/home/wanglab/Documents/python/3dunet_data/experiments/20181005_zd_train/forward'
+    pth = '/home/wanglab/mounts/wang/zahra/conv_net/inference/20181009_val'
     points_dict = load_dictionary('/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/filename_points_dictionary.p')
     
 #******************************************************************************************************************************************    
@@ -47,13 +47,13 @@ if __name__ == '__main__':
     #iterates through forward pass output
     for dset in os.listdir(pth):
         impth = os.path.join(pth, dset)
-        predicted = probabiltymap_to_centers_thresh(impth, threshold = (0.65, 1))
+        predicted = probabiltymap_to_centers_thresh(impth, threshold = (0.4, 1))
         
         print '\n   Finished finding centers for {}, calculating statistics\n'.format(dset)
         
         ground_truth = points_dict[dset[:-21]+'.npy'] #modifying file names so they match with original data
         
-        paired,tp,fp,fn = pairwise_distance_metrics(ground_truth, predicted, cutoff = 20) #returns true positive = tp; false positive = fp; false negative = fn
+        paired,tp,fp,fn = pairwise_distance_metrics(ground_truth, predicted, cutoff = 30) #returns true positive = tp; false positive = fp; false negative = fn
        
         tps.append(tp); fps.append(fp); fns.append(fn) #append matrix to save all values to calculate f1 score
        
