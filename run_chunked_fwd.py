@@ -6,7 +6,7 @@ Created on Tue Oct 30 13:58:38 2018
 @author: wanglab
 """
 
-import os, numpy as np, sys, time
+import os, numpy as np, sys, time, gc
 import collections
 
 import torch
@@ -69,12 +69,13 @@ def main(noeval, **args):
         output_arr[i,:,:,:] = save_output(output, output_arr[i,:,:,:], **params) #saves probability array
                    
         if i%10==0: output_arr.flush() #flush out output array to harddrive
+        
         fs._init() #clear out scanner
         
         sys.stdout.write("\nPatch {}: {} min".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
         del dset; gc.collect()        
 
-     sys.stdout.write("\n***************************************************************************************\
+    sys.stdout.write("\n***************************************************************************************\
                      \nTotal time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
 
 
@@ -104,7 +105,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/home/wanglab/mounts/scratch/zmd/20180327_jg40_bl6_sim_03"
+    params["data_dir"]    = "/jukebox/scratch/20180327_jg42_bl6_lob6a_05"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
     params["input_spec"]  = collections.OrderedDict(input=(20,160,160)) #dp dataset spec
