@@ -1,90 +1,107 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Wed Oct  3 11:39:37 2018
+Created on Mon Nov 12 10:46:03 2018
 
-@author: wanglab
+@author: tpisano
 """
 
 from __future__ import division
-import os, numpy as np, sys, multiprocessing as mp, time
+import os, numpy as np, sys, multiprocessing as mp, time, shutil
 from scipy import ndimage
 from skimage.external import tifffile
-from tools.utils.io import load_dictionary, load_np
+from tools.utils.io import load_np, load_kwargs
 from scipy.ndimage.morphology import generate_binary_structure
-import h5py
-import subprocess as sp
-from tools.conv_net.functions.bipartite import pairwise_distance_metrics
+import argparse                   
 
-#%%
-if __name__ == '__main__':
+def load_memmap_arr(pth, mode='r', dtype = 'float32', shape = False):
+    '''Function to load memmaped array.
     
-    #transfer from globus
-    src = '/tigress/zmd/wang/zahra/3dunet_cnn/experiments/20181001_zd_train/forward'
-    dest = '/jukebox/LightSheetTransfer/cnn/zmd'
-    label = 'model_20181001'
-    transfer(src, dest, label, other_endpoint = False)
-        
-    
-#    test = ['20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_02', #for 20181001 net
-#            'JGANNOTATION_20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_750-785_00', 
-#            '20170116_tp_bl6_lob45_500r_12_647_010na_z7d5um_150msec_10povlp_ch00_C00_275-310_01', 
-#            '20170116_tp_bl6_lob7_500r_09_647_010na_z7d5um_75msec_10povlp_ch00_z200-400_y4500-4850_x3450-3800', 
-#            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_03_500-550', 
-#            '20170116_tp_bl6_lob7_ml_08_647_010na_z7d5um_150msec_10povlp_ch00_C00_440-475_00', 
-#            '20170115_tp_bl6_lob6a_1000r_647_010na_z7d5um_125msec_10povlp_ch00_04_500-550', 
-#            'JGANNOTATION_20170115_tp_bl6_lob6a_500r_01_647_010na_z7d5um_75_msec_10povlp_ch00_C00_425-460_00', 
-#            '20170204_tp_bl6_cri_1000r_02_1hfds_647_0010na_25msec_z7d5um_10povlap_ch00_z200-400_y1350-1700_x3100-3450']
+    by @tpisano
 
-#%%    
-    #after transfer, set relevant paths
-    pth = '/home/tpisano/wang/zahra/conv_net/inference/20181009_test'
-    points_dict = load_dictionary('/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/filename_points_dictionary.p')
-    
-#******************************************************************************************************************************************    
-    #initialise empty vectors
-    tps = []; fps = []; fns = []    
-    #iterates through forward pass output
-    for dset in os.listdir(pth):
-        impth = os.path.join(pth, dset)
-        predicted = probabiltymap_to_centers_thresh(impth, threshold = (0.4, 1))
-        
-        print '\n   Finished finding centers for {}, calculating statistics\n'.format(dset)
-        
-        ground_truth = points_dict[dset[:-21]+'.npy'] #modifying file names so they match with original data
-        
-        paired,tp,fp,fn = pairwise_distance_metrics(ground_truth, predicted, cutoff = 30) #returns true positive = tp; false positive = fp; false negative = fn
-       
-        tps.append(tp); fps.append(fp); fns.append(fn) #append matrix to save all values to calculate f1 score
-       
-    tp = sum(tps); fp = sum(fps); fn = sum(fns) #sum all the elements in the lists
-    precision = tp/(tp+fp); recall = tp/(tp+fn) #calculating precision and recal
-    f1 = 2*( (precision*recall)/(precision+recall) ) #calculating f1 score
-    
-    print '\n   Finished calculating statistics for set params\n   \n   F1 score: {} \n\n'.format(f1)
-    
-#%%
-def transfer(src, dest, label, other_endpoint = False):
-    '''Tranfers diretories from tigress to local/jukebox locations.
-    Inputs:
-        src = tigress source path
-        dest = destination path
-        label = name of transfer
-        other_endpoint = False; assumes transfer to LightSheetTransfer unless jukebox/other endpoint keys specified
-    '''    
-    #for globus transfer, endpoint keys: 
-    #tigress = 'a9df83d2-42f0-11e6-80cf-22000b1701d1' #transferring from
-    #wanglab = 'f7949748-c728-11e8-8c57-0a1d4c5c824a' #transferring to
-    #jukebox = '6ce834d6-ff8a-11e6-bad1-22000b9a448b'    
-    
-    tigress_pth = 'a9df83d2-42f0-11e6-80cf-22000b1701d1:'+src
-    if not other_endpoint:
-        lst_pth = '6ce834d6-ff8a-11e6-bad1-22000b9a448b:'+dest
+    '''
+    if shape:
+        assert mode =='w+', 'Do not pass a shape input into this function unless initializing a new array'
+        arr = np.lib.format.open_memmap(pth, dtype = dtype, mode = mode, shape = shape)
     else:
-        lst_pth = other_endpoint+':'+dest
+        arr = np.lib.format.open_memmap(pth, dtype = dtype, mode = mode)
+    return arr
     
-    sp.call(['globus', 'transfer', tigress_pth, lst_pth, '--recursive', '--label', label]) #run command line call
+def reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputshape, patchlist, patchsize, verbose=True):
+    '''Function to take CNN probablity map memory mapped array of shape (patches, patchsize_z, patchsize_y, patchsize_x) and built into single 3d volume
     
+    Inputs
+    ---------------
+    src = cnn_memory_mapped array of shape (patches, patchsize_z, patchsize_y, patchsize_x)
+    recon_dst = path to generate numpy array
+    inputshape = (Z,Y,X) shape of original input array
+    patchlist = list of patches generated from make_indices function
+    stridesize = (90,90,30) - stride size in 3d ZYX
+    patchsize = (180,180,60) - size of window ZYX
+    
+    Returns
+    ------------
+    location of memory mapped array of inputshape
+    '''
+    
+    #load
+    cnn_array = load_np(cnn_src)
+    
+    #init new array
+    recon_array = load_memmap_arr(recon_dst, mode='w+', shape = inputshape, dtype = 'float32')
+    
+    #patchsize
+    zps, yps, xps = patchsize
+    
+    #iterate
+    for i,p in enumerate(patchlist):    
+        a = recon_array[p[0]:p[0]+zps, p[1]:p[1]+yps, p[2]:p[2]+xps]
+        b =  cnn_array[i]
+        if not a.shape == b.shape: b = b[:a.shape[0], :a.shape[1], :a.shape[2]]
+        nvol = np.maximum(a,b)
+        recon_array[p[0]:p[0]+zps, p[1]:p[1]+yps, p[2]:p[2]+xps] = nvol
+        recon_array.flush()
+        if verbose: print('{} of {}'.format(i, len(patchlist)))
+
+    return recon_dst
+    
+def listdirfull(x, keyword=False):
+    '''might need to modify based on server...i.e. if automatically saving a file called 'thumbs'
+    '''
+    if not keyword:
+        return [os.path.join(x, xx) for xx in os.listdir(x) if xx[0] != '.' and '~' not in xx and 'Thumbs.db' not in xx]
+    else:
+        return [os.path.join(x, xx) for xx in os.listdir(x) if xx[0] != '.' and '~' not in xx and 'Thumbs.db' not in xx and keyword in xx]
+
+def get_dims_from_folder(src):    
+    '''Function to get dims from folder (src)
+    '''
+    
+    fls = listdirfull(src, keyword = '.tif')
+    y,x = tifffile.imread(fls[0]).shape
+    return (len(fls),y,x)
+    
+def make_indices(inputshape, stridesize):
+    '''Function to collect indices
+    inputshape = (500,500,500)
+    stridesize = (90,90,30)
+    '''    
+    zi, yi, xi = inputshape
+    zs, ys, xs = stridesize
+    
+    lst = []
+    z = 0; y = 0; x = 0
+    while z<zi:
+        while y<yi:
+            while x<xi:
+                lst.append((z,y,x))
+                x+=xs
+            x=0
+            y+=ys
+        x=0
+        y=0
+        z+=zs
+    return lst
     
 def probabiltymap_to_centers_thresh(src, threshold = (0.1,1), numZSlicesPerSplit = 200, overlapping_planes = 40, cores = 4, return_pixels = False, verbose = False, structure_rank_order = 2):
     '''
@@ -114,10 +131,6 @@ def probabiltymap_to_centers_thresh(src, threshold = (0.1,1), numZSlicesPerSplit
     '''
     #handle inputs
     if type(src) == str:
-        if src[-2:] == 'h5':
-            f = h5py.File(src)
-            src = f['/main'].value
-            f.close()
         if src[-3:] == 'tif': src = tifffile.imread(src)
         if src[-3:] == 'npy': src = load_np(src)
 
@@ -218,3 +231,53 @@ def return_pixels_associated_w_center(centers, labels, size = (15,100,100)):
         dct[cen] = np.asarray(np.where(labels[0][z-zz:z+zz+1, y-yy:y+yy+1, x-xx:x+xx+1]==labels[0][z,y,x])).T    
     return dct
 
+#%%
+if __name__ == '__main__':
+    
+    parser = argparse.ArgumentParser(description=__doc__)
+    
+    parser.add_argument('expt_name',
+                        help='Tracing folder output')
+    parser.add_argument('cnn_src',
+                        help='Directory containing patched predition array')
+    parser.add_argument("patchsz", type=int, nargs="+",
+                        help='Patch size used for patching. Type arg in z y x dimensions with no spaces.')
+    parser.add_argument("stridesz", type=int, nargs="+",
+                        help='Stride size used for patching. Type arg in z y x dimensions with no spaces.')
+    args = parser.parse_args()
+    
+    #setup - #set relevant paths
+    kwargs = load_kwargs(args.expt_name)
+    src = [xx for xx in kwargs['volumes'] if xx.ch_type == 'cellch'][0].full_sizedatafld_vol
+    cnn_src = args.cnn_src
+    
+    arr = load_memmap_arr(os.path.join(cnn_src, "patched_prediction_array.npy")) #load predicted patched array 
+
+    #set params
+    patchsize = tuple(args.patchsz)
+    stridesize = tuple(args.stridesz)
+    verbose = True 
+    cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing    
+    
+    #make patches
+    #FIXME: make it so that you don't need to redo this; patching, cnn run, and reconstrution in one??
+    inputshape = get_dims_from_folder(src)
+    patchlist = make_indices(inputshape, stridesize)
+    
+    #reconstruct
+    recon_dst = os.path.join(args.cnn_src, 'reconst_array.npy')
+    reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputshape, patchlist, patchsize, verbose = verbose)
+    if cleanup: shutil.rmtree(arr)
+    
+    #find cell centers
+    
+    predicted_cell_centers = load_memmap_arr(os.path.join(cnn_src, 'cell_centers.npy'), mode = 'w+', dtype = 'float32', shape = arr.shape[0])
+    
+    #iterates through forward pass output
+    for i in range(arr.shape[0]):
+        
+        predicted_cell_centers[i] = probabiltymap_to_centers_thresh(arr[i,:,:,:], threshold = (0.4, 1))
+        
+        print '\n   Finished finding centers for patch # {}\n'.format(i+1)
+        
+        predicted_cell_centers.flush()
