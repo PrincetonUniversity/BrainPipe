@@ -53,7 +53,7 @@ def main(noeval, **args):
     
     initial = time.time()
     
-    for i in range(inputs.shape[0]): #iterates through each large patch to run inference #len(inputs[0])       
+    for i in range(21, inputs.shape[0]): #iterates through each large patch to run inference #len(inputs[0])       
                
         start = time.time()
         
@@ -69,7 +69,7 @@ def main(noeval, **args):
         if i%5==0: output_arr.flush() #flush out output array to harddrive
         fs._init() #clear out scanner
         
-        sys.stdout.write("\nPatch {}: {} min".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
+        sys.stdout.write("\nPatch {}: {} min\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
 
     sys.stdout.write("\n***************************************************************************************\
                      \nTotal time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
@@ -101,7 +101,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/jukebox/scratch/20180327_jg42_bl6_lob6a_05"
+    params["data_dir"]    = "/jukebox/scratch/20170308_tp_bl6_lob8_ml_04"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
