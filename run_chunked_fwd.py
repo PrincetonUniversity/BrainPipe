@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Tue Oct 30 13:58:38 2018
@@ -53,7 +53,7 @@ def main(noeval, **args):
     
     initial = time.time()
     
-    for i in range(21, inputs.shape[0]): #iterates through each large patch to run inference #len(inputs[0])       
+    for i in range(inputs.shape[0]): #iterates through each large patch to run inference #len(inputs[0])       
                
         start = time.time()
         
@@ -138,7 +138,6 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
 
     # Returning DataProvider ForwardScanner
     return dp.ForwardScanner(vd, scan_spec, params=scan_params)
-    del img, vd
 
 def save_output(output, output_arr, **params):
     """ Saves the volumes within a DataProvider ForwardScanner """
