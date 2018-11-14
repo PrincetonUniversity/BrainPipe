@@ -101,7 +101,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/jukebox/scratch/20170308_tp_bl6_lob8_ml_04"
+    params["data_dir"]    = "/jukebox/scratch/20180327_jg42_bl6_lob6a_05"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
