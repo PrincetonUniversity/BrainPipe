@@ -8,6 +8,10 @@ Created on Mon Oct 29 14:01:57 2018
 import numpy as np, os, sys, multiprocessing as mp, shutil
 from skimage.external import tifffile
 from skimage.util import view_as_windows, regular_grid
+from tools.utils.io import load_kwargs, makedir
+import argparse
+
+#TODO: incorporate into lightsheet package
 
 def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = 'folder', verbose = True):
     '''Function to patch up data and make into memory mapped array
@@ -39,7 +43,7 @@ def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, pat
         for i,p in enumerate(patchlist):
             v = input_arr[p[0]:p[0]+patchsize[0], p[1]:p[1]+patchsize[1], p[2]:p[2]+patchsize[2]]
             patch_array[i, :v.shape[0], :v.shape[1], :v.shape[2]] = v
-            if i%5==0: 
+            if i%2==0: 
                 patch_array.flush()
                 if verbose: print('{} of {}'.format(i, len(patchlist)))
         patch_array.flush()
@@ -60,6 +64,7 @@ def generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, pat
 def get_dims_from_folder(src):    
     '''Function to get dims from folder (src)
     '''
+    
     fls = listdirfull(src, keyword = '.tif')
     y,x = tifffile.imread(fls[0]).shape
     return (len(fls),y,x)
@@ -90,7 +95,6 @@ def make_memmap_from_tiff_list(src, dst, cores=1, dtype=False, verbose=True):
     '''Function to make a memory mapped array from a list of tiffs
     '''
     
-    #setup
     if type(src) == str and os.path.isdir(src): 
         src = listdirfull(src, keyword = '.tif')
         src.sort()
@@ -180,26 +184,37 @@ def load_np(src, mode='r'):
         return arr
 
 if __name__ == '__main__':
-   
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    
+    parser.add_argument('expt_name',
+                        help='Tracing folder output')
+    
+    args = parser.parse_args()
+
+    #setup
+    kwargs = load_kwargs(args.expt_name)
+    src = [xx for xx in kwargs['volumes'] if xx.ch_type == 'cellch'][0].full_sizedatafld_vol
+    
     #set params
     patchsize = (64,3840,3136) #patchsize = (40,3200,3200)
-    dtype = 'float32'
-    batchsize = 14
-    stridesize = (44,3680,2976) #stridesize = (20,3072,3072)
-    cores = 8
+    dtype = 'float32'    
+    stridesize = (44,3648,2944) #stridesize = (20,3072,3072)
+    cores = 12
     verbose = True 
-    cleanup = False #if True, files will be deleted when they aren't needed. Keep false while testing
+    cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing
     mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
-    src = '/jukebox/wang/pisano/tracing_output/antero_4x/20180327_jg38_bl6_lob45_01/full_sizedatafld/20180326_h129_jg38_4x_647_008na_1hfds_z7d5um_150msec_10povlp_ch00'
-    dst = '/jukebox/LightSheetTransfer/cnn/chunk_testing/20180327_jg38_bl6_lob45_01'
+    
+    dst = os.path.join('/jukebox/scratch/zmd', os.path.basename(os.path.abspath(args.expt_name))); makedir(dst)
 
     #convert folder into memmap array
-    in_dst = os.path.join(dst, 'input_memmap_array.npy') 
-    input_arr = make_memmap_from_tiff_list(src, in_dst, cores, dtype=dtype)
+    input_arr = os.path.join(dst, 'input_memmap_array.npy') 
+#    input_arr = make_memmap_from_tiff_list(src, in_dst, cores, dtype=dtype)
     
     #make patches
     inputshape = get_dims_from_folder(src)
     patchlist = make_indices(inputshape, stridesize)
+    
     #generate memmap array of patches
     patch_dst = os.path.join(dst, 'patched_memmap_array.npy')
     patch_memmap_array = generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = mode, verbose = verbose)
