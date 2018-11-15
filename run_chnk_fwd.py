@@ -178,7 +178,7 @@ if __name__ == "__main__":
                         help="Model Template Name")
     parser.add_argument("chkpt_num", type=int,
                         help="Checkpoint Number")
-    parser.add_argument("jobid", nargs="+",
+    parser.add_argument("jobid", type=int,
                         help="Inference Dataset Chunk Number")
     parser.add_argument("--nobn", action="store_true",
                         help="Whether net uses batch normalization")
