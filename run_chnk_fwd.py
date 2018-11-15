@@ -158,7 +158,7 @@ def save_output(output, dset, output_fld, output_tag, jobid, chkpt_num, **params
 
         full_fname = os.path.join(output_fld, basename)
         
-        tifffile.imsave(output_data[0,:,:,:], full_fname, compress = 1)
+        tifffile.imsave(full_fname, output_data[0,:,:,:], compress = 1)
 
     return full_fname
 
