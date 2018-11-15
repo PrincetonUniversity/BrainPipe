@@ -49,8 +49,9 @@ def main(noeval, **args):
     #lightsheet mods - input folder contains list of our "big" patches
     input_fld = os.path.join(params["data_dir"], "patches") #set patches directory 
     output_fld = os.path.join(params["data_dir"], "cnn_patches") #set patches directory 
+    
     if not os.path.exists(output_fld): os.mkdir(output_fld)
-    jobid = params["jobid"]
+    jobid = params["jobid"] #set patch no. to run through cnn
     
     #find files that need to be processed
     fls = [os.path.join(input_fld, xx) for xx in os.listdir(input_fld)]; fls.sort()
@@ -77,7 +78,7 @@ def main(noeval, **args):
 
 
 def fill_params(expt_name, chkpt_num, gpus,
-                nobn, model_name, dset_names, tag):
+                nobn, model_name, jobid, tag):
 
     params = {}
 
@@ -102,7 +103,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/scratch/gpfs/"
+    params["data_dir"]    = "/scratch/gpfs/20180327_jg40_bl6_sim_03"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["jobid"]       = jobid
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
