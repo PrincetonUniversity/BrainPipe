@@ -105,7 +105,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     #Dataset params
     params["data_dir"]    = "/scratch/gpfs/zmd/20180327_jg40_bl6_sim_03"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
-    params["jobid"]       = jobid
+    params["jobid"]       = int(os.environ["SLURM_ARRAY_TASK_ID"])
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
     params["scan_spec"]   = collections.OrderedDict(soma_label=(1,20,192,192))
     params["scan_params"] = dict(stride=(0.75,0.75,0.75), blend="bump")
@@ -178,8 +178,6 @@ if __name__ == "__main__":
                         help="Model Template Name")
     parser.add_argument("chkpt_num", type=int,
                         help="Checkpoint Number")
-    parser.add_argument("jobid", type=int,
-                        help="Inference Dataset Chunk Number")
     parser.add_argument("--nobn", action="store_true",
                         help="Whether net uses batch normalization")
     parser.add_argument("--gpus", default=["0"], nargs="+")
