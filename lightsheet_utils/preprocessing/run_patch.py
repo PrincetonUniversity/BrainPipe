@@ -183,6 +183,7 @@ def load_np(src, mode='r'):
             arr = np.load(src)
         return arr
 
+#%%
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description=__doc__)
@@ -197,25 +198,24 @@ if __name__ == '__main__':
     src = [xx for xx in kwargs['volumes'] if xx.ch_type == 'cellch'][0].full_sizedatafld_vol
     
     #set params
-    patchsize = (64,3840,3136) #patchsize = (40,3200,3200)
+    patchsize = (64,3840,3328) #patchsize = (64,3840,3136)
     dtype = 'float32'    
-    stridesize = (44,3648,2944) #stridesize = (20,3072,3072)
-    cores = 12
+    stridesize = (44,3648,3136) #stridesize = (44,3648,2944)
+    cores = 8
     verbose = True 
     cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing
-    mode = 'memmap' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
+    mode = 'folder' #'folder' = list of files where each patch is a file, 'memmap' = 4D array of patches by Z by Y by X
     
     dst = os.path.join('/jukebox/scratch/zmd', os.path.basename(os.path.abspath(args.expt_name))); makedir(dst)
 
     #convert folder into memmap array
-    input_arr = os.path.join(dst, 'input_memmap_array.npy') 
-#    input_arr = make_memmap_from_tiff_list(src, in_dst, cores, dtype=dtype)
+    in_dst = os.path.join(dst, 'input_memmap_array.npy') 
+    input_arr = make_memmap_from_tiff_list(src, in_dst, cores, dtype = dtype)
     
     #make patches
     inputshape = get_dims_from_folder(src)
     patchlist = make_indices(inputshape, stridesize)
     
     #generate memmap array of patches
-    patch_dst = os.path.join(dst, 'patched_memmap_array.npy')
-    patch_memmap_array = generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = mode, verbose = verbose)
-    if cleanup: shutil.rmtree(input_arr)
+    patch_dst = os.path.join(dst, 'patches')
+    patch_dst = generate_patch_memmap_array(input_arr, patch_dst, patchlist, stridesize, patchsize, mode = mode, verbose = verbose)
