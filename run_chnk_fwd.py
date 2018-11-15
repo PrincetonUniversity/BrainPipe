@@ -78,7 +78,7 @@ def main(noeval, **args):
 
 
 def fill_params(expt_name, chkpt_num, gpus,
-                nobn, model_name, jobid, tag):
+                nobn, model_name, tag):
 
     params = {}
 
