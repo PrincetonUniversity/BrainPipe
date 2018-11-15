@@ -1,12 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 30 13:58:38 2018
+#!/usr/bin/env python
 
-@author: wanglab
-"""
-
-import os, numpy as np, sys, time, gc
+import os, imp
 import collections
 
 import torch
@@ -17,22 +11,8 @@ import forward
 import utils
 import models
 
-def load_memmap_arr(pth, mode='r', dtype = 'float32', shape = False):
-    '''Function to load memmaped array.
-    
-    by @tpisano
-
-    '''
-    if shape:
-        assert mode =='w+', 'Do not pass a shape input into this function unless initializing a new array'
-        arr = np.lib.format.open_memmap(pth, dtype = dtype, mode = mode, shape = shape)
-    else:
-        arr = np.lib.format.open_memmap(pth, dtype = dtype, mode = mode)
-    return arr
 
 def main(noeval, **args):
-
-    sys.stdout.write('\n      Using torch version: {}\n\n'.format(torch.__version__)) #check torch version is correct - use 0.4.1
 
     #args should be the info you need to specify the params
     # for a given experiment, but only params should be used below
@@ -47,34 +27,15 @@ def main(noeval, **args):
     utils.log_tagged_modules(params["modules_used"], params["log_dir"],
                              params["log_tag"], params["chkpt_num"])
 
-    #lightsheet mods
-    inputs = load_memmap_arr(os.path.join(params["data_dir"], "patched_memmap_array.npy")) #load input patched array 
-    output_arr = load_memmap_arr(os.path.join(params["data_dir"], 'test/patched_prediction_array_0d5.npy'), mode = 'w+', dtype = 'float32', shape = (1,inputs.shape[1],inputs.shape[2],inputs.shape[3])) #initialise output probability map
-    
-    initial = time.time()
-    
-    for i in range(60,61): #iterates through each large patch to run inference #len(inputs[0])       
-               
-        start = time.time()
-        
-        dset = inputs[i,:,:,:] #grabs chunk
-                        
-        fs = make_forward_scanner(dset, **params) #makes scanner
-        
-        print("\nStride stride: {}\nDefault stride: {}".format(fs.stride, fs.default_stride))        
-        
-        output = forward.forward(net, fs, params["scan_spec"], #runs forward pass
+    for dset in params["dsets"]:
+        print(dset)
+
+        fs = make_forward_scanner(dset, **params)
+
+        output = forward.forward(net, fs, params["scan_spec"],
                                  activation=params["activation"])
 
-        output_arr[0,:,:,:] = save_output(output, output_arr[0,:,:,:], **params) #saves probability array
-                   
-        if i%5==0: output_arr.flush() #flush out output array to harddrive
-        fs._init() #clear out scanner
-        
-        sys.stdout.write("\nPatch {}: {} min\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
-
-    sys.stdout.write("\n**************************************************************************************\
-                     \nTotal time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
+        save_output(output, dset, **params)
 
 
 def fill_params(expt_name, chkpt_num, gpus,
@@ -103,12 +64,12 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/jukebox/scratch/20180327_jg42_bl6_lob6a_05"
+    params["data_dir"]    = "/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/otsu/inputRawImages"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
     params["scan_spec"]   = collections.OrderedDict(soma_label=(1,20,192,192))
-    params["scan_params"] = dict(stride=(0.5,0.5,0.5), blend="bump")
+    params["scan_params"] = dict(stride=(0.75,0.75,0.75), blend="bump")
 
     #Use-specific Module imports
     params["model_class"]  = utils.load_source('models/RSUNet.py').Model
@@ -129,8 +90,9 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
                          scan_spec, scan_params, **params):
     """ Creates a DataProvider ForwardScanner from a dset name """
 
-    # Reading chunk of lightsheet memory mapped array
-    img = (dset_name / 255.).astype("float32")
+    # Reading EM image
+    img = utils.read_h5(os.path.join(data_dir, dset_name + "_inputRawImages.h5"))
+    img = (img / 255.).astype("float32")
 
     # Creating DataProvider Dataset
     vd = dp.Dataset()
@@ -141,16 +103,24 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
     # Returning DataProvider ForwardScanner
     return dp.ForwardScanner(vd, scan_spec, params=scan_params)
 
-def save_output(output, output_arr, **params):
+
+def save_output(output, dset_name, chkpt_num, fwd_dir, output_tag, **params):
     """ Saves the volumes within a DataProvider ForwardScanner """
 
     for k in output.outputs.data:
 
         output_data = output.outputs.get_data(k)
 
-        output_arr = output_data[0,:,:,:]
+        if len(output_tag) == 0:
+            basename = "{}_{}_{}.h5".format(dset_name, k, chkpt_num)
+        else:
+            basename = "{}_{}_{}_{}.h5".format(dset_name, k, 
+                                               chkpt_num, output_tag)
 
-    return output_arr
+        full_fname = os.path.join( fwd_dir, basename )
+
+        utils.write_h5(output_data[0,:,:,:], full_fname)
+
 
 #============================================================
 
@@ -182,4 +152,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(**vars(args))
-
