@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Wed Nov 14 12:22:39 2018
@@ -103,7 +103,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/scratch/gpfs/20180327_jg40_bl6_sim_03"
+    params["data_dir"]    = "/scratch/gpfs/zmd/20180327_jg40_bl6_sim_03"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["jobid"]       = jobid
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
