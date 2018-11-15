@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 12 10:46:03 2018
@@ -6,10 +6,10 @@ Created on Mon Nov 12 10:46:03 2018
 @author: tpisano
 """
 
-from __future__ import division
 import os, numpy as np, sys, multiprocessing as mp, time, shutil
 from scipy import ndimage
 from skimage.external import tifffile
+os.chdir('/jukebox/wang/zahra/lightsheet_copy')
 from tools.utils.io import load_np, load_kwargs
 from scipy.ndimage.morphology import generate_binary_structure
 import argparse                   
@@ -240,44 +240,46 @@ if __name__ == '__main__':
                         help='Tracing folder output')
     parser.add_argument('cnn_src',
                         help='Directory containing patched predition array')
-    parser.add_argument("patchsz", type=int, nargs="+",
-                        help='Patch size used for patching. Type arg in z y x dimensions with no spaces.')
-    parser.add_argument("stridesz", type=int, nargs="+",
-                        help='Stride size used for patching. Type arg in z y x dimensions with no spaces.')
+#    parser.add_argument("patchsz", type=int, nargs="+",
+#                        help='Patch size used for patching. Type arg in z y x dimensions with no spaces.')
+#    parser.add_argument("stridesz", type=int, nargs="+",
+#                        help='Stride size used for patching. Type arg in z y x dimensions with no spaces.')
     args = parser.parse_args()
     
     #setup - #set relevant paths
     kwargs = load_kwargs(args.expt_name)
     src = [xx for xx in kwargs['volumes'] if xx.ch_type == 'cellch'][0].full_sizedatafld_vol
-    cnn_src = args.cnn_src
-    
-    arr = load_memmap_arr(os.path.join(cnn_src, "patched_prediction_array.npy")) #load predicted patched array 
+    cnn_src = args.cnn_src #rename variable    
+    cnn_src = os.path.join(cnn_src, 'patched_prediction_array.npy') #load predicted patched array 
 
     #set params
-    patchsize = tuple(args.patchsz)
-    stridesize = tuple(args.stridesz)
+    patchsize = (64,3840,3136)#tuple(args.patchsz)
+    stridesize = (44,3648,2944) #tuple(args.stridesz)
     verbose = True 
     cleanup = True #if True, files will be deleted when they aren't needed. Keep false while testing    
     
+    sys.stdout.write('\n Making patches...\n'); sys.stdout.flush()
     #make patches
     #FIXME: make it so that you don't need to redo this; patching, cnn run, and reconstrution in one??
     inputshape = get_dims_from_folder(src)
     patchlist = make_indices(inputshape, stridesize)
     
     #reconstruct
+    sys.stdout.write('\n Starting reconstruction...\n'); sys.stdout.flush()
     recon_dst = os.path.join(args.cnn_src, 'reconst_array.npy')
     reconstruct_memmap_array_from_patch_memmap_array(cnn_src, recon_dst, inputshape, patchlist, patchsize, verbose = verbose)
-    if cleanup: shutil.rmtree(arr)
-    
-    #find cell centers
-    
-    predicted_cell_centers = load_memmap_arr(os.path.join(cnn_src, 'cell_centers.npy'), mode = 'w+', dtype = 'float32', shape = arr.shape[0])
-    
-    #iterates through forward pass output
-    for i in range(arr.shape[0]):
-        
-        predicted_cell_centers[i] = probabiltymap_to_centers_thresh(arr[i,:,:,:], threshold = (0.4, 1))
-        
-        print '\n   Finished finding centers for patch # {}\n'.format(i+1)
-        
-        predicted_cell_centers.flush()
+    if cleanup: shutil.rmtree(cnn_src)
+
+#    #load cnn_src to find shape and iterate
+#    arr = load_np(cnn_src)    
+#    #find cell centers    
+#    predicted_cell_centers = load_memmap_arr(os.path.join(cnn_src, 'cell_centers.npy'), mode = 'w+', dtype = 'float32', shape = arr.shape[0])
+#    
+#    #iterates through forward pass output
+#    for i in range(arr.shape[0]):
+#        
+#        predicted_cell_centers[i] = probabiltymap_to_centers_thresh(arr[i,:,:,:], threshold = (0.4, 1))
+#        
+#        print '\n   Finished finding centers for patch # {}\n'.format(i+1)
+#        
+#        predicted_cell_centers.flush()

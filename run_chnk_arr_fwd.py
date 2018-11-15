@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Tue Oct 30 13:58:38 2018
@@ -11,7 +11,7 @@ import collections
 
 import torch
 from torch.nn import functional as F
-import dataprovider as dp
+import dataprovider3 as dp
 
 import forward
 import utils
@@ -49,33 +49,31 @@ def main(noeval, **args):
 
     #lightsheet mods
     inputs = load_memmap_arr(os.path.join(params["data_dir"], "patched_memmap_array.npy")) #load input patched array 
-    output_arr = load_memmap_arr(os.path.join(params["data_dir"], 'patched_prediction_array.npy'), mode = 'w+', dtype = 'float32', shape = inputs.shape) #initialise output probability map
+    output_arr = load_memmap_arr(os.path.join(params["data_dir"], 'test/patched_prediction_array_0d5.npy'), mode = 'w+', dtype = 'float32', shape = (1,inputs.shape[1],inputs.shape[2],inputs.shape[3])) #initialise output probability map
     
     initial = time.time()
     
-    for i in range(inputs.shape[0]): #iterates through each large patch to run inference #len(inputs[0])       
-        
-        sys.stdout.write('\n***************************************************************************************\
-                         Starting patch {}\n'.format(i+1)); sys.stdout.flush()        
+    for i in range(60,61): #iterates through each large patch to run inference #len(inputs[0])       
+               
         start = time.time()
         
         dset = inputs[i,:,:,:] #grabs chunk
                         
         fs = make_forward_scanner(dset, **params) #makes scanner
-                
+        
+        print("\nStride stride: {}\nDefault stride: {}".format(fs.stride, fs.default_stride))        
+        
         output = forward.forward(net, fs, params["scan_spec"], #runs forward pass
                                  activation=params["activation"])
 
-        output_arr[i,:,:,:] = save_output(output, output_arr[i,:,:,:], **params) #saves probability array
+        output_arr[0,:,:,:] = save_output(output, output_arr[0,:,:,:], **params) #saves probability array
                    
-        if i%10==0: output_arr.flush() #flush out output array to harddrive
-        
+        if i%5==0: output_arr.flush() #flush out output array to harddrive
         fs._init() #clear out scanner
         
-        sys.stdout.write("\nPatch {}: {} min".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
-        del dset; gc.collect()        
+        sys.stdout.write("\nPatch {}: {} min\n".format((i+1), round((time.time()-start)/60, 1))); sys.stdout.flush()
 
-    sys.stdout.write("\n***************************************************************************************\
+    sys.stdout.write("\n**************************************************************************************\
                      \nTotal time spent predicting: {} hrs\n".format(round((time.time()-initial)/3600, 0))); sys.stdout.flush()
 
 
@@ -108,13 +106,12 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["data_dir"]    = "/jukebox/scratch/20180327_jg42_bl6_lob6a_05"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
-    params["input_spec"]  = collections.OrderedDict(input=(20,160,160)) #dp dataset spec
-    params["scan_spec"]   = collections.OrderedDict(psd=(1,20,160,160))
+    params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
+    params["scan_spec"]   = collections.OrderedDict(soma_label=(1,20,192,192))
     params["scan_params"] = dict(stride=(0.5,0.5,0.5), blend="bump")
 
     #Use-specific Module imports
-    model_module = getattr(models,model_name)
-    params["model_class"]  = model_module.Model
+    params["model_class"]  = utils.load_source('models/RSUNet.py').Model
 
     #"Schema" for turning the parameters above into arguments
     # for the model class
@@ -123,7 +120,7 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["model_kwargs"] = { "bn" : params["batch_norm"] }
 
     #Modules used for record-keeping
-    params["modules_used"] = [__file__, model_module.__file__, "models/layers.py"]
+    params["modules_used"] = [__file__, 'models/RSUNet.py', "layers.py"]
 
     return params
 
@@ -133,22 +130,21 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
     """ Creates a DataProvider ForwardScanner from a dset name """
 
     # Reading chunk of lightsheet memory mapped array
-    img = (dset_name / 2000.).astype("float32")
+    img = (dset_name / 255.).astype("float32")
 
     # Creating DataProvider Dataset
-    vd = dp.VolumeDataset()
+    vd = dp.Dataset()
 
-    vd.add_raw_data(key="input", data=img)
+    vd.add_data(key="input", data=img)
     vd.set_spec(input_spec)
 
     # Returning DataProvider ForwardScanner
     return dp.ForwardScanner(vd, scan_spec, params=scan_params)
-    del img, vd
 
 def save_output(output, output_arr, **params):
     """ Saves the volumes within a DataProvider ForwardScanner """
 
-    for k in output.outputs.data.iterkeys():
+    for k in output.outputs.data:
 
         output_data = output.outputs.get_data(k)
 
