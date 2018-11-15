@@ -66,15 +66,15 @@ def main(noeval, **args):
         start = time.time()
         
         fs = make_forward_scanner(dset, **params)
-        sys.stdout.write("\nStriding by: {}".format(fs.stride)); sys.stdout.flush()    
+        sys.stdout.write("\striding by: {}".format(fs.stride)); sys.stdout.flush()    
         
         output = forward.forward(net, fs, params["scan_spec"], #runs forward pass
                                  activation=params["activation"])
 
-        patch_name = save_output(output, dset, output_fld, **params) #saves tif       
+        save_output(output, dset, output_fld, **params) #saves tif       
         fs._init() #clear out scanner
         
-    sys.stdout.write("\{}: {} min\n".format(patch_name, round((time.time()-start)/60, 1))); sys.stdout.flush()
+    sys.stdout.write("\patch {}: {} min\n".format(jobid+1, round((time.time()-start)/60, 1))); sys.stdout.flush()
 
 
 def fill_params(expt_name, chkpt_num, gpus,
