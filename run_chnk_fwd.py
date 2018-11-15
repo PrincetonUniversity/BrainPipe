@@ -51,7 +51,7 @@ def main(noeval, **args):
     output_fld = os.path.join(params["data_dir"], "cnn_patches") #set patches directory 
     
     if not os.path.exists(output_fld): os.mkdir(output_fld)
-    jobid = params["jobid"] #set patch no. to run through cnn
+    jobid = int(params["jobid"]) #set patch no. to run through cnn
     
     #find files that need to be processed
     fls = [os.path.join(input_fld, xx) for xx in os.listdir(input_fld)]; fls.sort()
