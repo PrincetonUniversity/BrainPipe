@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
 #%%    
     #after transfer, set relevant paths
-    pth = '/home/wanglab/mounts/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/forward/test_data_stride_0d75'
+    pth = '/home/wanglab/mounts/wang/zahra/conv_net/training/experiment_dirs/20181009_zd_train/forward/normalisation_test/test'
     points_dict = load_dictionary('/jukebox/wang/pisano/conv_net/annotations/all_better_res/h129/filename_points_dictionary.p')
     
 #******************************************************************************************************************************************    
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     #iterates through forward pass output
     for dset in os.listdir(pth):
         impth = os.path.join(pth, dset)
-        predicted = probabiltymap_to_centers_thresh(impth, threshold = (0.7, 1))
+        predicted = probabiltymap_to_centers_thresh(impth, threshold = (0.4, 1))
         
         print '\n   Finished finding centers for {}, calculating statistics\n'.format(dset)
         
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     precision = tp/(tp+fp); recall = tp/(tp+fn) #calculating precision and recal
     f1 = 2*( (precision*recall)/(precision+recall) ) #calculating f1 score
     
-    print '\n   Finished calculating statistics for set params\n   \n   F1 score: {} \n\n      True pos, false pos, false neg: {} \n'.format(f1, (tp,fp,fn))
+    print '\n   Finished calculating statistics for set params\n\nF1 score: {} \nTrue pos, false pos, false neg: {} \n'.format(f1, (tp,fp,fn))
     
 #%%
 def transfer(src, dest, label, other_endpoint = False):
