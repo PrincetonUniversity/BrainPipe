@@ -14,4 +14,4 @@ echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1
 . activate 3dunet_py3
-python run_chnk_fwd.py 20181009_zd_train RSUNet 995000 ${SLURM_ARRAY_TASK} --gpus 0 --noeval --tag noeval
+python run_chnk_fwd.py 20181009_zd_train RSUNet 995000 --gpus 0 --noeval --tag noeval ${SLURM_ARRAY_TASK_ID}
