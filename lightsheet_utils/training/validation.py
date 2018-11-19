@@ -7,6 +7,24 @@ Created on Mon Oct 15 16:44:04 2018
 
 import re, os
 import matplotlib.pyplot as plt
+import h5py, numpy as np
+
+def save_stats_h5(fname):
+    '''Function to extract test loss and training loss values from h5 files saved in training.
+    '''
+
+    with h5py.File(fname) as f:
+        print('keys of file:\n {}'.format(list(f.keys())))
+        print('base lr value: {}'.format(f['base_lr'].value))
+        test = list(f['test'].keys())
+        print('contents of test dict: \n {}'.format(test))
+        train = list(f['train'].keys())
+        print('contents of train dict: \n {}'.format(train))
+        test_loss_arr = f['test'][test[2]].value
+        train_loss_arr = f['train'][train[2]].value
+        
+    return test_loss_arr, train_loss_arr
+
 
 
 def plot_val_curve(pth, exclude_initial = False):
