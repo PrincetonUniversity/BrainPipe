@@ -1,5 +1,0 @@
-#ignore experiment data
-PytorchUtils/src/experiments/
-*.out
-*.pdf
-test/
