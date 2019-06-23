@@ -20,7 +20,7 @@
 ## To use TeraStitcher it must be installed locally or on your cluster
 * Download and unpack:
 	* [Download here](https://github.com/abria/TeraStitcher/wiki/Binary-packages])
-	* $ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
+	* `$ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1`
 * Modify Path in ~/.bashrc:
 	* `export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.10.11-Linux/bin:$PATH"`
 * Check to see if successful
@@ -30,20 +30,20 @@
 
 ## Edit: lightsheet/sub_main_tracing.sh file:
 * Need to load anacondapy 5.3.1 on cluster (something like):
-	* module load anacondapy/5.3.1
+	* `module load anacondapy/5.3.1`
 * Need to load elastix on cluster (something like):
-	* module load elastix/4.8
+	* `module load elastix/4.8`
 * Need to then activate your python environment where everything is installed (something like):
-	* . activate <<<your python environment>>>
+	* `. activate <<<your python environment>>>`
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
  
 ## Edit: lightsheet/slurm_files:
 * Each of these needs the same changes as sub_main_tracing.sh file: e.g.:
  
-	* module load anacondapy/5.3.1
-	* module load elastix/4.8
-	* . activate <<<your python environment>>>
+	* `module load anacondapy/5.3.1`
+	* `module load elastix/4.8`
+	* `. activate <<<your python environment>>>`
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
  
