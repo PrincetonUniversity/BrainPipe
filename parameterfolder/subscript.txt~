@@ -1,0 +1,6 @@
+##test elastix locally
+
+import os
+import subprocess as sp
+
+sp.call(['elastix', '-f', '/home/wanglab/wang/pisano/tracing_output/allenatlas/average_template_10_horizontal.mhd', '-m', '/home/wanglab/wang/pisano/tracing_output/test_process/resized_ch00_resampledforelastix.tif', '-out', '/home/wanglab/wang/pisano/tracing_output/test_process/elastix', '-p', '/home/wanglab/wang/pisano/Python/tracing/Par_tracing2/Order1_Par0000affine.txt', '-p', '/home/wanglab/wang/pisano/Python/tracing/Par_tracing2/Order2_Par0000bspline.txt'])
