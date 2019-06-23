@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb 24 22:07:30 2016
+
+@author: tpisano
+"""
+import os, socket
+
+def directorydeterminer():
+    '''Function to allow for different paths to the same server. This allows for working locally and on cluster.
+
+    EDIT THIS to fit your paths.
+    '''
+    if socket.gethostname() == 'spock-login.pni.princeton.edu':
+        systemdirectory= '/jukebox/'
+    elif socket.gethostname() == 'pniadmin_Precision-WorkStation-T3500':
+        systemdirectory='/home/yisizhang'    
+    elif socket.gethostname() == 'wanglab-cr8rc42-ubuntu':
+        systemdirectory=  '/home/wanglab/'
+    elif socket.gethostname() == 'tiger1':
+        systemdirectory=  '/tigress/tpisano/' 
+    elif socket.gethostname() == 'pni_3cnxk02':
+        systemdirectory=  '/home/tpisano/' 
+    elif os.getcwd()[:6] == '/Users':
+        systemdirectory= '/Volumes/'
+    elif os.getcwd()[:8] == '/Volumes':
+        systemdirectory= '/Volumes/'
+    elif os.getcwd()[:7] == '/home/w':
+        systemdirectory= '/home/wanglab/'
+    elif os.getcwd()[:7] == '/home/t':
+        systemdirectory= '/home/tpisano/'
+    elif os.getcwd()[:8] == '/jukebox':
+        systemdirectory= '/jukebox/'
+    elif os.getcwd()[:4] == '/mnt':
+        systemdirectory= '/jukebox/'
+    elif os.getcwd()[:8] == '/tigress':
+        systemdirectory= '/tigress/tpisano/' 
+    return systemdirectory
