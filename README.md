@@ -3,7 +3,7 @@
 # *Installation Instructions*:
 * Things you will need to do beforehand:
 	* Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well.
-	* After downloading this package onto your data server (where the cluster has access to it), you will need to install the following depencies. I suggest using an python environment to do this (2.7, not 3+; see below).
+	* After downloading this package onto your data server (where the cluster has access to it), you will need to install the following depencies. I suggest using an python environment to do this.
 	* This package was made for linux/osx, not windows. If running windows I would suggest using a virutal machine.
 		(1) [Download Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 		(2) [Download Linux Ubuntu](https://www.ubuntu.com/download)
@@ -11,32 +11,26 @@
  
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
 ### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' to help with setup.
-* pip install SimpleITK futures xvfbwrapper xlrd openpyxl
-* conda install joblib scipy scikit-image scikit-learn seaborn tqdm psutil numba natsort
-* conda install -c menpo opencv (requires opencv 3+; if this fails then try: conda install -c conda-forge opencv)
-* conda install -c conda-forge keras (requires 2.0.6+)
-* conda update tensorflow
-* sudo apt-get install elastix (if on local machine)
-* sudo apt-get install xvfb (if on local machine)
-
-### <ALTERNATIVE BUT UNTESTED, from conda list --explicit > requirements.txt>:
-* conda create -n new lightsheet --file requirements.txt
-
+* `pip install SimpleITK futures xvfbwrapper xlrd openpyxl`
+* `conda install joblib scipy scikit-image scikit-learn seaborn tqdm psutil numba natsort`
+* `conda install -c menpo opencv` (opencv 3+; if this fails then try: `conda install -c conda-forge opencv`)
+* `sudo apt-get install elastix` (if on local machine)
+* `sudo apt-get install xvfb` (if on local machine)
 
 ## To use TeraStitcher it must be installed locally or on your cluster
 * Download and unpack:
-	* $ wget https://www.dropbox.com/s/7o6n01pl84woktx/TeraStitcher-Qt4-standalone-1.10.11-Linux.sh?dl=1 or (Download here)[https://github.com/abria/TeraStitcher/wiki/Binary-packages]
-	* $ bash TeraStitcher-Qt4-standalone-1.10.11-Linux.sh?dl=1
+	* [Download here](https://github.com/abria/TeraStitcher/wiki/Binary-packages])
+	* $ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
 * Modify Path in ~/.bashrc:
-	* export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.10.11-Linux/bin:$PATH"
+	* `export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.10.11-Linux/bin:$PATH"`
 * Check to see if successful
 	* open new terminal window
-	* $ which terastitcher
+	* `$ which terastitcher`
 
 
 ## Edit: lightsheet/sub_main_tracing.sh file:
-* Need to load anacondapy 2.7 on cluster (something like):
-	* module load anacondapy/2.7
+* Need to load anacondapy 5.3.1 on cluster (something like):
+	* module load anacondapy/5.3.1
 * Need to load elastix on cluster (something like):
 	* module load elastix/4.8
 * Need to then activate your python environment where everything is installed (something like):
@@ -47,7 +41,7 @@
 ## Edit: lightsheet/slurm_files:
 * Each of these needs the same changes as sub_main_tracing.sh file: e.g.:
  
-	* module load anacondapy/2.7
+	* module load anacondapy/5.3.1
 	* module load elastix/4.8
 	* . activate <<<your python environment>>>
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
@@ -93,8 +87,7 @@
 	* inputdictionary and params need to be changed for each brain
 	* the function lightsheet.tools.utils.directorydeterminer.directorydeterminer *REQUIRES MODIFICATION* for both your local machine and cluster. This function handles different paths to the same file server.
 	* generally the process is using a local machine, run step 0 (be sure that files are saved *BEFORE( running this step) to generate a folder where data will be stored
-	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: sbatch sub_main_tracing.sh
-
+	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: sbatch sub_registration.sh
 
 * tools: convert 3D STP stack to 2D representation based on colouring
   * imageprocessing: 
@@ -110,12 +103,9 @@
 
 * supp_files:
   * gridlines.tif, image used to generate registration visualization
-  * allen_structure_heirarchy.xlsx, list of structures from AllenBrainAtlas used to determine anatomical correspondence of xyz location.
+  * allen_id_table.xlsx, list of structures from Allen Brain Atlas used to determine anatomical correspondence of xyz location.
 
 * parameterfolder:
   * folder consisting of elastix parameter files with prefixes "Order<#>_" to specify application order
-
-* Not Implemented:
-  * expression_mask: threshold STP stacks to identify expression sites
 
 
