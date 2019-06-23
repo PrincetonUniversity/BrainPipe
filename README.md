@@ -13,7 +13,7 @@
 ### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' to help with setup.
 * `pip install SimpleITK futures xvfbwrapper xlrd openpyxl`
 * `conda install joblib scipy scikit-image scikit-learn seaborn tqdm psutil numba natsort`
-* `conda install -c menpo opencv` (opencv 3+; if this fails then try: `conda install -c conda-forge opencv`)
+* `conda install -c conda-forge opencv`
 * `sudo apt-get install elastix` (if on local machine)
 * `sudo apt-get install xvfb` (if on local machine)
 
