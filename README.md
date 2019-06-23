@@ -76,12 +76,12 @@
 		* `2`: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
 		* `3`: registration via elastix
 
-* `run_tracing.sh`:
+* `run_tracing.py`:
 	* `.py` file to be used to manage the parallelization to a SLURM cluster
 	* inputdictionary and params need to be changed for each brain
 	* the function `directorydeterminer` in `tools/utils` *REQUIRES MODIFICATION* for both your local machine and cluster. This function handles different paths to the same file server.
 	* generally the process is using a local machine, run step 0 (be sure that files are saved *BEFORE( running this step) to generate a folder where data will be stored
-	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: sbatch sub_registration.sh
+	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
 * tools: convert 3D STP stack to 2D representation based on colouring
   * imageprocessing: 
