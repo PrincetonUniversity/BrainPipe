@@ -6,7 +6,7 @@
 #SBATCH -o logs/step0.out        # STDOUT
 #SBATCH -e logs/step0.err        # STDERR
 
-module load anacondapy/2.7
+module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
 

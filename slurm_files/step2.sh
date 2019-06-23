@@ -17,7 +17,7 @@ cat /proc/$$/status | grep Cpus_allowed_list
 echo "Array Allocation Number: $SLURM_ARRAY_JOB_ID"
 echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
-module load anacondapy/2.7
+module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
 
