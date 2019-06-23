@@ -8,7 +8,7 @@
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
 
 
-module load anacondapy/2.7
+module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
 

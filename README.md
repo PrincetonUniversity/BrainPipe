@@ -61,15 +61,15 @@
 	* params
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
 * Then, I suggest, using a local machine, run 'step 0' (be sure that run_tracing.py is **before**):
-	* preprocessing.generateparamdict(os.getcwd(), **params) 
-	* if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))
+	* `preprocessing.generateparamdict(os.getcwd(), **params)` 
+	* `if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))`
 	* **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: sbatch sub_main_tracing.sh
 
 
 # *Descriptions of important files*:
 
-* *sub_main_tracing.sh:*
+* *sub_registration.sh:* or *sub_registration_terastitcher.sh*
 	* .sh file to be used to submit to a slurm scheduler
 	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to run_tracing.py:
 		* stepid = controlling which 'step' to run
@@ -79,8 +79,6 @@
 		* 1: process (stitch, resize, 2D cell detect, etc) zplns (using tpisano lightsheet package), ensure that 1000 > zplns/slurmfactor. Typically submit 1000 jobs (jobid=0-1000)
 		* 2: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
 		* 3: registration via elastix
-		* 4: consolidation of 2D cell detection into 3D centers of cells since each step1 job doesn't communicate with each other
-		* 5: output analysis of 3D centers registered to the atlas
 
 * *run_tracing.sh:*
 	* .py file to be used to manage the parallelization to a SLURM cluster
@@ -92,11 +90,6 @@
 * tools: convert 3D STP stack to 2D representation based on colouring
   * imageprocessing: 
 	* preprocessing.py: functions use to preprocess, stitch, 2d cell detect, and save light sheet images
-	* depth.py: used to make depth coded images for fast visualization of post-registered brains/cells
-  * objectdetection: 
-	* find_cells.py: functions made by BD to detect cells in 2d. Called by imageprocessing/preprocessing.py
-	* three_d_celldetection: functions used for 3d grouping of multiple planes of 2d detected cells into a single 3d cell
-	* clearmap_maximadetection.py, clearmap_preprocessing.py: scripts from ClearMap (C. Kirst, Rockefeller U.) to help with cell detection
   * analysis:
 	* allen_structure_json_to_pandas.py: simple function used to generate atlas list of structures in coordinate space
 	* other functions useful when comparing multiple brains that have been processed using the pipeline
