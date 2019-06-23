@@ -29,8 +29,8 @@
 
 
 ## Edit: lightsheet/sub_main_tracing.sh file:
-* Need to load anacondapy 5.3.1 on cluster (something like):
-	* `module load anacondapy/5.3.1`
+* Need to load anacondapy 5.1.0 on cluster (something like):
+	* `module load anacondapy/5.1.0`
 * Need to load elastix on cluster (something like):
 	* `module load elastix/4.8`
 * Need to then activate your python environment where everything is installed (something like):
@@ -41,7 +41,7 @@
 ## Edit: lightsheet/slurm_files:
 * Each of these needs the same changes as sub_main_tracing.sh file: e.g.:
  
-	* `module load anacondapy/5.3.1`
+	* `module load anacondapy/5.1.0`
 	* `module load elastix/4.8`
 	* `. activate <<<your python environment>>>`
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
