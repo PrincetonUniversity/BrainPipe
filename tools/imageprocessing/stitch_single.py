@@ -13,18 +13,7 @@ from tools.utils.io import makedir, listdirfull, save_kwargs, listall
 import multiprocessing as mp
 from tools.imageprocessing.preprocessing import regex_determiner
 
-if __name__=='__main__':
-    
-    
 
-    src = '/home/wanglab/LightSheetTransfer/tp/180309_20170207_db_bl6_crii_rlat_03_647_010na_1hfds_z7d5um_100msec_10povlp_20-50-45_COPY'
-    dst ='/home/wanglab/LightSheetTransfer/test_stitch2'
-    dct=terastitcher_single_wrapper(src, dst, raw=True, regex=False, percent_overlap=0.1, create_image_dictionary=False)
-
-
-
-
-#%%
 def terastitcher_single_wrapper(src, dst, create_image_dictionary=False, **kwargs):
     '''Functions to handle folder consisting of files, stitch, resample, and combine.
     
@@ -317,10 +306,10 @@ def make_folder_heirarchy(image_dictionary, dst=False, transfertype='move', scal
     #    print ('Exception: {}...not saving terastitcher_dct'.format(e))
                     
     #move/copy files
-    if cores>=2:
+    if cores >= 2:
         sys.stdout.write(' populating folders: {} files using {} cores...\n'.format(len(iterlst), cores)); sys.stdout.flush()
-        p=mp.Pool(cores)
-        p.map(make_folder_heirarchy_helper, iterlst)
+        p = mp.Pool(cores)
+        p.starmap(make_folder_heirarchy_helper, iterlst)
         p.terminate()
         
     else:
@@ -330,7 +319,7 @@ def make_folder_heirarchy(image_dictionary, dst=False, transfertype='move', scal
     sys.stdout.write('finished.\n'); sys.stdout.flush()        
     return
     
-def make_folder_heirarchy_helper((src, dst, transfertype)):
+def make_folder_heirarchy_helper(src, dst, transfertype):
     '''
     '''
     import shutil
@@ -340,7 +329,6 @@ def make_folder_heirarchy_helper((src, dst, transfertype)):
     return
     
 
-    
 def find_tiff_dims(src):
     '''Find dimensions of a tifffile without having to load
     
@@ -507,3 +495,9 @@ def create_image_dictionary(src, raw, regex):
     print("{}x by {}y tile scan determined\n".format(xtile, ytile))           
     print("{} Light Sheet(s) found. {} Horizontal Focus Determined\n\n".format(lsheets, hf))
     return dict([('zchanneldct', zdct), ('xtile', xtile), ('ytile', ytile), ('channels', chs), ('lightsheets', lsheets), ('horizontalfoci', hf), ('fullsizedimensions', (len(zdct.keys()),(y*ytile),(x*xtile))), ('sourcefolder', src)])
+
+if __name__=='__main__':
+    
+    src = '/home/wanglab/LightSheetTransfer/tp/180309_20170207_db_bl6_crii_rlat_03_647_010na_1hfds_z7d5um_100msec_10povlp_20-50-45_COPY'
+    dst ='/home/wanglab/LightSheetTransfer/test_stitch2'
+    dct=terastitcher_single_wrapper(src, dst, raw=True, regex=False, percent_overlap=0.1, create_image_dictionary=False)

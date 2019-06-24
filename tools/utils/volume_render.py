@@ -19,20 +19,6 @@ from skimage import measure
 from scipy.ndimage import zoom
 from plotly.graph_objs import Figure
 
-if __name__ == '__main__':
-    from skimage.morphology import ball
-    vol = ball(10)
-    
-    vol = tifffile.imread('/home/wanglab/wang/pisano/figures/deformation_based_geometry/v2/registration/hp_pc/hann.tif')
-    vol = np.flip(np.flip(np.swapaxes(zoom(vol, 0.20, order=1),0,1),0),2)
-    
-    save = '/home/wanglab/Downloads/tmp.svg'
-    
-    #
-    from skimage.morphology import ball
-    vols = [ball(3), ball(5)]
-    vols_render(vols)
-#%%    
 def vol_render(vol, level=0, color='r', opacity=0.5, save = False, zoom_factor=False, name = "Isosurface"):
     '''modified from #https://stackoverflow.com/questions/6030098/how-to-display-a-3d-plot-of-a-3d-array-isosurface-in-matplotlib-mplot3d-or-simil
     
@@ -103,7 +89,7 @@ def vols_render(vols, colors=False, opacity=0.5, save = False, zoom_factor=False
         
         vertices, faces, normals, values = measure.marching_cubes(vol, 0)
         x,y,z = zip(*vertices)  
-        print faces.shape
+        print(faces.shape)
         
         for i in range(len(x)):
             xx.append(x[i])
@@ -151,7 +137,21 @@ layout = go.Layout(
     )
 )
 
-#%%
-sudo apt-get install libvtk5-dev python-vtk
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/vtk-5.6"
-PYTHONPATH="$PYTHONPATH:/usr/local/lib/vtk-5.6"
+
+#sudo apt-get install libvtk5-dev python-vtk
+#LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/vtk-5.6"
+#PYTHONPATH="$PYTHONPATH:/usr/local/lib/vtk-5.6"
+
+if __name__ == '__main__':
+    from skimage.morphology import ball
+    vol = ball(10)
+    
+    vol = tifffile.imread('/home/wanglab/wang/pisano/figures/deformation_based_geometry/v2/registration/hp_pc/hann.tif')
+    vol = np.flip(np.flip(np.swapaxes(zoom(vol, 0.20, order=1),0,1),0),2)
+    
+    save = '/home/wanglab/Downloads/tmp.svg'
+    
+    #
+    from skimage.morphology import ball
+    vols = [ball(3), ball(5)]
+    vols_render(vols)

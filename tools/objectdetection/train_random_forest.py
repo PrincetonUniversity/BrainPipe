@@ -79,14 +79,11 @@ if __name__ == '__main__':
     #Sweep: <-- usually performance is not affected that much by this
     for n_estimator in (10,20,50,100):
         for max_depth in (5,10,20,50,100):
-            print'\n\n n_estimator--{}, max_depth--{}'.format(n_estimator, max_depth)
+            print('\n\n n_estimator--{}, max_depth--{}'.format(n_estimator, max_depth))
             train_random_forest(tps, fps, n_estimator = n_estimator, max_depth = max_depth, cores = cores, test_size = test_size, dst = dst)
-            print ''
 
 
 
-
-#%%
 def apply_random_forest(classifier, raw_src, cnn_src, collect_cnn = False, size = (3,12,12), pad=False, cores=4, numZSlicesPerSplit=300, overlapping_planes = 20, chunks=10, maxip=0):
     ''' THIS IS MEMORY INEFFICIENT - SEE random_forest.py for better functions
     classifier = pretrained random forest or path to pretrained random forest

@@ -12,22 +12,6 @@ from skimage.exposure import rescale_intensity
 from skimage.morphology import erosion, dilation, disk
 import numpy as np
 
-#%%
-if __name__ == "__main__":
-    im = '/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T1_single_brain_DV_upsampled_sharpened.tif'
-    #sitk.Show(sitk.GetImageFromArray(tifffile.imread(im)))
-    im = clahe(im)
-    #sitk.Show(sitk.GetImageFromArray(im))
-    tifffile.imsave('/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T1_single_brain_DV_upsampled_sharpened_clahe.tif', im)
-
-    im = '/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T2_single_brain_DV_upsampled_sharpened.tif'
-    #sitk.Show(sitk.GetImageFromArray(tifffile.imread(im)))
-    im = clahe(im)
-    #sitk.Show(sitk.GetImageFromArray(im))
-    tifffile.imsave('/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T2_single_brain_DV_upsampled_sharpened_clahe.tif', im)
-
-
-#%%
 def clahe(im, func = 'cv2'):
     '''Function to clahe image using cv2's clahe filter. 
     Note: cv2 filter only works on 8bit images so non 8bit images are converted to 8 bit, clahed, and then recoverted back.
@@ -79,8 +63,8 @@ def clahe(im, func = 'cv2'):
 def norm(vol):
     try:
         nvol = (vol - np.min(vol)) / (float(np.max(vol)) - float(np.min(vol)))
-    except Exception, e:
-        print e
+    except Exception as e:
+        print(e)
         nvol = vol
     return nvol
 
@@ -102,6 +86,18 @@ def erode_and_dilate(max_d, med_d, depthkernel, vol):
     
     return nvol
 
+if __name__ == "__main__":
+    im = '/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T1_single_brain_DV_upsampled_sharpened.tif'
+    #sitk.Show(sitk.GetImageFromArray(tifffile.imread(im)))
+    im = clahe(im)
+    #sitk.Show(sitk.GetImageFromArray(im))
+    tifffile.imsave('/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T1_single_brain_DV_upsampled_sharpened_clahe.tif', im)
+
+    im = '/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T2_single_brain_DV_upsampled_sharpened.tif'
+    #sitk.Show(sitk.GetImageFromArray(tifffile.imread(im)))
+    im = clahe(im)
+    #sitk.Show(sitk.GetImageFromArray(im))
+    tifffile.imsave('/home/wanglab/LightSheetData/marm_ghazanfar/marm_standard_brain_atlas/T2_single_brain_DV_upsampled_sharpened_clahe.tif', im)
 
 
 
