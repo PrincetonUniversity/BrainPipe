@@ -1,6 +1,5 @@
-import numpy as np, tifffile, os, sys, re, csv
-from scipy.stats import linregress
-import multiprocessing as mp, pylab as pl, pandas as pd
+import numpy as np, os, re, csv
+import pandas as pd
 from scipy.cluster.vq import kmeans2
 from shutil import copyfile
 
@@ -27,7 +26,7 @@ def cluster(n=2):
     reg = re.compile(r'(.*)/(.*)_registration_results')
     names = [reg.match(ad).groups()[1] for ad in paths]
 
-    print 'loading data..';sys.stdout.flush()
+    print('loading data..')
     data = np.array([np.array([np.ravel_multi_index(i, (110, 320, 456)) for i in np.load(f)]) for f in paths])
     dflat = np.hstack(data.flat)
     data2 = np.zeros([len(data),dflat.max()-dflat.min()+1])
@@ -37,7 +36,7 @@ def cluster(n=2):
 
     np.savez_compressed('/jukebox/deverett/sandbox/clusterdata.npz', data=data2)
 
-    print 'kmeans..';sys.stdout.flush()
+    print('kmeans..')
     centroids,label = kmeans2(data2.astype(float), n)
 
     with open('/jukebox/wang/deverett/sandbox/clust.csv','w') as c:
@@ -46,8 +45,8 @@ def cluster(n=2):
         for l,n in zip(label,names):
             dw.writerow(dict(brain=n, cluster=l))
 
-    print centroids
-    print label
+    print(centroids)
+    print(label)
 
 if __name__ == '__main__':
     cluster(n=3)

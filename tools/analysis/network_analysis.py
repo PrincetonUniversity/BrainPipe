@@ -15,93 +15,6 @@ import sys, collections
 import SimpleITK as sitk
 from tools.imageprocessing.preprocessing import listdirfull
 
-#%%
-
-if __name__ == '__main__':    
-    #sns.reset_orig() #w/o you get black and white graphs
-    #testing
-    excelfl = '/home/wanglab/wang/pisano/Python/lightsheet/supp_files/sample_cell_count_output.xlsx'
-    #structure_id= 549 #Thalamus's id NOT atlas_id
-    ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
-    
-    #load    
-    df = pd.read_excel(excelfl)
-
-    #generate objects:
-    from tools.analysis.network_analysis import make_structure_objects
-    structures = make_structure_objects(excelfl, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    #thal = [xx for xx in structures if 'Thalamus' == xx.name][0]
-    
-    #make networkx graphs    
-    make_network(structures, substructure_name = 'Thalamus', graphstyle = 'twopi', showcellcounts = True, cutofflevel=3, font_size = 11, show = True)        
-    make_network(structures, substructure_name = 'Cerebral cortex', graphstyle = 'twopi', showcellcounts = True, cutofflevel=3, font_size = 11, show = True)
-    make_network(structures, substructure_name = 'Cerebellum', graphstyle = 'twopi', showcellcounts = True, cutofflevel=3, font_size = 13, show = True)    
-
-    #save networkx graphs
-    svlocname = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/networkx_no_childless_structures'
-    make_network(structures, substructure_name = 'Thalamus', svlocname = svlocname + '/_Thalamus_lvl2.png', graphstyle = 'twopi', cutofflevel=2, show = True)
-    #[make_network(structures, substructure_name = 'Thalamus', svlocname = svlocname + '/_Thalamus_lvl2_{}.png'.format(xx), graphstyle = xx, cutofflevel=2, show = True) for xx in ['dot', 'neato', 'fdp', 'sfdp', 'twopi', 'circo']]
-    make_network(structures, substructure_name = 'Cerebral cortex', svlocname = svlocname+'/_Cerebral_cortex_lvl3.png', graphstyle = 'twopi', cutofflevel=3, show = True)
-    make_network(structures, substructure_name = 'Cerebellum', svlocname = svlocname+'/_Cerebellum_lvl3.png', graphstyle = 'twopi', cutofflevel=3, show = True)
-#%%
-if __name__ == '__main__':    
-    import seaborn as sns    #do not move - it messes up make_network
-    ##########################
-    #make single radial graphs
-    excelfl = '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx'
-    ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
-    svlocname = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/Radial_plots/examples'
-    svlocname = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/Radial_plots/children_removed/acronyms'
-    structures = make_structure_objects(excelfl)
-    structures = make_structure_objects(excelfl, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    nametype = 'acronym' #'name'
-    
-    #thalamus
-    make_complex_radar_charts(structures = structures, substructure_name = 'Thalamus', levels = 2, show = False, svlocname = svlocname + '/radialplot_thalamus_lvl2.png', nametype = nametype)    
-    make_complex_radar_charts(structures = structures, substructure_name = 'Thalamus', levels = 3, show = False, svlocname = svlocname + '/radialplot_thalamus_lvl3.png', nametype = nametype)
-    make_complex_radar_charts(structures = structures, substructure_name = 'Thalamus', levels = 4, show = False, svlocname = svlocname + '/radialplot_thalamus_lvl4.png', nametype = nametype)
-    #neocortex
-    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebral cortex', levels = 2, show = False, svlocname = svlocname + '/radialplot_cerebralcortex_lvl2.png', nametype = nametype)    
-    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebral cortex', levels = 3, show = False, svlocname = svlocname + '/radialplot_cerebralcortex_lvl3.png', nametype = nametype)    
-    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebral cortex', levels = 4, show = False, svlocname = svlocname + '/radialplot_cerebralcortex_lvl4.png', nametype = nametype)    
-    #cerebellum
-    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebellum', levels = 2, show = False, svlocname = svlocname + '/radialplot_cb_lvl2.png', nametype = nametype)        
-    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebellum', levels = 3, show = False, svlocname = svlocname + '/radialplot_cb_lvl3.png', nametype = nametype)    
-    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebellum', levels = 4, show = False, svlocname = svlocname + '/radialplot_cb_lvl4.png', nametype = nametype)    
-#%%
-
-if __name__ == '__main__':    
-    import seaborn as sns    #do not move - it messes up make_network    
-    ####make multigraphs:
-    svloc = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/Radial_plots/examples/children_removed'  
-    ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
-    
-    fls = ['/home/wanglab/wang/pisano/tracing_output/l7cre_ts/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx', 
-    '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/l7_ts05_20150929/ch00_l7_ts05_20150929_488w_647_200msec_z3um_1hfds_stuctures_table.xlsx',
-    '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/l7cre_ts01_20150928/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx']
-
-    fls = {'Test_data' : '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx', 
-    'L7-Cre 69 hours': '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/l7_ts05_20150929/ch00_l7_ts05_20150929_488w_647_200msec_z3um_1hfds_stuctures_table.xlsx',
-    'L7-Cre 58 hours' :'/home/wanglab/wang/pisano/tracing_output/l7cre_ts/l7cre_ts01_20150928/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx'}
-    
-    sd_fls = {'ml_250u_450r' : '/home/wanglab/wang/pisano/tracing_output/sd_hsv_lob6/sd_hsv_ml_250u_450r/ch00_sd_hsv_ml_250u_450r_488w_647_200msec_z3um_1hfds_stuctures_table.xlsx',
-    '250u_750r' : '/home/wanglab/wang/pisano/tracing_output/sd_hsv_lob6/sd_hsv_250up_750r/ch00_sd_hsv_250up_750r_488w_647_200msec_z3um_1hfds_stuctures_table.xlsx',
-    '250u_1050r' : '/home/wanglab/wang/pisano/tracing_output/sd_hsv_lob6/sd_hsv_250up_1050r/ch00_sd_hsv_250up_1050r_488w_647_200msec_z3um_1hfds_stuctures_table.xlsx',
-    '500d_900r' : '/home/wanglab/wang/pisano/tracing_output/sd_hsv_lob6/sd_hsv_500down_900r/ch00_sd_hsv_500down_900r_200msec_z3um_488w_647_1hfds_stuctures_table.xlsx',
-    '250u_150r' : '/home/wanglab/wang/pisano/tracing_output/sd_hsv_lob6/sd_hsv_ml150r_250u/ch00_sd_hsv_250up_150r_200msec_z3um_488w_647_1hfds_stuctures_table.xlsx',
-    '500u_300r' : '/home/wanglab/wang/pisano/tracing_output/sd_hsv_lob6/sd_hsv_ml300_500down/ch00_sd_hsv_ml300_500down_488w_561_200msec_z3um_1hfds_stuctures_table.xlsx' }
-    #add '500d_ml' 
-    
-    
-    #using levels
-    generate_multi_radial_plots_using_levels(fls, substructure_name_levels_list = False, title = 'L7-Cre TimeSeries', nametype='name', svlocname = svloc + '/multiradialplot_names.png', remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    generate_multi_radial_plots_using_levels(fls, substructure_name_levels_list = False, title = 'L7-Cre TimeSeries', nametype='acronym', svlocname = svloc + '/multiradialplot_acronyms.png', remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    #using lists
-    generate_multi_radial_plots_using_lists(fls, title_substructure_list = False, title = 'L7-Cre TimeSeries', nametype='acronym', svlocname = svloc + '/multiradialplot_acronyms.png', remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    generate_multi_radial_plots_using_lists(sd_fls, title_substructure_list = False, title = 'SD HSV Lob 6', nametype='acronym', svlocname = svloc + '/multiradialplot_acronyms.png', remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    
-
-#%%
 class structure:
     """Class to represent a brain structure
     """
@@ -142,7 +55,7 @@ class structure:
         self.progeny_pixels.append(nm)
     def create_progenitor_chain(self, lst):
         self.progenitor_chain=lst
-#%%
+
 ####consider making objects and then you can always pull from them easier
 def unusedfunction_currently(excelfl, structure_id, svlocname=None, level=1):
     '''
@@ -183,27 +96,21 @@ def unusedfunction_currently(excelfl, structure_id, svlocname=None, level=1):
         substructures=tmpstructures
         #visualize layers
         print ('\nLevel {}'.format(lvl+1))            
-        print [xx.name for xx in [structures[x] for x in substructures]]
+        print([xx.name for xx in [structures[x] for x in substructures]])
     
     #change structure indexes to structure objects
     substructures=[structures[xx] for xx in substructures]
     print ('\n(Final) Level {}'.format(lvl+1))            
-    print [xx.name for xx in substructures]
+    print([xx.name for xx in substructures])
     
     #append cell counts: if no children take cell count as is, if children: add them to make total cell count for structure
     for substructure in substructures:
-        print substructure.name
-        print substructure.cellcount_progeny
-        print ''
+        print(substructure.name)
+        print(substructure.cellcount_progeny)
     
     return        
     
 
-    
-#%%
-
-#testing:
-#excelfl = '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/l7cre_ts01_20150928_old/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx'
 def make_structure_objects(excelfl, remove_childless_structures_not_repsented_in_ABA = False, ann_pth = None, verbose = False):
     '''function to take an excel fl and returns a list of structure_objects
     _______
@@ -294,7 +201,7 @@ def find_structures_of_given_level(substructure_name, cutofflevel, structures):
     nodelist = list(compress(nodelist, itemstoremove))
     return nodelist
     
-#%%
+
 def child_remover(structures, ann, verbose=False):
     '''helper function to remove childless strucutres not represented in annotated ABA file
     '''        
@@ -326,7 +233,7 @@ def child_remover(structures, ann, verbose=False):
     return nstructures
 
 
-#%%
+
 def find_progeny(struct, df):
     '''find progeny (all sublevels) and cell counts
     
@@ -376,7 +283,7 @@ def create_progenitor_chain(structures, df, verbose = False):
     '''
     new_structures=[]
     for struct in structures:
-        if verbose: print struct.name
+        if verbose: print(struct.name)
         if struct.name == 'root' or struct.name == 'Basic cell groups and regions':
             pass
         else:
@@ -394,14 +301,14 @@ def create_progenitor_chain(structures, df, verbose = False):
             new_structures.append(struct)    
 
     return new_structures
-#%%
+
 def structure_index(structure_id, structurelist):
     '''Function to provide structure index
     '''
     index=[indx for indx, x in enumerate(structurelist) if x.idnum == structure_id]    
     return index[0]
 
-#%%
+
 def make_network(structures, substructure_name = 'root', svlocname = None, graphstyle = 'twopi', showcellcounts = True, cutofflevel=10, font_size = 12, show = False):
     '''use networkx to make network of structures, and each structure has the object in its dictionary
     
@@ -485,7 +392,7 @@ def make_network(structures, substructure_name = 'root', svlocname = None, graph
 ##################################################################
 ##################################################################
 ##################################################################   
-#%%
+
 ##FROM http://datascience.stackexchange.com/questions/6084/how-do-i-create-a-complex-radar-chart
 import numpy as np
 import matplotlib.pyplot as plt
@@ -515,7 +422,7 @@ def _scale_data(data, ranges):
         sdata.append((d-y1) / (y2-y1) 
                      * (x2 - x1) + x1)
     return sdata
-#%%
+
 class ComplexRadar():
     def __init__(self, fig, variables, ranges,
                  n_ordinate_levels=8):
@@ -557,7 +464,7 @@ class ComplexRadar():
         sdata = _scale_data(data, self.ranges)
         self.ax.fill(self.angle, np.r_[sdata, sdata[0]], *args, **kw)
 
-#%%
+
 # plotting
 def make_complex_radar_charts(excelfl = None, structures = None, substructure_name = 'Thalamus', levels = 3, show = True, svlocname = None, nametype = 'name'):
     '''function to generate polar plot
@@ -606,7 +513,7 @@ def make_complex_radar_charts(excelfl = None, structures = None, substructure_na
     if svlocname != None:
         plt.savefig(svlocname)
     return
-#%%
+
 def make_complex_radar_charts_using_list(list_of_structures, excelfl = None, structures = None, show = True, svlocname = None, nametype = 'name'):
     
     ###NOT COMPLETED    
@@ -656,7 +563,7 @@ def make_complex_radar_charts_using_list(list_of_structures, excelfl = None, str
     if svlocname != None:
         plt.savefig(svlocname)
     return
-#%%
+
 
 ##################################################################
 ##################################################################
@@ -666,7 +573,7 @@ def make_complex_radar_charts_using_list(list_of_structures, excelfl = None, str
 ##################################################################   
 
 
-#%%
+
 """
 From: http://matplotlib.org/examples/api/radar_chart.html
 Example of creating a radar chart (a.k.a. a spider or star chart) [1]_.
@@ -905,9 +812,6 @@ def make_grouped_radial_plot(inputdata, colors, titlefont = False, subtitlefont=
 
 
 
-#%%
-
-
 def generate_multi_radial_plots_using_levels(excelfls, substructure_name_levels_list = False, title = False, nametype='name', svlocname = False, remove_childless_structures_not_repsented_in_ABA = False, ann_pth=None, colorlst = False, acronym_name_pair_font = 14, titlefont = 20, subtitlefont = 16, legendfont = 14, labelfont = 20, excelfilekeyword=False):
     '''Function to generate multiple plots
     _______    
@@ -1033,7 +937,8 @@ def generate_multi_radial_plots_using_levels(excelfls, substructure_name_levels_
     make_grouped_radial_plot(inputdata, colorlst, save = svlocname, title=title, add_acronym_name_pairs = add_acronym_name_pairs, acronym_name_pair_font = acronym_name_pair_font, titlefont = titlefont, subtitlefont = subtitlefont, legendfont = legendfont, labelfont = labelfont) 
             
     return
-#%%
+
+
 def variable_count(structures, substructure_name, levels, nametype='name'):
     '''helper function to return list of progeny of a substructure of a given level 
     _______
@@ -1060,12 +965,6 @@ def variable_count(structures, substructure_name, levels, nametype='name'):
     #variables, count = zip(*lst)
     return lst #variables, count 
 
-
-
-
-
-
-#%%
 
 def generate_multi_radial_plots_using_lists(excelfls, title_substructure_list = False, title = False, nametype='name', svlocname = False, remove_childless_structures_not_repsented_in_ABA = False, ann_pth=None, colorlst = False, acronym_name_pair_font = 14, titlefont = 20, subtitlefont = 16, legendfont = 14, labelfont = 20, excelfilekeyword=False):
     '''Function to generate multiple plots using lists
@@ -1229,5 +1128,55 @@ def add_progeny_counts_at_each_level(df, df_pth = '/jukebox/wang/pisano/Python/l
             
     return ddf        
 
+if __name__ == '__main__':    
+    #sns.reset_orig() #w/o you get black and white graphs
+    #testing
+    excelfl = '/home/wanglab/wang/pisano/Python/lightsheet/supp_files/sample_cell_count_output.xlsx'
+    #structure_id= 549 #Thalamus's id NOT atlas_id
+    ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
+    
+    #load    
+    df = pd.read_excel(excelfl)
+
+    #generate objects:
+    from tools.analysis.network_analysis import make_structure_objects
+    structures = make_structure_objects(excelfl, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
+    #thal = [xx for xx in structures if 'Thalamus' == xx.name][0]
+    
+    #make networkx graphs    
+    make_network(structures, substructure_name = 'Thalamus', graphstyle = 'twopi', showcellcounts = True, cutofflevel=3, font_size = 11, show = True)        
+    make_network(structures, substructure_name = 'Cerebral cortex', graphstyle = 'twopi', showcellcounts = True, cutofflevel=3, font_size = 11, show = True)
+    make_network(structures, substructure_name = 'Cerebellum', graphstyle = 'twopi', showcellcounts = True, cutofflevel=3, font_size = 13, show = True)    
+
+    #save networkx graphs
+    svlocname = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/networkx_no_childless_structures'
+    make_network(structures, substructure_name = 'Thalamus', svlocname = svlocname + '/_Thalamus_lvl2.png', graphstyle = 'twopi', cutofflevel=2, show = True)
+    #[make_network(structures, substructure_name = 'Thalamus', svlocname = svlocname + '/_Thalamus_lvl2_{}.png'.format(xx), graphstyle = xx, cutofflevel=2, show = True) for xx in ['dot', 'neato', 'fdp', 'sfdp', 'twopi', 'circo']]
+    make_network(structures, substructure_name = 'Cerebral cortex', svlocname = svlocname+'/_Cerebral_cortex_lvl3.png', graphstyle = 'twopi', cutofflevel=3, show = True)
+    make_network(structures, substructure_name = 'Cerebellum', svlocname = svlocname+'/_Cerebellum_lvl3.png', graphstyle = 'twopi', cutofflevel=3, show = True)
+
+    import seaborn as sns    #do not move - it messes up make_network
+    ##########################
+    #make single radial graphs
+    excelfl = '/home/wanglab/wang/pisano/tracing_output/l7cre_ts/ch00_l7cre_ts01_20150928_005na_z3um_1hfds_488w_647_200msec_5ovlp_stuctures_table.xlsx'
+    ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
+    svlocname = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/Radial_plots/examples'
+    svlocname = '/home/wanglab/wang/pisano/Submissions+Presentations/Presentations/Current_pres/Radial_plots/children_removed/acronyms'
+    structures = make_structure_objects(excelfl)
+    structures = make_structure_objects(excelfl, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
+    nametype = 'acronym' #'name'
+    
+    #thalamus
+    make_complex_radar_charts(structures = structures, substructure_name = 'Thalamus', levels = 2, show = False, svlocname = svlocname + '/radialplot_thalamus_lvl2.png', nametype = nametype)    
+    make_complex_radar_charts(structures = structures, substructure_name = 'Thalamus', levels = 3, show = False, svlocname = svlocname + '/radialplot_thalamus_lvl3.png', nametype = nametype)
+    make_complex_radar_charts(structures = structures, substructure_name = 'Thalamus', levels = 4, show = False, svlocname = svlocname + '/radialplot_thalamus_lvl4.png', nametype = nametype)
+    #neocortex
+    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebral cortex', levels = 2, show = False, svlocname = svlocname + '/radialplot_cerebralcortex_lvl2.png', nametype = nametype)    
+    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebral cortex', levels = 3, show = False, svlocname = svlocname + '/radialplot_cerebralcortex_lvl3.png', nametype = nametype)    
+    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebral cortex', levels = 4, show = False, svlocname = svlocname + '/radialplot_cerebralcortex_lvl4.png', nametype = nametype)    
+    #cerebellum
+    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebellum', levels = 2, show = False, svlocname = svlocname + '/radialplot_cb_lvl2.png', nametype = nametype)        
+    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebellum', levels = 3, show = False, svlocname = svlocname + '/radialplot_cb_lvl3.png', nametype = nametype)    
+    make_complex_radar_charts(structures = structures, substructure_name = 'Cerebellum', levels = 4, show = False, svlocname = svlocname + '/radialplot_cb_lvl4.png', nametype = nametype)    
 
 

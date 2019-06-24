@@ -8,28 +8,13 @@ Created on Fri Apr 13 13:57:20 2018
 
 import os, sys, numpy as np, time, gc, copy, multiprocessing as mp, shutil
 from tools.objectdetection.train_random_forest import get_pixels_around_center_mem_eff
-from tools.utils.io import makedir, chunkit, load_np, load_dictionary, save_dictionary, listdirfull, load_kwargs
+from tools.utils.io import makedir, load_dictionary, save_dictionary, listdirfull
 from scipy.ndimage.measurements import label, center_of_mass
 from scipy.ndimage import find_objects, distance_transform_edt
 from tools.objectdetection.postprocess_cnn import load_tiff_folder
 from sklearn.externals import joblib
 
-if __name__ == '__main__':
-    from tools.objectdetection.random_forest import apply_classifier
-    #dst = '/home/wanglab/wang/pisano/tracing_output/antero_4x/20161214_db_bl6_crii_l_53hr/cells/20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00'
-    classifier = '/home/wanglab/wang/pisano/Python/lightsheet/supp_files/h129_rf_classifier.pkl'
-    cnn_src = '/home/wanglab/wang/pisano/tracing_output/antero_4x/20161214_db_bl6_crii_l_53hr/cells/20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00_cnn_output'
-    raw_src =  '/home/wanglab/wang/pisano/tracing_output/antero_4x/20161214_db_bl6_crii_l_53hr/full_sizedatafld/20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00'
-    
-    out = apply_classifier(classifier, raw_src, cnn_src, size = (7,50,50), pad=False, cores=10, numZSlicesPerSplit=25, overlapping_planes = 10, verbose=True)
-    
-    
-    #check
-    from tools.conv_net.functions.dilation import dilate_with_element, generate_arr_from_pnts_and_dims, ball
-    pnts = [tuple((xx[0] - z, xx[1], xx[2])) for xx in out.keys()] #z in the from below eg 230
-    arr1 = dilate_with_element(generate_arr_from_pnts_and_dims(pnts, dims = (40, 7422, 6262)), selem=ball(5))
 
-#%%
 def apply_classifier(classifier, raw_src, cnn_src, collect_cnn = False, size = (3,12,12), pad=False, cores=10, numZSlicesPerSplit=50, overlapping_planes = 15, verbose=True, save=True, maxip=0):
     '''
     classifier = pretrained random forest or path to pretrained random forest
@@ -65,7 +50,7 @@ def apply_classifier(classifier, raw_src, cnn_src, collect_cnn = False, size = (
     #par vs not par
     if cores > 1:
         p = mp.Pool(cores)
-        center_pixels_intensity_radius_lst = p.map(apply_classifier_helper, iterlst)
+        center_pixels_intensity_radius_lst = p.starmap(apply_classifier_helper, iterlst)
         p.terminate()
     else:
         center_pixels_intensity_radius_lst = []
@@ -86,7 +71,7 @@ def apply_classifier(classifier, raw_src, cnn_src, collect_cnn = False, size = (
 
     return center_pixels_intensity_radius_dct
 
-def apply_classifier_helper((cnn_src, raw_src, collect_cnn, z, zdim, numZSlicesPerSplit, overlapping_planes, threshold, classifier, size, zyx_search_range, pad, job, jobs, verbose, save, maxip)):
+def apply_classifier_helper(cnn_src, raw_src, collect_cnn, z, zdim, numZSlicesPerSplit, overlapping_planes, threshold, classifier, size, zyx_search_range, pad, job, jobs, verbose, save, maxip):
     '''
     '''
     #don't run if already there....
@@ -220,3 +205,18 @@ def find_radius(centers, labels):
         dct[cen] = [np.max(xx).astype('float16') for xx in distance_transform_edt(arr)]
     return dct
 
+
+if __name__ == '__main__':
+    from tools.objectdetection.random_forest import apply_classifier
+    #dst = '/home/wanglab/wang/pisano/tracing_output/antero_4x/20161214_db_bl6_crii_l_53hr/cells/20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00'
+    classifier = '/home/wanglab/wang/pisano/Python/lightsheet/supp_files/h129_rf_classifier.pkl'
+    cnn_src = '/home/wanglab/wang/pisano/tracing_output/antero_4x/20161214_db_bl6_crii_l_53hr/cells/20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00_cnn_output'
+    raw_src =  '/home/wanglab/wang/pisano/tracing_output/antero_4x/20161214_db_bl6_crii_l_53hr/full_sizedatafld/20161214_db_bl6_crii_l_53hr_647_010na_z7d5um_75msec_5POVLP_ch00'
+    
+    out = apply_classifier(classifier, raw_src, cnn_src, size = (7,50,50), pad=False, cores=10, numZSlicesPerSplit=25, overlapping_planes = 10, verbose=True)
+    
+    
+    #check
+    from tools.conv_net.functions.dilation import dilate_with_element, generate_arr_from_pnts_and_dims, ball
+    pnts = [tuple((xx[0] - z, xx[1], xx[2])) for xx in out.keys()] #z in the from below eg 230
+    arr1 = dilate_with_element(generate_arr_from_pnts_and_dims(pnts, dims = (40, 7422, 6262)), selem=ball(5))

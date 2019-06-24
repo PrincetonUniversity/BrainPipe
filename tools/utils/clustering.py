@@ -1,31 +1,10 @@
 from sklearn import cluster
 from scipy.spatial import distance
 import sklearn.datasets
-from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 import numpy as np
 
-if __name__ == '__main__':
-    
-    # IRIS DATA
-    iris = sklearn.datasets.load_iris()
-    X = iris.data[:, :4]  # extract only the features
-    #Xs = StandardScaler().fit_transform(X)
-    Y = iris.target
-    
-    ks = range(1,25)
-    
-    # run 9 times kmeans and save each result in the KMeans object
-    KMeans = [cluster.KMeans(n_clusters = i, init="k-means++").fit(X) for i in ks]
-    
-    # now run for each cluster the BIC computation
-    BIC = [compute_bic(kmeansi,X) for kmeansi in KMeans]
-    
-    print BIC
-    
-    plt.plot(BIC)
 
-
-#%%
 def compute_bic(kmeans,X):
     """
     
@@ -84,5 +63,24 @@ def silhouette_score(X, rng = (2,30)):
     return s
 
 
+if __name__ == '__main__':
+    
+    # IRIS DATA
+    iris = sklearn.datasets.load_iris()
+    X = iris.data[:, :4]  # extract only the features
+    #Xs = StandardScaler().fit_transform(X)
+    Y = iris.target
+    
+    ks = range(1,25)
+    
+    # run 9 times kmeans and save each result in the KMeans object
+    KMeans = [cluster.KMeans(n_clusters = i, init="k-means++").fit(X) for i in ks]
+    
+    # now run for each cluster the BIC computation
+    BIC = [compute_bic(kmeansi,X) for kmeansi in KMeans]
+    
+    print(BIC)
+    
+    plt.plot(BIC)
 
 
