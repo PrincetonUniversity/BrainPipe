@@ -93,16 +93,28 @@ Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net
 
 # *Descriptions of important files*:
 
-* `sub_registration.sh` or `sub_registration_terastitcher.sh`
+* `sub_registration.sh` or `sub_registration_terastitcher.sh`:
 	* `.sh` file to be used to submit to a slurm scheduler
 	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to `run_tracing.py`:
 		* `stepid` = controlling which 'step' to run
 		* `jobid` = controlling which the jobid (iteration) of each step
 	* Steps:
 		* `0`: set up dictionary and save; requires a single job (jobid=0)
-		* `1`: process (stitch, resize, 2D cell detect, etc) zplns (using tpisano lightsheet package), ensure that 1000 > zplns/slurmfactor. Typically submit 1000 jobs (jobid=0-1000)
+		* `1`: process (stitch, resize) zplns, ensure that 1000 > zplns/slurmfactor. typically submit 80 jobs for LBVT (jobid=0-80).
 		* `2`: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
 		* `3`: registration via elastix
+
+* `sub_main_tracing.sh`:
+	* `.sh` file to be used to submit to a slurm scheduler
+	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to `run_tracing.py` AND `cell_detect.py`:
+		* `stepid` = controlling which 'step' to run
+		* `jobid` = controlling which the jobid (iteration) of each step
+	* Steps:
+		* `0`: set up dictionary and save; requires a single job (jobid=0)
+		* `1`: process (stitch, resize) zplns, ensure that 1000 > zplns/slurmfactor. typically submit 80 jobs for LBVT (jobid=0-80).
+		* `2`: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
+		* `3`: registration via elastix
+		* `cnn_preprocess.sh` (will add to this)
 
 * `run_tracing.py`:
 	* `.py` file to be used to manage the parallelization to a SLURM cluster
