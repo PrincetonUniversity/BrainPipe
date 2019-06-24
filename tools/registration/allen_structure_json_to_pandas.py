@@ -16,151 +16,6 @@ import SimpleITK as sitk
 from collections import Counter
 
 
-#%%testing
-if __name__ == '__main__':    
-    
-    if False: #do once
-        #20180913 - remake with new annotations
-        #http://api.brain-map.org/api/v2/structure_graph_download/1.json
-        from tools.registration.allen_structure_json_to_pandas import *
-        pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table2.json'
-        pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.json'
-        save = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
-        allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=save)
-        #need to rename columns - since it's backwards
-        df = pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
-        df = df.rename(columns={'parent_acronym':'parent_name', 'parent_name': 'parent_acronym'})
-        #fix parent acronym and names
-        for i,row in df.iterrows():
-            if i!=0:df.loc[i, ['parent_name','parent_acronym']] = df[df.id==int(row['parent_structure_id'])][['name', 'acronym']].values[0]
-        df.to_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
-        
-        #add in voxel counts
-        from tools.analysis.network_analysis import make_structure_objects
-        ann_pth = '/jukebox/wang/pisano/Python/allenatlas/annotation_template_25_sagittal.tif'
-        df_pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
-        structures = make_structure_objects(df_pth, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-        ann = tifffile.imread(ann_pth)
-        df = pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
-        df['voxels_in_structure'] = 0.0
-        for s in structures:
-            print(s.name)
-            df.loc[df.name==s.name, 'voxels_in_structure']=len(np.where(ann==s.idnum)[0])     
-        df.to_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table_w_voxelcounts.xlsx')
-        
-    
-    df=pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')    
-    ###search for structure using ID not atlas ID:
-    df[df.name.str.contains('Caudoputamen')]
-    ###or
-    df[df.name=='Caudoputamen']
-    ###or
-    df[df.acronym=='VTA']
-    
-    ####scripts to isolate structures and overlay them
-    #####
-    #####NOTE ANNOTATION FILES HAVE BEEN UPDATED MAKE SURE USING CURRENT ANN/ATLAS FILES
-    #####
-    from tools.registration.allen_structure_json_to_pandas import *
-    pth='/jukebox/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
-    AtlasFile='/jukebox/wang/pisano/Python/allenatlas/average_template_25_sagittal.tif'
-    svlc='/jukebox/wang/pisano/tracing_output/analysis/outlines'
-    #TP atlas
-    pth = '/jukebox/wang/pisano/Python/atlas/annotation_sagittal_atlas_20um_iso.tif'
-    svlc = '/jukebox/wang/seagravesk/lightsheet/registration_tools'
-    AtlasFile = '/jukebox/wang/pisano/Python/atlas/sagittal_atlas_20um_iso.tif'
-    
-    ###ACC    
-    lst=[31, 572, 1053, 739, 179, 227, 39, 935, 211, 1015, 919,927,48,588,296,772,810,819]
-    nm_to_sv='ACC'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    
-    #Amygdala
-    lst = df[df.name.str.contains('amygdalar')].id.tolist()
-    nm_to_sv='Amygdala'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #Central Amyg
-    lst = df[df.name.str.contains('Central amygdalar')].id.tolist()
-    nm_to_sv='Central_Amygdala'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)    
-     
-    ###Lob6    
-    lst=[936,10725,10724,10723]
-    nm_to_sv='Lob6'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #sitk.Show(sitk.GetImageFromArray(im))
-    ###lob7:
-    lst=[944,10728,10727,10726]
-    nm_to_sv='Lob7'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    ##ansiform lobule: 1017
-    ###CrI,II turns out they don't actually have them separated
-    lst=[1017, 1056, 10677,10676,10675, 1064,10680,10679,10678] 
-    nm_to_sv='CrI,II'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    ##MDT
-    lst = [617, 1077, 366, 362, 59, 636, 626]
-    nm_to_sv='Medial group of the dorsal thalamus'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    ##VTA
-    lst = [749]
-    nm_to_sv='Ventral Tegmental Area'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    ##SNc
-    lst = [381, 616, 374]
-    nm_to_sv='Substantia Nigra'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    ##CrI
-    lst = [1056]
-    nm_to_sv='Crus I'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    ##PFC
-    lst = [972, 171, 195, 304, 363, 84, 132]
-    nm_to_sv='PFC'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #vestibular nucs
-    lst = [640, 209, 202, 225, 217]
-    nm_to_sv='Vestibular Nuclei'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #Pedunculopontine nucleus 
-    lst = [1052]
-    nm_to_sv='Pedunculopontine nucleus'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #Laterodorsal tegmental nucleus
-    lst = [162]
-    nm_to_sv='Laterodorsal tegmental nucleus'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #Pontine Central Gray
-    lst = [892]
-    nm_to_sv='Pontine Central Gray'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    #Pontine Reticular Nucs
-    lst = [1093, 552, 146]
-    nm_to_sv='Pontine Reticular Nucs'
-    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
-    
-if __name__=='__main__':
-    allen_id_table = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
-    annotation_value_to_structure(allen_id_table, [235, 345])
-    
-    #make annotation of stretched colors given a list
-    nann, lst = isolate_structures_return_list(allen_id_table, ann, [1.0, 2.0, 4.0, 6.0])
-    #nann, lst = isolate_structures_return_list(allen_id_table, ann,  list(np.unique(sitk.GetArrayFromImage(sitk.ReadImage(ann))[100:175].ravel().astype('float64'))))
-
-    #the args given will return zero :/
-    lst = annotation_location_to_structure(allen_id_table, args=[(0, 77, 303), (0, 77, 304), (0, 78, 302)])
-    
-    #find area
-    from tools.analysis.network_analysis import make_structure_objects
-    ann_pth = '/jukebox/wang/pisano/Python/atlas/annotation_sagittal_atlas_20um_iso.tif'
-    df_pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/ls_id_table_w_voxelcounts.xlsx'
-    df = pd.read_excel(df_pth)
-    structures = make_structure_objects(df_pth, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
-    thal_ids=[xx.idnum for xx in structures if 'Thalamus' in xx.progenitor_chain]
-
-    
-#%%
-
 def allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=False):    
     '''simple function to pull; this version prunes and cleans more
     ****prune should equal true for compatibility with other functions in package****
@@ -324,7 +179,7 @@ def annotation_value_to_structure(allen_id_table, args):
         return str(list(df.name[df.id==args])[0])
     else:
         args = [int(i) for i in args if int(i) != 0]
-        print [i for i in args if i not in df.id]
+        print([i for i in args if i not in df.id])
         return [(i, str(list(df.name[df.id==i])[0])) for i in args if i in df.id]
 
 def annotation_location_to_structure(id_table, args, ann=False):
@@ -360,8 +215,8 @@ def annotation_location_to_structure(id_table, args, ann=False):
     for k,v in c.iteritems():
         try:
             lst.append((v, str(list(df.name[df.id==k])[0])))
-        except Exception, e:
-            print 'Removing {}, as generating this error: {}'.format(k, e)
+        except Exception as e:
+            print('Removing {}, as generating this error: {}'.format(k, e))
 
         
     #[(v, str(list(df.name[df.id==k])[0])) for k,v in c.iteritems()]
@@ -445,8 +300,8 @@ def consolidate_parents_structures(allen_id_table, ann, namelist, verbose=False)
             nann[np.where(ann==int(s.idnum))] = cmap[i]
             for ii in s.progeny: 
                 if ii[3] != 'null': nann[np.where(ann==int(ii[3]))] = cmap[i]
-        except Exception,e:
-            print nm, e
+        except Exception as e:
+            print(nm, e)
     #sitk.Show(sitk.GetImageFromArray(nann))
             
     return nann, zip(cmap[:], namelist)
@@ -492,8 +347,149 @@ def consolidate_parents_structures_OLD(allen_id_table, ann, namelist, verbose=Fa
             nann[np.where(ann==int(s.idnum))] = cmap[i+1]
             for ii in s.progeny: 
                 if ii[3] != 'null': nann[np.where(ann==int(ii[3]))] = cmap[i+1]
-        except Exception,e:
-            print nm, e
+        except Exception as e:
+            print(nm, e)
     #sitk.Show(sitk.GetImageFromArray(nann))
             
     return nann, zip(cmap[1:], namelist)
+
+if __name__ == '__main__':    
+    
+    if False: #do once
+        #20180913 - remake with new annotations
+        #http://api.brain-map.org/api/v2/structure_graph_download/1.json
+        from tools.registration.allen_structure_json_to_pandas import *
+        pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table2.json'
+        pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.json'
+        save = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
+        allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=save)
+        #need to rename columns - since it's backwards
+        df = pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
+        df = df.rename(columns={'parent_acronym':'parent_name', 'parent_name': 'parent_acronym'})
+        #fix parent acronym and names
+        for i,row in df.iterrows():
+            if i!=0:df.loc[i, ['parent_name','parent_acronym']] = df[df.id==int(row['parent_structure_id'])][['name', 'acronym']].values[0]
+        df.to_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
+        
+        #add in voxel counts
+        from tools.analysis.network_analysis import make_structure_objects
+        ann_pth = '/jukebox/wang/pisano/Python/allenatlas/annotation_template_25_sagittal.tif'
+        df_pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
+        structures = make_structure_objects(df_pth, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
+        ann = tifffile.imread(ann_pth)
+        df = pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
+        df['voxels_in_structure'] = 0.0
+        for s in structures:
+            print(s.name)
+            df.loc[df.name==s.name, 'voxels_in_structure']=len(np.where(ann==s.idnum)[0])     
+        df.to_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table_w_voxelcounts.xlsx')
+        
+    
+    df=pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')    
+    ###search for structure using ID not atlas ID:
+    df[df.name.str.contains('Caudoputamen')]
+    ###or
+    df[df.name=='Caudoputamen']
+    ###or
+    df[df.acronym=='VTA']
+    
+    ####scripts to isolate structures and overlay them
+    #####
+    #####NOTE ANNOTATION FILES HAVE BEEN UPDATED MAKE SURE USING CURRENT ANN/ATLAS FILES
+    #####
+    from tools.registration.allen_structure_json_to_pandas import *
+    pth='/jukebox/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
+    AtlasFile='/jukebox/wang/pisano/Python/allenatlas/average_template_25_sagittal.tif'
+    svlc='/jukebox/wang/pisano/tracing_output/analysis/outlines'
+    #TP atlas
+    pth = '/jukebox/wang/pisano/Python/atlas/annotation_sagittal_atlas_20um_iso.tif'
+    svlc = '/jukebox/wang/seagravesk/lightsheet/registration_tools'
+    AtlasFile = '/jukebox/wang/pisano/Python/atlas/sagittal_atlas_20um_iso.tif'
+    
+    ###ACC    
+    lst=[31, 572, 1053, 739, 179, 227, 39, 935, 211, 1015, 919,927,48,588,296,772,810,819]
+    nm_to_sv='ACC'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    
+    #Amygdala
+    lst = df[df.name.str.contains('amygdalar')].id.tolist()
+    nm_to_sv='Amygdala'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #Central Amyg
+    lst = df[df.name.str.contains('Central amygdalar')].id.tolist()
+    nm_to_sv='Central_Amygdala'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)    
+     
+    ###Lob6    
+    lst=[936,10725,10724,10723]
+    nm_to_sv='Lob6'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #sitk.Show(sitk.GetImageFromArray(im))
+    ###lob7:
+    lst=[944,10728,10727,10726]
+    nm_to_sv='Lob7'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    ##ansiform lobule: 1017
+    ###CrI,II turns out they don't actually have them separated
+    lst=[1017, 1056, 10677,10676,10675, 1064,10680,10679,10678] 
+    nm_to_sv='CrI,II'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    ##MDT
+    lst = [617, 1077, 366, 362, 59, 636, 626]
+    nm_to_sv='Medial group of the dorsal thalamus'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    ##VTA
+    lst = [749]
+    nm_to_sv='Ventral Tegmental Area'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    ##SNc
+    lst = [381, 616, 374]
+    nm_to_sv='Substantia Nigra'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    ##CrI
+    lst = [1056]
+    nm_to_sv='Crus I'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    ##PFC
+    lst = [972, 171, 195, 304, 363, 84, 132]
+    nm_to_sv='PFC'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #vestibular nucs
+    lst = [640, 209, 202, 225, 217]
+    nm_to_sv='Vestibular Nuclei'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #Pedunculopontine nucleus 
+    lst = [1052]
+    nm_to_sv='Pedunculopontine nucleus'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #Laterodorsal tegmental nucleus
+    lst = [162]
+    nm_to_sv='Laterodorsal tegmental nucleus'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #Pontine Central Gray
+    lst = [892]
+    nm_to_sv='Pontine Central Gray'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    #Pontine Reticular Nucs
+    lst = [1093, 552, 146]
+    nm_to_sv='Pontine Reticular Nucs'
+    isolate_and_overlay(pth, AtlasFile, svlc, nm_to_sv, *lst)
+    
+if __name__=='__main__':
+    allen_id_table = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
+    annotation_value_to_structure(allen_id_table, [235, 345])
+    
+    #make annotation of stretched colors given a list
+    nann, lst = isolate_structures_return_list(allen_id_table, ann, [1.0, 2.0, 4.0, 6.0])
+    #nann, lst = isolate_structures_return_list(allen_id_table, ann,  list(np.unique(sitk.GetArrayFromImage(sitk.ReadImage(ann))[100:175].ravel().astype('float64'))))
+
+    #the args given will return zero :/
+    lst = annotation_location_to_structure(allen_id_table, args=[(0, 77, 303), (0, 77, 304), (0, 78, 302)])
+    
+    #find area
+    from tools.analysis.network_analysis import make_structure_objects
+    ann_pth = '/jukebox/wang/pisano/Python/atlas/annotation_sagittal_atlas_20um_iso.tif'
+    df_pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/ls_id_table_w_voxelcounts.xlsx'
+    df = pd.read_excel(df_pth)
+    structures = make_structure_objects(df_pth, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
+    thal_ids=[xx.idnum for xx in structures if 'Thalamus' in xx.progenitor_chain]

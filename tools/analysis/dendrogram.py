@@ -4,97 +4,16 @@ Created on Tue Aug 16 18:37:06 2016
 
 @author: wanglab
 """
-from tools.utils.io import makedir, listdirfull, makedir, removedir, chunkit, writer, load_kwargs
-from tools.utils.directorydeterminer import directorydeterminer
-from tools.analysis.network_analysis import generate_multi_radial_plots_using_lists, make_structure_objects, variable_count
-from tools.analysis.visualize_injection import generate_inj_fig_multi, generate_inj_fig_multi_alpha
+from tools.utils.io import listdirfull
+from tools.analysis.network_analysis import make_structure_objects, variable_count
 from tools.utils import find_all_brains
-from tools.registration.allen_structure_json_to_pandas import isolate_structures
-#import plotly.plotly as py
-#from plotly.graph_objs import *
-#from plotly.tools import FigureFactory as FF
 import numpy as np, os, cPickle as pickle, multiprocessing as mp, pandas as pd, sys, seaborn as sns
-#from scipy.spatial.distance import pdist, squareform
 import matplotlib.pyplot as plt
 
 def pth_update(inn):
     '''dummy function since we dont' need it and too lazy to fix'''
     return inn
-#%%
 
-if __name__ == '__main__':
-    #testing
-    tracing_output_fld = '/home/wanglab/wang/pisano/tracing_output'
-    #ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015_reflectedhorizontally.nrrd'
-    lob6 = [xx for xx in find_all_brains(tracing_output_fld) if 'sd_hsv_lob6' in xx]; lob6.sort()
-    names = ['Lob6 250U 1050R','Lob6 250U 750R', 'Lob6 500U 900R', 'Lob6 500D ML0', 'Lob6 250U 150R', 'Lob6 500D 300R', 'Lob6 250U 450R']
-    lob6dct = dict(zip(names, lob6))
-
-    #tmp
-    del lob6dct['Lob6 500D ML0']
-    
-    #
-    svlc = '/home/wanglab/wang/pisano/tracing_output/analysis/dendrograms/sd_lob6'
-    cores = 7
-    list_or_levels = 3 #can ==False
-    title = 'SD HSV Lob6'
-    pths = lob6dct
-    #per brain
-    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels=2, title = title) for structure_of_interest in ['Thalamus', 'Isocortex']]
-    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels = list_or_levels, title = title) for structure_of_interest in ['Hypothalamus', 'Cerebellum', 'Cerebral nuclei', 'Hippocampal region', 'Hindbrain', 'Interbrain', 'Brain stem', 'Midbrain', 'Medulla', 'Pons', 'Cortical subplate']]
-    
-    #vs cerebellar structure (you will need to look at how to determine cb counts and boolean_for_cb)
-    dendrogram_structures_vs_cerebellum(cores, pths, svlc, 'Thalamus', list_or_levels, boolean_for_cb = True, title = title, nametype = 'name')
-
-    #using lists:
-    list_or_levels = ['Anterior cingulate area','Substantia nigra, reticular part', 'Visual areas', 'Somatosensory areas','Hippocampal region','Frontal pole, cerebral cortex','Striatum ventral region','Infralimbic area','Pallidum, dorsal region', 'Prelimbic area','Midbrain raphe nuclei','Retrosplenial area','Somatomotor areas','Red nucleus','Lateral septal complex','Thalamus, polymodal association cortex related','Temporal association areas','Ectorhinal area','Gustatory areas','Striatum-like amygdalar nuclei','Orbital area','Visceral area','Perirhinal area','Posterior parietal association areas','Ventral tegmental area','Claustrum','Pallidum','Pedunculopontine nucleus','Periaqueductal gray','Substantia nigra, compact part','Agranular insular area','Auditory areas','Thalamus, sensory-motor cortex related', 'Hypothalamus','Nucleus of Darkschewitsch']
-    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, title = 'SD HSV Lob6 Selected Structures', list_or_levels=list_or_levels) for structure_of_interest in ['Selected Structures']]    
-    dendrogram_structures_vs_cerebellum(cores, pths, svlc, 'Selected Structures', list_or_levels, boolean_for_cb = True, title = 'SD HSV Lob6 Selected Structures', nametype = 'name')
-    
-    #different metrics   
-    svlc = '/home/wanglab/wang/pisano/tracing_output/analysis/dendrograms/metrics'
-    [dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = metric) for metric in ['euclidean', 'minkowski', 'cityblock', 'seuclidean', 'sqeuclidean', 'cosine', 'correlation', 'hamming', 'jaccard', 'chebyshev', 'canberra', 'braycurtis']]
-    [dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = metric) for metric in ['matching', 'dice', 'kulsinski', 'rogerstanimoto', 'sokalmichener', 'sokalsneath', 'wminkowski']]
-    #[dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = metric) for metric in ['euclidean', 'minkowski', 'cityblock', 'seuclidean', 'sqeuclidean', 'cosine', 'correlation', 'hamming', 'jaccard', 'chebyshev', 'canberra', 'braycurtis', 'mahalanobis', 'yule', 'matching', 'dice', 'kulsinski', 'rogerstanimoto', 'sokalmichener', 'sokalsneath', 'wminkowski']]
-    
-    #colorlst:
-    colorlst = ['darksalmon', 'lightgreen', 'skyblue', 'b', 'r', 'g', 'm', 'y', 'c', 'darkturquoise', 'lime', 'firebrick', 'cyan', 'violet', 'darkgreen', 'g', 'r', 'b']
-    nmcolorlst = zip(pths.keys(), colorlst)
-    dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = 'cityblock', nmcolorlst = nmcolorlst) 
-#%% 
-if __name__ == '__main__':
-    #just find all brains:
-    svlc='/home/wanglab/wang/pisano/tracing_output/analysis/L7CreTS'    
-    ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015_reflectedhorizontally.nrrd'
-    l7s = [xx for xx in find_all_brains(tracing_output_fld) if 'l7cre_ts' in xx]; l7s.sort()
-    
-    ###setup:
-    names = ['L7-Cre 42 hrs', 'L7-Cre 50 hrs', 'L7-Cre 38 hrs', 'L7-Cre 57 hrs', 'L7-Cre 70 hrs', 'L7-Cre 58 hrs', 'L7-Cre 64 hrs']
-    l7dct = dict(zip(names, l7s))
-
-    #tmp    
-    del l7dct['L7-Cre 57 hrs']
-    del l7dct['L7-Cre 64 hrs']
-
-    svlc = '/home/wanglab/wang/pisano/tracing_output/analysis/dendrograms/l7cre'
-    cores = 7
-    list_or_levels = 3 #can ==False
-    title = 'L7 Cre Timeseries'
-    pths = l7dct
-    #per brain
-    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels=2, title = title) for structure_of_interest in ['Thalamus', 'Isocortex']]
-    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels = list_or_levels, title = title) for structure_of_interest in ['Hypothalamus', 'Cerebellum', 'Cerebral nuclei', 'Hippocampal region', 'Hindbrain', 'Interbrain', 'Brain stem', 'Midbrain', 'Medulla', 'Pons', 'Cortical subplate']]
-    
-    #vs cerebellar structure (you will need to look at how to determine cb counts and boolean_for_cb)
-    dendrogram_structures_vs_cerebellum(cores, pths, svlc, 'Thalamus', list_or_levels, boolean_for_cb = True, title = title, nametype = 'name')
-
-    #using lists:
-    list_or_levels = ['Anterior cingulate area','Substantia nigra, reticular part', 'Visual areas', 'Somatosensory areas','Hippocampal region','Frontal pole, cerebral cortex','Striatum ventral region','Infralimbic area','Pallidum, dorsal region', 'Prelimbic area','Midbrain raphe nuclei','Retrosplenial area','Somatomotor areas','Red nucleus','Lateral septal complex','Thalamus, polymodal association cortex related','Temporal association areas','Ectorhinal area','Gustatory areas','Striatum-like amygdalar nuclei','Orbital area','Visceral area','Perirhinal area','Posterior parietal association areas','Ventral tegmental area','Claustrum','Pallidum','Pedunculopontine nucleus','Periaqueductal gray','Substantia nigra, compact part','Agranular insular area','Auditory areas','Thalamus, sensory-motor cortex related', 'Hypothalamus','Nucleus of Darkschewitsch']
-    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, title = 'SD HSV Lob6 Selected Structures', list_or_levels=list_or_levels) for structure_of_interest in ['Selected Structures']]    
-    dendrogram_structures_vs_cerebellum(cores, pths, svlc, 'Selected Structures', list_or_levels, boolean_for_cb = False, title = 'SD HSV Lob6 Selected Structures', nametype = 'name', metric = 'minkowski')
-    
-    
-#%%
 def dendrogram_structures_vs_cerebellum(cores, pths, svlc, structure_of_interest, list_or_levels=False, boolean_for_cb = True, title=False, nametype = 'name', ann_pth=False, metric = False, method = False, cb_structures = False, analysismethod='division', return_arrays_only = False):
     '''Function to make seaborn dendrograms. y axis is progeny of structure_of_interest, x axis is added counts for cerebellar areas
     
@@ -142,7 +61,7 @@ def dendrogram_structures_vs_cerebellum(cores, pths, svlc, structure_of_interest
     sys.stdout.write('\nStarting parallelization for {}: ~2mins...'.format(structure_of_interest)) 
     p=mp.Pool(cores)
     iterlst=[]; [iterlst.append((ann_pth, structure_of_interest, name, pth, nametype, list_or_levels)) for name, pth in pths.iteritems()]
-    nlst = p.map(make_acronym_count_dictionary, iterlst); nlst.sort()
+    nlst = p.starmap(make_acronym_count_dictionary, iterlst); nlst.sort()
     p.terminate()
     sys.stdout.write('done') 
 
@@ -164,7 +83,7 @@ def dendrogram_structures_vs_cerebellum(cores, pths, svlc, structure_of_interest
     sys.stdout.write('\nStarting parallelization for Cerebellum: ~2mins...'.format(structure_of_interest)) 
     p=mp.Pool(cores); cb_levels = 3
     iterlst=[]; [iterlst.append((ann_pth, 'Cerebellum', name, pth, nametype, cb_levels)) for name, pth in pths.iteritems()]
-    cblst = p.map(make_acronym_count_dictionary, iterlst); cblst.sort()
+    cblst = p.starmap(make_acronym_count_dictionary, iterlst); cblst.sort()
     p.terminate()
     sys.stdout.write('done') 
     
@@ -275,8 +194,7 @@ def dendrogram_structures_vs_cerebellum(cores, pths, svlc, structure_of_interest
     
     return 
     
-    
-#%%
+
 def dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels = False, title=False, nametype = 'name', ann_pth = False, metric = False, method=False, nmcolorlst = False):
     '''Function to make seaborn dendrograms. y axis is progeny of structure_of_interest, x axis is brains
     
@@ -312,7 +230,7 @@ def dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, lis
     sys.stdout.write('\nStarting parallelization for {}: ~2mins...'.format(structure_of_interest)) 
     p=mp.Pool(cores)
     iterlst=[]; [iterlst.append((ann_pth, structure_of_interest, name, pth, nametype, list_or_levels)) for name, pth in pths.iteritems()]
-    nlst = p.map(make_acronym_count_dictionary, iterlst); nlst.sort()
+    nlst = p.starmap(make_acronym_count_dictionary, iterlst); nlst.sort()
     p.terminate()
     sys.stdout.write('done') 
     
@@ -399,7 +317,7 @@ def dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, lis
 
 #%%
 
-def make_acronym_count_dictionary((ann_pth, structure_of_interest, name, pth, nametype, list_or_levels)):
+def make_acronym_count_dictionary(ann_pth, structure_of_interest, name, pth, nametype, list_or_levels):
     
     '''Helper function for parallelization of structures counts
     
@@ -457,9 +375,7 @@ def make_acronym_count_dictionary((ann_pth, structure_of_interest, name, pth, na
         dct[name][structure_count[0]] = structure_count[1]    
 
     return dct
-    
-    
-#%% 
+     
     
 if __name__ == '__main__':
     #trying to make linkage of heirachy from aba
@@ -496,6 +412,42 @@ if __name__ == '__main__':
     plt.subplots_adjust(left=0.1, right=0.9, top=0.95, bottom=0.35)
     g.savefig(os.path.join(svlc, 'dendrogramheatmap_for_thalamus_attempt_atlinkage'))
     
+    #testing
+    tracing_output_fld = '/home/wanglab/wang/pisano/tracing_output'
+    #ann_pth = '/home/wanglab/wang/pisano/Python/allenatlas/annotation_25_ccf2015_reflectedhorizontally.nrrd'
+    lob6 = [xx for xx in find_all_brains(tracing_output_fld) if 'sd_hsv_lob6' in xx]; lob6.sort()
+    names = ['Lob6 250U 1050R','Lob6 250U 750R', 'Lob6 500U 900R', 'Lob6 500D ML0', 'Lob6 250U 150R', 'Lob6 500D 300R', 'Lob6 250U 450R']
+    lob6dct = dict(zip(names, lob6))
 
-#apply to 
- 
+    #tmp
+    del lob6dct['Lob6 500D ML0']
+    
+    #
+    svlc = '/home/wanglab/wang/pisano/tracing_output/analysis/dendrograms/sd_lob6'
+    cores = 7
+    list_or_levels = 3 #can ==False
+    title = 'SD HSV Lob6'
+    pths = lob6dct
+    #per brain
+    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels=2, title = title) for structure_of_interest in ['Thalamus', 'Isocortex']]
+    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, list_or_levels = list_or_levels, title = title) for structure_of_interest in ['Hypothalamus', 'Cerebellum', 'Cerebral nuclei', 'Hippocampal region', 'Hindbrain', 'Interbrain', 'Brain stem', 'Midbrain', 'Medulla', 'Pons', 'Cortical subplate']]
+    
+    #vs cerebellar structure (you will need to look at how to determine cb counts and boolean_for_cb)
+    dendrogram_structures_vs_cerebellum(cores, pths, svlc, 'Thalamus', list_or_levels, boolean_for_cb = True, title = title, nametype = 'name')
+
+    #using lists:
+    list_or_levels = ['Anterior cingulate area','Substantia nigra, reticular part', 'Visual areas', 'Somatosensory areas','Hippocampal region','Frontal pole, cerebral cortex','Striatum ventral region','Infralimbic area','Pallidum, dorsal region', 'Prelimbic area','Midbrain raphe nuclei','Retrosplenial area','Somatomotor areas','Red nucleus','Lateral septal complex','Thalamus, polymodal association cortex related','Temporal association areas','Ectorhinal area','Gustatory areas','Striatum-like amygdalar nuclei','Orbital area','Visceral area','Perirhinal area','Posterior parietal association areas','Ventral tegmental area','Claustrum','Pallidum','Pedunculopontine nucleus','Periaqueductal gray','Substantia nigra, compact part','Agranular insular area','Auditory areas','Thalamus, sensory-motor cortex related', 'Hypothalamus','Nucleus of Darkschewitsch']
+    [dendrogram_structures_by_brain(cores, pths, svlc, structure_of_interest, title = 'SD HSV Lob6 Selected Structures', list_or_levels=list_or_levels) for structure_of_interest in ['Selected Structures']]    
+    dendrogram_structures_vs_cerebellum(cores, pths, svlc, 'Selected Structures', list_or_levels, boolean_for_cb = True, title = 'SD HSV Lob6 Selected Structures', nametype = 'name')
+    
+    #different metrics   
+    svlc = '/home/wanglab/wang/pisano/tracing_output/analysis/dendrograms/metrics'
+    [dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = metric) for metric in ['euclidean', 'minkowski', 'cityblock', 'seuclidean', 'sqeuclidean', 'cosine', 'correlation', 'hamming', 'jaccard', 'chebyshev', 'canberra', 'braycurtis']]
+    [dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = metric) for metric in ['matching', 'dice', 'kulsinski', 'rogerstanimoto', 'sokalmichener', 'sokalsneath', 'wminkowski']]
+    #[dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = metric) for metric in ['euclidean', 'minkowski', 'cityblock', 'seuclidean', 'sqeuclidean', 'cosine', 'correlation', 'hamming', 'jaccard', 'chebyshev', 'canberra', 'braycurtis', 'mahalanobis', 'yule', 'matching', 'dice', 'kulsinski', 'rogerstanimoto', 'sokalmichener', 'sokalsneath', 'wminkowski']]
+    
+    #colorlst:
+    colorlst = ['darksalmon', 'lightgreen', 'skyblue', 'b', 'r', 'g', 'm', 'y', 'c', 'darkturquoise', 'lime', 'firebrick', 'cyan', 'violet', 'darkgreen', 'g', 'r', 'b']
+    nmcolorlst = zip(pths.keys(), colorlst)
+    dendrogram_structures_by_brain(cores, pths, svlc, 'Thalamus', list_or_levels = 2, title = title, metric = 'cityblock', nmcolorlst = nmcolorlst) 
+    

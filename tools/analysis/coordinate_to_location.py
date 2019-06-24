@@ -6,20 +6,6 @@ Created on Wed Dec 20 13:09:00 2017
 @author: tpisano
 """
 
-if __name__ == '__main__':
-    #example using post-registered elastix file
-    src = '/jukebox/wang/pisano/Python/lightsheet/supp_files/sample_coordinate_to_location.xlsx'
-    dst = '/home/wanglab/Downloads/sample_coordinate_to_location_output.xlsx'
-    find_location(src, correspondence_type = 'post_elastix', dst=dst)
-
-    #example using full size data
-    src = '/home/wanglab/Downloads/coord_to_location_test.xlsx'
-    dst = '/home/wanglab/Downloads/coord_to_location_test_output.xlsx'
-    find_location(src, correspondence_type = 'full_size_data', verbose=True, dst=dst)
-    
-
-
-#%%
 def find_location(src, dst=False, correspondence_type = 'post_elastix', verbose=False):
     '''
     Function to transform an excel sheet (e.g.: lightsheet/supp_files/sample_coordinate_to_location.xlsx) and output transformed locations.
@@ -59,7 +45,7 @@ def find_location(src, dst=False, correspondence_type = 'post_elastix', verbose=
         df = pd.read_excel(src)
         
         for brain in df.columns[1:]:
-            print brain
+            print(brain)
             
             #load and find files
             kwargs = load_kwargs(df[brain][df['Inputs']=='Path to folder'][0])
@@ -87,7 +73,7 @@ def find_location(src, dst=False, correspondence_type = 'post_elastix', verbose=
     if correspondence_type == 'full_size_data':
         from tools.imageprocessing.orientation import fix_dimension_orientation, fix_contour_orientation
         from tools.utils.directorydeterminer import pth_update
-        from tools.registration.register import transformix_command_line_call, transformed_pnts_to_allen, collect_points_post_transformix
+        from tools.registration.register import collect_points_post_transformix
         from tools.registration.transform import points_resample, points_transform
         print('This function assumes coordinates are from the corresponding "full_sizedatafld". \nMake sure the excel file has number,<space>number,<space>number and not number,number,number')
         
@@ -95,7 +81,6 @@ def find_location(src, dst=False, correspondence_type = 'post_elastix', verbose=
         df = pd.read_excel(src)
         
         for brain in df.columns[1:]:
-            print brain
             
             #load and find files
             kwargs = load_kwargs(df[brain][df['Inputs']=='Path to folder'][0])
@@ -149,7 +134,7 @@ if False:
     #
     #zyx_list=[(1920, 326,322), (1920, 305,314), (1920, 1333, 1020), (1920, 1367, 1020), (1920, 1350, 1000), (1920, 1350, 1030)]
     zyx_list=[(1920, 1350, 1020)]
-    #%%
+    
     #extract ROIs, fill contours, find nonzero pixels
     im = tifffile.imread(fl)
     #rois = read_roi_zip(roipth)
@@ -171,12 +156,11 @@ if False:
     #nx4 * 4x4 to give transform
     trnsfmdpnts=nx4centers.dot(trnsfrmmatrix) ##z,y,x
            
-           
-    #%%
+          
     #write out points for transformix
     txtflnm='rois_xyz'
     os.remove(pth+'/'+txtflnm)
-    #%%
+    
     writer(pth, 'index\n{}\n'.format(len(trnsfmdpnts)), flnm=txtflnm)    
     sys.stdout.write('\nwriting centers to transfomix input points text file...')
     stringtowrite = '\n'.join(['\n'.join(['{} {} {}'.format(i[2], i[1], i[0])]) for i in trnsfmdpnts]) ####this step converts from zyx to xyz*****
@@ -204,10 +188,7 @@ if False:
             
     #convert registered points into structure counts
     transformed_pnts_to_allen(points_file, ch_type = 'injch', point_or_index=None, allen_id_table_pth='/home/wanglab/LightSheetData/witten-mouse/20170118_bene_datcretransgen_2m/lightsheet/supp_files/allen_id_table.xlsx', **kwargs)    
-    #%%
-    
-    
-    #%%
+   
     from tools.registration.allen_structure_json_to_pandas import isolate_and_overlay, overlay
     structs=[]
     for i in df[df.id==pnts[-1].astype('int')].iterrows():
@@ -225,7 +206,7 @@ if False:
     z,y,x=(456, 528, 320)
     narr = np.asarray([(zz,yy,abs(xx-x)) for xx,yy,zz in arr])
     overlay(AtlasFile, svlc, nm_to_sv1, narr, gaussianblur=True) #from arr of xyz to np zyx
-    #%%
+    
     atl = tifffile.imread(atlas)
     structtif=tifffile.imread(svlc+'/'+nm_to_sv+'/'+nm_to_sv+'.tif')
     roitif=tifffile.imread(svlc+'/'+nm_to_sv1+'/'+nm_to_sv1+'.tif')
@@ -236,3 +217,16 @@ if False:
     #this will be blue point coors
     fl[...,2]= roitif
     tifffile.imsave(svlc+'/'+'/roi_atlas_overlay.tif', fl.astype('uint8'))
+    
+    
+if __name__ == '__main__':
+    #example using post-registered elastix file
+    src = '/jukebox/wang/pisano/Python/lightsheet/supp_files/sample_coordinate_to_location.xlsx'
+    dst = '/home/wanglab/Downloads/sample_coordinate_to_location_output.xlsx'
+    find_location(src, correspondence_type = 'post_elastix', dst=dst)
+
+    #example using full size data
+    src = '/home/wanglab/Downloads/coord_to_location_test.xlsx'
+    dst = '/home/wanglab/Downloads/coord_to_location_test_output.xlsx'
+    find_location(src, correspondence_type = 'full_size_data', verbose=True, dst=dst)
+    
