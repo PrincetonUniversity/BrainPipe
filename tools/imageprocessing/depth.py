@@ -1,16 +1,10 @@
 import os
 import matplotlib.pyplot as pl
-import socket
-pl.ioff() #for spock
-if socket.gethostname() == 'wanglab-cr8rc42-ubuntu':
-    pl.ion() #for not spock
-import matplotlib, numpy as np, os
+pl.ioff() 
+import numpy as np
 from skimage.external import tifffile
 from matplotlib import gridspec
-from scipy import ndimage
-from scipy.misc import imresize
 from scipy.ndimage.interpolation import zoom
-
 
 
 def layout(path0,path1,path2,dest_path):

@@ -4,34 +4,13 @@ Created on Wed Feb 24 22:07:30 2016
 
 @author: tpisano
 
-#FIX package directory for everything such that paths store everything but basedirectory. Also break up update params, such that if original data is gone it won't crash...
-
 """
-import os, sys, cv2, time, re, warnings, shutil, mmap, collections, random
-from tools.utils.io import listdirfull, makedir, removedir, chunkit, writer, load_kwargs, load_tif_list, save_kwargs
-import numpy as np
-import SimpleITK as sitk
-import multiprocessing as mp
-import scipy.stats
-import pickle
-import scipy.ndimage #zoom
-from skimage.external import tifffile
+
+import os, sys, cv2, time, re, warnings, shutil, mmap, collections, random, numpy as np, SimpleITK as sitk, multiprocessing as mp
+import scipy.stats, pickle, scipy.ndimage, tifffile
 from tools.imageprocessing.orientation import fix_orientation
+from tools.utils.io import listdirfull, makedir, removedir, chunkit, writer, load_kwargs, load_tif_list, save_kwargs
 
-#%%
-if __name__ == '__main__':
-    pth = '/home/wanglab/wang/pisano/tracing_output/antero_params'
-    lst = listdirfull(pth)
-    from tools.imageprocessing import preprocessing
-
-    for param in lst:
-        print(param)
-        kwargs = load_kwargs(param)
-        preprocessing.updateparams(**kwargs)
-
-
-
-#%%
 class volume:
     """Class to represent a volume for a particular channel
     z,y,x is the location of the determined center ###FOLLOWING NP CONVENTION
@@ -140,7 +119,7 @@ class volume:
         self.reg_to_atlas_transform=loc
     def add_ch_to_reg_to_atlas(self, loc):
         self.ch_to_reg_to_atlas=loc
-#%%
+
 def regex_determiner(raw, dr):
     '''helper function to determine appropriate regular expression
 
@@ -168,7 +147,7 @@ def regex_determiner(raw, dr):
     ############# check to see if data
     return regexpression
 
-#%%
+
 def generateparamdict(cwd, dst=False, update=False, **kwargs):
     '''Function to automatically determine structure of light sheet scan, including channels, light sheets, tiles etc. This feeds the rest of the pipeline.
     _______
@@ -271,7 +250,8 @@ def generateparamdict(cwd, dst=False, update=False, **kwargs):
         save_kwargs(pckloc=dst, **kwargs)
 
     return
-#%%
+
+
 def updateparams(cwd=False, **kwargs):
     '''Function to update parameter dictionary that feeds the rest of the pipeline. Useful for developing but this shouldn't need to be used often. Can be used to "reinitialize" volumes if the class has been changed.
     _______
@@ -320,7 +300,7 @@ def updateparams(cwd=False, **kwargs):
             #### NON RAW NOT TESTED!!
             elif raw==False:
                 print ('Using postprocessed data (nonraw data)')
-                tmpdct=zchanneldct(pth, **kwargs) #update params with channeldictionary of files
+                tmpdct = zchanneldct(pth, **kwargs) #update params with channeldictionary of files
         except:
             sys.stdout.write('\nUpdating original input data failed...continuing.\n'); sys.stdout.flush()
         #make the beast
@@ -381,8 +361,6 @@ def updateparams(cwd=False, **kwargs):
     return kwargs
 
 
-
-#%%
 def zchanneldct(dr=None, **kwargs):
     '''Regex to create zplane dictionary of subdictionaries (keys=channels, values=single zpln list sorted by x and y)
     ****function filters out nonraw data****
@@ -469,7 +447,6 @@ def zchanneldct(dr=None, **kwargs):
 
 
 
-#%%
 def arrayjob(jobid, cores=5, compression=0, verbose=True, **kwargs):
     '''wrapper function to submit to process_planes
     '''
@@ -479,15 +456,14 @@ def arrayjob(jobid, cores=5, compression=0, verbose=True, **kwargs):
     [process_planes(job, cores, compression, verbose, **kwargs) for job in [(jobid*sf)+x for x in range(sf)]] #submits sequential jobs in range starting at arrayid for length slurmfactor
 
     return
-#%%
+
+
 def process_planes(job, cores, compression, verbose=True, **kwargs):
     '''Function for Slurm Array job to process single zplane; this could be parallelized'''
     ############################inputs
     kwargs = load_kwargs(kwargs['outputdirectory'])
     zpln = str(job).zfill(4)
-    intensitycorrection = kwargs['intensitycorrection']
     resizefactor=kwargs['resizefactor']
-    objectdetection = kwargs['objectdetection']
     bitdepth = kwargs['bitdepth'] if 'bitdepth' in kwargs else 'uint16' #default to uint16 unless specified
     ####################################
     
@@ -496,11 +472,11 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
         try:
             dct=vol.zdct[zpln] #dictionary of files for single z plane
         except KeyError:
-            return 'ArrayJobID/SF exceeds number of planes'
+            print('ArrayJobID/SF exceeds number of planes')
 
         #handle raw vs nonraw
-        if vol.raw: stitchdct=flatten_stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, vol.lightsheets, **kwargs)
-        if not vol.raw: stitchdct=stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, **kwargs)
+        if vol.raw: stitchdct = flatten_stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, vol.lightsheets, **kwargs)
+        if not vol.raw: stitchdct = stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, **kwargs)
 
         #save for eventual compression
         saver(cores, stitchdct, vol.full_sizedatafld, vol.brainname, zpln, compression, bitdepth)
@@ -526,7 +502,7 @@ def process_planes_from_fullsizedatafolder(job, cores, compression, verbose=True
     return
 
 
-#%%
+
 def process_planes_completion_checker(**kwargs):
     '''Function to check to ensure each of the process_planes array jobs saved the full size stitched planes for each volume.
     
@@ -563,6 +539,7 @@ def process_planes_completion_checker(**kwargs):
           print ('process_planes_completion_checker has failed :/ \n\nerror message: \n{}'.format(str(e)))
     return
 
+
 def find_outlier_files_from_size(src, deviation = 5):
     '''Function to look for files that are larger or smaller(important one) based on other files' sizes
     
@@ -574,7 +551,8 @@ def find_outlier_files_from_size(src, deviation = 5):
     std = np.std(arr)
     lst = [fl for fl in src if os.stat(fl).st_size > (mean+deviation*std) or os.stat(fl).st_size < (mean-deviation*std)]
     return lst
-#%%
+
+
 def combiner_completionchecker(**kwargs):
     time.sleep(10) #10 second wait period to ensure last files have been fully saved
     outdr=kwargs['outputdirectory']
@@ -601,67 +579,70 @@ def combiner_completionchecker(**kwargs):
         writer(outdr, '******************STEP 2******************\n      Chns not combined {}'.format(missing_chn))
     return
 
-#%%
+
 def resize_save(cores, stitchdct, outdr, resizefactor, brainname, zpln, bitdepth):
     makedir(outdr)
     if cores>1:
         try:
             p
         except NameError:
-            p=mp.Pool(cores)
-        iterlst=[]; [iterlst.append((outdr, resizefactor, brainname, zpln, ch, im, bitdepth)) for ch,im in stitchdct.items()]
+            p = mp.Pool(cores)
+        iterlst = []; [iterlst.append((outdr, resizefactor, brainname, zpln, ch, im, bitdepth)) for ch,im in stitchdct.items()]
         svloc = p.starmap(resize_save_helper, iterlst); svloc.sort()
         p.terminate()
     else:
         for ch,im in stitchdct.items():
-            svloc = resize_save_helper((outdr, resizefactor, brainname, zpln, ch, im, bitdepth))
+            svloc = resize_save_helper(outdr, resizefactor, brainname, zpln, ch, im, bitdepth)
     return svloc
+
 def resize_save_helper(outdr, resizefactor, brainname, zpln, ch, im, bitdepth):
-    svloc=os.path.join(outdr, brainname+'_resized_ch'+ch)
+    svloc = os.path.join(outdr, brainname+'_resized_ch'+ch)
     makedir(svloc)
     if len(im.shape) == 2:  #grayscale images
-        y,x=im.shape
-        xfct=x/resizefactor
-        yfct=y/resizefactor
+        y,x = im.shape
+        xfct = int(x/resizefactor)
+        yfct = int(y/resizefactor)
     elif len(im.shape) == 3: #color images from cell detect
-        y,x,c=im.shape
-        xfct=x/resizefactor
-        yfct=y/resizefactor
+        y,x,c = im.shape
+        xfct = int(x/resizefactor)
+        yfct = int(y/resizefactor)
     im1=cv2.resize(im, (xfct, yfct), interpolation=cv2.INTER_LINEAR) #interpolation=cv2.INTER_AREA) #
     tifffile.imsave(os.path.join(svloc, brainname + "_C"+ch+'_Z'+zpln+'.tif'), im1.astype(bitdepth))
     del im1, im
     return svloc
-#%%
+
 def saver(cores, stitchdct, outdr, brainname, zpln, compression, bitdepth):
     makedir(outdr)
     if cores>1:
         try:
             p
         except NameError:
-            p=mp.Pool(cores)
+            p = mp.Pool(cores)
         iterlst=[]; [iterlst.append((outdr, brainname, zpln, ch, im, compression, bitdepth)) for ch,im in stitchdct.items()]
         lst = p.starmap(saver_helper, iterlst); lst.sort()
         p.terminate(); del p
     else:
         for ch,im in stitchdct.items():
-            lst = saver_helper((outdr, brainname, zpln, ch, im, compression, bitdepth))
+            lst = saver_helper(outdr, brainname, zpln, ch, im, compression, bitdepth)
     return lst
 
 def saver_helper(outdr, brainname, zpln, ch, im, compression, bitdepth):
-    svloc=os.path.join(outdr, brainname +'_ch'+ch)
+    svloc = os.path.join(outdr, brainname +'_ch'+ch)
     makedir(svloc)
-    pth=os.path.join(svloc, brainname + "_C"+ch+'_Z'+zpln+'.tif')
+    pth = os.path.join(svloc, brainname + "_C"+ch+'_Z'+zpln+'.tif')
     tifffile.imsave(pth, im.astype(bitdepth), compress=compression); del im
     return pth
 
 
-#%%
 
 def stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, blndtype = False, intensitycorrection = False, **kwargs):
     '''return numpy arrays of     '''
     #easy way to set ch and zplnlst
     ['stitching for ch_{}'.format(ch) for ch, zplnlst in dct.items()] #cheating way to set ch and zplnlst
+    
     ###dim setup
+    ch = list(dct.keys())[0]
+    zplnlst = dct[list(dct.keys())[0]] #changed for py37
     ydim, xdim =cv2.imread(zplnlst[0], -1).shape
     xpxovlp=int(ovlp*xdim)
     ypxovlp=int(ovlp*ydim)
@@ -807,7 +788,8 @@ def xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp, tiles, alpha, y
             #cxfrm=cv2.resize(cxfrm, (x/4, y/4), cv2.INTER_AREA)
     #return dict([(ch, xyfrm), (ch+'_color', cxfrm)])
     return dict([(ch, xyfrm.astype('uint16'))])
-#%%
+
+
 def resample_par(cores, mv_pth, fx_pth=None, size=None, svlocname=None, singletifffile=None, resamplefactor=None):
     '''resamples the folder mv_pth containing a series of tif files to the xyz size of fx_pth.
    need to specify size = (x, y, z) or fixed_image_path that is of desired resultant size of movingimage
@@ -936,7 +918,7 @@ def xyresizer2(core, cores, x, y, mv_pth, zmov, tmpsvloc):
     np.save(tmpsvloc + '/_{}'.format(str(core).zfill(3)), imstack.astype('uint16')); del imstack
     return tmpsvloc + '/_{}'.format(str(core).zfill(3))
 
-#%%
+
 def color_movie_merger(movie2, movie4, savelocation=None, savefilename=None, movie5=None):
     '''Function used to overlay movies to visually inspect registration quality. RED=Atlas, Green=Moving Image, Blue=OPTIONAL.
        movie2=atlas
@@ -984,7 +966,8 @@ def color_movie_merger(movie2, movie4, savelocation=None, savefilename=None, mov
         print ("Merged Color tif made for {}\nSaved in {}".format(savefilename, savelocation))
     elif savelocation == None:
         return colorfile
-#%%
+
+
 def resample(mv_pth, fx_pth=None, size=None, svlocname=None, singletifffile=None, resamplefactor=None, verbose=False):
     '''resamples the folder mv_pth containing a series of tif files to the xyz size of fx_pth.
    need to specify size = (x, y, z) or fixed_image_path that is of desired resultant size of movingimage
@@ -1070,7 +1053,7 @@ def resample(mv_pth, fx_pth=None, size=None, svlocname=None, singletifffile=None
         tifffile.imsave(os.path.join(os.getcwd(), svlocname), finalfilestack.astype('uint16'))
         print('Completed XY and Z resizing in {} seconds.\nFile saved as {}'.format((time.time() - total_time), os.path.join(os.getcwd(), svlocname)))
 
-#%%
+
 def getvoxels(filelocation, savefilename=None):
     '''Function used to used to find coordinates of nonzero voxels in image. Used to quantify injection site of masked registered tiffstack
        Returns [z,y,x] coordinates
@@ -1084,7 +1067,6 @@ def getvoxels(filelocation, savefilename=None):
     else:
         np.save(savefilename, voxels)
 
-#%%
 
 def tiffcombiner(jobid, cores = None, remove = True, save_before_reorientation = False, **kwargs):
     '''function to load/save all tifs within a folder, function deletes folder of individual tifs and saves the single multipage tif
@@ -1150,8 +1132,6 @@ def tiffcombiner(jobid, cores = None, remove = True, save_before_reorientation =
     return
 
 
-
-#%%
 def summarycomparision(dr1, dr2, svloc, dr1search=None, dr2search=None):
     '''quick way to compare two summary outputs side by side, could be helpful for different masking parameters. dr2 should be the directory with more successfully completed files
     Inputs:
@@ -1241,7 +1221,7 @@ def summarycomparision(dr1, dr2, svloc, dr1search=None, dr2search=None):
     tifffile.imsave(os.path.join(svloc, dr1[dr1.rfind('/')+1:]+'_w_'+dr2[dr2.rfind('/')+1:]+'.tif'), stack.astype('uint16'))
     print('Saved {}'.format(os.path.join(svloc, dr1[dr1.rfind('/')+1:]+'_w_'+dr2[dr2.rfind('/')+1:]+'.tif')))
 
-#%%
+
 def summarycombine(dr1, svlocname, filenamesearch=None):
     '''quick way to combine summary, could be helpful for different masking parameters.
     Inputs:
@@ -1281,7 +1261,8 @@ def summarycombine(dr1, svlocname, filenamesearch=None):
         tick+=1
     tifffile.imsave(svlocname, stack.astype('uint16'))
     print('Saved {}'.format(svlocname))
-#%%
+
+
 def metricfinder(dr):
     '''Searches elastix filelog; returns final metric value as str'''
     f=open(dr, 'r')
@@ -1289,7 +1270,8 @@ def metricfinder(dr):
     s.seek(s.rfind('Final metric value')); metric=s.readline(); metric=metric[:metric.rfind('\\')]
     s.close()
     return metric
-#%%
+
+
 def gridlineresizer(mv, **kwargs):
     '''resizes gridline file to appropraite z dimenisions.
     Returns path to zcorrected stack
@@ -1331,7 +1313,8 @@ def gridcompare(svlc, reg_vol):
     print ('gridline resized to shape {}'.format(gridlineresized.shape))
     return gridfld, tmpgridline
 
-#%%
+
+
 def combine_images(movie1, movie2, movie3, movie4, svlc, brainname):
     '''Function used to take 4 movies and concatenate them together. It will also output a merged file of movie 2 with movie 4. Finally it will output an RMS video - but I don't like this one all that much.
     All inputs are strings
@@ -1392,7 +1375,7 @@ def combine_images(movie1, movie2, movie3, movie4, svlc, brainname):
     return
 
 
-#%% goal is to flatten 6 tiffs.
+# goal is to flatten 6 tiffs.
 
 def flatten(dr, **kwargs):
     '''Regex to create zplane dictionary of subdictionaries (keys=channels, values=single zpln list sorted by x and y).
@@ -1502,7 +1485,6 @@ def flatten(dr, **kwargs):
     writer(outdr, "{}x by {}y tile scan determined\n".format(xtile, ytile))
     writer(outdr, "{} Light Sheet(s) found. {} Horizontal Focus Determined\n\n".format(lsheets, hf))
     return dict([('zchanneldct', zdct), ('xtile', xtile), ('ytile', ytile), ('channels', chs), ('lightsheets', lsheets), ('horizontalfoci', hf), ('fullsizedimensions', (len(zdct.keys()),(y*ytile),(x*xtile)))])
-#%%
 
 def flatten_vol(volume_class):
     '''Regex to create zplane dictionary of subdictionaries (keys=channels, values=single zpln list sorted by x and y).
@@ -1607,19 +1589,19 @@ def flatten_stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, lightsheets, *
     ['stitching for ch_{}'.format(ch[-2:]) for ch, zplnlst in dct.items()] #cheating way to set ch and zplnlst
 
     ###dim setup
+    ch = list(dct.keys())[0]
+    zplnlst = dct[list(dct.keys())[0]] #changed for py37
     ydim, xdim = cv2.imread(zplnlst[0], -1).shape
     xpxovlp = int(ovlp*xdim)
     ypxovlp = int(ovlp*ydim)
     tiles = len(zplnlst) ##number of tiles
-
 
     #check for optional kwargs if not passed explicitly:
     blndtype = kwargs['blendtype'] if 'blendtype' in kwargs else False
     intensitycorrection = kwargs['intensitycorrection'] if 'intensitycorrection' in kwargs else False
     blendfactor = kwargs['blendfactor'] if 'blendfactor' in kwargs else 4
 
-
-### blending setup
+    ### blending setup
     if blndtype == 'linear':
         alpha = np.tile(np.linspace(0, 1, num=int(xpxovlp)), (ydim, 1)) ###might need to change 0-1 to 0-255?
         yalpha = np.swapaxes(np.tile(np.linspace(0, 1, num=int(ypxovlp)), (int(xdim+((1-ovlp)*xdim*(xtile-1))),1)), 0, 1)
@@ -1634,8 +1616,7 @@ def flatten_stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, lightsheets, *
         yalpha = np.swapaxes(np.tile(scipy.stats.logistic.cdf(np.linspace(-blendfactor, blendfactor, num=int(ypxovlp))), (int(xdim+((1-ovlp)*xdim*(xtile-1))),1)), 0, 1)
 
     #process
-    #with warnings.catch_warnings():
-        #warnings.simplefilter("ignore")
+
     if len(dct)<=1:
         stitchlst=[flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp, tiles, alpha, yalpha, zpln, ch[-2:], zplnlst, intensitycorrection, lightsheets) for ch, zplnlst in dct.items()]
     else:
@@ -1647,14 +1628,17 @@ def flatten_stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, lightsheets, *
         except ValueError as e:
             raise ValueError('{}\n...This is likely due to not setting the correct "tiling_overlap" in run_tracing.py params dictionary'.format(e))
         p.terminate(); del iterlst
-    stitchdct={}; [stitchdct.update(i) for i in stitchlst]
-    del ydim, xdim, xpxovlp, ypxovlp, tiles, alpha, yalpha, stitchlst
+    stitchdct = {}; [stitchdct.update(i) for i in stitchlst]
+    
     return stitchdct
 ###
 
-def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp, tiles, alpha, yalpha, zpln, ch, zplnlst, intensitycorrection, lightsheets):
-    '''#helper function for parallelization of stitcher; this version used with raw data.
-    Currently, independent calculations for each channels mean pixel shift per tile. Ideally this compensates for variable photobleaching in different channels
+def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp, 
+                       tiles, alpha, yalpha, zpln, ch, zplnlst, intensitycorrection, lightsheets):
+    '''
+    #helper function for parallelization of stitcher; this version used with raw data.
+    Currently, independent calculations for each channels mean pixel shift per tile. 
+    Ideally this compensates for variable photobleaching in different channels
     '''
     
     #list of images going Lshet01, Rsheet01, Lsheet02
@@ -1665,8 +1649,8 @@ def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp, tiles, 
     
     #account for one or two light sheets
     if lightsheets == 2:
-        l_ls_imlst=lst[:len(lst)/2] #left ims
-        r_ls_imlst=lst[len(lst)/2:] #r ims
+        l_ls_imlst=lst[:int(len(lst)/2)] #left ims
+        r_ls_imlst=lst[int(len(lst)/2):] #r ims
         lsts=[l_ls_imlst, r_ls_imlst]
     else:
         lsts=[lst]
