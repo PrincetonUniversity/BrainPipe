@@ -11,9 +11,7 @@
  
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
 ### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' to help with setup.
-* `pip install SimpleITK futures xvfbwrapper xlrd openpyxl`
-* `conda install joblib scipy scikit-image scikit-learn seaborn tqdm psutil numba natsort`
-* `conda install -c conda-forge opencv`
+* `pip install opencv-python scikit-image scikit-learn seaborn tqdm numba tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision` (make sure it is torch 0.4+)
 * `sudo apt-get install elastix` (if on local machine)
 * `sudo apt-get install xvfb` (if on local machine)
 
