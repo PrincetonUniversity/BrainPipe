@@ -1,7 +1,7 @@
 ### Analysis scripts by tpisano@princeton.edu for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
 ### Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
-##### *Dependencies:*
+#### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
 [PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
 [Augmentor](https://github.com/torms3/Augmentor)  
@@ -21,9 +21,7 @@
 * `pip install opencv-python scikit-image scikit-learn seaborn tqdm numba tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision` (make sure it is torch 0.4+)
 * `sudo apt-get install elastix` (if on local machine)
 * `sudo apt-get install xvfb` (if on local machine)
-
-If installing (locally) on a linux machine, make sure you have all the boost libraries (important for working with torms3's DataTools):
-`sudo apt-get install libboost-all-dev` (this can take time)
+* `sudo apt-get install libboost-all-dev` (important for working with torms3's DataTools, this can take time)
 
 Clone the necessary C++ extension scripts for working with DataProvider3:
 `git clone https://github.com/torms3/DataTools.git`
