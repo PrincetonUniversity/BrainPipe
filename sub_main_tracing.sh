@@ -17,8 +17,7 @@ cat /proc/meminfo
 echo "Array Allocation Number: $SLURM_ARRAY_JOB_ID"
 echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
-
-module load anacondapy/2.7
+module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
 
@@ -26,13 +25,14 @@ module load elastix/4.8
 OUT0=$(sbatch --array=0 slurm_files/step0.sh) 
 echo $OUT0
 
-#process zplns, check that 1000 > zplns/slurmfactor
+#process zplns, assumes with tracing you are using terastitcher
 OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-2 slurm_files/step1.sh) 
 echo $OUT1
 
 #check to ensure all planes completed successfully in step1
 OUT1check=$(sbatch --dependency=afterany:${OUT1##* } --array=0 slurm_files/step1_check.sh) 
 echo $OUT1check
+
 
 #combine stacks into single tifffiles
 OUT2=$(sbatch --dependency=afterany:${OUT1check##* } --array=0-3 slurm_files/step2.sh) 
@@ -43,11 +43,11 @@ OUT4=$(sbatch --dependency=afterany:${OUT1check##* } slurm_files/cnn_step0.sh "`
 echo $OUT4
 
 #generate chunks for cnn input
-OUT5=$(sbatch --dependency=afterany:${OUT4##* } --array=0-130 slurm_scripts/cnn_step1.sh "`pwd`") 
+OUT5=$(sbatch --dependency=afterany:${OUT4##* } --array=0-130 slurm_files/cnn_step1.sh "`pwd`") 
 echo $OUT5
 
 #check if correct number of patches were made
-OUT6=$(sbatch --dependency=afterany:${OUT5##* } slurm_scripts/cnn_step1_check.sh "`pwd`") 
+OUT6=$(sbatch --dependency=afterany:${OUT5##* } slurm_files/cnn_step1_check.sh "`pwd`") 
 echo $OUT6
 
 #run elastix

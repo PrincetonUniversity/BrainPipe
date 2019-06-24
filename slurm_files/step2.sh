@@ -2,7 +2,7 @@
 #
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 10                      # number of cores
-#SBATCH -t 360                 # time (minutes)
+#SBATCH -t 20                 # time (minutes)
 #SBATCH -o logs/step2_%a.out        # STDOUT
 #SBATCH -e logs/step2_%a.err        # STDERR
 #SBATCH --contiguous
