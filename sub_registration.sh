@@ -27,7 +27,7 @@ OUT0=$(sbatch --array=0 slurm_files/step0.sh)
 echo $OUT0
 
 #process zplns, check that 1000 > zplns/slurmfactor
-OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-2 slurm_files/step1_terastitcher.sh) 
+OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-2 slurm_files/step1.sh) 
 echo $OUT1
 
 #check to ensure all planes completed successfully in step1

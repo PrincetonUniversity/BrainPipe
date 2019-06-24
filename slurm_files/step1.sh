@@ -3,8 +3,8 @@
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 3                      # number of cores
 #SBATCH -t 400
-#SBATCH -o logs/step1_%j.out        # STDOUT #add _%a to see each array job
-#SBATCH -e logs/step1_%j.err        # STDERR #add _%a to see each array job
+#SBATCH -o logs/step1_%a.out        # STDOUT #add _%a to see each array job
+#SBATCH -e logs/step1_%a.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
 #SBATCH --mem 35000
 
