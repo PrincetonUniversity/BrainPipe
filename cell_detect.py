@@ -86,7 +86,7 @@ def fill_params(expt_name, stepid, jobid):
     params["jobid"]         = jobid 
     
     #experiment params
-    params["expt_name"]     = os.path.dirname(os.path.basename(os.path.abspath(expt_name))) #going one folder up to get to fullsizedata
+    params["expt_name"]     = os.path.basename(os.path.abspath(os.path.dirname(expt_name))) #going one folder up to get to fullsizedata
         
     #find cell channel tiff directory from parameter dict
     kwargs = load_kwargs(os.path.dirname(expt_name))
