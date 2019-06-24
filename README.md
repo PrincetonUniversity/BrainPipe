@@ -17,7 +17,7 @@
 		(3) [Install the VM machine](http://www.instructables.com/id/How-to-install-Linux-on-your-Windows/)
  
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
-### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in Python 3.5+) to help with setup.
+### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.5+) to help with setup.
 * `pip install opencv-python scikit-image scikit-learn seaborn tqdm numba tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision` (make sure it is torch 0.4+)
 * `sudo apt-get install elastix` (if on local machine)
 * `sudo apt-get install xvfb` (if on local machine)
