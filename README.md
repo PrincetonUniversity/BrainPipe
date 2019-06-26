@@ -144,7 +144,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): sh
 
 * `cell_detect.py`: (might change)
 	* `.py` file to be used to manage the parallelization _of CNN preprocessing_ to a SLURM cluster
-	* params need to be changed for the cohort analyzed by the weights/checkpoint generated for their respective training.
+	* params need to be changed per cohort.
 
 * tools: convert 3D STP stack to 2D representation based on colouring
   * imageprocessing: 
@@ -164,12 +164,14 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): sh
 - demo script to run training and large-scale inference
 
 1. if working with a slurm-based scheduler:
-	1. run `sbatch run_demo.sh` within the main repo directory
-2. else, type within the main repo directory:
-	1. `python setup_demo_script.py`
-	2. navigate to the pytorchutils directory
+	1. run `sbatch run_demo.sh` within the tools/conv_net
+2. else, navigate to tools/conv_net:
+```
+python setup_demo_script.py
+```
+3. navigate to the pytorchutils directory
 ```
 python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
 ```
-3. output will be in a 'demo/cnn_output' subfolder (as a TIFF)
+4. output will be in a 'demo/cnn_output' subfolder (as a TIFF)
 
