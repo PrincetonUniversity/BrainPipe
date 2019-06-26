@@ -62,6 +62,7 @@ module load elastix/4.8
 ```
 . activate <<<your python environment>>>
 ```
+
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
  
@@ -72,6 +73,7 @@ module load anacondapy/5.3.1
 module load elastix/4.8
 . activate <<<your python environment>>>
 ```
+
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
  
@@ -102,11 +104,12 @@ module load elastix/4.8
 	* `inputdictionary`
 	* `params`
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
-* Then, I suggest, using a local machine, run 'step 0' (be sure that run_tracing.py is **before**):
+* Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
 ```
 preprocessing.generateparamdict(os.getcwd(), **params)` 
 if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))
 ```
+
 	* **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
