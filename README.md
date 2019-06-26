@@ -169,11 +169,11 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): sh
 	1. run `sbatch run_demo.sh` within the tools/conv_net
 2. else, navigate to tools/conv_net:
 ```
-python setup_demo_script.py
+$ python setup_demo_script.py
 ```
 3. navigate to the pytorchutils directory
 ```
-python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
+$ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
 ```
 4. output will be in a 'demo/cnn_output' subfolder (as a TIFF)
 
