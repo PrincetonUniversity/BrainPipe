@@ -58,23 +58,20 @@ module load anacondapy/5.3.1
 ``` 
 module load elastix/4.8
 ```
-* Need to then activate your python environment where everything is installed (something like):
+* Need to then activate your python environment where everything is installed (if your enviroment is named 'lightsheet' then you do not need to change this):
 ```
 . activate <<<your python environment>>>
 ```
-
-		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
  
 ## Edit: lightsheet/slurm_files:
-* Each of these needs the same changes as sub_main_tracing.sh file: e.g.:
+* Each of these needs the same changes as sub_main_tracing.sh file, e.g.
 ```
 module load anacondapy/5.3.1
 module load elastix/4.8
 . activate <<<your python environment>>>
 ```
 
-		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
  
 ## Edit: lightsheet/tools/utils/directorydeterminer:
