@@ -5,19 +5,11 @@ Created on Tue Apr 18 13:13:33 2017
 
 @author: tpisano
 """
-import os, sys, collections, copy, shutil, numpy as np, scipy, cv2, time
+import os, sys, copy, shutil, numpy as np, scipy, cv2, time
 from skimage.external import tifffile
-from tools.utils.io import makedir, listdirfull, save_kwargs, listall, load_kwargs, load_dictionary
+from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
 from tools.utils.directorydeterminer import pth_update
 import multiprocessing as mp
-from tools.imageprocessing.preprocessing import regex_determiner, generateparamdict
-
-if __name__=='__main__':
-    1
-    #src = '/home/wanglab/LightSheetTransfer/tp/180309_20170207_db_bl6_crii_rlat_03_647_010na_1hfds_z7d5um_100msec_10povlp_20-50-45_COPY'
-    #dst ='/home/wanglab/LightSheetTransfer/test_stitch2'
-    #dct=terastitcher_wrapper(src, dst, raw=True, regex=False, tiling_overlap=0.1, create_image_dictionary=True)
-
 
 def terastitcher_from_params(**params):
     '''
@@ -29,7 +21,6 @@ def terastitcher_from_params(**params):
     return
 
 
-#%%
 def terastitcher_wrapper(**kwargs):
     '''Functions to handle folder consisting of files, stitch, resample, and combine using the complete pipeline. For single folders see stitch_single.py
     
@@ -56,10 +47,7 @@ def terastitcher_wrapper(**kwargs):
     dst = '/home/wanglab/wang/zahra/troubleshooting/terastitcher/tpout'
     '''
     #handle inputs:
-    src=kwargs['src'] if 'src' in kwargs else False
     dst=kwargs['dst'] if 'dst' in kwargs else False
-    raw=kwargs['raw'] if 'raw' in kwargs else True
-    regex=kwargs['regex'] if 'regex' in kwargs else False
     voxel_size=kwargs['voxel_size'] if 'voxel_size' in kwargs else (1.63, 1.63, 7.5)
     percent_overlap=kwargs['tiling_overlap'] if 'tiling_overlap' in kwargs else 0.1
     threshold=kwargs['threshold'] if 'threshold' in kwargs else 0.7
@@ -67,7 +55,6 @@ def terastitcher_wrapper(**kwargs):
     transfertype=kwargs['transfertype'] if 'transfertype' in kwargs else 'copy'#'move'#'copy' #'move'
     outbitdepth = kwargs['outbitdepth'] if 'outbitdepth' in kwargs else 16
     cores = kwargs['cores'] if 'cores' in kwargs else 12
-    verbose = kwargs['verbose'] if 'verbose' in kwargs else True
     cleanup = kwargs['cleanup'] if 'cleanup' in kwargs else True
     resizefactor = kwargs['resizefactor'] if 'resizefactor' in kwargs else 6
     jobid = kwargs['jobid'] if 'jobid' in kwargs else False
@@ -111,7 +98,8 @@ def terastitcher_wrapper(**kwargs):
     return 
 
 def make_jobs(image_dictionary, jobid=False):
-    '''Simple function to create job dct for parallelization
+    '''
+    Simple function to create job dct for parallelization
     '''
     jobdct={}
     lslst = ['left_lightsheet', 'right_lightsheet']
@@ -183,7 +171,6 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = '
     terastitcher --merge --projin='/home/wanglab/LightSheetTransfer/test_stitch/00/xml_placetiles.xml' --volout='/home/wanglab/LightSheetTransfer/test_stitch/00' --imout_depth=16 --resolutions=012345
     
     '''
-    import subprocess as sp
     st = time.time()
     #import
     sys.stdout.write('\n\nRunning Terastitcher import on {}....'.format(' '.join(src.split('/')[-2:]))); sys.stdout.flush()
@@ -251,8 +238,7 @@ def sp_call(call):
     return 
 
     
-    
-#%% 
+     
 def make_folder_heirarchy(image_dictionary, dst, channel, lightsheet=False, final_dst=False, transfertype='move', scalefactor=(1.63, 1.63, 7.5), percent_overlap=0.1, cores=False, **kwargs):
     '''Function to make folders for compatibility with Terastitcher
     
@@ -436,7 +422,7 @@ def resize(src, resizefactor, cores):
     
     #calc resize
     y,x = tifffile.imread(fls[0], multifile=False).shape
-    yr = y / resizefactor; xr = x / resizefactor
+    yr = int(y/resizefactor); xr = int(x/resizefactor)
     
     #set up dsts
     [makedir(os.path.join(os.path.dirname(src), xx[:-4]+'resized_'+xx[-4:])) for xx in os.listdir(src) if '.txt' not in xx]
