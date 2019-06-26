@@ -102,7 +102,7 @@ module load elastix/4.8
 	* `params`
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
 * Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
-```
+```python
 preprocessing.generateparamdict(os.getcwd(), **params)` 
 if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))
 ```
@@ -145,6 +145,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): sh
 * `cell_detect.py`:
 	* `.py` file to be used to manage the parallelization _of CNN preprocessing_ to a SLURM cluster
 	* params need to be changed per cohort.
+	* see the tutorial for more info.
 
 * tools: convert 3D STP stack to 2D representation based on colouring
   * imageprocessing: 
