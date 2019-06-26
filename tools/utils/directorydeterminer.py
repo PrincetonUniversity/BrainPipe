@@ -19,12 +19,9 @@ def directorydeterminer():
     """
     if socket.gethostname() == "spock-login.pni.princeton.edu":
         systemdirectory= "/jukebox/"
-    elif socket.gethostname() == "pni-3cnxk02":
-        systemdirectory= "/home/tpisano/"
-    elif socket.gethostname() == "PNI-1867WTQ2":
-        systemdirectory= "/jukebox/"
     if socket.gethostname() == "PNI-1867vwtq2":
         systemdirectory= "/jukebox/"
+
     return systemdirectory
 
 
