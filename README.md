@@ -19,44 +19,59 @@
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
 ### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.5+) to help with setup.
 ```
-$ pip install opencv-python scikit-image scikit-learn seaborn tqdm numba tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision` #(make sure it is torch 0.4+)
+$ pip install opencv-python scikit-image scikit-learn seaborn tqdm numba tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision #(make sure it is torch 0.4+)
 $ sudo apt-get install elastix #(if on local machine)
 $ sudo apt-get install xvfb #(if on local machine)
 $ sudo apt-get install libboost-all-dev #(important for working with torms3's DataTools, this can take time)
 ```
 
 Clone the necessary C++ extension scripts for working with DataProvider3:
-`git clone https://github.com/torms3/DataTools.git`
+```
+git clone https://github.com/torms3/DataTools.git
+```
 
 Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
-`python setup.py install`
+```
+python setup.py install
+```
 
 ## To use TeraStitcher it must be installed locally or on your cluster
-* Download and unpack:
-	* [Download here](https://github.com/abria/TeraStitcher/wiki/Binary-packages])
-	* `$ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1`
+* [Download] and unpack(https://github.com/abria/TeraStitcher/wiki/Binary-packages])
+```
+$ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
+```
 * Modify Path in ~/.bashrc:
-	* `export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.16.11-Linux/bin:$PATH"`
+```
+export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.16.11-Linux/bin:$PATH"
+```
 * Check to see if successful
-	* open new terminal window
-	* `$ which terastitcher`
+```
+$ which terastitcher
+```
 
 ## Edit: lightsheet/sub_main_tracing.sh file:
 * Need to load anacondapy 5.3.1 on cluster (something like):
-	* `module load anacondapy/5.3.1`
+```
+module load anacondapy/5.3.1
+```
 * Need to load elastix on cluster (something like):
-	* `module load elastix/4.8`
+``` 
+module load elastix/4.8
+```
 * Need to then activate your python environment where everything is installed (something like):
-	* `. activate <<<your python environment>>>`
+```
+. activate <<<your python environment>>>
+```
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
  
 ## Edit: lightsheet/slurm_files:
 * Each of these needs the same changes as sub_main_tracing.sh file: e.g.:
- 
-	* `module load anacondapy/5.3.1`
-	* `module load elastix/4.8`
-	* `. activate <<<your python environment>>>`
+```
+module load anacondapy/5.3.1
+module load elastix/4.8
+. activate <<<your python environment>>>
+```
 		* if your enviroment is named 'lightsheet' then you do not need to change this.
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
  
@@ -88,8 +103,10 @@ Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net
 	* `params`
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
 * Then, I suggest, using a local machine, run 'step 0' (be sure that run_tracing.py is **before**):
-	* `preprocessing.generateparamdict(os.getcwd(), **params)` 
-	* `if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))`
+```
+preprocessing.generateparamdict(os.getcwd(), **params)` 
+if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))
+```
 	* **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
@@ -151,6 +168,8 @@ Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net
 2. else, type within the main repo directory:
 	1. `python setup_demo_script.py`
 	2. navigate to the pytorchutils directory
-	2. `python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 		   		--nobn --noeval --tag demo` 
+```
+python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
+```
 3. output will be in a 'demo/cnn_output' subfolder (as a TIFF)
 
