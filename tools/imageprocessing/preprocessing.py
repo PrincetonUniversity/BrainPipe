@@ -493,12 +493,24 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
 def process_planes_from_fullsizedatafolder(job, cores, compression, verbose=True, **kwargs):
     '''Easy way to pull outfiles from fullsizedatafolder'''
     ############################inputs
-    zpln = str(job).zfill(4)
+    #zd additions
     bitdepth = kwargs['bitdepth'] if 'bitdepth' in kwargs else 'uint16' #default to uint16 unless specified
-    ####################################
-    for vol in kwargs['volumes']:
-        fl = [xx for xx in listdirfull(vol.full_sizedatafld_vol) if 'Z{}'.format(zpln) in xx]
-        if len(fl) == 1: resize_save_helper((vol.outdr, kwargs['resizefactor'], vol.brainname, zpln, vol.channel, tifffile.imread(fl[0]).astype(bitdepth)))
+    if cores < 2:
+        zpln = str(job).zfill(4)
+        ####################################
+        for vol in kwargs['volumes']:
+            fl = [xx for xx in listdirfull(vol.full_sizedatafld_vol) if 'Z{}'.format(zpln) in xx]
+            if len(fl) == 1: resize_save_helper(vol.outdr, kwargs['resizefactor'], vol.brainname, zpln, vol.channel, 
+                  tifffile.imread(fl[0]).astype(bitdepth), bitdepth)
+    else:
+        p = mp.Pool(cores)
+        for vol in kwargs['volumes']:
+            fl = [xx for xx in listdirfull(vol.full_sizedatafld_vol, 'tif')]; fl.sort()
+            zplns = [str(job).zfill(4) for job in range(len(fl))]
+            iterlst = []; [iterlst.append((vol.outdr, kwargs['resizefactor'], vol.brainname, zpln, 
+                       vol.channel, tifffile.imread(fl[i]).astype(bitdepth), bitdepth)) for i, zpln in enumerate(zplns)]
+            #parallelize    
+            p.starmap(resize_save_helper, iterlst)
     return
 
 
@@ -596,6 +608,7 @@ def resize_save(cores, stitchdct, outdr, resizefactor, brainname, zpln, bitdepth
     return svloc
 
 def resize_save_helper(outdr, resizefactor, brainname, zpln, ch, im, bitdepth):
+    
     svloc = os.path.join(outdr, brainname+'_resized_ch'+ch)
     makedir(svloc)
     if len(im.shape) == 2:  #grayscale images
@@ -606,19 +619,20 @@ def resize_save_helper(outdr, resizefactor, brainname, zpln, ch, im, bitdepth):
         y,x,c = im.shape
         xfct = int(x/resizefactor)
         yfct = int(y/resizefactor)
-    im1=cv2.resize(im, (xfct, yfct), interpolation=cv2.INTER_LINEAR) #interpolation=cv2.INTER_AREA) #
+    im1 = cv2.resize(im, (xfct, yfct), interpolation=cv2.INTER_LINEAR) #interpolation=cv2.INTER_AREA) #
     tifffile.imsave(os.path.join(svloc, brainname + "_C"+ch+'_Z'+zpln+'.tif'), im1.astype(bitdepth))
     del im1, im
     return svloc
 
 def saver(cores, stitchdct, outdr, brainname, zpln, compression, bitdepth):
+    
     makedir(outdr)
-    if cores>1:
+    if cores > 1:
         try:
             p
         except NameError:
             p = mp.Pool(cores)
-        iterlst=[]; [iterlst.append((outdr, brainname, zpln, ch, im, compression, bitdepth)) for ch,im in stitchdct.items()]
+        iterlst = []; [iterlst.append((outdr, brainname, zpln, ch, im, compression, bitdepth)) for ch,im in stitchdct.items()]
         lst = p.starmap(saver_helper, iterlst); lst.sort()
         p.terminate(); del p
     else:
