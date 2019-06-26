@@ -142,7 +142,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): sh
 	* generally the process is using a local machine, run step 0 (be sure that files are saved *BEFORE( running this step) to generate a folder where data will be stored
 	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
-* `cell_detect.py`: (might change)
+* `cell_detect.py`:
 	* `.py` file to be used to manage the parallelization _of CNN preprocessing_ to a SLURM cluster
 	* params need to be changed per cohort.
 
@@ -160,8 +160,9 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): sh
 * parameterfolder:
   * folder consisting of elastix parameter files with prefixes `Order<#>_` to specify application order
 
-# CNN Demo (will change):
+# CNN Demo:
 - demo script to run training and large-scale inference
+- useful to make sure the environment and modules are imported correctly
 
 1. if working with a slurm-based scheduler:
 	1. run `sbatch run_demo.sh` within the tools/conv_net
