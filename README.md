@@ -107,7 +107,7 @@ preprocessing.generateparamdict(os.getcwd(), **params)`
 if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))
 ```
 
-	* **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
+* **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
 # *Descriptions of important files*:
