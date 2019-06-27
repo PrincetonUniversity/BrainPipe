@@ -248,8 +248,6 @@ def read_roi_zip(fname, include_roi_name=False, verbose=True):
     
     #hack to try and keep 
     except ValueError:
-        import sys
-        if verbose: sys.stdout.write("***There was an error with ROI file {},\n\n...attempting to fix. You should check this result".format(fname)); sys.stdout.flush()
         lst = []
         with zipfile.ZipFile(fname) as zf:
             for n in zf.namelist():
