@@ -21,16 +21,18 @@ systemdirectory=directorydeterminer()
 #'injch' = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [['regch', '00']], path_2: [['cellch', '00'], ['injch', '01']]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, 'LightSheetTransfer/brody/190626_brodylabatlas_p154_1d3x_488_017na_1hfds_z10um_50msec_50povlp_11-44-49'): [['regch', '00']]}
+os.path.join(systemdirectory, 'LightSheetTransfer/lw/190628_tomo_yg5_iDISCO_test_20190602_1d3x_488_017na_1hfds_z5um_100msec_12-29-42'): [['regch', '00']],
+os.path.join(systemdirectory, 'LightSheetTransfer/lw/190628_tomo_yg5_iDISCO_test_20190602_1d3x_647_017na_1hfds_z5um_100msec_12-10-08'): [['cellch', '00']]
+}
 
 ####Required inputs
 params={
 'systemdirectory':  systemdirectory, #don't need to touch
 'inputdictionary': inputdictionary, #don't need to touch
-'outputdirectory': os.path.join(systemdirectory, 'LightSheetData/brodyatlas/processed/p154_overlap_maxima_test_new_clearing_batch_v2'),
-'xyz_scale': (5.0, 5.0, 10.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-'tiling_overlap': 0.50, #percent overlap taken during tiling
-'stitchingmethod': 'terastitcher', #'terastitcher', blending see below for details
+'outputdirectory': os.path.join(systemdirectory, 'LightSheetData/falkner-mouse/tomo/processed/mousevg5_idisco'),
+'xyz_scale': (5.0, 5.0, 5.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+'tiling_overlap': 0.00, #percent overlap taken during tiling
+'stitchingmethod': 'blending', #'terastitcher', blending see below for details
 'AtlasFile' : os.path.join(systemdirectory, 'LightSheetTransfer/atlas/sagittal_atlas_20um_iso.tif'),
 'annotationfile' : os.path.join(systemdirectory, 'LightSheetTransfer/atlas/annotation_sagittal_atlas_20um_iso.tif'), ###path to annotation file for structures
 'blendtype' : 'sigmoidal', #False/None, 'linear', or 'sigmoidal' blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
