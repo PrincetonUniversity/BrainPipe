@@ -104,7 +104,9 @@ module load elastix/4.8
 * Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
 ```python
 preprocessing.generateparamdict(os.getcwd(), **params)` 
-if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), ignore=shutil.ignore_patterns('^.git'))
+if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): 
+	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), 
+	ignore=shutil.ignore_patterns('^.git'))
 ```
 
 * **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
