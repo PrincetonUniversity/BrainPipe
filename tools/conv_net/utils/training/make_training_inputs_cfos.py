@@ -25,11 +25,11 @@ def otsu_par(saveLocation, otsufld, guassian_sigma, otsu_factor):
     #otsu
     p = mp.Pool(12)
     iterlst = [(otsufld, inn, guassian_sigma, otsu_factor) for inn in listdirfull(saveLocation, "npy")]
-    p.map(otsu_helper, iterlst)
+    p.starmap(otsu_helper, iterlst)
     p.terminate()
     return
             
-def otsu_helper((otsufld, inn, guassian_sigma, otsu_factor)):
+def otsu_helper(otsufld, inn, guassian_sigma, otsu_factor):
     
     #load
     arr = np.load(inn)
@@ -72,9 +72,9 @@ def convert_input(inputFolder, saveLocation, remove_bad=True):
     #make mem_mapped arrays once, to be more cluster friendly
     import multiprocessing as mp
     print("Starting conversion...")
-    p = mp.Pool(1)
+    p = mp.Pool(12)
     iterlst = [(pair[0], pair[1], saveLocation) for pair in pairs]
-    bad = p.map(basic_convert, iterlst)
+    bad = p.starmap(basic_convert, iterlst)
     p.terminate()
     print ("Completed!\n\nBad list: {}".format(bad)) 
     
@@ -104,7 +104,7 @@ def convert_input(inputFolder, saveLocation, remove_bad=True):
         
     return
     
-def basic_convert((tf, zp, saveLocation)):
+def basic_convert(tf, zp, saveLocation):
     """
     """
     if np.all((os.path.exists(tf), os.path.exists(zp))):
@@ -204,6 +204,6 @@ if __name__ == "__main__":
     for a in listdirfull(saveLocation, "npy"):
         sh = np.nonzero(np.load(a))[0].shape[0]
         if sh==0: print(a,sh)
-        
+#%%        
     #otsu_par
     otsu_par(saveLocation, thresfld, guassian_sigma, otsu_factor)  

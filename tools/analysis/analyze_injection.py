@@ -10,51 +10,11 @@ from skimage.external import tifffile
 import matplotlib as mpl
 from tools.imageprocessing.orientation import fix_orientation
 from tools.registration.transform import count_structure_lister, transformed_pnts_to_allen_helper_func
-from tools.utils.io import load_kwargs, listdirfull, makedir
-from natsort import natsorted
+from tools.utils.io import load_kwargs, makedir
 from collections import Counter
 import SimpleITK as sitk, pandas as pd
 import matplotlib.pyplot as plt; plt.ion()
 
-if __name__ == '__main__':
-    
-    #check if reorientation is necessary
-    src = '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob6b_lpv_07/elastix/20170116_tp_bl6_lob6b_lpv_07_488_555_050na_z7d5um_30msec_10povlp_resized_ch01/result.tif'
-    src = orientation_crop_check(src, axes = ('2','1','0'), crop = '[:,390:,:]')
-    
-    #optimize detection parameters for inj det
-    optimize_inj_detect(src, threshold=11, filter_kernel = (3,3,3))
-    
-    #run
-    #suggestion: save_individual=True,
-    #then inspect individual brains, which you can then remove bad brains from list and rerun function
-    inputlist = ['/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob6b_lpv_07', 
-                 '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob45_ml_11', 
-                 '/jukebox/wang/pisano/tracing_output/antero_4x/20170130_tp_bl6_sim_2500r_04']
-
-    kwargs = {'inputlist': inputlist,
-              'inputtype': 'main_folder', 
-              'channel': '01',
-              'channel_type': 'injch',
-              'filter_kernel': (3,3,3),
-              'threshold': 3,
-              'num_sites_to_keep': 1,
-              'injectionscale': 45000, 
-              'imagescale': 2,
-              'reorientation': ('2','0','1'),
-              'crop': '[:,390:,:]',
-              'dst': '/home/wanglab/Downloads/test',
-              'save_individual': True, 
-              'colormap': 'plasma', 
-              'atlas': '/jukebox/wang/pisano/Python/allenatlas/average_template_25_sagittal_forDVscans.tif',
-              'annotation':'/jukebox/wang/pisano/Python/allenatlas/annotation_25_ccf2015_forDVscans.nrrd',
-              'id_table': '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
-            }              
-              
-    
-    df = pool_injections_for_analysis(**kwargs)
-              
-#%%
 def orientation_crop_check(src, axes = ('0','1','2'), crop = False, dst=False):
     '''Function to check orientation and cropping. MaxIPs along 0 axis.
     
@@ -162,7 +122,6 @@ def pool_injections_for_analysis(**kwargs):
     axes = kwargs['reorientation'] if 'reorientation' in kwargs else ('0','1','2')
     cmap = kwargs['colormap'] if 'colormap' in kwargs else 'plasma'
     id_table = kwargs['id_table'] if 'id_table' in kwargs else '/jukebox/temp_wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
-    count_threshold = kwargs['count_threshold'] if 'count_threshold' in kwargs else 10
     save_array = kwargs['save_array'] if 'save_array' in kwargs else False
     save_tif = kwargs['save_tif'] if 'save_tif' in kwargs else False
     num_sites_to_keep = kwargs['num_sites_to_keep'] if 'num_sites_to_keep' in kwargs else 1
@@ -311,3 +270,41 @@ def find_site(im, thresh=10, filter_kernel=(5,5,5), num_sites_to_keep=1):
         sizes = [np.sum(labelled==i) for i in range(1,nlab+1)]
         vals = [i+1 for i in np.argsort(sizes)[-num_sites_to_keep:][::-1]]
         return np.in1d(labelled, vals).reshape(labelled.shape)
+    
+if __name__ == '__main__':
+    
+    #check if reorientation is necessary
+    src = '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob6b_lpv_07/elastix/20170116_tp_bl6_lob6b_lpv_07_488_555_050na_z7d5um_30msec_10povlp_resized_ch01/result.tif'
+    src = orientation_crop_check(src, axes = ('2','1','0'), crop = '[:,390:,:]')
+    
+    #optimize detection parameters for inj det
+    optimize_inj_detect(src, threshold=11, filter_kernel = (3,3,3))
+    
+    #run
+    #suggestion: save_individual=True,
+    #then inspect individual brains, which you can then remove bad brains from list and rerun function
+    inputlist = ['/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob6b_lpv_07', 
+                 '/jukebox/wang/pisano/tracing_output/antero_4x/20170116_tp_bl6_lob45_ml_11', 
+                 '/jukebox/wang/pisano/tracing_output/antero_4x/20170130_tp_bl6_sim_2500r_04']
+
+    kwargs = {'inputlist': inputlist,
+              'inputtype': 'main_folder', 
+              'channel': '01',
+              'channel_type': 'injch',
+              'filter_kernel': (3,3,3),
+              'threshold': 3,
+              'num_sites_to_keep': 1,
+              'injectionscale': 45000, 
+              'imagescale': 2,
+              'reorientation': ('2','0','1'),
+              'crop': '[:,390:,:]',
+              'dst': '/home/wanglab/Downloads/test',
+              'save_individual': True, 
+              'colormap': 'plasma', 
+              'atlas': '/jukebox/wang/pisano/Python/allenatlas/average_template_25_sagittal_forDVscans.tif',
+              'annotation':'/jukebox/wang/pisano/Python/allenatlas/annotation_25_ccf2015_forDVscans.nrrd',
+              'id_table': '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
+            }              
+              
+    
+    df = pool_injections_for_analysis(**kwargs)
