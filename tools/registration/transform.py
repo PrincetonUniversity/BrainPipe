@@ -526,7 +526,7 @@ def count_structure_lister(id_table, *args):
     df['cell_count']=0
     
     #populate cell count in dataframe
-    for pix_id, count in cnt.iteritems():
+    for pix_id, count in cnt.items():
         df.loc[df.id==pix_id, 'cell_count']=count
 
     return df

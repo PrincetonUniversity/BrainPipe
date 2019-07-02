@@ -6,9 +6,8 @@ Created on Thu Dec 20 15:38:18 2018
 @author: wanglab
 """
 
-from __future__ import division
 import numpy as np
-from utils.io import pairwise_distance_metrics, load_dictionary, read_roi_zip
+from tools.conv_net.utils.io import pairwise_distance_metrics, load_dictionary, read_roi_zip
 
 def human_compare_with_raw_rois(ann1roipth, ann2roipth, cutoff = 30):
             
