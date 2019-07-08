@@ -240,7 +240,6 @@ def elastix_command_line_call(fx, mv, out, parameters, fx_mask=False):
     else:
         writer(out, '\n***ERROR***Cannot find elastix result file\n: {}'.format(ElastixResultFile))
         return
-
         
     return ElastixResultFile, TransformParameterFile
 
