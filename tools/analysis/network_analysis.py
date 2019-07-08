@@ -4,7 +4,7 @@ Created on Thu Jun 30 10:56:43 2016
 
 @author: wanglab
 """
-import networkx as nx, cPickle as pickle
+import networkx as nx, pickle
 import matplotlib.pyplot as plt    
 import pandas as pd    
 #import pygraphviz as pg
