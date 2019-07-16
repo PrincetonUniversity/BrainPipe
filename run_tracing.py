@@ -21,24 +21,25 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/tp/tracing_cfos_sample_stacks/neocortex/raw/190429_20180608_bl6_h129_jg72_4x_647_008na_1hfls_z7d5um_100msec_10povlp_sagittal_12-51-50"): [["regch", "00"]]
+os.path.join(systemdirectory, "LightSheetTransfer/Jess/201904_devcno/190715_an10_devcno_03082019_1d3x_647_017na_1hfds_z10um_100msec_12-15-47"): [["regch", "00"]],
+os.path.join(systemdirectory, "LightSheetTransfer/Jess/201904_devcno/190715_an10_devcno_03082019_1d3x_488_017na_1hfds_z10um_100msec_12-08-47"): [["injch", "00"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetTransfer/tp/test"),
-"xyz_scale": (5.0, 5.0, 25.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-"tiling_overlap": 0.50, #percent overlap taken during tiling
-"stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
+"outputdirectory": os.path.join(systemdirectory, "wang/Jess/lightsheet_output/201906_development_cno/processed/an10"),
+"xyz_scale": (5.0, 5.0, 10.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+"tiling_overlap": 0.00, #percent overlap taken during tiling
+"stitchingmethod": "blending", #"terastitcher", blending see below for details
 "AtlasFile" : os.path.join(systemdirectory, "LightSheetTransfer/atlas/sagittal_atlas_20um_iso.tif"),
 "annotationfile" : os.path.join(systemdirectory, "LightSheetTransfer/atlas/annotation_sagittal_atlas_20um_iso.tif"), ###path to annotation file for structures
 "blendtype" : "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
 "intensitycorrection" : True, #True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
 "resizefactor": 3, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
 "rawdata" : True, # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
-"finalorientation" :  ("0","1","2"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
+"finalorientation" :  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
 "slurmjobfactor": 50 #number of array iterations per arrayjob since max job array on SPOCK is 1000
 }
 
@@ -116,7 +117,7 @@ if __name__ == "__main__":
     #####################################################
     elif stepid == 2:
         ###combine downsized ch and ch+cell files
-        preprocessing.tiffcombiner(jobid, cores = 10, **params)}
+        preprocessing.tiffcombiner(jobid, cores = 10, **params)
         
     #######################STEP 3 #######################
     #####################################################
