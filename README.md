@@ -18,25 +18,32 @@
  
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
 ### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.5+) to help with setup.
+
 ```
 $ pip3 install opencv-python scikit-image scikit-learn seaborn tqdm numba natsort tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision #(make sure it is torch 0.4+)
-'''
+```
+
 If on a local machine:
-'''
+
+```
 $ sudo apt-get install elastix 
 $ sudo apt-get install xvfb 
-'''
+```
+
 If on a local machine, make sure you have all the boost libraries installed (important for working with torms3's DataTools)
-'''
+
+```
 $ sudo apt-get install libboost-all-dev 
 ```
 
 Clone the necessary C++ extension scripts for working with DataProvider3:
+
 ```
 git clone https://github.com/torms3/DataTools.git
 ```
 
 Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
+
 ```
 python setup.py install
 ```
