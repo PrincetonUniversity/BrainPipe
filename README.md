@@ -39,13 +39,13 @@ $ sudo apt-get install libboost-all-dev
 Clone the necessary C++ extension scripts for working with DataProvider3:
 
 ```
-git clone https://github.com/torms3/DataTools.git
+$ git clone https://github.com/torms3/DataTools.git
 ```
 
 Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
 
 ```
-python setup.py install
+$ python setup.py install
 ```
 
 ## To use TeraStitcher it must be installed locally or on your cluster
