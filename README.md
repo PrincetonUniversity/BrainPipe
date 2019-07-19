@@ -36,7 +36,7 @@ If on a local machine, make sure you have all the boost libraries installed (imp
 $ sudo apt-get install libboost-all-dev 
 ```
 
-Clone the necessary C++ extension scripts for working with DataProvider3:
+Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for working with DataProvider3:
 
 ```
 $ git clone https://github.com/torms3/DataTools.git
