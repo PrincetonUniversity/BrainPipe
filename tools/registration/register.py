@@ -529,8 +529,6 @@ def allen_compare(AtlasFile, svlc, trnsfrm_out_file, verbose=False, outline = Fa
 def inj_and_cells(elastixfld, cellch, injch, AtlasFile, threshold = 0.075):
     ###assumes sagittal files    
     ###set paths for 
-    cellfld=cellch[:cellch.rfind('/')]
-    injfld=injch[:injch.rfind('/')]
     ###generate Allen Atlas background
     allen=os.path.join(elastixfld, 'allenatlas_inj')
     makedir(allen)    
