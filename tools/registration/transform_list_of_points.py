@@ -187,7 +187,6 @@ def unpack_pnts(points_file, dst):
 
     #####inputs 
     assert type(points_file)==str
-    point_or_index = "OutputPoint"
     
     #get points
     with open(points_file, "rb") as f:                
@@ -195,10 +194,8 @@ def unpack_pnts(points_file, dst):
         f.close()
 
     #####populate post-transformed array of contour centers
-    sys.stdout.write("\n{} points detected\n\n".format(len(lines)))
+    sys.stdout.write("\n\n{} points detected\n\n".format(len(lines)))
     arr=np.empty((len(lines), 3))    
-    for i in range(len(lines)):        
-        arr[i,...]=lines[i].split()[lines[i].split().index(point_or_index)+3:lines[i].split().index(point_or_index)+6] #x,y,z
         
     #optional save out of points
     dst_fl = os.path.join(dst, "posttransformed_zyx_voxels.npy")
