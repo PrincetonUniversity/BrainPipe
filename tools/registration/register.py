@@ -412,8 +412,10 @@ def apply_transformix_and_register(vol, reg_vol, svlc, cores, AtlasFile, paramet
     
     #connect transforms by setting regtoatlas TP0's initial transform to sig->reg transform
     #might need to go backwards...
-    reg_to_atlas_tps = [os.path.join(sig_to_reg_out, xx) for xx in os.listdir(sig_to_reg_out) if 'TransformParameters' in xx and 'regtoatlas' in xx]; reg_to_atlas_tps.sort() 
-    sig_to_reg_tps = [os.path.join(sig_to_reg_out, xx) for xx in os.listdir(sig_to_reg_out) if 'TransformParameters' in xx and 'regtoatlas' not in xx]; sig_to_reg_tps.sort()
+    reg_to_atlas_tps = [os.path.join(sig_to_reg_out, xx) for xx in os.listdir(sig_to_reg_out) if 'TransformParameters' 
+                        in xx and 'regtoatlas' in xx]; reg_to_atlas_tps.sort() 
+    sig_to_reg_tps = [os.path.join(sig_to_reg_out, xx) for xx in os.listdir(sig_to_reg_out) if 'TransformParameters' 
+                      in xx and 'regtoatlas' not in xx]; sig_to_reg_tps.sort()
 
     #account for moving the reg_to_atlas_tps:
     [change_transform_parameter_initial_transform(reg_to_atlas_tps[xx+1], reg_to_atlas_tps[xx]) for xx in range(len(reg_to_atlas_tps)-1)]
