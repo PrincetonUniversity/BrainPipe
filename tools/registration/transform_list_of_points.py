@@ -171,7 +171,8 @@ def point_transformix(pretransform_text_file, transformfile, dst):
 
 
 def unpack_pnts(points_file, dst):
-    """function to take elastix point transform file and return anatomical locations of those points
+    """
+    function to take elastix point transform file and return anatomical locations of those points
     
     Here elastix uses the xyz convention rather than the zyx numpy convention
     
@@ -187,16 +188,19 @@ def unpack_pnts(points_file, dst):
 
     #####inputs 
     assert type(points_file)==str
+    point_or_index = 'OutputPoint'
     
     #get points
-    with open(points_file, "rb") as f:                
+    with open(points_file, "r") as f:                
         lines=f.readlines()
         f.close()
 
     #####populate post-transformed array of contour centers
     sys.stdout.write("\n\n{} points detected\n\n".format(len(lines)))
     arr=np.empty((len(lines), 3))    
-        
+    for i in range(len(lines)):        
+        arr[i,...]=lines[i].split()[lines[i].split().index(point_or_index)+3:lines[i].split().index(point_or_index)+6] #x,y,z
+            
     #optional save out of points
     dst_fl = os.path.join(dst, "posttransformed_zyx_voxels.npy")
     np.save(dst_fl, np.asarray([(z,y,x) for x,y,z in arr]))

@@ -5,6 +5,7 @@ Created on Sun Dec 16 14:16:35 2018
 
 @author: tpisano
 """
+
 import os, sys
 from tools.utils.io import makedir, load_dictionary, load_np, listdirfull
 from tools.registration.transform_list_of_points import create_text_file_for_elastix, point_transformix, modify_transform_files, unpack_pnts
