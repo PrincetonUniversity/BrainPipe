@@ -17,7 +17,7 @@ from scipy.ndimage.interpolation import zoom
 from tools.utils.directorydeterminer import directorydeterminer
 from tools.utils.parallel import parallel_process
 
-#%%
+
 
 def makedir(path):
     '''Simple function to make directory if path does not exists'''
@@ -32,7 +32,7 @@ def removedir(path):
         elif os.path.isfile(path):
             os.remove(path)
     return
-#%%
+
 def listdirfull(x, keyword=False):
     '''might need to modify based on server...i.e. if automatically saving a file called 'thumbs'
     '''
@@ -41,7 +41,6 @@ def listdirfull(x, keyword=False):
     else:
         return [os.path.join(x, xx) for xx in os.listdir(x) if xx[0] != '.' and '~' not in xx and 'Thumbs.db' not in xx and keyword in xx]
 
-#%%
 def chunkit(core, cores, item_to_chunk):
     '''function used for parallel processes to determine the chunk range they should process, returns tuple of lower and upper ranges
     assumes zero indexing for the "core" input
@@ -61,7 +60,7 @@ def chunkit(core, cores, item_to_chunk):
         chnkrng=(chnksz*(core)-1, len(item_to_chunk)) #remainder for noneven chunking
     return chnkrng
 
-#%%
+
 def writer(saveloc, texttowrite, flnm=None, verbose=True):
     '''Function to write string of text into file title FileLog.txt.
     Optional flnm input to change name of log'''
@@ -98,9 +97,6 @@ def writer(saveloc, texttowrite, flnm=None, verbose=True):
             print ('Error using tracer.writer function')
             return
 
-
-#%%
-
 def get_filepaths(directory):
     """
     #from: https://stackoverflow.com/questions/3207219/how-to-list-all-files-of-a-directory-in-python/19308592#19308592?newreg=eda6052e44534b0982fb01506d1a2fbf
@@ -122,7 +118,8 @@ def get_filepaths(directory):
     return file_paths  # Self-explanatory.
 
 def dict_update(pth, old_system_directory = False):
-    '''Function to update param dictionary by replacing both text of system direcotry with new AND replace kwargs['systemdirectory']
+    '''Function to update param dictionary by replacing both text of system direcotry 
+    with new AND replace kwargs['systemdirectory']
 
     pth = '/home/wanglab/Downloads/param_dict.p'
     old_system_directory (optional) - str or list to search for
@@ -161,24 +158,7 @@ def dict_update(pth, old_system_directory = False):
         old_system_directory.remove(new_system_directory)
     except:
         pass
-#
-#    #read in
-#    with open(pth, 'r', encoding="utf8", errors='ignore') as f:
-#        lines = f.readlines()
-#        f.close()
-#
-#    #replace
-#    for old in old_system_directory:
-#        lines = [xx.replace(old, new_system_directory) for xx in lines]
-#
-#    #tmp save out and then rename - this is done for added protection against multiple jobs running this at once
-#    from random import randint
-#    fl = pth + str(randint(1000, 10000)) + '.p'
-#    with open(fl, 'w') as f:
-#        [f.write(xx) for xx in lines]
-#        f.close()
-#
-#    os.rename(fl, pth)
+
     return
 
 def load_kwargs(outdr=None, update_dict = True, system_directories = ['/jukebox/', '/mnt/bucket/labs/', '/home/wanglab/', '/home/tpisano'], **kwargs):
@@ -375,7 +355,7 @@ def compress_full_sizedatafld(jobid, cores=None, chunksize=None, compression=1, 
     iterlst = []; [iterlst.append((jobid, fls_to_process, compression, removeoriginal, core, cores)) for core in range(cores)]
     lst = p.starmap(compress_full_helper, iterlst); lst.sort()
     print ('Completed {} through {}\nUsing {} cores'.format(fls_to_process[0], fls_to_process[-1], time.time() - start))
-#%%
+
 def compress_full_helper(jobid, fls_to_process, compression, removeoriginal, core, cores):
     '''helper function to compress tifs
     '''
@@ -557,7 +537,7 @@ def resize_list(src, dst, zoomfactor=False, compression=1, cores = None):
     parallel_process(iterlst, resize_helper, n_jobs=cores)
     sys.stdout.write('...done'.format(len(src))); sys.stdout.flush()
     return
-#%%
+
 def change_bitdepth(src, outdepth = 'uint8'):
     '''Function to take numpy array, rescale_intensity then change bitdepth
 
@@ -571,7 +551,7 @@ def change_bitdepth(src, outdepth = 'uint8'):
 
     #return rescale_intensity(src, in_range=str(src.dtype), out_range = outdepth).astype(outdepth) #doesn't work as well
     return rescale_intensity(src, out_range = outdepth).astype(outdepth)
-#%%
+
 def load_memmap_arr(pth, mode='r', dtype = 'uint16', shape = False):
     '''Function to load memmaped array.
 
@@ -734,7 +714,7 @@ def make_memmap_from_tiff_list(src, dst, dtype=False):
         memmap.flush()
 
     return dst
-#%%
+
 def view_brain(vol, subsections=5, save=False, dpi=500, cmap = 'gray'):
     '''Function to visualize the brain
 
@@ -829,7 +809,7 @@ def convert_to_mhd(src, dims, dst=False, verbose = False):
         sitk.WriteImage(im, src+'.mhd')
         if verbose: print(src+'.mhd')
         return src+'.mhd'
-#%%
+
 import filecmp
 import os.path
 
@@ -862,8 +842,6 @@ def are_dir_trees_equal(dir1, dir2):
     return True
 
 
-
-
 def log_step(task, out='complete', **kwargs):
     '''Function to log completion of a step
 
@@ -888,7 +866,9 @@ def check_step(task, **kwargs):
         return True
     else:
         return False
+    
 from subprocess import check_output
+
 def sp_call(call):
     print(check_output(call, shell=True))
     return

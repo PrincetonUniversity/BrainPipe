@@ -14,6 +14,75 @@ from tools.imageprocessing.orientation import fix_contour_orientation, fix_dimen
 import numpy as np, pandas as pd
 from skimage.external import tifffile
 
+
+def generate_transformed_cellcount(dataframe, dst, transformfiles, lightsheet_parameter_dictionary, verbose=False):
+    '''Function to take a csv file and generate an input to transformix
+    
+    Inputs
+    ----------------
+    dataframe = preloaded pandas dataframe
+    dst = destination to save files
+    transformfiles = list of all elastix transform files used, and in order of the original transform****
+    lightsheet_parameter_file = .p file generated from lightsheet package
+    '''
+    #set up locations
+    transformed_dst = os.path.join(dst, 'transformed_points'); makedir(transformed_dst)
+    
+    #make zyx numpy arry
+    zyx = dataframe[['z','y','x']].values
+    
+    #adjust for reorientation THEN rescaling, remember full size data needs dimension change releative to resample
+    kwargs = load_dictionary(lightsheet_parameter_dictionary)
+    vol = [xx for xx in kwargs['volumes'] if xx.ch_type =='cellch'][0]
+    fullsizedimensions = get_fullsizedims_from_kwargs(kwargs) #don't get from kwargs['volumes'][0].fullsizedimensions it's bad! use this instead
+    zyx = fix_contour_orientation(zyx, verbose=verbose, **kwargs) #now in orientation of resample
+    zyx = points_resample(zyx, original_dims = fix_dimension_orientation(fullsizedimensions, 
+            **kwargs), resample_dims = tifffile.imread(vol.resampled_for_elastix_vol).shape, verbose = verbose)[:, :3]
+   
+    #make into transformix-friendly text file
+    pretransform_text_file = create_text_file_for_elastix(zyx, transformed_dst)
+        
+    #copy over elastix files
+    transformfiles = modify_transform_files(transformfiles, transformed_dst) 
+    change_transform_parameter_initial_transform(transformfiles[0], 'NoInitialTransform')
+   
+    #run transformix on points
+    points_file = point_transformix(pretransform_text_file, transformfiles[-1], transformed_dst)
+    
+    #convert registered points into structure counts
+    converted_points = unpack_pnts(points_file, transformed_dst)   
+    
+    return converted_points
+
+def points_resample(src, original_dims, resample_dims, verbose = False):
+    '''Function to adjust points given resizing by generating a transform matrix
+    
+    ***Assumes ZYX and that any orientation changes have already been done.***
+    
+    src: numpy array or list of np arrays of dims nx3
+    original_dims (tuple)
+    resample_dims (tuple)
+    '''
+    src = np.asarray(src).astype('float')
+    assert src.shape[-1] == 3, 'src must be a nx3 array'
+            
+    #apply scale diff
+    for i in range(3):
+        factor = (resample_dims[i]) / float(original_dims[i])
+        src[:,i] = src[:,i] * float(factor)
+        if verbose: sys.stdout.write('\nrescaling {} by {}'.format(['z','y','x'][i], factor))
+    if verbose: sys.stdout.write('\nfirst three transformed pnts:\n{}\n'.format(src[0:3]))
+
+    return src
+
+def get_fullsizedims_from_kwargs(kwargs):
+    '''fullsizedims of vols is incorrect when using terastitcher...this fixes that
+    '''
+    vol = [xx for xx in kwargs['volumes'] if xx.ch_type =='cellch'][0]
+    zf = len(listdirfull(vol.full_sizedatafld_vol, '.tif'))
+    yf,xf = tifffile.imread(listdirfull(vol.full_sizedatafld_vol, 'tif')[0]).shape
+    return tuple((zf, yf, xf))
+
 if __name__ == '__main__':
     #goal is to transform cooridnates, voxelize based on number of cells and overlay with reigstered cell signal channel...
     #inputs
@@ -63,73 +132,4 @@ if __name__ == '__main__':
     merged = np.stack([cell_cnn, cell_reg, np.zeros_like(cell_reg)], -1)
     tifffile.imsave('/home/wanglab/Downloads/merged.tif', merged)
     #out = np.concatenate([cell_cnn, cell_reg, ], 0)
-
-
-#%%
-def generate_transformed_cellcount(dataframe, dst, transformfiles, lightsheet_parameter_dictionary, verbose=False):
-    '''Function to take a csv file and generate an input to transformix
-    
-    Inputs
-    ----------------
-    dataframe = preloaded pandas dataframe
-    dst = destination to save files
-    transformfiles = list of all elastix transform files used, and in order of the original transform****
-    lightsheet_parameter_file = .p file generated from lightsheet package
-    '''
-    #set up locations
-    transformed_dst = os.path.join(dst, 'transformed_points'); makedir(transformed_dst)
-    
-    #make zyx numpy arry
-    zyx = dataframe[['z','y','x']].values
-    
-    #adjust for reorientation THEN rescaling, remember full size data needs dimension change releative to resample
-    kwargs = load_dictionary(lightsheet_parameter_dictionary)
-    vol = [xx for xx in kwargs['volumes'] if xx.ch_type =='cellch'][0]
-    fullsizedimensions = get_fullsizedims_from_kwargs(kwargs) #don't get from kwargs['volumes'][0].fullsizedimensions it's bad! use this instead
-    zyx = fix_contour_orientation(zyx, verbose=verbose, **kwargs) #now in orientation of resample
-    zyx = points_resample(zyx, original_dims = fix_dimension_orientation(fullsizedimensions, **kwargs), resample_dims = tifffile.imread(vol.resampled_for_elastix_vol).shape, verbose = verbose)[:, :3]
-   
-    #make into transformix-friendly text file
-    pretransform_text_file = create_text_file_for_elastix(zyx, transformed_dst)
-        
-    #copy over elastix files
-    transformfiles = modify_transform_files(transformfiles, transformed_dst) 
-    change_transform_parameter_initial_transform(transformfiles[0], 'NoInitialTransform')
-   
-    #run transformix on points
-    points_file = point_transformix(pretransform_text_file, transformfiles[-1], transformed_dst)
-    
-    #convert registered points into structure counts
-    converted_points = unpack_pnts(points_file, transformed_dst)   
-    
-    return converted_points
-
-def points_resample(src, original_dims, resample_dims, verbose = False):
-    '''Function to adjust points given resizing by generating a transform matrix
-    
-    ***Assumes ZYX and that any orientation changes have already been done.***
-    
-    src: numpy array or list of np arrays of dims nx3
-    original_dims (tuple)
-    resample_dims (tuple)
-    '''
-    src = np.asarray(src).astype('float')
-    assert src.shape[-1] == 3, 'src must be a nx3 array'
-            
-    #apply scale diff
-    for i in range(3):
-        factor = (resample_dims[i]) / float(original_dims[i])
-        src[:,i] = src[:,i] * float(factor)
-        if verbose: sys.stdout.write('\nrescaling {} by {}'.format(['z','y','x'][i], factor))
-    if verbose: sys.stdout.write('\nfirst three transformed pnts:\n{}\n'.format(src[0:3]))
-
-    return src
-
-def get_fullsizedims_from_kwargs(kwargs):
-    '''fullsizedims of vols is incorrect when using terastitcher...this fixes that
-    '''
-    vol = [xx for xx in kwargs['volumes'] if xx.ch_type =='cellch'][0]
-    zf = len(listdirfull(vol.full_sizedatafld_vol, '.tif'))
-    yf,xf = tifffile.imread(listdirfull(vol.full_sizedatafld_vol, 'tif')[0]).shape
-    return tuple((zf, yf, xf))
     

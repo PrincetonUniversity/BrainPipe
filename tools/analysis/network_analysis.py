@@ -297,6 +297,7 @@ def create_progenitor_chain(structures, df, verbose = False):
                 else:#append
                     chain.append(parent)
                     current_struct = [xx for xx in structures if xx.name == parent][0]
+
             struct.create_progenitor_chain(chain)
             new_structures.append(struct)    
 
