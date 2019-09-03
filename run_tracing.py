@@ -21,16 +21,16 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/brody/190828_e105_new_hldr_shiftedls_1d3x_488_008na_1hfds_z10um_100msec_20povlp_13-52-37"): [["regch", "00"]]
+os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/190808_brodylabatlas_p154_new_hldr_1d3x_488_008na_1hfds_z10um_50msec_40povlp_14-18-33"): [["regch", "00"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetTransfer/brody/e105_new_hldr_shiftedls_488_23povlp"),
+"outputdirectory": os.path.join(systemdirectory, "LightSheetTransfer/brody/p154_new_hldr_488_43povlp"),
 "xyz_scale": (5.0, 5.0, 10.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-"tiling_overlap": 0.23, #percent overlap taken during tiling
+"tiling_overlap": 0.43, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
 "AtlasFile" : os.path.join(systemdirectory, "LightSheetTransfer/atlas/allen_atlas/average_template_25_sagittal_forDVscans.tif"),
 "annotationfile" : os.path.join(systemdirectory, "LightSheetTransfer/atlas/allen_atlas/annotation_2017_25um_sagittal_forDVscans.nrrd"), ###path to annotation file for structures

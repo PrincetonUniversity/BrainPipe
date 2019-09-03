@@ -4,7 +4,9 @@
 Created on Wed Oct 11 14:14:48 2017
 
 @author: tpisano
+
 """
+
 import os, numpy as np
 from skimage.external import tifffile
 import matplotlib as mpl
@@ -66,11 +68,9 @@ def optimize_inj_detect(src, threshold=3, filter_kernel = (3,3,3), dst=False):
     
     return 
 
-
 def pool_injections_for_analysis(**kwargs):
     """Function to pool several injection sites. Assumes that the basic registration using this software has been run.
-    
-   
+       
     Inputs
     -----------
     kwargs:
@@ -203,18 +203,8 @@ def pool_injections_for_analysis(**kwargs):
     atlas = tifffile.imread(kwargs["atlas"])
     arr = fix_orientation(array, axes=axes)
     #cropping
-    #if "crop_atlas" not in kwargs:
     if kwargs["crop"]: atlas = eval("atlas{}".format(kwargs["crop"]))
     atlas = fix_orientation(atlas, axes=axes)
-    #elif "crop_atlas" in kwargs:
-        #if kwargs["crop_atlas"]: atlas = eval("atlas{}".format(kwargs["crop_atlas"]))
-        #atlas = fix_orientation(atlas, axes=axes)
-        #accomodate for size difference
-        #d0,d1,d2 = [(x-y)/2 for x,y in zip(atlas.shape, arr.shape)]
-        #arr = np.pad(arr,((d0,d0),(d1,d1),(d2,d2)), mode="constant")
-        ##allows for a single pixel shift - if needed
-        #d0,d1,d2 = [(x-y) for x,y in zip(atlas.shape, arr.shape)]
-        #arr = np.pad(arr,((d0,0),(d1,0),(d2,0)), mode="constant")
 
     my_cmap = eval("plt.cm.{}(np.arange(plt.cm.RdBu.N))".format(cmap))
     my_cmap[:1,:4] = 0.0  
