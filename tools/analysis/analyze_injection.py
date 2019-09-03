@@ -188,7 +188,7 @@ def pool_injections_for_analysis(**kwargs):
             df.drop([countcol], axis=1, inplace=True)
         df[os.path.basename(pth)] = tdf[countcol]
         
-    df.to_csv(os.path.join(dst,"voxel_counts.csv"))
+    df.to_csv(os.path.join(dst,"voxel_counts.csv"), index = False)
     print("\n\nCSV file of cell counts, saved as {}\n\n\n".format(os.path.join(dst,"voxel_counts.csv")))  
             
     #condense nonzero pixels
@@ -282,9 +282,9 @@ if __name__ == "__main__":
     #run
     #suggestion: save_individual=True,
     #then inspect individual brains, which you can then remove bad brains from list and rerun function
-    inputlist = ["/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an25",
+    inputlist = [#"/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an25",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an16",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an04", #weird registration
+                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an04", #weird registration but probably ok
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an17",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an07",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an03",
@@ -292,18 +292,18 @@ if __name__ == "__main__":
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an02",
 #                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an26",
 #                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an23",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an31",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an30",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an31",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an30",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an09",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an06",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an22",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an22",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an12",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an27",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an27",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an15",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an10",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an20",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an21",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an24",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an20",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an21",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an24",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an01",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an13",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an05"]
