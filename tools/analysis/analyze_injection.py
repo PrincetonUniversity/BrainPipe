@@ -198,7 +198,7 @@ def pool_injections_for_analysis(**kwargs):
     print("Collecting nonzero pixels for pooled image...")
     tick = 0
     #generating pooled array where voxel value = total number of brains with that voxel as positive
-    for k,v in c.iteritems():
+    for k,v in c.items():
         k = [int(xx) for xx in k.replace("(","").replace(")","").split(",")]
         array[k[0], k[1], k[2]] = int(v)
         tick+=1
@@ -273,25 +273,25 @@ if __name__ == "__main__":
     you will need to modify accordingly """
     
     #check if reorientation is necessary
-    src = "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an01/elastix/an1_devcno_03082019_1d3x_647_017na_1hfds_z10um_100msec_resized_ch00/result.tif"
-    src = orientation_crop_check(src, axes = ("2","1","0"), crop = "[:,423:,:]")
+    src = "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an10/elastix/an10_devcno_03082019_1d3x_488_017na_1hfds_z10um_100msec_resized_ch00/result.tif"
+    src = orientation_crop_check(src, axes = ("2","0","1"), crop = "[:,423:,:]")
     
     #optimize detection parameters for inj det
-    optimize_inj_detect(src, threshold=5, filter_kernel = (5,5,5))
+    optimize_inj_detect(src, threshold=3, filter_kernel = (5,5,5))
     
     #run
     #suggestion: save_individual=True,
     #then inspect individual brains, which you can then remove bad brains from list and rerun function
     inputlist = ["/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an25",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an16",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an04",
+                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an04", #weird registration
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an17",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an07",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an03",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an14",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an02",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an26",
-                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an23",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an26",
+#                 "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an23",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an31",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an30",
                  "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an09",
@@ -313,7 +313,7 @@ if __name__ == "__main__":
               "channel_type": ["injch", "cellch"], #must be a list, safer as this can be mislabeled
               "channel": "00",
               "filter_kernel": (5,5,5),
-              "threshold": 5,
+              "threshold": 3,
               "num_sites_to_keep": 1,
               "injectionscale": 45000, 
               "imagescale": 2,
