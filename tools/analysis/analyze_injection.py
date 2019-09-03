@@ -75,11 +75,13 @@ def pool_injections_for_analysis(**kwargs):
     -----------
     kwargs:
       "inputlist": inputlist, #list of folders generated previously from software
-      "inputtype": "main_folder", "tiff" #specify the type of input. main_folder is the lightsheetpackage"s folder, tiff is the file to use for injection site segmentation
+      "inputtype": "main_folder", "tiff" #specify the type of input. main_folder is the lightsheetpackage"s folder, tiff is the file 
+      to use for injection site segmentation
       "channel": "01", 
       "channel_type": "injch",
       "filter_kernel": (3,3,3), #gaussian blur in pixels (if registered to ABA then 1px likely is 25um)
-      "threshold": 3 (int, value to use for thresholding, this value represents the number of stand devs above the mean of the gblurred image)
+      "threshold": 3 (int, value to use for thresholding, this value represents the number of stand devs above the mean of the gblurred
+      image)
       "num_sites_to_keep": int, number of injection sites to keep, useful if multiple distinct sites
       "injectionscale": 45000, #use to increase intensity of injection site visualizations generated - DOES NOT AFFECT DATA
       "imagescale": 2, #use to increase intensity of background  site visualizations generated - DOES NOT AFFECT DATA
@@ -93,7 +95,8 @@ def pool_injections_for_analysis(**kwargs):
                 anterior cortex: "[:,:250,:]"
       
       "dst": "/home/wanglab/Downloads/test", #save location
-      "save_individual": True, #optional to save individual images, useful to inspect brains, which you can then remove bad brains from list and rerun function
+      "save_individual": True, #optional to save individual images, useful to inspect brains, which you can then remove bad brains from 
+      list and rerun function
       "colormap": "plasma", 
       "atlas": "/jukebox/wang/pisano/Python/allenatlas/average_template_25_sagittal_forDVscans.tif",
       "annotation":"/jukebox/wang/pisano/Python/allenatlas/annotation_25_ccf2015_forDVscans.nrrd",
@@ -104,7 +107,8 @@ def pool_injections_for_analysis(**kwargs):
           "save_array": path to folder to save out numpy array per brain of binarized detected site
           "save_tif": saves out tif volume per brain of binarized detected site
           "dpi": dots per square inch to save at
-          "crop_atlas":(notfunctional) similiar to crop. Use when you would like to greatly restrain the cropping for injsite detection, but you want to display a larger area of overlay.
+          "crop_atlas":(notfunctional) similiar to crop. Use when you would like to greatly restrain the cropping for injsite detection,
+          but you want to display a larger area of overlay.
                       this will 0 pad the injection sites to accomodate the difference in size. Note this MUST be LARGER THAN crop.
           
       Returns
