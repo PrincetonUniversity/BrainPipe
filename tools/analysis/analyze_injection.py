@@ -121,7 +121,7 @@ def pool_injections_for_analysis(**kwargs):
     imagescale = kwargs["imagescale"] if "imagescale" in kwargs else 1
     axes = kwargs["reorientation"] if "reorientation" in kwargs else ("0","1","2")
     cmap = kwargs["colormap"] if "colormap" in kwargs else "plasma"
-    id_table = kwargs["id_table"] if "id_table" in kwargs else "/jukebox/temp_wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx"
+    id_table = kwargs["id_table"] if "id_table" in kwargs else "/jukebox/LightSheetTransfer/atlas/ls_id_table_w_voxelcounts.xlsx"
     save_array = kwargs["save_array"] if "save_array" in kwargs else False
     save_tif = kwargs["save_tif"] if "save_tif" in kwargs else False
     num_sites_to_keep = kwargs["num_sites_to_keep"] if "num_sites_to_keep" in kwargs else 1
@@ -137,7 +137,7 @@ def pool_injections_for_analysis(**kwargs):
         #find the volume by loading the param dictionary generated using the light-sheet package
         if inputtype == "main_folder":
             dct = load_kwargs(pth); #print dct["AtlasFile"]
-            vol = [xx for xx in dct["volumes"] if xx.ch_type == kwargs["channel_type"] and xx.channel == kwargs["channel"]][0]
+            vol = [xx for xx in dct["volumes"] if xx.ch_type in kwargs["channel_type"] and xx.channel == kwargs["channel"]][0]
             #done to account for different versions
             if os.path.exists(vol.ch_to_reg_to_atlas+"/result.1.tif"):
                 impth = vol.ch_to_reg_to_atlas+"/result.1.tif"
@@ -156,7 +156,8 @@ def pool_injections_for_analysis(**kwargs):
         if kwargs["crop"]: im = eval("im{}".format(kwargs["crop"]))#; print im.shape
         
         #segment
-        arr = find_site(im, thresh=kwargs["threshold"], filter_kernel=kwargs["filter_kernel"], num_sites_to_keep=num_sites_to_keep)*injscale
+        arr = find_site(im, thresh=kwargs["threshold"], filter_kernel=kwargs["filter_kernel"], 
+                        num_sites_to_keep=num_sites_to_keep)*injscale
         if save_array: np.save(os.path.join(save_array,"{}".format(os.path.basename(pth))+".npy"), arr.astype("float32"))
         if save_tif: tifffile.imsave(os.path.join(save_tif,"{}".format(os.path.basename(pth))+".tif"), arr.astype("float32"))
         
@@ -164,7 +165,8 @@ def pool_injections_for_analysis(**kwargs):
         if kwargs["save_individual"]:
             im = im*imagescale
             a=np.concatenate((np.max(im, axis=0), np.max(arr.astype("uint16"), axis=0)), axis=1)
-            b=np.concatenate((np.fliplr(np.rot90(np.max(fix_orientation(im, axes=axes), axis=0),k=3)), np.fliplr(np.rot90(np.max(fix_orientation(arr.astype("uint16"), axes=axes), axis=0),k=3))), axis=1)
+            b=np.concatenate((np.fliplr(np.rot90(np.max(fix_orientation(im, axes=axes), axis=0),k=3)), 
+                              np.fliplr(np.rot90(np.max(fix_orientation(arr.astype("uint16"), axes=axes), axis=0),k=3))), axis=1)
             plt.figure()
             plt.imshow(np.concatenate((b,a), axis=0), cmap=cmap, alpha=1);  plt.axis("off")
             plt.savefig(os.path.join(dst,"{}".format(os.path.basename(pth))+".pdf"), dpi=300, transparent=True)
@@ -263,6 +265,9 @@ def find_site(im, thresh=10, filter_kernel=(5,5,5), num_sites_to_keep=1):
     
 if __name__ == "__main__":
     
+    """ NOTE: the default functions in this scripts assumes you have a 'processed' lightsheet directory for each brain; if not, 
+    you will need to modify accordingly """
+    
     #check if reorientation is necessary
     src = "/jukebox/wang/Jess/lightsheet_output/201906_development_cno/processed/an01/elastix/an1_devcno_03082019_1d3x_647_017na_1hfds_z10um_100msec_resized_ch00/result.tif"
     src = orientation_crop_check(src, axes = ("2","1","0"), crop = "[:,423:,:]")
@@ -301,7 +306,7 @@ if __name__ == "__main__":
 
     kwargs = {"inputlist": inputlist,
               "inputtype": "main_folder", 
-              "channel_type": "injch",
+              "channel_type": ["injch", "cellch"], #must be a list, safer as this can be mislabeled
               "channel": "00",
               "filter_kernel": (5,5,5),
               "threshold": 5,
