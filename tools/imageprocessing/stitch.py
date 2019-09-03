@@ -59,7 +59,8 @@ def terastitcher_wrapper(**kwargs):
     resizefactor = kwargs['resizefactor'] if 'resizefactor' in kwargs else 6
     jobid = kwargs['jobid'] if 'jobid' in kwargs else False
     print ('Jobid={}, transfertype={}'.format(jobid, transfertype))
-
+    print("\nalgorithm = {}".format(algorithm))
+    print("\nthreshold = {}".format(threshold))
     #     
     image_dictionary=copy.deepcopy(kwargs)
     dst = os.path.join(kwargs['outputdirectory'], 'full_sizedatafld')
@@ -67,7 +68,9 @@ def terastitcher_wrapper(**kwargs):
 
     #determine jobs:
     jobdct=make_jobs(image_dictionary, jobid = jobid)
-    dct = {'transfertype': transfertype, 'scalefactor':voxel_size, 'percent_overlap':percent_overlap, 'threshold':threshold, 'dst':dst, 'algorithm':algorithm, 'outbitdepth': outbitdepth, 'transfertype':transfertype, 'cleanup':cleanup}
+    dct = {'transfertype': transfertype, 'scalefactor':voxel_size, 'percent_overlap':percent_overlap, 
+           'threshold':threshold, 'dst':dst, 'algorithm':algorithm, 'outbitdepth': outbitdepth, 'transfertype':transfertype, 
+           'cleanup':cleanup}
     [inndct.update(dct) for k,inndct in jobdct.items()]
     
     #Terastitcher
@@ -109,21 +112,36 @@ def make_jobs(image_dictionary, jobid=False):
     #loop
     for volume in volumes:
         for lightsheet in range(volume.lightsheets):
+            
             zdct = copy.deepcopy(volume.zdct)
+            
             if volume.lightsheets == 2:
                 side=['_C00_', '_C01_'][lightsheet] 
                 ls = lslst[lightsheet]
                 zdct={k:{kk:[xx for xx in vv if side in xx]} for k,v in zdct.items() for kk,vv in v.items()}
+                
             if volume.lightsheets==1:
                 side='_C00_'
                 ls = lslst[0]
                 zdct={k:{kk:[xx for xx in vv if side in xx]} for k,v in zdct.items() for kk,vv in v.items()}
-            dct={'lightsheets':volume.lightsheets, 'xtile': volume.xtile, 'ytile': volume.ytile, 'horizontalfoci':volume.horizontalfoci, 'fullsizedimensions':volume.fullsizedimensions, 'channels':[xx.channel for xx in image_dictionary['volumes']], 'zchanneldct':zdct}
+                
+            dct={'lightsheets':volume.lightsheets, 'xtile': volume.xtile, 'ytile': volume.ytile, 'horizontalfoci':volume.horizontalfoci,
+                 'fullsizedimensions':volume.fullsizedimensions, 'channels':[xx.channel for xx in image_dictionary['volumes']],
+                 'zchanneldct':zdct}
+            
             name = os.path.basename(volume.full_sizedatafld_vol)
             final_dst = volume.full_sizedatafld_vol; makedir(final_dst)
-            tmp_dst = os.path.join(os.path.dirname(list(list(volume.zdct.values())[0].values())[0][0]), os.path.basename(volume.full_sizedatafld_vol)+'_'+ls); makedir(os.path.dirname(tmp_dst)); makedir(tmp_dst)
-            ts_out = os.path.join(os.path.dirname(list(list(volume.zdct.values())[0].values())[0][0]), os.path.basename(volume.full_sizedatafld_vol)+'_'+ls+'_ts_out'); makedir(ts_out)
-            jobdct['{}_lightsheet{}'.format(os.path.basename(volume.full_sizedatafld_vol), lightsheet)] = copy.deepcopy({'job':'{}_lightsheet{}'.format(os.path.basename(volume.full_sizedatafld_vol), lightsheet), 'name': name, 'ts_out': ts_out, 'lightsheet': ls, 'channel': volume.channel, 'dst':volume.full_sizedatafld, 'dct': copy.deepcopy(dct), 'final_dst':final_dst, 'tmp_dst':tmp_dst, 'cores':1})
+            tmp_dst = os.path.join(os.path.dirname(list(list(volume.zdct.values())[0].values())[0][0]), 
+                                   os.path.basename(volume.full_sizedatafld_vol)+'_'+ls); makedir(os.path.dirname(tmp_dst)) 
+            makedir(tmp_dst)
+            ts_out = os.path.join(os.path.dirname(list(list(volume.zdct.values())[0].values())[0][0]), 
+                                  os.path.basename(volume.full_sizedatafld_vol)+'_'+ls+'_ts_out'); makedir(ts_out)
+            
+            jobdct['{}_lightsheet{}'.format(os.path.basename(volume.full_sizedatafld_vol), 
+                   lightsheet)] = copy.deepcopy({'job':'{}_lightsheet{}'.format(os.path.basename(volume.full_sizedatafld_vol), lightsheet),
+            'name': name, 'ts_out': ts_out, 'lightsheet': ls, 'channel': volume.channel, 'dst':volume.full_sizedatafld, 
+            'dct': copy.deepcopy(dct), 'final_dst':final_dst, 'tmp_dst':tmp_dst, 'cores':1})
+            
     return jobdct
 
 def terastitcher_par(inndct):
@@ -137,7 +155,8 @@ def terastitcher_par(inndct):
     make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst =  inndct['final_dst'], transfertype=transfertype, cores=1, scalefactor=voxel_size, percent_overlap=percent_overlap)    
         
     #stitch
-    call_terastitcher(src=tmp_dst, dst=inndct['ts_out'], voxel_size=voxel_size, threshold=threshold, algorithm = algorithm, outbitdepth = outbitdepth, resolutions='0') #
+    call_terastitcher(src=tmp_dst, dst=inndct['ts_out'], voxel_size=voxel_size, threshold=threshold, 
+                      algorithm = algorithm, outbitdepth = outbitdepth, resolutions='0') #
     
     return [inndct['final_dst'], inndct['ts_out']] #final dst, ts_out
 
