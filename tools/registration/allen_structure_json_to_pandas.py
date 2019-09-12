@@ -103,7 +103,7 @@ def allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=False):
         #####ID=pixel value for annotated file
         df=pd.DataFrame(lst2, columns=headers)
         df.to_excel(save)
-#%%
+
 
 def isolate_structures(pth, *args):
     '''helper function to segment out allen brain structures.
@@ -240,7 +240,6 @@ def isolate_structures_return_list(allen_id_table, ann, args, bitdepth='uint16',
     '''
     if type(ann) == str: ann = sitk.GetArrayFromImage(sitk.ReadImage(ann))
 
-    df = pd.read_excel(allen_id_table)
     args = [float(i) for i in args if i != 0]
             
     #remove pix values not represented in atlas...determined emperically; why IDK
@@ -276,8 +275,6 @@ def consolidate_parents_structures(allen_id_table, ann, namelist, verbose=False)
         list of value+name combinations
     '''
     if type(ann) == str: ann = sitk.GetArrayFromImage(sitk.ReadImage(ann))
-
-    df = pd.read_excel(allen_id_table)
 
     #remove duplicates and null and root
     namelist = list(set(namelist))
@@ -324,8 +321,6 @@ def consolidate_parents_structures_OLD(allen_id_table, ann, namelist, verbose=Fa
     '''
     if type(ann) == str: ann = sitk.GetArrayFromImage(sitk.ReadImage(ann))
 
-    df = pd.read_excel(allen_id_table)
-
     #remove duplicates and null and root
     namelist = list(set(namelist))
     namelist = [xx for xx in namelist if xx != 'null' and xx != 'root']
@@ -358,11 +353,10 @@ if __name__ == '__main__':
     if False: #do once
         #20180913 - remake with new annotations
         #http://api.brain-map.org/api/v2/structure_graph_download/1.json
-        from tools.registration.allen_structure_json_to_pandas import *
-        pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table2.json'
-        pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.json'
-        save = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
+        pth = '/jukebox/wang/zahra/python/lightsheet_py3/supp_files/allen_id_table.json'
+        save = '/home/wanglab/Desktop/allen_id_table.xlsx'
         allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=save)
+        
         #need to rename columns - since it's backwards
         df = pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
         df = df.rename(columns={'parent_acronym':'parent_name', 'parent_name': 'parent_acronym'})
@@ -377,6 +371,7 @@ if __name__ == '__main__':
         df_pth = '/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx'
         structures = make_structure_objects(df_pth, remove_childless_structures_not_repsented_in_ABA = True, ann_pth=ann_pth)
         ann = tifffile.imread(ann_pth)
+        
         df = pd.read_excel('/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx')
         df['voxels_in_structure'] = 0.0
         for s in structures:
@@ -397,7 +392,6 @@ if __name__ == '__main__':
     #####
     #####NOTE ANNOTATION FILES HAVE BEEN UPDATED MAKE SURE USING CURRENT ANN/ATLAS FILES
     #####
-    from tools.registration.allen_structure_json_to_pandas import *
     pth='/jukebox/wang/pisano/Python/allenatlas/annotation_25_ccf2015.nrrd'
     AtlasFile='/jukebox/wang/pisano/Python/allenatlas/average_template_25_sagittal.tif'
     svlc='/jukebox/wang/pisano/tracing_output/analysis/outlines'
