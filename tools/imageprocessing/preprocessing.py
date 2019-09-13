@@ -73,8 +73,6 @@ class volume:
         zdct.update(new_zdct)
     def add_brainname(self, nm):
         self.brainname=nm
-    def add_cell_folder(self, loc):
-        self.cell_folder=loc
     def add_injdetect3dfld(self, loc):
         self.injdetect3dfld=loc
     def add_allen_id_table(self, loc):
@@ -200,7 +198,6 @@ def generateparamdict(cwd, dst=False, update=False, **kwargs):
                 #add downsized volume path. This is done here instead of during process to prevent pickling IO issues
                 vol.add_downsized_vol(os.path.join(outdr, vol.brainname+'_resized_ch'+vol.channel))
                 vol.add_resampled_for_elastix_vol(vol.downsized_vol + '_resampledforelastix.tif')
-                vol.add_cell_folder(os.path.join(outdr, 'cells')); makedir(vol.cell_folder)
                 vol.add_injcoordinatesfld(os.path.join(outdr, 'injection', 'injcoordinatesfld'))
                 makedir(os.path.join(outdr, 'injection')); makedir(vol.injcoordinatesfld)
                 vol.add_injdetect3dfld(os.path.join(outdr, 'injection', 'injdetect3d'))
@@ -315,7 +312,6 @@ def updateparams(cwd=False, **kwargs):
         #add downsized volume path. This is done here instead of during process to prevent pickling IO issues
         vol.add_downsized_vol(os.path.join(outdr, vol.brainname+'_resized_ch'+vol.channel))
         vol.add_resampled_for_elastix_vol(vol.downsized_vol + '_resampledforelastix.tif')
-        vol.add_cell_folder(os.path.join(outdr, 'cells')); makedir(vol.cell_folder)
         vol.add_injcoordinatesfld(os.path.join(outdr, 'injection', 'injcoordinatesfld'))
         makedir(os.path.join(outdr, 'injection')); makedir(vol.injcoordinatesfld)
         vol.add_injdetect3dfld(os.path.join(outdr, 'injection', 'injdetect3d'))
@@ -655,7 +651,6 @@ def stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, blndtype = False, inte
     ['stitching for ch_{}'.format(ch) for ch, zplnlst in dct.items()] #cheating way to set ch and zplnlst
     
     ###dim setup
-    ch = list(dct.keys())[0]
     zplnlst = dct[list(dct.keys())[0]] #changed for py37
     ydim, xdim =cv2.imread(zplnlst[0], -1).shape
     xpxovlp=int(ovlp*xdim)
