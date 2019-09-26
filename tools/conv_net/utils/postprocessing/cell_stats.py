@@ -64,7 +64,7 @@ def calculate_cell_measures(**params):
     #return csv path
     return os.path.join(unet_output_dir, "{}_jobid{}_cell_measures.csv".format(params["expt_name"], str(params["jobid"]).zfill(3)))
 
-#%%
+
 def probabiltymap_to_cell_measures(src, jobid, threshold = (0.6,1), numZSlicesPerSplit = 30, overlapping_planes = 30, cores = 1, 
                                     verbose = True, structure_rank_order = 2):
     """
@@ -141,7 +141,7 @@ def find_labels_centerofmass_cell_measures(array, start, numZSlicesPerSplit, ove
         #such that you only keep centers within middle third - filter data frame
         df = df[(df["z"] > (overlapping_planes)) & (df["z"] <= np.min(((numZSlicesPerSplit + overlapping_planes), zdim)))]                
 
-    #modify the current dataframe - pandas voodoo - get perimeter of cell and sphericities
+    #modify the current dataframe - get perimeter of cell and sphericities
     if len(df) != 0:        
         df["p_s_z_v"] = df.apply(lambda row: perimeter_sphericity_voxels(bounding_box_from_center_array(labels[0], row["val"], (row["z"],row["y"], row["x"]))), 1)
     
@@ -232,18 +232,14 @@ def circularity(contours):
     return np.asarray(circ)
 
 def findContours(z):
-    """
-    Function to handle compatiblity of opencv2 vs 3
-    """
-    if str(cv2.__version__)[0] == "3":
-        cim,contours,hierarchy = cv2.findContours(z, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #if need more than two values to unpack error here upgrade to cv2 3+
-    elif str(cv2.__version__)[0] == "2":
-        contours,hierarchy = cv2.findContours(z, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #if need more than two values to unpack error here upgrade to cv2 3+
+    
+    contours,hierarchy = cv2.findContours(z, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #if need more than two values to unpack error here upgrade to cv2 3+
+    
     contours = np.asarray([c.squeeze() for c in contours if cv2.contourArea(c)>0])
     
     return contours
 
-def bounding_box_from_center_array(src, val, center, box_size=(75,75,75)):
+def bounding_box_from_center_array(src, val, center, box_size=(30,75,75)):
     """ faster version of _array to grab cell around center """
     
     z,y,x = [int(xx) for xx in center]

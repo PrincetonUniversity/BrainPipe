@@ -161,7 +161,7 @@ def terastitcher_par(inndct):
     return [inndct['final_dst'], inndct['ts_out']] #final dst, ts_out
 
 
-def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.9, algorithm = 'MIPNCC', outbitdepth = '16', resolutions='0'):
+def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = 'MIPNCC', outbitdepth = '16', resolutions='0'):
     '''
     Wrapper to use Terastitcher: https://doi.org/10.1186/1471-2105-13-316
     NOTE: terastitcher needs to be compiled using cmake and its path must be made global
