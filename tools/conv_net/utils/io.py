@@ -8,7 +8,7 @@ Created on Mon Dec 10 15:42:10 2018
 most functions modified from @tpisano's lightsheet repository
 """
 
-import os, csv, h5py, cv2, ast, zipfile, sys, matplotlib.pyplot as plt, numpy as np, pickle, time
+import os, h5py, cv2, zipfile, sys, matplotlib.pyplot as plt, numpy as np, pickle, time, pandas as pd, ast
 from subprocess import check_output
 from skimage.external import tifffile
 from tools.conv_net.utils.postprocessing.cell_stats import consolidate_cell_measures
@@ -120,15 +120,7 @@ def read_roi(fileobj):
     # http://rsbweb.nih.gov/ij/developer/source/ij/io/RoiDecoder.java.html
     # http://rsbweb.nih.gov/ij/developer/source/ij/io/RoiEncoder.java.html
 
-    SPLINE_FIT = 1
-    DOUBLE_HEADED = 2
-    OUTLINE = 4
-    OVERLAY_LABELS = 8
-    OVERLAY_NAMES = 16
-    OVERLAY_BACKGROUNDS = 32
-    OVERLAY_BOLD = 64
     SUB_PIXEL_RESOLUTION = 128
-    DRAW_OFFSET = 256
 
     class RoiType:
         POLYGON = 0
@@ -166,7 +158,6 @@ def read_roi(fileobj):
     magic = fileobj.read(4)
     if magic != b"Iout":
         raise ValueError("Magic number not found")
-    version = get16()
 
     # It seems that the roi type field occupies 2 Bytes, but only one is used
     roi_type = get8()
@@ -185,19 +176,10 @@ def read_roi(fileobj):
     y1 = getfloat()
     x2 = getfloat()
     y2 = getfloat()
-    stroke_width = get16()
-    shape_roi_size = get32()
-    stroke_color = get32()
-    fill_color = get32()
     subtype = get16()
     if subtype != 0:
         raise NotImplementedError("roireader: ROI subtype %s not supported (!= 0)" % subtype)
     options = get16()
-    arrow_style = get8()
-    arrow_head_size = get8()
-    rect_arc_size = get16()
-    position = get32()
-    header2offset = get32()
 
     if roi_type == RoiType.RECT:
         if options & SUB_PIXEL_RESOLUTION:
@@ -451,13 +433,14 @@ def csv_to_dict(csv_pth):
     """
     csv_dict = {}
     
-    with open(csv_pth) as csvf:
-        f = csv.reader(csvf)
-        for r in f:
-            if r[1][:9] == "/jukebox/" or r[0] == "dtype" or r[0] == "expt_name":
-                csv_dict[r[0]] = r[1]
-            else:
-                csv_dict[r[0]] = ast.literal_eval(r[1]) #reads integers, tuples, and lists as they were entered
+    params = pd.read_csv(csv_pth, header = None)
+    keys = list(params[0])
+    for i,val in enumerate(params[1].values):
+        try:
+            csv_dict[keys[i]] = ast.literal_eval(val)
+        except:
+            csv_dict[keys[i]] = val
+            
     
     return csv_dict
 
