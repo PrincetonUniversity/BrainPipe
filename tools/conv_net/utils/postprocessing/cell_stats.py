@@ -27,7 +27,7 @@ def consolidate_cell_measures(ignore_jobid_count = False, **params):
     
     #check
     if len(jobs) == (int(params["inputshape"][0])/int(params["zsplt"]))+1 or ignore_jobid_count: #+1 to account for job number 0      
-        list_of_single_dfs = [os.path.join(unet_output_dir, fl) for fl in os.listdir(unet_output_dir) if fl != "pooled_cell_measures"]; list_of_single_dfs.sort()
+        list_of_single_dfs = [os.path.join(unet_output_dir, fl) for fl in jobs]; list_of_single_dfs.sort()
         #make folder for the pooled results
         if not os.path.exists(os.path.join(unet_output_dir, "pooled_cell_measures")): os.mkdir(os.path.join(unet_output_dir, "pooled_cell_measures"))
     
