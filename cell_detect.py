@@ -111,15 +111,15 @@ def fill_params(expt_name, stepid, jobid):
     params["verbose"]       = True
     params["cleanup"]       = False
     
-    params["patchsz"]       = (60, 2592, 2192) #cnn window size for lightsheet = typically 20, 192, 192 for 4x, 20, 32, 32 for 1.3x
-    params["stridesz"]      = (40, 2560, 2160) 
-    params["window"]        = (20, 32, 32)
+    params["patchsz"]       = (60, 3840, 3328) #cnn window size for lightsheet = typically 20, 192, 192 for 4x, 20, 32, 32 for 1.3x
+    params["stridesz"]      = (40, 3648, 3136)
+    params["window"]        = (20, 192, 192)
     
     params["inputshape"]    = get_dims_from_folder(src)
     params["patchlist"]     = make_indices(params["inputshape"], params["stridesz"])
     
     #post-processing params
-    params["threshold"]     = (0.45,1) #h129 = 0.6; prv = 0.48
+    params["threshold"]     = (0.85,1) #h129 = 0.6; prv = 0.85
     params["zsplt"]         = 30
     params["ovlp_plns"]     = 30
         
