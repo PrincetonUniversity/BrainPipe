@@ -108,7 +108,6 @@ def swap_cols(arr, frm, to):
 def read_roi(fileobj):
     """
     points = read_roi(fileobj)
-
     Read ImageJ"s ROI format. Points are returned in a nx2 array. Each row
     is in [row, column] -- that is, (y,x) -- order.
     Copyright: Luis Pedro Coelho <luis@luispedro.org>, 2012
@@ -120,7 +119,15 @@ def read_roi(fileobj):
     # http://rsbweb.nih.gov/ij/developer/source/ij/io/RoiDecoder.java.html
     # http://rsbweb.nih.gov/ij/developer/source/ij/io/RoiEncoder.java.html
 
+    SPLINE_FIT = 1
+    DOUBLE_HEADED = 2
+    OUTLINE = 4
+    OVERLAY_LABELS = 8
+    OVERLAY_NAMES = 16
+    OVERLAY_BACKGROUNDS = 32
+    OVERLAY_BOLD = 64
     SUB_PIXEL_RESOLUTION = 128
+    DRAW_OFFSET = 256
 
     class RoiType:
         POLYGON = 0
@@ -158,6 +165,7 @@ def read_roi(fileobj):
     magic = fileobj.read(4)
     if magic != b"Iout":
         raise ValueError("Magic number not found")
+    version = get16()
 
     # It seems that the roi type field occupies 2 Bytes, but only one is used
     roi_type = get8()
@@ -176,10 +184,19 @@ def read_roi(fileobj):
     y1 = getfloat()
     x2 = getfloat()
     y2 = getfloat()
+    stroke_width = get16()
+    shape_roi_size = get32()
+    stroke_color = get32()
+    fill_color = get32()
     subtype = get16()
     if subtype != 0:
         raise NotImplementedError("roireader: ROI subtype %s not supported (!= 0)" % subtype)
     options = get16()
+    arrow_style = get8()
+    arrow_head_size = get8()
+    rect_arc_size = get16()
+    position = get32()
+    header2offset = get32()
 
     if roi_type == RoiType.RECT:
         if options & SUB_PIXEL_RESOLUTION:
