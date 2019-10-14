@@ -4,7 +4,8 @@ Created on Thu Jun 30 10:56:43 2016
 
 @author: wanglab
 """
-import networkx as nx, pickle
+
+import networkx as nx
 import matplotlib.pyplot as plt    
 import pandas as pd    
 #import pygraphviz as pg
@@ -12,14 +13,13 @@ from networkx.drawing.nx_agraph import graphviz_layout #from networkx.drawing.nx
 from itertools import compress
 from math import sqrt, ceil
 import sys, collections
-import SimpleITK as sitk
 from tools.imageprocessing.preprocessing import listdirfull
 
 class structure:
     """Class to represent a brain structure
     """
-    kind='structure'    
-    def __init__(self, idnum, excelfl, units='pixels', scale_factor=1):
+    kind="structure"    
+    def __init__(self, idnum, excelfl, units="pixels", scale_factor=1):
         self.idnum=float(idnum)        #id of structure 
         self.idnum_int = int(idnum)    #id of structure as float, sometimes useful for comparisions
         self.excelfl=excelfl            #path to excelfl
@@ -30,7 +30,7 @@ class structure:
         self.parent=()                  #parent id, acronym, name
         self.children=[]                #children one level down (first sublevel)
         self.progeny=[]                 #all children, grandchildren, etc
-        self.progeny_pixels=[idnum]     #all progeny pixel IDs and it's own
+        self.progeny_pixels=[idnum]     #all progeny pixel IDs and it"s own
         self.progenitor_chain=[]        #list moving up the heirarchy. i.e.: LGN->Thal->Interbrain
         self.volume=()                  #number of voxels, scale factor is not accounted for unless provided
         self.volume_progeny=()           #number of voxels, scale factor is not accounted for unless provided of progeny+structure
@@ -56,76 +56,64 @@ class structure:
     def create_progenitor_chain(self, lst):
         self.progenitor_chain=lst
 
-####consider making objects and then you can always pull from them easier
-def unusedfunction_currently(excelfl, structure_id, svlocname=None, level=1):
-    '''
-    ______    
-    Inputs:
-        excelfl = path to data folder
-        structure_id = main structure eg. 351 for 'Thalamus'; NOT atlas_id
-        level = child structure level to show
-        svlocname = pth and name to save (usually path+brainname) no extension needed
-        
-    _____
-    Note: id = is how you link from one brain region to the other (ID=pixel value for annotated file)
-    '''    
+def find_progeny(struct, df):
+    #find children (first sublevel)   
+    #children = [x for x in df[df["parent_structure_id"] == str(struct.idnum)].itertuples()]
+    children = [x for x in df[df["parent_structure_id"] == struct.idnum].itertuples()]
     
-    #load    
-    df = pd.read_excel(excelfl)
+    #find all progeny
+    allchildstructures=[]
+    while len(children) > 0:
+        child = children.pop()
+        allchildstructures.append(child)
+        #kiditems = df[df["parent_structure_id"] == str(child.id)]
+        kiditems = df[df["parent_structure_id"] == child.id]
+        for kid in kiditems.itertuples():
+            allchildstructures.append(kid)            
+            #if kid has children append them list to walk through it
+            #if len(df[df["parent_structure_id"] == str(kid.id)]) != 0:
+            if len(df[df["parent_structure_id"] == kid.id]) != 0:                
+                children.append(kid)
+    #remove duplicates
+    allchildstructures = list(set(allchildstructures))
+    #add progeny to structure_class
+    [struct.add_progeny(xx) for xx in allchildstructures]
+    #add_progeny_pixels to structure_class
+    [struct.add_progeny_pixels(xx.id) for xx in allchildstructures] #<---11/1/17, this was atlas_id, changing to id
+    #add progeny count
+    struct.add_cellcount_progeny(struct.cellcount + sum([int(xx.cell_count) for xx in allchildstructures]))
+    if "voxels_in_structure" in df.columns: struct.volume_progeny = struct.volume + sum([int(xx.voxels_in_structure) for xx in allchildstructures])
+    
+    return struct
+    
+def create_progenitor_chain(structures, df, verbose = False):
 
-    #generate objects:
-    structures = make_structure_objects(excelfl)
-        
-    #structure name    
-    structurename=df[df['id'] == structure_id].name  
-    
-    #find substructures to input level; if a substructure does not have children it will be kept
-    substructures = [structure_index(structure_id, structures)] #initialize to primary structure
-    for lvl in range(level): #for each level given find substructures
-        tmpstructures = []
-        for substructure in substructures:
-            struct = structures[substructure]
-            children = struct.children  
-            #if structure has no children keep it            
-            if len(children[0]) == 0:
-                tmpstructures.append(structure_index(struct.idnum, structures))
-            #get rid of structure and append children
-            else:
-                [tmpstructures.append(structure_index(xx[3], structures)) for xx in children[0]]            
-        #reset list for next lvl loop
-        substructures=tmpstructures
-        #visualize layers
-        print ('\nLevel {}'.format(lvl+1))            
-        print([xx.name for xx in [structures[x] for x in substructures]])
-    
-    #change structure indexes to structure objects
-    substructures=[structures[xx] for xx in substructures]
-    print ('\n(Final) Level {}'.format(lvl+1))            
-    print([xx.name for xx in substructures])
-    
-    #append cell counts: if no children take cell count as is, if children: add them to make total cell count for structure
-    for substructure in substructures:
-        print(substructure.name)
-        print(substructure.cellcount_progeny)
-    
-    return        
-    
+    new_structures=[]
+    for struct in structures:
+        if verbose: print(struct.name)
+        if struct.name == "root" or struct.name == "Basic cell groups and regions":
+            pass
+        else:
+            chain = []
+            loop = True
+            current_struct = struct
+            while loop:
+                #find parent
+                parent = current_struct.parent[1]
+                if parent == "nan" or parent == "null" or parent == "root": break
+                else:#append
+                    chain.append(parent)
+                    current_struct = [xx for xx in structures if xx.name == parent][0]
+            struct.create_progenitor_chain(chain)
+            new_structures.append(struct)    
+
+    return new_structures
 
 def make_structure_objects(excelfl, remove_childless_structures_not_repsented_in_ABA = False, ann_pth = None, verbose = False):
-    '''function to take an excel fl and returns a list of structure_objects
-    _______
-    Inputs:
-        excelfl = generated from allen_structures_json_to_pandas using allen_structure_json_to_pandas(pth, prune=True) ****NOTE PRUNE = TRUE****
-        
-        remove_childless_structures_not_repsented_in_ABA = if True: remove childless structures not represented in annotated ABA file'
 
-    ______
-    Note:
-        Children are just one level down and not recursive
-    '''    
     #load
     df = pd.read_excel(excelfl)
-    if not 'cell_count' in df.columns: df['cell_count'] = 0
+    if not "cell_count" in df.columns: df["cell_count"] = 0
     #make structure objects for each df row
     structures = []
     
@@ -136,11 +124,11 @@ def make_structure_objects(excelfl, remove_childless_structures_not_repsented_in
         struct.add_acronym(str(row.acronym)) #add acronym
         struct.add_cellcount(row.cell_count) #add cell count
         struct.add_parent((row.parent_structure_id, str(row.parent_name), str(row.parent_acronym))) #parent id, acronym, name
-        if 'voxels_in_structure' in df.columns: struct.volume = row.voxels_in_structure
+        if "voxels_in_structure" in df.columns: struct.volume = row.voxels_in_structure
         
         #find children (first sublevel)   
-        #children = [x for x in df[df['parent_structure_id'] == str(struct.idnum_int)].itertuples()]
-        children = [x for x in df[df['parent_structure_id'] == struct.idnum_int].itertuples()]
+        #children = [x for x in df[df["parent_structure_id"] == str(struct.idnum_int)].itertuples()]
+        children = [x for x in df[df["parent_structure_id"] == struct.idnum_int].itertuples()]
         struct.add_child([xx for xx in children])
               
         #add structure to structures list
@@ -148,20 +136,6 @@ def make_structure_objects(excelfl, remove_childless_structures_not_repsented_in
     #find progeny (all sublevels)
     structures = [find_progeny(struct, df) for struct in structures]
     
-    #work through annotated atlas and test if pixel value is in list. If not, remove it
-    if remove_childless_structures_not_repsented_in_ABA:
-        if verbose: sys.stdout.write('\n\nRemoving childless structures not represented in ABA annotation file for {}...this takes ~1 minute....\n'.format(excelfl))
-        if ann_pth == None: ann_pth='/jukebox/LightSheetTransfer/atlas/allen_atlas/annotation_template_25_sagittal.tif'
-        
-        #load ann_pth    
-        ann = sitk.GetArrayFromImage(sitk.ReadImage(ann_pth))
-        #testing: len of vals gives unique pixels ids
-        #z, y, x = (ann > 0).nonzero(); vals = ann[z,y,x]; len(set(vals))
-        
-        #remove childless structures not on ABA
-        structures = child_remover(structures, ann, verbose)
-
-        
     #create progenitor_chain
     structures = create_progenitor_chain(structures, df)
     ###        
@@ -232,76 +206,6 @@ def child_remover(structures, ann, verbose=False):
     
     return nstructures
 
-
-
-def find_progeny(struct, df):
-    '''find progeny (all sublevels) and cell counts
-    
-    _______
-    Inputs:
-        struct = structure object
-        df = dataframe generated by allen_structure_json_to_pandas(pth, prune=True) ****NOTE PRUNE = TRUE****
-    '''
-    #find children (first sublevel)   
-    #children = [x for x in df[df['parent_structure_id'] == str(struct.idnum)].itertuples()]
-    children = [x for x in df[df['parent_structure_id'] == struct.idnum].itertuples()]
-    
-    #find all progeny
-    allchildstructures=[]
-    while len(children) > 0:
-        child = children.pop()
-        allchildstructures.append(child)
-        #kiditems = df[df['parent_structure_id'] == str(child.id)]
-        kiditems = df[df['parent_structure_id'] == child.id]
-        for kid in kiditems.itertuples():
-            allchildstructures.append(kid)            
-            #if kid has children append them list to walk through it
-            #if len(df[df['parent_structure_id'] == str(kid.id)]) != 0:
-            if len(df[df['parent_structure_id'] == kid.id]) != 0:                
-                children.append(kid)
-    #remove duplicates
-    allchildstructures = list(set(allchildstructures))
-    #add progeny to structure_class
-    [struct.add_progeny(xx) for xx in allchildstructures]
-    #add_progeny_pixels to structure_class
-    [struct.add_progeny_pixels(xx.id) for xx in allchildstructures] #<---11/1/17, this was atlas_id, changing to id
-    #add progeny count
-    struct.add_cellcount_progeny(struct.cellcount + sum([int(xx.cell_count) for xx in allchildstructures]))
-    if 'voxels_in_structure' in df.columns: struct.volume_progeny = struct.volume + sum([int(xx.voxels_in_structure) for xx in allchildstructures])
-    
-    return struct
-
-
-    
-def create_progenitor_chain(structures, df, verbose = False):
-    '''create_progenitor_chain (all sublevels)
-    
-    _______
-    Inputs:
-        struct = structure object
-        df = dataframe generated by allen_structure_json_to_pandas(pth, prune=True) ****NOTE PRUNE = TRUE****
-    '''
-    new_structures=[]
-    for struct in structures:
-        if verbose: print(struct.name)
-        if struct.name == 'root' or struct.name == 'Basic cell groups and regions':
-            pass
-        else:
-            chain = []
-            loop = True
-            current_struct = struct
-            while loop:
-                #find parent
-                parent = current_struct.parent[1]
-                if parent == 'null' or parent == 'root': break
-                else:#append
-                    chain.append(parent)
-                    current_struct = [xx for xx in structures if xx.name == parent][0]
-
-            struct.create_progenitor_chain(chain)
-            new_structures.append(struct)    
-
-    return new_structures
 
 def structure_index(structure_id, structurelist):
     '''Function to provide structure index
@@ -396,7 +300,6 @@ def make_network(structures, substructure_name = 'root', svlocname = None, graph
 
 ##FROM http://datascience.stackexchange.com/questions/6084/how-do-i-create-a-complex-radar-chart
 import numpy as np
-import matplotlib.pyplot as plt
 #import seaborn as sns # improves plot aesthetics
 
 
@@ -587,9 +490,6 @@ polygon is not aligned with the radial axes.
 
 .. [1] http://en.wikipedia.org/wiki/Radar_chart
 """
-import numpy as np
-
-import matplotlib.pyplot as plt
 from matplotlib.path import Path
 from matplotlib.spines import Spine
 from matplotlib.projections.polar import PolarAxes
