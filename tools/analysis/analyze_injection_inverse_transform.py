@@ -269,14 +269,15 @@ def transformed_pnts_to_allen(points_file, ann, ch_type = "injch", point_or_inde
     
     return df
 
+#%%
 if __name__ == "__main__":
     
     #check if reorientation is necessary
-    src = "/home/wanglab/mounts/wang/pisano/tracing_output/retro_4x/20180312_jg_bl6f_prv_17/20180312_jg17_4x_488_555_051na_1hfds_z7d5um_50msec_10povlp_resized_ch01_resampledforelastix.tif"
-    src = orientation_crop_check(src, axes = ("2","0","1"), crop = "[:,520:,:]") 
+    src = "/jukebox/wang/pisano/tracing_output/retro_4x/20180323_jg_bl6f_prv_31/20180323_jg31_4x_488_555_051na_1hfds_z7d5um_50msec_10povlp_resized_ch01_resampledforelastix.tif"
+    src = orientation_crop_check(src, axes = ("2","0","1"), crop = "[:,:,:]") 
     
     #optimize detection parameters for inj det
-    optimize_inj_detect(src, threshold = 4, filter_kernel = (3,3,3))
+    optimize_inj_detect(src, threshold = 3, filter_kernel = (10, 10, 10))
 
     #run
     #suggestion: save_individual=True,
