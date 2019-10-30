@@ -17,7 +17,7 @@ def terastitcher_from_params(**params):
     assert params["stitchingmethod"] in ["terastitcher", "Terastitcher", "TeraStitcher"]
     kwargs = pth_update(load_kwargs(**params))
     kwargs["cores"] = params["cores"] if "cores" in params else 12
-    terastitcher_wrapper(create_image_dictionary=False, **kwargs)
+    terastitcher_wrapper(**kwargs)
     return
 
 
@@ -48,7 +48,7 @@ def terastitcher_wrapper(**kwargs):
     """
     #handle inputs:
     dst=kwargs["dst"] if "dst" in kwargs else False
-    voxel_size=kwargs["voxel_size"] if "voxel_size" in kwargs else (1.63, 1.63, 7.5)
+    voxel_size = kwargs["xyz_scale"] if "xyz_scale" in kwargs else (1.63, 1.63, 7.5)
     percent_overlap=kwargs["tiling_overlap"] if "tiling_overlap" in kwargs else 0.1
     threshold=kwargs["threshold"] if "threshold" in kwargs else 0.7
     algorithm=kwargs["algorithm"] if "algorithm" in kwargs else "MIPNCC"
@@ -148,11 +148,14 @@ def terastitcher_par(inndct):
     """Parallelize terastitcher using dct made by make_jobs function
     """
 
-    image_dictionary = inndct["dct"]; tmp_dst = inndct["tmp_dst"]; job=inndct["job"]; channel = inndct["channel"]; lightsheet = inndct["lightsheet"]; name = inndct["name"]; transfertype = inndct["transfertype"]
-    voxel_size = inndct["scalefactor"]; percent_overlap = inndct["percent_overlap"]; dst=inndct["dst"]; algorithm = inndct["algorithm"]; outbitdepth=inndct["outbitdepth"]; threshold=inndct["threshold"]
+    image_dictionary = inndct["dct"]; tmp_dst = inndct["tmp_dst"]; job=inndct["job"]; channel = inndct["channel"]; 
+    lightsheet = inndct["lightsheet"]; name = inndct["name"]; transfertype = inndct["transfertype"]
+    voxel_size = inndct["scalefactor"]; percent_overlap = inndct["percent_overlap"]; dst=inndct["dst"]; 
+    algorithm = inndct["algorithm"]; outbitdepth=inndct["outbitdepth"]; threshold=inndct["threshold"]
+    cores = inndct["cores"]
 
     #format data
-    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst =  inndct["final_dst"], transfertype=transfertype, cores=1, scalefactor=voxel_size, percent_overlap=percent_overlap)    
+    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst=inndct["final_dst"], transfertype=transfertype, cores=cores, scalefactor=voxel_size, percent_overlap=percent_overlap)    
         
     #stitch
     call_terastitcher(src=tmp_dst, dst=inndct["ts_out"], voxel_size=voxel_size, threshold=threshold, 
@@ -181,7 +184,7 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     Returns:
     folder location
     
-    command line example (inpsired by: https://github.com/abria/TeraStitcher/wiki/Demo-and-batch-scripts)
+#    command line example (inpsired by: https://github.com/abria/TeraStitcher/wiki/Demo-and-batch-scripts)
     terastitcher --import --volin=/home/wanglab/LightSheetTransfer/test_stitch/00 --volin_plugin="TiledXY|3Dseries" --imin_plugin="tiff3D" --imout_plugin="tiff3D" --ref1=1 --ref2=2 --ref3=3 --vxl1=1 --vxl2=1 --vxl3=1 --projout=xml_import
     terastitcher --displcompute --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_import.xml"
     terastitcher --displproj --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_import.xml"
@@ -192,6 +195,7 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     """
     st = time.time()
     #import
+    print(voxel_size)
     sys.stdout.write("\n\nRunning Terastitcher import on {}....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
     xml_import = os.path.join(src, "xml_import.xml")
     call0 = "terastitcher -1 --volin={} --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
@@ -258,7 +262,8 @@ def sp_call(call):
 
     
      
-def make_folder_heirarchy(image_dictionary, dst, channel, lightsheet=False, final_dst=False, transfertype="move", scalefactor=(1.63, 1.63, 7.5), percent_overlap=0.1, cores=False, **kwargs):
+def make_folder_heirarchy(image_dictionary, dst, channel, lightsheet=False, 
+                          final_dst=False, transfertype="move", scalefactor=(1.63, 1.63, 7.5), percent_overlap=0.1, cores=False, **kwargs):
     """Function to make folders for compatibility with Terastitcher
     
     Inputs:

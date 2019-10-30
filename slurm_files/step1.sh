@@ -2,7 +2,7 @@
 #
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 3                      # number of cores
-#SBATCH -t 400
+#SBATCH -t 1000
 #SBATCH -o logs/array_jobs/step1_%a.out        # STDOUT #add _%a to see each array job
 #SBATCH -e logs/array_jobs/step1_%a.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
