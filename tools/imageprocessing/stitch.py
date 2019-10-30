@@ -152,8 +152,8 @@ def terastitcher_par(inndct):
     lightsheet = inndct["lightsheet"]; name = inndct["name"]; transfertype = inndct["transfertype"]
     voxel_size = inndct["scalefactor"]; percent_overlap = inndct["percent_overlap"]; dst=inndct["dst"]; 
     algorithm = inndct["algorithm"]; outbitdepth=inndct["outbitdepth"]; threshold=inndct["threshold"]
-    cores = inndct["cores"]
-
+    cores = 1
+    
     #format data
     make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst=inndct["final_dst"], transfertype=transfertype, cores=cores, scalefactor=voxel_size, percent_overlap=percent_overlap)    
         
