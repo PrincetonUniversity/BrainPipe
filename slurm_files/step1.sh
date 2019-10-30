@@ -1,7 +1,7 @@
 #!/bin/env bash
 #
 #SBATCH -p all                # partition (queue)
-#SBATCH -c 3                      # number of cores
+#SBATCH -c 6                      # number of cores
 #SBATCH -t 1000
 #SBATCH -o logs/array_jobs/step1_%a.out        # STDOUT #add _%a to see each array job
 #SBATCH -e logs/array_jobs/step1_%a.err        # STDERR #add _%a to see each array job
