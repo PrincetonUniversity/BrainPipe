@@ -166,7 +166,7 @@ def terastitcher_par(inndct):
     return [inndct["final_dst"], inndct["ts_out"]] #final dst, ts_out
 
 
-def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "MIPNCC", outbitdepth = "16", resolutions="0"):
+def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", outbitdepth = "16", resolutions="0"):
     """
     Wrapper to use Terastitcher: https://doi.org/10.1186/1471-2105-13-316
     NOTE: terastitcher needs to be compiled using cmake and its path must be made global
@@ -189,7 +189,7 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     command line example (inpsired by: https://github.com/abria/TeraStitcher/wiki/Demo-and-batch-scripts)
     terastitcher --import --volin=/home/wanglab/LightSheetTransfer/test_stitch/00 --volin_plugin="TiledXY|3Dseries" --imin_plugin="tiff3D" --imout_plugin="tiff3D" --ref1=1 --ref2=2 --ref3=3 --vxl1=1 --vxl2=1 --vxl3=1 --projout=xml_import
     terastitcher --displcompute --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_import.xml"
-    terastitcher --displproj --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_import.xml"
+    terastitcher --displproj --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_displcomp.xml"
     terastitcher --displthres --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_displproj.xml" --projout="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_displthres.xml" --threshold=0.7
     terastitcher --placetiles --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_displthres.xml" --projout="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_placetiles.xml" --algorithm=MIPNCC
     terastitcher --merge --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_placetiles.xml" --volout="/home/wanglab/LightSheetTransfer/test_stitch/00" --imout_depth=16 --resolutions=012345
@@ -214,7 +214,7 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     
     #projection
     xml_displproj = os.path.join(src, "xml_displproj.xml")
-    call2 = "terastitcher --displproj --projin={}".format(xml_import)
+    call2 = "terastitcher --displproj --projin={}".format(xml_displcomp)
     sp_call(call2)
     
     #threshold

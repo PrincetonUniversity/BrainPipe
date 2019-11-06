@@ -32,7 +32,7 @@ params={
 "xyz_scale": (5.909090909, 5.909090909, 10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.43, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
-"threshold": 0.4, #terastitcher reliability threshold
+"threshold": 0.5, #terastitcher reliability threshold
 "AtlasFile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_sagittal_atlas_20um_iso.tif"),
 "annotationfile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_annotation_sagittal_atlas_20um_iso.tif"), ###path to annotation file for structures
 "blendtype": "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
