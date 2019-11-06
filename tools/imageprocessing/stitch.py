@@ -47,12 +47,12 @@ def terastitcher_wrapper(**kwargs):
     dst = "/home/wanglab/wang/zahra/troubleshooting/terastitcher/tpout"
     """
     #handle inputs:
-    dst=kwargs["dst"] if "dst" in kwargs else False
+    dst = kwargs["dst"] if "dst" in kwargs else False
     voxel_size = kwargs["xyz_scale"] if "xyz_scale" in kwargs else (1.63, 1.63, 7.5)
-    percent_overlap=kwargs["tiling_overlap"] if "tiling_overlap" in kwargs else 0.1
-    threshold=kwargs["threshold"] if "threshold" in kwargs else 0.7
-    algorithm=kwargs["algorithm"] if "algorithm" in kwargs else "MIPNCC"
-    transfertype=kwargs["transfertype"] if "transfertype" in kwargs else "copy"#"move"#"copy" #"move"
+    percent_overlap = kwargs["tiling_overlap"] if "tiling_overlap" in kwargs else 0.1
+    threshold = kwargs["threshold"] if "threshold" in kwargs else 0.7
+    algorithm = kwargs["algorithm"] if "algorithm" in kwargs else "MIPNCC"
+    transfertype = kwargs["transfertype"] if "transfertype" in kwargs else "copy"#"move"#"copy" #"move"
     outbitdepth = kwargs["outbitdepth"] if "outbitdepth" in kwargs else 16
     cores = kwargs["cores"] if "cores" in kwargs else 12
     cleanup = kwargs["cleanup"] if "cleanup" in kwargs else True
@@ -61,6 +61,7 @@ def terastitcher_wrapper(**kwargs):
     print ("Jobid={}, transfertype={}".format(jobid, transfertype))
     print("\nalgorithm = {}".format(algorithm))
     print("\nthreshold = {}".format(threshold))
+    print("\nvoxel size = {}\n".format(voxel_size))
     #     
     image_dictionary=copy.deepcopy(kwargs)
     dst = os.path.join(kwargs["outputdirectory"], "full_sizedatafld")
@@ -140,7 +141,7 @@ def make_jobs(image_dictionary, jobid=False):
             jobdct["{}_lightsheet{}".format(os.path.basename(volume.full_sizedatafld_vol), 
                    lightsheet)] = copy.deepcopy({"job":"{}_lightsheet{}".format(os.path.basename(volume.full_sizedatafld_vol), lightsheet),
             "name": name, "ts_out": ts_out, "lightsheet": ls, "channel": volume.channel, "dst":volume.full_sizedatafld, 
-            "dct": copy.deepcopy(dct), "final_dst":final_dst, "tmp_dst":tmp_dst, "cores":image_dictionary["cores"]})
+            "dct": copy.deepcopy(dct), "final_dst":final_dst, "tmp_dst":tmp_dst})
             
     return jobdct
 
@@ -155,7 +156,8 @@ def terastitcher_par(inndct):
     cores = 1
     
     #format data
-    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst=inndct["final_dst"], transfertype=transfertype, cores=cores, scalefactor=voxel_size, percent_overlap=percent_overlap)    
+    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst=inndct["final_dst"], 
+                          transfertype=transfertype, cores=cores, scalefactor=voxel_size, percent_overlap=percent_overlap)    
         
     #stitch
     call_terastitcher(src=tmp_dst, dst=inndct["ts_out"], voxel_size=voxel_size, threshold=threshold, 
@@ -184,7 +186,7 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     Returns:
     folder location
     
-#    command line example (inpsired by: https://github.com/abria/TeraStitcher/wiki/Demo-and-batch-scripts)
+    command line example (inpsired by: https://github.com/abria/TeraStitcher/wiki/Demo-and-batch-scripts)
     terastitcher --import --volin=/home/wanglab/LightSheetTransfer/test_stitch/00 --volin_plugin="TiledXY|3Dseries" --imin_plugin="tiff3D" --imout_plugin="tiff3D" --ref1=1 --ref2=2 --ref3=3 --vxl1=1 --vxl2=1 --vxl3=1 --projout=xml_import
     terastitcher --displcompute --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_import.xml"
     terastitcher --displproj --projin="/home/wanglab/LightSheetTransfer/test_stitch/00/xml_import.xml"
@@ -195,10 +197,11 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     """
     st = time.time()
     #import
-    print(voxel_size)
+    voxel_size = tuple(map(lambda x: isinstance(x, float) and round(x, 2) or x, voxel_size)) #make sure its rounded (fix for 1.1x images)
+    
     sys.stdout.write("\n\nRunning Terastitcher import on {}....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
     xml_import = os.path.join(src, "xml_import.xml")
-    call0 = "terastitcher -1 --volin={} --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
+    call0 = "terastitcher -1 --volin={} --volin_plugin='TiledXY|3Dseries' --imin_plugin='tiff3D' --imout_plugin='tiff3D' --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
     sp_call(call0)
     sys.stdout.write("\n...completed!"); sys.stdout.flush()
     
@@ -231,30 +234,10 @@ def call_terastitcher(src, dst, voxel_size=(1,1,1), threshold=0.7, algorithm = "
     sp_call(call5)
     sys.stdout.write("\n...completed! :] in {} minutes.\n".format(np.round((time.time() - st) / 60), decimals=2)); sys.stdout.flush()   
     
-    
-    #folder containing list of tiffs
-    return #listdirfull([xx for xx in listdirfull(listdirfull(dst)[0]) if os.path.isdir(xx)][0])[0]
+    return 
 
 def sp_call(call):
-    #p = sp.Popen(call, stdout=sp.PIPE, stderr=sp.PIPE, shell=True)
-    #(output,err) = p.communicate()
-    #p_status = p.wait()
-    #print out
-    #print err
-    #print p_status 
-    """
-    import subprocess, sys
-    p = subprocess.Popen(call, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    while True:
-        out = p.stderr.read(1)
-        if out == "" and p.poll() != None:
-            break
-        if out != "":
-            sys.stdout.write(out)
-            sys.stdout.flush()"""
-    #from subprocess import PIPE, Popen
-    #return Popen(call, stdout=PIPE, shell=True).stdout.read()
-    
+
     from subprocess import check_output
     print(check_output(call, shell=True))
     
@@ -307,28 +290,9 @@ def make_folder_heirarchy(image_dictionary, dst, channel, lightsheet=False,
     ytile = image_dictionary["ytile"]
     
     sys.stdout.write("\nMaking Folders,"); sys.stdout.flush()    
-    
-    """#OLD
+
     iterlst = []
-    #for ch in image_dictionary["channels"]:
-    #    chdst = dst+"/"+ch; makedir(chdst)
-    for y in range(ytile):
-        ynm = str(int(ypx*y*scalefactor[1])*10).zfill(6)
-        ydst = dst+"/"+ynm; makedir(ydst)
-        for x in range(xtile):
-            xnm = str(int(xpx*x*scalefactor[0])*10).zfill(6)
-            xdst = ydst+"/"+ynm+"_"+xnm; makedir(xdst)
-            for z in image_dictionary["zchanneldct"]:
-                znm = str(int(int(z)*scalefactor[2])*10).zfill(6)
-                #lst is all XY tiles of the appropriate z plane and channel
-                lst = image_dictionary["zchanneldct"][str(z).zfill(4)][channel]; lst.sort()
-                iterlst.append((lst[(y*(ytile)+x)], xdst+"/"+ynm+"_"+xnm+"_"+znm+".tif", transfertype))
-                #print("y{}, x{}, z{}, znm{}, append(y*(ytile)+x){}, ynm{}, xnm{}, znm{}, nm{}\n".format(y,x,z,znm, (y*(ytile)+x), ynm, xnm, znm, os.path.basename(lst[(y*(ytile)+x)])[20:60]))
-                #print y,x,z,znm, (y*(ytile)+x), ynm, xnm, znm, os.path.basename(lst[(y*(ytile)+x)])[20:60]
-    """
-    iterlst = []
-    #for ch in image_dictionary["channels"]:
-    #    chdst = dst+"/"+ch; makedir(chdst)
+
     index = -1
     for y in range(ytile):
         ynm = str(int(ypx*y*scalefactor[1])*10).zfill(6)
@@ -341,9 +305,6 @@ def make_folder_heirarchy(image_dictionary, dst, channel, lightsheet=False,
                 znm = str(int(int(z)*scalefactor[2])*10).zfill(6)
                 #lst is all XY tiles of the appropriate z plane and channel
                 lst = image_dictionary["zchanneldct"][str(z).zfill(4)][channel]; lst.sort()
-                #old index = (y*(ytile)+x)
-                #print("y{}, x{}, z{}, znm{}, index{}, ynm{}, xnm{}, znm{}\n".format(y,x,z,znm, index, ynm, xnm, znm))
-                #print("y{}, x{}, z{}, znm{}, index{}, ynm{}, xnm{}, znm{}, nm{}\n".format(y,x,z,znm, index, ynm, xnm, znm, os.path.basename(lst[index])[20:60]))
                 iterlst.append((lst[index], xdst+"/"+ynm+"_"+xnm+"_"+znm+".tif", transfertype))
                 
     #generate backup just in case
@@ -457,9 +418,6 @@ def resize(src, resizefactor, cores):
     p.map(resize_helper, iterlst)
     p.terminate()
     
-    #for i in range(25):
-    #    resize_helper(iterlst[i])
-    
     return
     
     
@@ -478,7 +436,6 @@ def resize_helper(dct):
 def multiple_original_directory_structure(src, transfertype="move"):
     """
     src = "/home/wanglab/wang/pisano/tracing_output/retro_4x/20180312_jg_bl6f_prv_17/full_sizedatafld"
-    src = "/home/wanglab/wang/pisano/tracing_output/retro_4x/20180313_jg_bl6f_prv_22/full_sizedatafld"
     """
     fls = listall(src, keyword = "terastitcher_dct")
     for fl in fls:
@@ -487,18 +444,9 @@ def multiple_original_directory_structure(src, transfertype="move"):
     return
 
 def original_directory_structure(src, transfertype="move"):
-    """Move files back
+    """
+    Move files back
     src = "/home/wanglab/wang/pisano/ymaze/cfos_4x/20171129_ymaze_23/full_sizedatafld/20171129_ymaze_23_488_050na_z7d5um_50msec_10povlap_ch00/terastitcher_dct.p"
-    src = "/home/wanglab/wang/pisano/ymaze/cfos_4x/20171129_ymaze_23/full_sizedatafld/20171129_ymaze_23_790_010na_z7d5um_2000msec_10povlap_ch00/terastitcher_dct.p"
-    
-    
-    
-    for k,v in load_dictionary(src)["terastitcher_dct"].items():
-        try:
-            shutil.move(pth_update(v.replace("right", "left")),pth_update(k.replace("Filter0000", "Filter0001")))
-        except:
-            print 1
-
     
     """
     for k,v in pth_update(load_dictionary(src)["terastitcher_dct"]).items():
