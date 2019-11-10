@@ -5,6 +5,7 @@ Created on Tue Apr 18 13:13:33 2017
 
 @author: tpisano
 """
+
 import os, sys, copy, shutil, numpy as np, scipy, cv2, time
 from skimage.external import tifffile
 from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
@@ -356,13 +357,20 @@ def blend_lightsheets(flds, dst, cores, cleanup=False):
     st = time.time()
     name = os.path.basename(dst); ch = dst[-2:]
     sys.stdout.write("\nStarting blending of {}...".format(dst)); sys.stdout.flush()
-    ydim, xdim =tifffile.imread(listall(flds[0], keyword=".tif")[0]).shape
+    ydim0, xdim0 = tifffile.imread(listall(flds[0], keyword=".tif")[0]).shape
+    ydim1, xdim1 = tifffile.imread(listall(flds[1], keyword=".tif")[0]).shape
+    ydim = ydim0 if ydim0 < ydim1 else ydim1
+    xdim = xdim0 if xdim0 < xdim1 else xdim1
+    
     #alpha=np.tile(scipy.stats.logistic.cdf(np.linspace(-250, 250, num=xdim)), (ydim, 1))
     fls0 = listall(flds[0], keyword=".tif"); fls0.sort()
     fls1 = listall(flds[1], keyword=".tif"); fls1.sort()
-    assert set([os.path.basename(xx) for xx in fls0]) == set([os.path.basename(xx) for xx in fls1]), "uneven number of z planes between L and R lightsheets"
+    fls = fls0 if len(fls0) < len(fls1) else fls1
+    
     makedir(dst);#makedir(os.path.join(dst, name))
-    iterlst=[{"xdim":xdim, "ydim":ydim, "fl0":fls0[i], "channel": ch, "fl1":fls1[i], "dst":dst, "name":name, "zplane":i} for i,fl0 in enumerate(fls0)]
+    
+    iterlst=[{"xdim":xdim, "ydim":ydim, "fl0":fls0[i], "channel": ch, "fl1":fls1[i], "dst":dst, "name":name, "zplane":i} for i,fl0 in enumerate(fls)]
+    
     if cores>=2:
         p=mp.Pool(cores)
         p.map(blend, iterlst)
@@ -381,8 +389,11 @@ def blend(dct):
     im0 = tifffile.imread(fl0); dtype = im0.dtype; im1 = tifffile.imread(fl1)
     ch = "_C"+dct["channel"]
     im0, im1 = pixel_shift(im0, im1)
+    im_final_shape = (im0.shape[1] if im0.shape[1] < im1.shape[1] else im1.shape[1], im0.shape[0] if im0.shape[0] < im1.shape[0] else im1.shape[0]) #width, height format for cv2
+    im0_resz = cv2.resize(im0, im_final_shape); im1_resz = cv2.resize(im1, im_final_shape)
+    
     #tifffile.imsave(os.path.join(dct["dst"], dct["name"], dct["name"]+ch+"_Z"+str(dct["zplane"]).zfill(4)+".tif"), (im0*(1-alpha) + im1* (alpha)).astype(dtype), compress=1)
-    tifffile.imsave(os.path.join(dct["dst"], dct["name"]+ch+"_Z"+str(dct["zplane"]).zfill(4)+".tif"), (im0*(1-alpha) + im1* (alpha)).astype(dtype), compress=1)
+    tifffile.imsave(os.path.join(dct["dst"], dct["name"]+ch+"_Z"+str(dct["zplane"]).zfill(4)+".tif"), (im0_resz*(1-alpha) + im1_resz* (alpha)).astype(dtype), compress=1)
     return
 
 def pixel_shift(a,b):
