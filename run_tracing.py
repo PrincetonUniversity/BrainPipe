@@ -21,18 +21,18 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/brody/191028_w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_10-15-32"): [["regch", "00"]]
+os.path.join(systemdirectory, "LightSheetTransfer/brody/191028_w128_vasculature_1_1x_488_008na_1hfds_z10um_300msec_40povlp_11-18-25"): [["regch", "00"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/testing/w122_43p_low_thres"),
+"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/w128"),
 "xyz_scale": (5.909090909, 5.909090909, 10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.43, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
-"threshold": 0.5, #terastitcher reliability threshold
+"threshold": 0.7, #terastitcher reliability threshold
 "AtlasFile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_sagittal_atlas_20um_iso.tif"),
 "annotationfile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_annotation_sagittal_atlas_20um_iso.tif"), ###path to annotation file for structures
 "blendtype": "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
