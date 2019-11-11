@@ -30,12 +30,8 @@ echo $OUT0
 OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-80 slurm_files/step1.sh) 
 echo $OUT1
 
-#check to ensure all planes completed successfully in step1
-OUT1check=$(sbatch --dependency=afterany:${OUT1##* } --array=0 slurm_files/step1_check.sh) 
-echo $OUT1check
-
 #combine stacks into single tifffiles
-OUT2=$(sbatch --dependency=afterany:${OUT1check##* } --array=0-3 slurm_files/step2.sh) 
+OUT2=$(sbatch --dependency=afterany:${OUT1##* } --array=0-3 slurm_files/step2.sh) 
 echo $OUT2
 
 #run elastix

@@ -6,7 +6,7 @@ Created on Tue Apr 18 13:13:33 2017
 @author: tpisano
 """
 
-import os, sys, copy, shutil, numpy as np, scipy, cv2, time
+import os, sys, copy, shutil, numpy as np, scipy, cv2, time, SimpleITK as sitk
 from skimage.external import tifffile
 from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
 from tools.utils.directorydeterminer import pth_update
@@ -19,6 +19,7 @@ def terastitcher_from_params(**params):
     kwargs = pth_update(load_kwargs(**params))
     kwargs["cores"] = params["cores"] if "cores" in params else 12
     terastitcher_wrapper(**kwargs)
+    
     return
 
 
@@ -35,17 +36,9 @@ def terastitcher_wrapper(**kwargs):
     tiling_overlap (flaot): percentage of overalp taken. (e.g. 0.1)
     jobid(optional)
 
-    NOT YET IMPLEMENTED
-    #multipage: True: output single multipage tiff
-               False: output each XY plane as a tiff
-               
-
     #test 3 planes
     #image_dictionary["zchanneldct"] = {xx:image_dictionary["zchanneldct"][xx] for xx in ["0450", "0451", "0452"]}
     
-    
-    src = "/home/wanglab/wang/zahra/troubleshooting/terastitcher/data"
-    dst = "/home/wanglab/wang/zahra/troubleshooting/terastitcher/tpout"
     """
     #handle inputs:
     dst = kwargs["dst"] if "dst" in kwargs else False
@@ -202,7 +195,7 @@ def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", out
     
     sys.stdout.write("\n\nRunning Terastitcher import on {}....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
     xml_import = os.path.join(src, "xml_import.xml")
-    call0 = "terastitcher -1 --volin={} --volin_plugin='TiledXY|3Dseries' --imin_plugin='tiff3D' --imout_plugin='tiff3D' --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
+    call0 = "terastitcher -1 --volin={} --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
     sp_call(call0)
     sys.stdout.write("\n...completed!"); sys.stdout.flush()
     
@@ -357,8 +350,8 @@ def blend_lightsheets(flds, dst, cores, cleanup=False):
     st = time.time()
     name = os.path.basename(dst); ch = dst[-2:]
     sys.stdout.write("\nStarting blending of {}...".format(dst)); sys.stdout.flush()
-    ydim0, xdim0 = tifffile.imread(listall(flds[0], keyword=".tif")[0]).shape
-    ydim1, xdim1 = tifffile.imread(listall(flds[1], keyword=".tif")[0]).shape
+    ydim0, xdim0 = sitk.GetArrayFromImage(sitk.ReadImage(listall(flds[0], keyword=".tif")[0])).shape
+    ydim1, xdim1 = sitk.GetArrayFromImage(sitk.ReadImage(listall(flds[1], keyword=".tif")[0])).shape
     ydim = ydim0 if ydim0 < ydim1 else ydim1
     xdim = xdim0 if xdim0 < xdim1 else xdim1
     
@@ -386,7 +379,7 @@ def blend(dct):
     """0=L, 1=R"""
     fl0 = dct["fl0"]; fl1 = dct["fl1"]
     alpha=np.tile(scipy.stats.logistic.cdf(np.linspace(-20, 20, num=dct["xdim"])), (dct["ydim"], 1)) #linspace was -275,275
-    im0 = tifffile.imread(fl0); dtype = im0.dtype; im1 = tifffile.imread(fl1)
+    im0 = sitk.GetArrayFromImage(sitk.ReadImage(fl0)); dtype = im0.dtype; im1 = sitk.GetArrayFromImage(sitk.ReadImage(fl1))
     ch = "_C"+dct["channel"]
     im0, im1 = pixel_shift(im0, im1)
     im_final_shape = (im0.shape[1] if im0.shape[1] < im1.shape[1] else im1.shape[1], im0.shape[0] if im0.shape[0] < im1.shape[0] else im1.shape[0]) #width, height format for cv2
@@ -411,7 +404,8 @@ def pixel_shift(a,b):
     return a,b
 
 def resize(src, resizefactor, cores):
-    """src = fullsizedata_fld
+    """
+    src = fullsizedata_fld
     """
     #find files
     fls = listall(src, keyword=".tif")
