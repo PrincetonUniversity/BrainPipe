@@ -21,23 +21,23 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/brody/191028_w128_vasculature_1_1x_488_008na_1hfds_z10um_300msec_40povlp_11-18-25"): [["regch", "00"]]
+os.path.join(systemdirectory, "LightSheetTransfer/Jess/eaat4/191111_an11_eaat4_031919_cb_4x_488_647_049na_1hfds_z5um_50msec_20povlp_13-16-34"): [["regch", "00"], ["cellch", "01"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/w128"),
-"xyz_scale": (5.909090909, 5.909090909, 10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-"tiling_overlap": 0.43, #percent overlap taken during tiling
+"outputdirectory": os.path.join(systemdirectory, "wang/pisano/tracing_output/eaat4/4x/an11"),
+"xyz_scale": (1.63, 1.63, 5.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+"tiling_overlap": 0.20, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
 "threshold": 0.7, #terastitcher reliability threshold
 "AtlasFile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_sagittal_atlas_20um_iso.tif"),
 "annotationfile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_annotation_sagittal_atlas_20um_iso.tif"), ###path to annotation file for structures
 "blendtype": "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
 "intensitycorrection": True, #True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
-"resizefactor": 3, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
+"resizefactor": 5, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
 "rawdata": True, # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
 "finalorientation":  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
 "slurmjobfactor": 50 #number of array iterations per arrayjob since max job array on SPOCK is 1000
@@ -105,12 +105,6 @@ if __name__ == "__main__":
             from tools.imageprocessing.stitch import terastitcher_from_params
             terastitcher_from_params(jobid=jobid, cores=6, **params)
             
-    #######################STEP 1 check##################
-    #Check to make sure jobs weren"t lost - important if running on cluster
-    #####################################################
-    elif stepid == 11:
-        ###check to make sure all step 1 jobs completed properly
-        preprocessing.process_planes_completion_checker(**params)
     #######################STEP 2 #######################
     #Consolidate for Registration
     #####################################################
