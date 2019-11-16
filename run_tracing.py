@@ -21,14 +21,14 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/Jess/eaat4/191111_an11_eaat4_031919_cb_4x_488_647_049na_1hfds_z5um_50msec_20povlp_13-16-34"): [["regch", "00"], ["cellch", "01"]]
+os.path.join(systemdirectory, "LightSheetTransfer/jduva/191113_an24_eaat4_031919_cb_4x_488_647_049na_1hfds_z5um_50msec_20povl_15-47-45"): [["regch", "00"], ["cellch", "01"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "wang/pisano/tracing_output/eaat4/4x/an11"),
+"outputdirectory": os.path.join(systemdirectory, "wang/pisano/tracing_output/eaat4/4x/an24"),
 "xyz_scale": (1.63, 1.63, 5.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.20, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
