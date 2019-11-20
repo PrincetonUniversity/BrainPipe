@@ -21,20 +21,20 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/jduva/191113_an24_eaat4_031919_cb_4x_488_647_049na_1hfds_z5um_50msec_20povl_15-47-45"): [["regch", "00"], ["cellch", "01"]]
+os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/191118_k306_1_1x_488_008na_1hfds_z10um_350msec_40povlp_14-33-03"): [["regch", "00"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "wang/pisano/tracing_output/eaat4/4x/an24"),
-"xyz_scale": (1.63, 1.63, 5.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-"tiling_overlap": 0.20, #percent overlap taken during tiling
+"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/k306"),
+"xyz_scale": (5.909090909, 5.909090909, 10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+"tiling_overlap": 0.40, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
 "threshold": 0.7, #terastitcher reliability threshold
-"AtlasFile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_sagittal_atlas_20um_iso.tif"),
-"annotationfile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/cb_annotation_sagittal_atlas_20um_iso.tif"), ###path to annotation file for structures
+"AtlasFile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
+"annotationfile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"), ###path to annotation file for structures
 "blendtype": "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
 "intensitycorrection": True, #True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
 "resizefactor": 5, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
@@ -42,6 +42,7 @@ params={
 "finalorientation":  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
 "slurmjobfactor": 50 #number of array iterations per arrayjob since max job array on SPOCK is 1000
 }
+
 
 #####################################################################################################################################################
 ##################################################stitchingmethod####################################################################################
