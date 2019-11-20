@@ -202,7 +202,7 @@ def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", out
     #align
     sys.stdout.write("\n\nRunning Terastitcher alignment on {}, this can take some time....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
     xml_displcomp = os.path.join(src, "xml_displcomp.xml")
-    call1 = "terastitcher --displcompute --projin={} --projout={}".format(xml_import, xml_displcomp)
+    call1 = "terastitcher --displcompute --projin={} --projout={} --sV=50 --sH=50 --sD=50".format(xml_import, xml_displcomp)
     sp_call(call1)
     sys.stdout.write("\n...completed!"); sys.stdout.flush()
     
@@ -218,7 +218,7 @@ def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", out
     
     #placetiles
     xml_placetiles = os.path.join(src, "xml_placetiles.xml")
-    call4 = "terastitcher --placetiles --projin={} --projout={} --algorithm={}".format(xml_displthresh, xml_placetiles, algorithm)
+    call4 = "terastitcher --placetiles --projin={} --projout={} --algorithm=MST".format(xml_displthresh, xml_placetiles)
     sp_call(call4)
     
     #merge
