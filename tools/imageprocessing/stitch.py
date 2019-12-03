@@ -6,11 +6,11 @@ Created on Tue Apr 18 13:13:33 2017
 @author: tpisano
 """
 
-import os, sys, copy, shutil, numpy as np, scipy, cv2, time, SimpleITK as sitk
+import os, sys, copy, shutil, numpy as np, scipy, cv2, time, SimpleITK as sitk, multiprocessing as mp
 from skimage.external import tifffile
 from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
 from tools.utils.directorydeterminer import pth_update
-import multiprocessing as mp
+from tools.imageprocessing.preprocessing import flatten
 
 def terastitcher_from_params(**params):
     """
@@ -52,6 +52,7 @@ def terastitcher_wrapper(**kwargs):
     cleanup = kwargs["cleanup"] if "cleanup" in kwargs else True
     resizefactor = kwargs["resizefactor"] if "resizefactor" in kwargs else 6
     jobid = kwargs["jobid"] if "jobid" in kwargs else False
+    volumes = kwargs["volumes"]
     print ("Jobid={}, transfertype={}".format(jobid, transfertype))
     print("\nalgorithm = {}".format(algorithm))
     print("\nthreshold = {}".format(threshold))
@@ -61,44 +62,86 @@ def terastitcher_wrapper(**kwargs):
     dst = os.path.join(kwargs["outputdirectory"], "full_sizedatafld")
     makedir(dst)
 
-    #determine jobs:
-    jobdct=make_jobs(image_dictionary, jobid = jobid)
-    dct = {"transfertype": transfertype, "scalefactor":voxel_size, "percent_overlap":percent_overlap, 
+    #if working with 1.1x atlas images for rat
+    if kwargs["labeltype"] == "rat":
+        #blend lighsheets FIRST
+        src = list(image_dictionary['inputdictionary'].keys())[0]
+        left = [os.path.join(src, xx) for xx in os.listdir(src) if "C00" in xx]; left.sort()
+        right = [os.path.join(src, xx) for xx in os.listdir(src) if "C01" in xx]; right.sort()
+        sys.stdout.write("\n\nBlending lightsheets..."); sys.stdout.flush()
+        volume = volumes[jobid]
+        dst = os.path.join(src, os.path.basename(src)[7:-9]+"_ch%s" % volume.channel) #gets ride of data and time stamp
+        blend_lightsheets_pre_stitching(left, right, dst, cores)
+        sys.stdout.write("...completed"); sys.stdout.flush()
+        
+        #stitch
+        jobdct = make_jobs(image_dictionary, jobid = jobid, raw_data_src = dst)
+        dct = {"transfertype": transfertype, "scalefactor":voxel_size, "percent_overlap":percent_overlap, 
            "threshold":threshold, "dst":dst, "algorithm":algorithm, "outbitdepth": outbitdepth, "transfertype":transfertype, 
            "cleanup":cleanup}
-    [inndct.update(dct) for k,inndct in jobdct.items()]
+        [inndct.update(dct) for k,inndct in jobdct.items()]
+        
+        #Terastitcher
+        if cores>=2:
+            #parallezation
+            iterlst = [copy.deepcopy(inndct) for inndct in list(jobdct.values())]
+            p = mp.Pool(cores)
+            outlst = p.map(terastitcher_par, iterlst)
+            p.terminate()
     
-    #Terastitcher
-    if cores>=2:
-        #parallezation
-        iterlst = [copy.deepcopy(inndct) for inndct in list(jobdct.values())]
-        p = mp.Pool(cores)
-        outlst = p.map(terastitcher_par, iterlst)
-        p.terminate()
-
+        else:
+            outlst = [terastitcher_par(copy.deepcopy(inndct)) for inndct in list(jobdct.values())]
+        #collapse        
+        outdct = {xx[0]:[] for xx in outlst}; [outdct[xx[0]].append(xx[1]) for xx in outlst] #{final_dst, [ts_out(lls), ts_out(rls)]}
+        
+        #moving to final destination
+        move_images_after_stitching(outlst[0][1], volume.full_sizedatafld_vol, volume.channel)
+        
+        #delete the blended pre-stitched image folder
+        sys.stdout.write("\n\nDeleting blended, pre-stitched images...\n"); sys.stdout.flush()
+        shutil.rmtree(dst)
+        
+    #for other mouse/high res images    
     else:
-        outlst = [terastitcher_par(copy.deepcopy(inndct)) for inndct in list(jobdct.values())]
+        #determine jobs:
+        jobdct = make_jobs(image_dictionary, jobid = jobid)
+        dct = {"transfertype": transfertype, "scalefactor":voxel_size, "percent_overlap":percent_overlap, 
+               "threshold":threshold, "dst":dst, "algorithm":algorithm, "outbitdepth": outbitdepth, "transfertype":transfertype, 
+               "cleanup":cleanup}
+        [inndct.update(dct) for k,inndct in jobdct.items()]
+        
+        #Terastitcher
+        if cores>=2:
+            #parallezation
+            iterlst = [copy.deepcopy(inndct) for inndct in list(jobdct.values())]
+            p = mp.Pool(cores)
+            outlst = p.map(terastitcher_par, iterlst)
+            p.terminate()
     
-    #collapse        
-    outdct = {xx[0]:[] for xx in outlst}; [outdct[xx[0]].append(xx[1]) for xx in outlst] #{final_dst, [ts_out(lls), ts_out(rls)]}
-    
-    #blend lighsheets
-    sys.stdout.write("\n\nBlending lightsheets and moving to final dst..."); sys.stdout.flush()
-    for dst, flds in outdct.items():
-        if len(flds) ==2: blend_lightsheets(flds, dst, cores)
-        if len(flds) ==1: blend_lightsheets([flds[0], flds[0]], dst, cores) ##simulating two
-    sys.stdout.write("...completed"); sys.stdout.flush()
+        else:
+            outlst = [terastitcher_par(copy.deepcopy(inndct)) for inndct in list(jobdct.values())]
+        #collapse        
+        outdct = {xx[0]:[] for xx in outlst}; [outdct[xx[0]].append(xx[1]) for xx in outlst] #{final_dst, [ts_out(lls), ts_out(rls)]}
+        
+        #blend lighsheets
+        sys.stdout.write("\n\nBlending lightsheets and moving to final dst..."); sys.stdout.flush()
+        for dst, flds in outdct.items():
+            if len(flds) ==2: blend_lightsheets(flds, dst, cores)
+            if len(flds) ==1: blend_lightsheets([flds[0], flds[0]], dst, cores) ##simulating two
+        sys.stdout.write("...completed"); sys.stdout.flush()
     
     #downsize
     sys.stdout.write("\n\nDownsizing images..."); sys.stdout.flush()
     resize(os.path.dirname(list(outdct.keys())[0]), resizefactor, cores)
     sys.stdout.write("completed :]"); sys.stdout.flush()    
+    
     return 
 
-def make_jobs(image_dictionary, jobid=False):
+def make_jobs(image_dictionary, jobid=False, raw_data_src = False):
     """
     Simple function to create job dct for parallelization
     """
+    
     jobdct={}
     lslst = ["left_lightsheet", "right_lightsheet"]
     if type(jobid)==int: volumes = [image_dictionary["volumes"][jobid]]
@@ -109,6 +152,12 @@ def make_jobs(image_dictionary, jobid=False):
         for lightsheet in range(volume.lightsheets):
             
             zdct = copy.deepcopy(volume.zdct)
+            if isinstance(raw_data_src, str): #for rat brain/low res images
+                tmpdct = flatten(raw_data_src, **image_dictionary)
+                #remaking it like done in preprocessing.py
+                zdct={}; [zdct.update(dict([(keys, dict([(k,v)]))])) for keys, values in tmpdct["zchanneldct"].items() for k, v in values.items()]
+                #since this will be the 'blended' version
+                volume.lightsheets = 1
             
             if volume.lightsheets == 2:
                 side=["_C00_", "_C01_"][lightsheet] 
@@ -138,6 +187,70 @@ def make_jobs(image_dictionary, jobid=False):
             "dct": copy.deepcopy(dct), "final_dst":final_dst, "tmp_dst":tmp_dst})
             
     return jobdct
+
+def blend_lightsheets_pre_stitching(left, right, dst, cores):
+
+    st = time.time()
+    name = os.path.basename(dst); ch = dst[-2:]
+    sys.stdout.write("\nStarting blending of {}...".format(dst)); sys.stdout.flush()
+    ydim0, xdim0 = sitk.GetArrayFromImage(sitk.ReadImage(left[0])).shape
+    ydim1, xdim1 = sitk.GetArrayFromImage(sitk.ReadImage(right[0])).shape
+    #checks
+    assert ydim0 == ydim1
+    assert xdim0 == xdim1
+    assert len(left) == len(right)
+    
+    makedir(dst)
+    
+    iterlst=[{"xdim":xdim0, "ydim":ydim0, "fl0":left[i], "channel": ch, "fl1":right[i], "dst":dst, "name":name, "zplane":i, "stitched":False} for i,l in enumerate(left)]
+    
+    if cores>=2:
+        p=mp.Pool(cores)
+        p.map(blend, iterlst)
+        p.terminate()
+    else:
+        [blend(dct) for dct in iterlst]
+    
+    #if cleanup: [shutil.rmtree(xx) for xx in flds]
+    sys.stdout.write("\n...finished in {} minutes.\n".format(np.round((time.time() - st) / 60), decimals=2)); sys.stdout.flush()        
+    return
+
+def move_images_after_stitching(ts_out, dst, channel):
+    
+    #make sure destination exists 
+    makedir(dst)
+    imgs = listall(ts_out, '.tif'); imgs.sort()
+    #parellelize
+    iterlst = [(i, img, dst, channel) for i,img in enumerate(imgs)]
+    p = mp.Pool(6)
+    p.starmap(move_images_after_stitching_par, iterlst)
+    
+    return dst
+    
+def move_images_after_stitching_par(i, img, dst, channel):
+
+    #read
+    arr = sitk.GetArrayFromImage(sitk.ReadImage((img)))
+    #save to final destination
+    tifffile.imsave(os.path.join(dst, os.path.basename(dst)+"_C%s_Z%04d.tif" % (channel, i)), arr)
+    
+    return
+    
+def blend(dct):
+    """0=L, 1=R"""
+    fl0 = dct["fl0"]; fl1 = dct["fl1"]
+    alpha=np.tile(scipy.stats.logistic.cdf(np.linspace(-4, 4, num=dct["xdim"])), (dct["ydim"], 1)) #linspace was -275,275
+    im0 = sitk.GetArrayFromImage(sitk.ReadImage(fl0)); dtype = im0.dtype; im1 = sitk.GetArrayFromImage(sitk.ReadImage(fl1))
+    ch = "_C"+dct["channel"]
+    im0, im1 = pixel_shift(im0, im1)
+    stitched = dct["stitched"] if "stitched" in dct else True
+    if stitched:
+        im_final_shape = (im0.shape[1] if im0.shape[1] < im1.shape[1] else im1.shape[1], im0.shape[0] if im0.shape[0] < im1.shape[0] else im1.shape[0]) #width, height format for cv2
+        im0_resz = cv2.resize(im0, im_final_shape); im1_resz = cv2.resize(im1, im_final_shape)
+        tifffile.imsave(os.path.join(dct["dst"], dct["name"]+ch+"_Z"+str(dct["zplane"]).zfill(4)+".tif"), (im0_resz*(1-alpha) + im1_resz* (alpha)).astype(dtype), compress=1)
+    else:
+        tifffile.imsave(os.path.join(dct["dst"], os.path.basename(fl0)), (im0*(1-alpha) + im1* (alpha)).astype(dtype), compress=1)
+    return
 
 def terastitcher_par(inndct):
     """Parallelize terastitcher using dct made by make_jobs function
@@ -202,7 +315,7 @@ def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", out
     #align
     sys.stdout.write("\n\nRunning Terastitcher alignment on {}, this can take some time....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
     xml_displcomp = os.path.join(src, "xml_displcomp.xml")
-    call1 = "terastitcher --displcompute --projin={} --projout={} --sV=50 --sH=50 --sD=50".format(xml_import, xml_displcomp)
+    call1 = "terastitcher --displcompute --projin={} --projout={} --sV=100 --sH=100 --sD=10".format(xml_import, xml_displcomp)
     sp_call(call1)
     sys.stdout.write("\n...completed!"); sys.stdout.flush()
     
@@ -373,20 +486,6 @@ def blend_lightsheets(flds, dst, cores, cleanup=False):
     
     #if cleanup: [shutil.rmtree(xx) for xx in flds]
     sys.stdout.write("\n...finished in {} minutes.\n".format(np.round((time.time() - st) / 60), decimals=2)); sys.stdout.flush()        
-    return
-
-def blend(dct):
-    """0=L, 1=R"""
-    fl0 = dct["fl0"]; fl1 = dct["fl1"]
-    alpha=np.tile(scipy.stats.logistic.cdf(np.linspace(-20, 20, num=dct["xdim"])), (dct["ydim"], 1)) #linspace was -275,275
-    im0 = sitk.GetArrayFromImage(sitk.ReadImage(fl0)); dtype = im0.dtype; im1 = sitk.GetArrayFromImage(sitk.ReadImage(fl1))
-    ch = "_C"+dct["channel"]
-    im0, im1 = pixel_shift(im0, im1)
-    im_final_shape = (im0.shape[1] if im0.shape[1] < im1.shape[1] else im1.shape[1], im0.shape[0] if im0.shape[0] < im1.shape[0] else im1.shape[0]) #width, height format for cv2
-    im0_resz = cv2.resize(im0, im_final_shape); im1_resz = cv2.resize(im1, im_final_shape)
-    
-    #tifffile.imsave(os.path.join(dct["dst"], dct["name"], dct["name"]+ch+"_Z"+str(dct["zplane"]).zfill(4)+".tif"), (im0*(1-alpha) + im1* (alpha)).astype(dtype), compress=1)
-    tifffile.imsave(os.path.join(dct["dst"], dct["name"]+ch+"_Z"+str(dct["zplane"]).zfill(4)+".tif"), (im0_resz*(1-alpha) + im1_resz* (alpha)).astype(dtype), compress=1)
     return
 
 def pixel_shift(a,b):
