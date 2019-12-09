@@ -64,6 +64,7 @@ def terastitcher_wrapper(**kwargs):
 
     #if working with 1.1x atlas images for rat
     if kwargs["labeltype"] == "rat":
+        print("\nRunning rat brain processing pipeline...")
         #blend lighsheets FIRST
         src = list(image_dictionary['inputdictionary'].keys())[0]
         left = [os.path.join(src, xx) for xx in os.listdir(src) if "C00" in xx]; left.sort()
