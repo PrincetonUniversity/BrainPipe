@@ -82,7 +82,9 @@ def terastitcher_wrapper(**kwargs):
            "cleanup":cleanup}
         [inndct.update(dct) for k,inndct in jobdct.items()]
         
+        
         #Terastitcher
+        #FIXME
         if cores>=2:
             #parallezation
             iterlst = [copy.deepcopy(inndct) for inndct in list(jobdct.values())]
@@ -92,6 +94,7 @@ def terastitcher_wrapper(**kwargs):
     
         else:
             outlst = [terastitcher_par(copy.deepcopy(inndct)) for inndct in list(jobdct.values())]
+            
         #collapse        
         outdct = {xx[0]:[] for xx in outlst}; [outdct[xx[0]].append(xx[1]) for xx in outlst] #{final_dst, [ts_out(lls), ts_out(rls)]}
         
@@ -267,9 +270,12 @@ def terastitcher_par(inndct):
     make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst=inndct["final_dst"], 
                           transfertype=transfertype, cores=cores, scalefactor=voxel_size, percent_overlap=percent_overlap)    
         
-    #stitch
-    call_terastitcher(src=tmp_dst, dst=inndct["ts_out"], voxel_size=voxel_size, threshold=threshold, 
-                      algorithm = algorithm, outbitdepth = outbitdepth, resolutions="0") #
+    try: #FIXME
+        #stitch
+        call_terastitcher(src=tmp_dst, dst=inndct["ts_out"], voxel_size=voxel_size, threshold=threshold, 
+                          algorithm = algorithm, outbitdepth = outbitdepth, resolutions="0") 
+    except Exception as e:
+        print(e)
     
     return [inndct["final_dst"], inndct["ts_out"]] #final dst, ts_out
 
