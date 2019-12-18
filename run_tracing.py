@@ -21,25 +21,25 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/tp/191206_v144_none_c4_1_4x_647_016na_1hfsds_z2um_150msec_10povlp_13-57-26"): 
-    [["regch", "00"]]
+os.path.join(systemdirectory, "LightSheetTransfer/kelly/201912_cfos/raw_data/191217_m57208_demons_20190910_488_008na_1hfds_z5um_100msec_15-59-26"): 
+    [["regch", "00"]],
+os.path.join(systemdirectory, "LightSheetTransfer/kelly/201912_cfos/raw_data/191217_m57208_demons_20190910_555_008na_1hfds_z5um_100msec_15-45-38"): 
+    [["cellch", "00"]],
 }
 
 ####Required inputs
 params={
-"labeltype": "rat", #'h129', 'prv', 'cfos'
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/pni_viral_vector_core/imaris/v144_none_c4_1"),
-"xyz_scale": (1.63, 1.63, 2.0), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-"tiling_overlap": 0.10, #percent overlap taken during tiling
-"stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
-"threshold": 0.7, #terastitcher reliability threshold
-"AtlasFile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
-"annotationfile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"), ###path to annotation file for structures
+"outputdirectory": os.path.join(systemdirectory, "LightSheetTransfer/kelly/201912_cfos/processed/m57208_demons_20190910"),
+"xyz_scale": (5, 5, 5), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+"tiling_overlap": 0.00, #percent overlap taken during tiling
+"stitchingmethod": "blending", #"terastitcher", blending see below for details
+"AtlasFile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/allen_atlas/average_template_25_sagittal_forDVscans.tif"),
+"annotationfile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/allen_atlas/annotation_template_25_sagittal_forDVscans.tif"), ###path to annotation file for structures
 "blendtype": "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
 "intensitycorrection": True, #True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
-"resizefactor": 5, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
+"resizefactor": 3, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
 "rawdata": True, # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
 "finalorientation":  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
 "slurmjobfactor": 50 #number of array iterations per arrayjob since max job array on SPOCK is 1000
