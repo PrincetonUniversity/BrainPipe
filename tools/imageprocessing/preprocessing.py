@@ -1478,7 +1478,10 @@ def flatten(dr, **kwargs):
     for chann in bd_dct:
         if len(bd_dct[chann]) > 0:
             for bdpln in bd_dct[chann]:
-                del zdct[bdpln]
+                try:
+                    del zdct[bdpln]
+                except:
+                    print("bad plane {} missing".format(bdpln))
     ################################################################################################
     chs=[ch[-2:] for ch in chs]
     ###check to see if all channels have the same length, if not it means LVBT messed up
@@ -1490,7 +1493,7 @@ def flatten(dr, **kwargs):
     #####find full size dimensions in zyx
     writer(outdr, "{} *Complete* Zplanes found for {}\n".format(len(zdct.keys()), dr))
     writer(outdr, "Checking for bad missing files:\n     Bad planes per channel:\n     {}\n".format(bd_dct))
-    writer(outdr, "{} Channels found\n".format(len(zdct["0000"].keys())))
+    writer(outdr, "{} Channels found\n".format(len(zdct["0001"].keys())))
     writer(outdr, "{}x by {}y tile scan determined\n".format(xtile, ytile))
     writer(outdr, "{} Light Sheet(s) found. {} Horizontal Focus Determined\n\n".format(lsheets, hf))
     return dict([("zchanneldct", zdct), ("xtile", xtile), ("ytile", ytile), ("channels", chs), ("lightsheets", lsheets), ("horizontalfoci", hf), ("fullsizedimensions", (len(zdct.keys()),(y*ytile),(x*xtile)))])
