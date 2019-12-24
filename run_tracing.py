@@ -21,15 +21,17 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetTransfer/jduva/191218_stefano_k01_201912_cmdii_1d3x_488_555_016na_1hfds_z10um_100msec_17-19-59"): 
-    [["regch", "00"], ["injch", "01"]],
+os.path.join(systemdirectory, "LightSheetData/falkner-mouse/scooter/raw_data/191223_scooter_mmnp5_ventral_up_1_3x_488_016na_1hfds_z10um_100msec_14-46-54"): 
+    [["regch", "00"]],
+os.path.join(systemdirectory, "LightSheetData/falkner-mouse/scooter/raw_data/191223_scooter_mmnp5_ventral_up_1_3x_647_016na_1hfds_z10um_1500msec_13-58-51"): 
+    [["cellch", "00"]],
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/falkner-mouse/stefan/processed/mousek01"),
+"outputdirectory": os.path.join(systemdirectory, "LightSheetData/falkner-mouse/scooter/processed/fmnp6"),
 "xyz_scale": (5, 5, 10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.00, #percent overlap taken during tiling
 "stitchingmethod": "blending", #"terastitcher", blending see below for details
@@ -39,7 +41,7 @@ params={
 "intensitycorrection": True, #True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
 "resizefactor": 3, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
 "rawdata": True, # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
-"finalorientation":  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
+"finalorientation":  ("-2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
 "slurmjobfactor": 50 #number of array iterations per arrayjob since max job array on SPOCK is 1000
 }
 
