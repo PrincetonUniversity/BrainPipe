@@ -1,4 +1,4 @@
-### Analysis scripts by tpisano@princeton.edu for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
+### Analysis scripts by tpisano@princeton.edu and zahra.dhanerawala@gmail.com for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
 ### Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
 #### *Dependencies:*
