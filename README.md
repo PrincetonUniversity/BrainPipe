@@ -1,7 +1,7 @@
 ### Analysis scripts for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
 ### Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
-#### Contact: tpisano@princeton.edu, zahra.mansoor.md@gmail.com 
+#### Contact: tpisano@princeton.edu, zahra.mansoor.md@gmail.com, jduva@princeton.edu
 #### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
 [PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
