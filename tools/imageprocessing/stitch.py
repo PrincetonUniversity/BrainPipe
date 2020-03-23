@@ -59,11 +59,11 @@ def terastitcher_wrapper(**kwargs):
     print("\nvoxel size = {}\n".format(voxel_size))
     #     
     image_dictionary=copy.deepcopy(kwargs)
-    dst = os.path.join(kwargs["outputdirectory"], "full_sizedatafld")
+    dst = os.path.join(kwargs["outputdirectory"], "FullResolutionData")
     makedir(dst)
 
     #if working with 1.1x atlas images for rat
-    if kwargs["labeltype"] == "rat":
+    if "labeltype" in kwargs and kwargs["labeltype"] == "rat":
         print("\nRunning rat brain processing pipeline...")
         #blend lighsheets FIRST
         src = list(image_dictionary['inputdictionary'].keys())[0]
@@ -81,8 +81,7 @@ def terastitcher_wrapper(**kwargs):
            "threshold":threshold, "dst":dst, "algorithm":algorithm, "outbitdepth": outbitdepth, "transfertype":transfertype, 
            "cleanup":cleanup}
         [inndct.update(dct) for k,inndct in jobdct.items()]
-        
-        
+                
         #Terastitcher
         #FIXME
         if cores>=2:
@@ -260,15 +259,17 @@ def terastitcher_par(inndct):
     """Parallelize terastitcher using dct made by make_jobs function
     """
 
-    image_dictionary = inndct["dct"]; tmp_dst = inndct["tmp_dst"]; job=inndct["job"]; channel = inndct["channel"]; 
-    lightsheet = inndct["lightsheet"]; name = inndct["name"]; transfertype = inndct["transfertype"]
-    voxel_size = inndct["scalefactor"]; percent_overlap = inndct["percent_overlap"]; dst=inndct["dst"]; 
+    image_dictionary = inndct["dct"]; tmp_dst = inndct["tmp_dst"]; channel = inndct["channel"]; 
+    lightsheet = inndct["lightsheet"]; transfertype = inndct["transfertype"]
+    voxel_size = inndct["scalefactor"]; percent_overlap = inndct["percent_overlap"]; 
     algorithm = inndct["algorithm"]; outbitdepth=inndct["outbitdepth"]; threshold=inndct["threshold"]
     cores = 1
     
     #format data
-    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, lightsheet=lightsheet, final_dst=inndct["final_dst"], 
-                          transfertype=transfertype, cores=cores, scalefactor=voxel_size, percent_overlap=percent_overlap)    
+    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, 
+                          lightsheet=lightsheet, final_dst=inndct["final_dst"], 
+                          transfertype=transfertype, cores=cores, scalefactor=voxel_size, 
+                          percent_overlap=percent_overlap)    
         
     try: #FIXME
         #stitch
@@ -313,14 +314,17 @@ def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", out
     #import
     voxel_size = tuple(map(lambda x: isinstance(x, float) and round(x, 2) or x, voxel_size)) #make sure its rounded (fix for 1.1x images)
     
-    sys.stdout.write("\n\nRunning Terastitcher import on {}....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
+    sys.stdout.write("\n\nRunning Terastitcher import on {}....".format(" ".join(src.split("/")[-2:])))
+    sys.stdout.flush()
     xml_import = os.path.join(src, "xml_import.xml")
-    call0 = "terastitcher -1 --volin={} --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
+    call0 = "terastitcher -1 --volin={} --ref1=1 --ref2=2 --ref3=3 --vxl1={} --vxl2={} --vxl3={} --projout={}".format(src, 
+                voxel_size[0],voxel_size[1], voxel_size[2], xml_import)
     sp_call(call0)
     sys.stdout.write("\n...completed!"); sys.stdout.flush()
     
     #align
-    sys.stdout.write("\n\nRunning Terastitcher alignment on {}, this can take some time....".format(" ".join(src.split("/")[-2:]))); sys.stdout.flush()
+    sys.stdout.write("\n\nRunning Terastitcher alignment on {}, this can take some time....".format(" ".join(src.split("/")[-2:])))
+    sys.stdout.flush()
     xml_displcomp = os.path.join(src, "xml_displcomp.xml")
     call1 = "terastitcher --displcompute --projin={} --projout={} --sV=100 --sH=100 --sD=10".format(xml_import, xml_displcomp)
     sp_call(call1)
@@ -344,7 +348,8 @@ def call_terastitcher(src, dst, voxel_size, threshold, algorithm = "MIPNCC", out
     #merge
     sys.stdout.write("\nOutputting images, this can also take some time...."); sys.stdout.flush()
     makedir(dst)
-    call5 = "terastitcher --merge --projin={} --volout={} --imout_depth={} --resolutions={}".format(xml_placetiles, dst, outbitdepth, resolutions)
+    call5 = "terastitcher --merge --projin={} --volout={} --imout_depth={} --resolutions={}".format(xml_placetiles, dst, 
+            outbitdepth, resolutions)
     sp_call(call5)
     sys.stdout.write("\n...completed! :] in {} minutes.\n".format(np.round((time.time() - st) / 60), decimals=2)); sys.stdout.flush()   
     
