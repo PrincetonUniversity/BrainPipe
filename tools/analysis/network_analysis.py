@@ -418,57 +418,6 @@ def make_complex_radar_charts(excelfl = None, structures = None, substructure_na
         plt.savefig(svlocname)
     return
 
-def make_complex_radar_charts_using_list(list_of_structures, excelfl = None, structures = None, show = True, svlocname = None, nametype = 'name'):
-    
-    ###NOT COMPLETED    
-    
-    '''function to generate polar plot using a list of structures
-    
-    Inputs
-    ---------------
-    list_of_structures = list of structure names to find progeny counts of    
-    excelfl = excel file that is outputed from software giving ABA structure cell counts
-    structures = list of structure objects generated from this software using ABA
-    show = True: display image; False: Do not display image
-    svlocname = name, extension and location to save file
-    nametype = 'name': display names; 'acronym' display acronyms    
-    
-    '''
- 
-    #one of the two needs to be defined
-    assert(not(excelfl == None and structures == None))     
- 
-     #generate objects:
-    if excelfl != None:        
-        structures = make_structure_objects(excelfl)
-
-    #generate list of structures and counts
-    var_count = variable_count(structures, substructure_name, levels, nametype = nametype)
-         
-    #variable list and data (count) list:
-    variables, data = zip(*var_count)
-  
-    #set range:
-    ranges = [(0., float(max(data)+100)) for x in range(len(data))]
-  
-    #make fig
-    fig1 = plt.figure(figsize=(20, 20))
-    radar = ComplexRadar(fig1, variables, ranges)
-    radar.plot(data)
-    radar.fill(data, alpha=0.2)
-    
-    #add title
-    #########################################################################UNFINISHED
-    #FIXME: need to add title
-    #FIXME: need to add if statement: if acronyms then legend = acronym = name pair
-    #########################################################################UNFINISHED
-    if show != False:    
-        plt.show()
-    if svlocname != None:
-        plt.savefig(svlocname)
-    return
-
-
 ##################################################################
 ##################################################################
 #########################multi radial graphs######################
