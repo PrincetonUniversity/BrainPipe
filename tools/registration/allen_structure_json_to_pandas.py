@@ -193,7 +193,7 @@ def annotation_location_to_structure(id_table, args, ann=False):
     
     #some of the values aren"t annotated properly?
     lst = []
-    for k,v in c.iteritems():
+    for k,v in c.items():
         try:
             lst.append((v, str(list(df.name[df.id==k])[0])))
         except Exception as e:
