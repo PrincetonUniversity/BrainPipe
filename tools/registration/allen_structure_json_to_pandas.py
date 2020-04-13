@@ -16,14 +16,13 @@ import SimpleITK as sitk
 from collections import Counter
 
 
-def allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=False):    
+def allen_structure_json_to_pandas(pth, save_dst, prune=True, ann_pth = None):    
     """simple function to pull; this version prunes and cleans more
     ****prune should equal true for compatibility with other functions in package****
     
     pth="/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.json"
     
     """
-    if save == False: save = "/jukebox/wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx" 
     ##preserves the structures from Json file    
     if prune == False:    
         ###load file and chunk each structure into a list item    
@@ -85,6 +84,7 @@ def allen_structure_json_to_pandas(pth, prune=True, ann_pth = None, save=False):
         df=pd.DataFrame(lst2, columns=headers)
         df.to_excel(save)
 
+    return
 
 def isolate_structures(pth, *args):
     """helper function to segment out allen brain structures.
