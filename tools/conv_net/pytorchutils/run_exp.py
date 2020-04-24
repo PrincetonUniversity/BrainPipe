@@ -8,7 +8,7 @@ Put all the ugly things that change with every experiment here
 Nicholas Turner, 2017-8
 """
 
-import os, imp
+import os
 import collections
 
 import torch
@@ -55,36 +55,24 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["test_intv"]   = 100
     params["test_iter"]   = 10
     params["avgs_intv"]   = 50
-    params["chkpt_intv"]  = 10
+    params["chkpt_intv"]  = 1000
     params["warm_up"]     = 50
     params["chkpt_num"]   = chkpt_num
     params["batch_size"]  = batch_sz
 
     #Sampling params
-    params["data_dir"]     = "/tigress/zmd/3dunet_data/prv/hypothalamus/"
+    params["data_dir"]     = "/tigress/zmd/3dunet_data/ctb/training_inputs"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     
-    params["train_sets"] = ['cj_ann_prv_jg29_hypothal_z580-700_01',
-                            'zd_ann_prv_jg05_hypothal_z650-800_01',
-                             '20180306_jg_bl6f_prv_16_647_010na_7d5um_250msec_10povlp_ch00_C00_Z0650-0700_01',
-                             'zd_ann_prv_jg32_hypothal_z710-810_02',
-                             'cj_ann_prv_jg32_hypothal_z650-810_01',
-                             '20180305_jg_bl6f_prv_11_647_010na_7d5um_250msec_10povlp_ch00_C00_300-345_01',
-                             'JGANNOTATION_20180305_jg_bl6f_prv_12_647_010na_7d5um_250msec_10povlp_ch00_C00_400-440_03',
-                             'zd_ann_prv_jg24_hypothal_z550-650_01',
-                             'cj_ann_prv_jg24_hypothal_z400-550_04',
-                             'cj_ann_prv_jg05_hypothal_z650-800_01',
-                             'cj_ann_prv_jg05_hypothal_z661-760_02',
-                             'cj_ann_prv_jg24_hypothal_z550-650_01',
-                             '20180305_jg_bl6f_prv_12_647_010na_7d5um_250msec_10povlp_ch00_C00_400-440_03',
-                             'cj_ann_prv_jg29_hypothal_z700-800_02',
-                             '20180306_jg_bl6f_prv_16_647_010na_7d5um_250msec_10povlp_ch00_C00_Z0650-0700_02',
-                             'JGANNOTATION_20180306_jg_bl6f_prv_16_647_010na_7d5um_250msec_10povlp_ch00_C00_Z0450-0500_02']
+    params["train_sets"] = ["z269stackstart150",
+                             "z269stackstart475",
+                             "z266stackstart350",
+                             "z266stackstart250",
+                             "z268stackstart300",
+                             "z265_zpln165-191_x6325_y4458",
+                             "z265_zpln315-340_x4785_y3793"]
 
-    params["val_sets"] = ['20180306_jg_bl6f_prv_16_647_010na_7d5um_250msec_10povlp_ch00_C00_Z0650-0700_00',
-                          '20180306_jg_bl6f_prv_16_647_010na_7d5um_250msec_10povlp_ch00_C00_Z0650-0700_05',
-                          'cj_ann_prv_jg32_hypothal_z710-810_02',
-                          'zd_ann_prv_jg24_hypothal_z550-650_03']
+    params["val_sets"] = ["z269stackstart100"]
 
     params["patchsz"]	   = (20,192,192)
     params["sampler_spec"] = dict(input=params["patchsz"],
@@ -95,7 +83,7 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
 
     #IO/Record params
     params["expt_name"]  = expt_name
-    params["expt_dir"]   = "/tigress/zmd/3dunet_data/prv/experiments/{}".format(expt_name)
+    params["expt_dir"]   = "/tigress/zmd/3dunet_data/ctb/network/{}".format(expt_name)
 
     params["model_dir"]  = os.path.join(params["expt_dir"], "models")
     params["log_dir"]    = os.path.join(params["expt_dir"], "logs")
