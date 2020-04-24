@@ -190,6 +190,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
 . activate 3dunet
 ```
+
 		* check with IT on how to setup CUDA properly under your cluster username
 2. else, navigate to tools/conv_net:
 ```
