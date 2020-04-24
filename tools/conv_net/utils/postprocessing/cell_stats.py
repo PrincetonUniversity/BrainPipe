@@ -23,10 +23,10 @@ def consolidate_cell_measures(ignore_jobid_count = False, **params):
     
     #grab csv output folder
     unet_output_dir = os.path.join(params["output_dir"], "3dunet_output")
-    jobs = [xx for xx in os.listdir(unet_output_dir) if not xx == "pooled_cell_measures"]
+    jobs = [xx for xx in os.listdir(unet_output_dir) if not xx == "pooled_cell_measures" and not xx == "cnn_param_dict.csv"]
     
     #check
-    if len(jobs) == (int(params["inputshape"][0])/int(params["zsplt"]))+1 or ignore_jobid_count: #+1 to account for job number 0      
+    if len(jobs) == int((params["inputshape"][0]/params["zsplt"]))+1 or ignore_jobid_count: #+1 to account for job number 0      
         list_of_single_dfs = [os.path.join(unet_output_dir, fl) for fl in jobs]; list_of_single_dfs.sort()
         #make folder for the pooled results
         if not os.path.exists(os.path.join(unet_output_dir, "pooled_cell_measures")): os.mkdir(os.path.join(unet_output_dir, "pooled_cell_measures"))
@@ -74,16 +74,17 @@ def probabiltymap_to_cell_measures(src, jobid, threshold = (0.6,1), numZSlicesPe
 
     Inputs:
     --------------
-    memmapped_paths: (optional, str, or list of strs) pth(s) to memmapped array
-    threshold: (tuple) lower and upper bounds to keep. e.g.: (0.1, 1) - note this assumes input from a CNN and thus data will
-    numZSlicesPerSplit: chunk of zplanes to process at once. Adjust this and cores based on memory constraints.
-    cores: number of parallel jobs to do at once. Adjust this and numZSlicesPerSplit based on memory constraints
-    overlapping_planes: number of planes on each side to overlap by, this should be comfortably larger than the maximum z distances of a single object
-    structure_rank_order: Optional. If true provides the structure element to used in ndimage.measurements.labels, 2 seems to be the most specific
+        memmapped_paths: (optional, str, or list of strs) pth(s) to memmapped array
+        threshold: (tuple) lower and upper bounds to keep. e.g.: (0.1, 1) - note this assumes input from a CNN and thus data will
+        numZSlicesPerSplit: chunk of zplanes to process at once. Adjust this and cores based on memory constraints.
+        cores: number of parallel jobs to do at once. Adjust this and numZSlicesPerSplit based on memory constraints
+        overlapping_planes: number of planes on each side to overlap by, this should be comfortably larger than the maximum z distances of a single object
+        structure_rank_order: Optional. If true provides the structure element to used in ndimage.measurements.labels, 2 seems to be the most specific
+        
     """
     #handle inputs
     if type(src) == str:
-        if src[-3:] == "tif": src = tifffile.imread(src)
+        if src[-3:] == "tif": src = np.squeeze(tifffile.imread(src))
         if src[-3:] == "npy": src = np.lib.format.open_memmap(src, dtype = "float32", mode = "r")
 
     zdim, ydim, xdim = src.shape
@@ -151,14 +152,7 @@ def find_labels_centerofmass_cell_measures(array, start, numZSlicesPerSplit, ove
         df["z depth"] = df.apply(lambda row: row["p_s_z_v"][2],1)
         df["no_voxels"] = df.apply(lambda row: row["p_s_z_v"][3],1)
         del df["p_s_z_v"]
-        
-        #test one that breaks
-        #df = df.reset_index()
-        #row = df.iloc[0]
-        #perimeter_sphericity(bounding_box_from_center_array(labels[0], row["val"], (row["z"],row["y"], row["x"])))
-        #ta = bounding_box_from_center_array(labels[0], row["val"], (row["z"],row["y"], row["x"]))
-        #df[df["no_voxels"]>=6]["sphericity"].values <---this confirms that it"s how cv2 deals with very small objects, essentially less than 2 pixels in x or y
-        
+       
         #get intensities
         zyx_search_range = (5,10,10)
         df["intensity"] = df.apply(lambda row:helper_intensity(row["val"],row["x"],row["y"],row["z"], zyx_search_range, arr),1)
@@ -225,16 +219,13 @@ def circularity(contours):
     """
     A Hu moment invariant as a shape circularity measure, Zunic et al, 2010
     """
-    #moments = [cv2.moments(c.astype(float)) for c in contours]
-    #circ = np.array([(m["m00"]**2)/(2*np.pi*(m["mu20"]+m["mu02"])) if m["mu20"] or m["mu02"] else 0 for m in moments])
     circ = [ (4*np.pi*cv2.contourArea(c))/(cv2.arcLength(c,True)**2) for c in contours]
 
     return np.asarray(circ)
 
 def findContours(z):
     
-    contours,hierarchy = cv2.findContours(z, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #if need more than two values to unpack error here upgrade to cv2 3+
-    
+    contours,hierarchy = cv2.findContours(z, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #if need more than two values to unpack error here upgrade to cv2 3+   
     contours = np.asarray([c.squeeze() for c in contours if cv2.contourArea(c)>0])
     
     return contours

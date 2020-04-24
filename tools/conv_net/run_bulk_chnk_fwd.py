@@ -19,7 +19,9 @@ def sp_call(call):
 
 
 #loop
-paths = [xx for xx in os.listdir(out) if "chck_errs.sh" not in xx and "save" not in xx and "logs" not in xx and "slurm_scripts" not in xx]
+paths = [xx for xx in os.listdir(out) if "chck_errs.sh" not in xx and "logs" not in xx and "slurm_scripts" not in xx]
+paths = [xx for xx in paths if not "output_chnks" in os.listdir(os.path.join(out, xx))]
+
 paths_to_call = []
 for pth in paths:
     
@@ -37,7 +39,7 @@ for pth in paths:
             new_lines[i] = line.replace("pytorchutils/", "/tigress/zmd/3dunet/pytorchutils/")
         
         #path to folder
-        if "python run_chnk_fwd.py 20190130_zd_transfer_learning" in line:
+        if "python run_chnk_fwd.py" in line:
             new_lines[i] = line.replace("20170115_tp_bl6_lob6a_rpv_03", pth)
             
         #logs
@@ -57,6 +59,6 @@ for pth in paths:
     
 #call
 for pth in paths_to_call:
-    call = "sbatch --array=0-130 {}".format(pth)
+    call = "sbatch --array=0-100 {}".format(pth)
     print(call)
     sp_call(call)

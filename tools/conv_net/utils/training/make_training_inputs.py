@@ -6,12 +6,14 @@ Created on Mon Dec 10 12:39:16 2018
 @author: wanglab
 """
 
-import os, numpy as np, sys, multiprocessing as mp
+import os, numpy as np, sys, multiprocessing as mp, zipfile, sys
 from skimage.external import tifffile
 from skimage import filters
-from utils.io import listdirfull, load_np, makedir, save_dictionary
 import matplotlib.pyplot as plt
 import SimpleITK as sitk
+#add your clone of the brainpipe repo to path to import the relevant modules
+sys.path.append("/jukebox/wang/zahra/python/BrainPipe") 
+from tools.conv_net.utils.io import listdirfull, load_np, makedir, save_dictionary
 
 def otsu_par(saveLocation, otsufld, size, otsu_factor):
    
@@ -69,17 +71,25 @@ def convert_input(inputFolder, saveLocation, remove_bad=True):
     #get pairs
     tfs = listdirfull(inputFolder,keyword=".tif")
     zps = [xx for xx in listdirfull(inputFolder) if ".tif" not in xx]
+    
+    #make empty zip files if no labels (useful to train on negative data?)
+    for tf in tfs:
+        if tf[:-4]+"RoiSet.zip" not in zps:
+            print(tf)
+            nm = tf[:-4]+"RoiSet.zip"    
+            with zipfile.ZipFile(os.path.join(inputFolder, nm), "w") as file:
+                pass
+    
     pairs = [[tf,zp] for tf in tfs for zp in zps if tf[:-4] in zp]
     
     #make saveLocation if doesn"t exist:
     makedir(saveLocation)
     
     #make mem_mapped arrays once, to be more cluster friendly
-    import multiprocessing as mp
     print("Starting conversion...")
     p = mp.Pool(12)
     iterlst = [(pair[0], pair[1], saveLocation) for pair in pairs]
-    bad = p.map(basic_convert, iterlst)
+    bad = p.starmap(basic_convert, iterlst)
     p.terminate()
     print ("Completed!\n\nBad list: {}".format(bad)) 
     
@@ -97,20 +107,21 @@ def convert_input(inputFolder, saveLocation, remove_bad=True):
                 os.remove(a)
                 print ("removing")
         else:
-            file_points_dct[os.path.basename(a)] = zip(*pnts)
+            file_points_dct[os.path.basename(a)] = list(zip(*pnts))
             
     #save out points
-    save_dictionary(os.path.join(os.path.dirname(saveLocation), "filename_points_dictionary.p"), file_points_dct)
-    print("Saved dictionary as {}".format(os.path.join(os.path.dirname(saveLocation), "filename_points_dictionary.p")))
+    save_dictionary(os.path.join(os.path.dirname(saveLocation), "points_dictionary.p"), file_points_dct)
+    print("Saved dictionary in {}".format(saveLocation))
         
     return
     
-def basic_convert((tf, zp, saveLocation)):
+def basic_convert(tf, zp, saveLocation):
     """
     """
     if np.all((os.path.exists(tf), os.path.exists(zp))):
         generate_mem_mapped_array_for_net_training(impth=tf, roipth=zp, 
-                                                   dst=os.path.join(saveLocation, os.path.basename(tf)[:-4]+".npy"), verbose = True)     
+                                                   dst=os.path.join(saveLocation, os.path.basename(tf)[:-4]+".npy"), 
+                                                   verbose = True)     
     else:
         sys.stdout.write("\n^^^^^^^^^^^^^^^^^SKIPPING: Paired files not found for: {} & {}^^^^^^^^^^^^^^^^^^^^\n".format(tf, zp))
         return (tf, zp)
@@ -166,7 +177,7 @@ def generate_mem_mapped_array_for_net_training(impth, roipth, dst, verbose=True)
             rois = zf.namelist()
         if verbose: sys.stdout.write("done"); sys.stdout.flush()
         #format ZYX, and remove any rois missaved
-        rois_formatted = zip(*[map(int, xx.replace(".roi","").split("-")[0:3]) for xx in rois if len(xx.split("-"))==3])
+        rois_formatted = list(zip(*[map(int, xx.replace(".roi","").split("-")[0:3]) for xx in rois if len(xx.split("-"))==3]))
     else:
         from tools.conv_net.input.read_roi import read_roi
         with open(roipth, "rb") as fl:
@@ -175,13 +186,13 @@ def generate_mem_mapped_array_for_net_training(impth, roipth, dst, verbose=True)
     
     if len(rois_formatted)==0:
         print ("*************Error {}- likely ROIS were mis-saved. Trying to fix, this should be checked.".format(os.path.basename(impth)))
-        rois_formatted = zip(*[map(int, xx.replace(".roi","").split("-")[0:3]) for xx in rois if len(xx.split("-"))==4])
+        rois_formatted = list(zip(*[map(int, xx.replace(".roi","").split("-")[0:3]) for xx in rois if len(xx.split("-"))==4]))
     #populate arr; (NOTE: ImageJ has one-based numerics FOR Z but 0 for YX vs np w zero-based numerics for ZYX)
-    if verbose: sys.stdout.write("\nPopulating ROIS..."); sys.stdout.flush()
-    arr[1,[xx-1 for xx in rois_formatted[0]], rois_formatted[1], rois_formatted[2]] = 255
-
+    else:
+        if verbose: sys.stdout.write("\nPopulating ROIS..."); sys.stdout.flush()
+        arr[1,[xx-1 for xx in rois_formatted[0]], rois_formatted[1], rois_formatted[2]] = 255
+        arr.flush()        
     
-    arr.flush()        
     if verbose: sys.stdout.write("done.\n\n***Memmapped array generated successfully***\n\n"); sys.stdout.flush()
     
     return arr
@@ -190,14 +201,14 @@ def generate_mem_mapped_array_for_net_training(impth, roipth, dst, verbose=True)
     
 if __name__ == "__main__":
     #convert first
-    inputFolder = "/home/wanglab/Documents/cfos_raw_inputs/"
-    saveLocation = "/home/wanglab/Documents/cfos_inputs/memmap"; makedir(saveLocation)
-    otsufld = "/home/wanglab/Documents/cfos_inputs/otsu"; makedir(otsufld)  
+    inputFolder = "/jukebox/LightSheetData/rat-brody/processed/201910_tracing/training/raw_data"
+    saveLocation = "/jukebox/LightSheetData/rat-brody/processed/201910_tracing/training/arrays"; makedir(saveLocation)
+    otsufld = "/jukebox/LightSheetData/rat-brody/processed/201910_tracing/training/otsu"; makedir(otsufld)  
     size = (5,10,10)    
     otsu_factor = 0.8
     
     #convert
-    convert_input(inputFolder, saveLocation, remove_bad=True)
+    convert_input(inputFolder, saveLocation, remove_bad=False)
     
     #check all
     for a in listdirfull(saveLocation, "npy"):
