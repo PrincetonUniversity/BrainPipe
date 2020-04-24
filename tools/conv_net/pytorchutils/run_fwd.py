@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-import os, imp
+import os
 import collections
 
-import torch
 from torch import sigmoid
 import dataprovider3 as dp
 
@@ -54,7 +53,7 @@ def fill_params(expt_name, chkpt_num, gpus,
 
     #IO/Record params
     params["expt_name"]   = expt_name
-    params["expt_dir"]    = "/jukebox/wang/zahra/conv_net/training/prv/experiment_dirs/{}".format(expt_name)
+    params["expt_dir"]    = "/tigress/zmd/3dunet_data/ctb/network/{}".format(expt_name)
     params["model_dir"]   = os.path.join(params["expt_dir"], "models")
     params["log_dir"]     = os.path.join(params["expt_dir"], "logs")
     params["fwd_dir"]     = os.path.join(params["expt_dir"], "forward")
@@ -62,12 +61,12 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/home/wanglab/mounts/wang/zahra/conv_net/annotations/prv/hypothalamus/inputs"
+    params["data_dir"]    = "/tigress/zmd/3dunet_data/ctb/training_inputs"
     assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"]       = dset_names
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
     params["scan_spec"]   = collections.OrderedDict(soma=(1,20,192,192))
-    params["scan_params"] = dict(stride=(0.5,0.5,0.5), blend="bump")
+    params["scan_params"] = dict(stride=(0.75,0.75,0.75), blend="bump")
 
     #Use-specific Module imports
     params["model_class"] = utils.load_source(model_fname).Model
