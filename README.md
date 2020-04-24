@@ -191,13 +191,14 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
 . activate 3dunet
 ```
-2. else, navigate to tools/conv_net:
+2. else, navigate to tools/conv_net
+	1. in the terminal, in the lightsheet environment, run:
 ```
 $ python setup_demo_script.py
 ```
-3. navigate to the pytorchutils directory
+	2. navigate to the pytorchutils directory, and in the terminal, in the lightsheet environment, run:
 ```
 $ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
 ```
-4. output will be in a 'demo/cnn_output' subfolder (as a TIFF)
+3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
 
