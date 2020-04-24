@@ -1,8 +1,8 @@
-### Analysis scripts for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
-### Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
+# Analysis scripts for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
+## Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
-#### Contact: tpisano@princeton.edu, zahra.dhanerawala@gmail.com, jduva@princeton.edu
-#### *Dependencies:*
+### Contact: tpisano@princeton.edu, zmd@princeton.edu, jduva@princeton.edu
+### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
 [PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
 [Augmentor](https://github.com/torms3/Augmentor)  
@@ -110,7 +110,7 @@ module load elastix/4.8
 	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
     - output is a '3dunet_output' directory containing a '[brain_name]_cell_measures.csv'
  
-### To run, I suggest:
+## To run, I suggest:
 * Open `run_tracing.py`
 * For **each** brain modify:
 	* `inputdictionary`
@@ -184,6 +184,13 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 
 1. if working with a slurm-based scheduler:
 	1. run `sbatch run_demo.sh` within the tools/conv_net
+		* make sure you have an environment setup under your cluster username named "3dunet" or "lightsheet" that has the dependencies described above.
+		* you will also need CUDA installed under your username, and must load the modules and environment in the `.sh` as such:
+```
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
+. activate 3dunet
+```
+		* check with IT on how to setup CUDA properly under your cluster username
 2. else, navigate to tools/conv_net:
 ```
 $ python setup_demo_script.py
