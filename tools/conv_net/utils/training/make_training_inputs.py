@@ -6,7 +6,7 @@ Created on Mon Dec 10 12:39:16 2018
 @author: wanglab
 """
 
-import os, numpy as np, sys, multiprocessing as mp, zipfile, sys
+import os, numpy as np, sys, multiprocessing as mp, zipfile
 from skimage.external import tifffile
 from skimage import filters
 import matplotlib.pyplot as plt
