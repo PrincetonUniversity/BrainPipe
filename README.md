@@ -185,13 +185,12 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 1. if working with a slurm-based scheduler:
 	1. run `sbatch run_demo.sh` within the tools/conv_net
 		* make sure you have an environment setup under your cluster username named "3dunet" or "lightsheet" that has the dependencies described above.
-		* you will also need CUDA installed under your username, and must load the modules and environment in the `.sh` as such:
+		* you will also need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster username
+		* load the modules and environment in the bash script as such:
 ```
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
 . activate 3dunet
 ```
-
-		* check with IT on how to setup CUDA properly under your cluster username
 2. else, navigate to tools/conv_net:
 ```
 $ python setup_demo_script.py
