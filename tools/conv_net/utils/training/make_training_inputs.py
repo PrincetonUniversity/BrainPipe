@@ -12,7 +12,7 @@ from skimage import filters
 import matplotlib.pyplot as plt
 import SimpleITK as sitk
 #add your clone of the brainpipe repo to path to import the relevant modules
-sys.path.append("/jukebox/wang/zahra/python/BrainPipe") 
+sys.path.append("/home/wanglab/python/BrainPipe") 
 from tools.conv_net.utils.io import listdirfull, load_np, makedir, save_dictionary
 
 def otsu_par(saveLocation, otsufld, size, otsu_factor):
