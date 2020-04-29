@@ -105,6 +105,7 @@ module load elastix/4.8
 	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
 4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
 - `cell_detect.py` --> CPU-based pre-processing and post-processing
+	- output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
     - if working with a slurm-based scheduler, 
 	1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
 	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
@@ -113,7 +114,6 @@ module load elastix/4.8
 module load anacondapy/5.3.1
 . activate <<<your python environment>>>
 ```
-    - output is a '3dunet_output' directory containing a '[brain_name]_cell_measures.csv'
  
 ## To run, I suggest:
 * Open `run_tracing.py`
