@@ -123,7 +123,7 @@ module load anacondapy/5.3.1
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
 * Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
 ```python
-preprocessing.generateparamdict(os.getcwd(), **params)` 
+preprocessing.generateparamdict(os.getcwd(), **params)
 if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): 
 	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), 
 	ignore=shutil.ignore_patterns('^.git'))
@@ -196,6 +196,8 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
 . activate <<<your python environment>>>
 ```
+
+
 		* NOTE: the environments `3dunet` and `lightsheet` are used interchangeably in all bash scripts (but represent the same environment). make sure you have the correct environment name in your bash scripts before executing them.
 2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
 ```
