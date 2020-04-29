@@ -92,7 +92,7 @@ module load elastix/4.8
 ## Edit: lightsheet/tools/utils/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
 
-## Edit: lightsheet/tools/conv_net:
+## Edit: lightsheet/tools/conv_net/pytorchutils:
 - main GPU-based scripts are located in the pytorchutils directory
 1. `run_exp.py` --> training
     - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored) 
@@ -101,7 +101,7 @@ module load elastix/4.8
 3. `run_chnk_fwd.py` --> large-scale inference
     - lines 82 & 90: modify experiment and data directory 
     - if working with a slurm-based scheduler:
-	1. modify `run_chnk_fwd.sh` in the main repo
+	1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
 	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
 4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
 - `cell_detect.py` --> CPU-based pre-processing and post-processing
