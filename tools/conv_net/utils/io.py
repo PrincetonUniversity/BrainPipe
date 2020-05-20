@@ -209,7 +209,7 @@ def read_roi(fileobj):
     return points
 
 
-def read_roi_zip(fname, include_roi_name=False, verbose=True):
+def read_roi_zip(fname, include_roi_name=False, points=True):
     """
     Wrapper for reading zip files generated from ImageJ (FIJI)
     
@@ -219,17 +219,15 @@ def read_roi_zip(fname, include_roi_name=False, verbose=True):
         useful for extracting z (NOTE: ImageJ has one-based numerics vs Python w zero-based numerics)
     """
         
-    try:
+    if not points:
         if not include_roi_name:
             with zipfile.ZipFile(fname) as zf:
                 return [read_roi(zf.open(n)) for n in zf.namelist()]
-                                                    
-        if include_roi_name:
+        else:
             with zipfile.ZipFile(fname) as zf:
-                return [(n, read_roi(zf.open(n))) for n in zf.namelist()]
-    
+                return [(n, read_roi(zf.open(n))) for n in zf.namelist()]    
     #hack to try and keep 
-    except ValueError:
+    else:
         lst = []
         with zipfile.ZipFile(fname) as zf:
             for n in zf.namelist():
