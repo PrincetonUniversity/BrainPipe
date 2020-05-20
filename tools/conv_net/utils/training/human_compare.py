@@ -6,8 +6,9 @@ Created on Thu Dec 20 15:38:18 2018
 @author: wanglab
 """
 
-import numpy as np, pickle
-from utils.io import pairwise_distance_metrics
+import numpy as np, pickle, sys
+sys.path.append("/jukebox/wang/zahra/python/BrainPipe")
+from tools.conv_net.utils.io import pairwise_distance_metrics
 
 if __name__ == "__main__":
     
