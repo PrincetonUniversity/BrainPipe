@@ -1,8 +1,8 @@
-### Analysis scripts for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
-### Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
+# Analysis scripts for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
+## Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
-#### Contact: tpisano@princeton.edu, zahra.dhanerawala@gmail.com, jduva@princeton.edu
-#### *Dependencies:*
+### Contact: tpisano@princeton.edu, zmd@princeton.edu, jduva@princeton.edu
+### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
 [PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
 [Augmentor](https://github.com/torms3/Augmentor)  
@@ -18,7 +18,7 @@
 		(3) [Install the VM machine](http://www.instructables.com/id/How-to-install-Linux-on-your-Windows/)
  
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
-### I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7.3) to help with setup.
+I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7+) to help with setup.
 
 ```
 $ conda create -n lightsheet python=3.7.3
@@ -92,7 +92,7 @@ module load elastix/4.8
 ## Edit: lightsheet/tools/utils/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
 
-## Edit: lightsheet/tools/conv_net:
+## Edit: lightsheet/tools/conv_net/pytorchutils:
 - main GPU-based scripts are located in the pytorchutils directory
 1. `run_exp.py` --> training
     - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored) 
@@ -101,16 +101,21 @@ module load elastix/4.8
 3. `run_chnk_fwd.py` --> large-scale inference
     - lines 82 & 90: modify experiment and data directory 
     - if working with a slurm-based scheduler:
-	1. modify `run_chnk_fwd.sh` in the main repo
+	1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
 	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
 4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
 - `cell_detect.py` --> CPU-based pre-processing and post-processing
+	- output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
     - if working with a slurm-based scheduler, 
 	1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
 	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
-    - output is a '3dunet_output' directory containing a '[brain_name]_cell_measures.csv'
+	3. these need the same changes as `sub_main_tracing.sh` file, e.g.
+```
+module load anacondapy/5.3.1
+. activate <<<your python environment>>>
+```
  
-### To run, I suggest:
+## To run, I suggest:
 * Open `run_tracing.py`
 * For **each** brain modify:
 	* `inputdictionary`
@@ -118,7 +123,7 @@ module load elastix/4.8
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
 * Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
 ```python
-preprocessing.generateparamdict(os.getcwd(), **params)` 
+preprocessing.generateparamdict(os.getcwd(), **params)
 if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): 
 	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), 
 	ignore=shutil.ignore_patterns('^.git'))
@@ -184,13 +189,21 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 
 1. if working with a slurm-based scheduler:
 	1. run `sbatch run_demo.sh` within the tools/conv_net
-2. else, navigate to tools/conv_net:
+		* make sure you have an environment setup under your cluster username named "3dunet" or "lightsheet" that has the dependencies described in the installation instructions
+			* NOTE: the environments "3dunet" and "lightsheet" are sometimes used interchangeably in all bash scripts (but represent the same environment)
+			* make sure you have the correct environment name in your bash scripts before executing them
+		* you will also need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster username
+		* load the modules and environment in the bash script as such:
+```
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
+. activate <<<your python environment>>>
+```
+
+2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
 ```
 $ python setup_demo_script.py
-```
-3. navigate to the pytorchutils directory
-```
+$ cd pytorchutils/
 $ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
 ```
-4. output will be in a 'demo/cnn_output' subfolder (as a TIFF)
+3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
 
