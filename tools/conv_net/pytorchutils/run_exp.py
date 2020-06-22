@@ -21,7 +21,7 @@ import loss
 
 def main(**args):
 
-    #args should be the info you need to specify the params
+    # args should be the info you need to specify the params
     # for a given experiment, but only params should be used below
     params = fill_params(**args)
 
@@ -44,65 +44,65 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
 
     params = {}
 
-    #Model params
-    params["in_spec"]	   = dict(input=(1,20,192,192))
-    params["output_spec"]  = collections.OrderedDict(cleft=(1,20,192,192))
-    params["width"]        = [32, 40, 80]
+    # Model params
+    params["in_spec"] = dict(input=(1, 20, 192, 192))
+    params["output_spec"] = collections.OrderedDict(cleft=(1, 20, 192, 192))
+    params["width"] = [32, 40, 80]
 
-    #Training procedure params
-    params["max_iter"]    = 1000000
-    params["lr"]          = 0.00001
-    params["test_intv"]   = 100
-    params["test_iter"]   = 10
-    params["avgs_intv"]   = 50
-    params["chkpt_intv"]  = 1000
-    params["warm_up"]     = 50
-    params["chkpt_num"]   = chkpt_num
-    params["batch_size"]  = batch_sz
+    # Training procedure params
+    params["max_iter"] = 1000000
+    params["lr"] = 0.00001
+    params["test_intv"] = 100
+    params["test_iter"] = 10
+    params["avgs_intv"] = 50
+    params["chkpt_intv"] = 1000
+    params["warm_up"] = 50
+    params["chkpt_num"] = chkpt_num
+    params["batch_size"] = batch_sz
 
-    #Sampling params
-    params["data_dir"]     = "/tigress/zmd/3dunet_data/ctb/training_inputs"
-    assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
-    
+    # Sampling params
+    params["data_dir"] = "/tigress/ejdennis/cnn/training_inputs"
+    assert os.path.isdir(params["data_dir"]), "nonexistent data directory"
+
     params["train_sets"] = ["z269stackstart150",
-                             "z269stackstart475",
-                             "z266stackstart350",
-                             "z266stackstart250",
-                             "z268stackstart300",
-                             "z265_zpln165-191_x6325_y4458",
-                             "z265_zpln315-340_x4785_y3793"]
+                            "z269stackstart475",
+                            "z266stackstart350",
+                            "z266stackstart250",
+                            "z268stackstart300",
+                            "z265_zpln165-191_x6325_y4458",
+                            "z265_zpln315-340_x4785_y3793"]
 
     params["val_sets"] = ["z269stackstart100"]
 
-    params["patchsz"]	   = (20,192,192)
+    params["patchsz"] = (20, 192, 192)
     params["sampler_spec"] = dict(input=params["patchsz"],
                                   soma_label=params["patchsz"])
 
-    #GPUS
+    # GPUS
     params["gpus"] = gpus
 
-    #IO/Record params
-    params["expt_name"]  = expt_name
-    params["expt_dir"]   = "/tigress/zmd/3dunet_data/ctb/network/{}".format(expt_name)
+    # IO/Record params
+    params["expt_name"] = expt_name
+    params["expt_dir"] = "/tigress/ejdennis/cnn/network/{}".format(expt_name)
 
-    params["model_dir"]  = os.path.join(params["expt_dir"], "models")
-    params["log_dir"]    = os.path.join(params["expt_dir"], "logs")
-    params["fwd_dir"]    = os.path.join(params["expt_dir"], "forward")
-    params["tb_train"]   = os.path.join(params["expt_dir"], "tb/train")
-    params["tb_val"]     = os.path.join(params["expt_dir"], "tb/val")
+    params["model_dir"] = os.path.join(params["expt_dir"], "models")
+    params["log_dir"] = os.path.join(params["expt_dir"], "logs")
+    params["fwd_dir"] = os.path.join(params["expt_dir"], "forward")
+    params["tb_train"] = os.path.join(params["expt_dir"], "tb/train")
+    params["tb_val"] = os.path.join(params["expt_dir"], "tb/val")
 
-    #Use-specific Module imports
-    params["model_class"]   = utils.load_source(model_fname).Model
+    # Use-specific Module imports
+    params["model_class"] = utils.load_source(model_fname).Model
     params["sampler_class"] = utils.load_source(sampler_fname).Sampler
     params["augmentor_constr"] = utils.load_source(augmentor_fname).get_augmentation
 
-    #"Schema" for turning the parameters above into arguments
+    # "Schema" for turning the parameters above into arguments
     # for the model class
-    params["model_args"]     = [params["in_spec"], params["output_spec"],
-                                params["width"]]
-    params["model_kwargs"]   = {}
+    params["model_args"] = [params["in_spec"], params["output_spec"],
+                            params["width"]]
+    params["model_kwargs"] = {}
 
-    #modules used for record-keeping
+    # modules used for record-keeping
     params["modules_used"] = [__file__, model_fname, sampler_fname,
                               augmentor_fname, "loss.py"]
 
@@ -115,17 +115,17 @@ def start_training(model_class, model_args, model_kwargs,
                    model_dir, log_dir, tb_train, tb_val,
                    **params):
 
-    #PyTorch Model
+    # PyTorch Model
     net = utils.create_network(model_class, model_args, model_kwargs)
     train_writer = tensorboardX.SummaryWriter(tb_train)
     val_writer = tensorboardX.SummaryWriter(tb_val)
     monitor = utils.LearningMonitor()
 
-    #Loading model checkpoint (if applicable)
+    # Loading model checkpoint (if applicable)
     if chkpt_num != 0:
         utils.load_chkpt(net, monitor, chkpt_num, model_dir, log_dir)
 
-    #DataProvider Stuff
+    # DataProvider Stuff
     train_aug = augmentor_constr(True)
     train_sampler = utils.AsyncSampler(sampler_class(data_dir, sampler_spec,
                                                      vols=train_sets,
@@ -133,10 +133,10 @@ def start_training(model_class, model_args, model_kwargs,
                                                      aug=train_aug))
 
     val_aug = augmentor_constr(False)
-    val_sampler   = utils.AsyncSampler(sampler_class(data_dir, sampler_spec,
-                                                     vols=val_sets,
-                                                     mode="val",
-                                                     aug=val_aug))
+    val_sampler = utils.AsyncSampler(sampler_class(data_dir, sampler_spec,
+                                                   vols=val_sets,
+                                                   mode="val",
+                                                   aug=val_aug))
 
     loss_fn = loss.BinomialCrossEntropyWithLogits()
     optimizer = torch.optim.Adam(net.parameters(), lr=lr)
@@ -152,7 +152,7 @@ if __name__ == "__main__":
 
     import argparse
 
-    parser = argparse.ArgumentParser(description= __doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
 
     parser.add_argument("expt_name",
                         help="Experiment Name")
@@ -170,6 +170,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-
     main(**vars(args))
-
