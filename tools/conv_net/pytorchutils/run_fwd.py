@@ -12,7 +12,7 @@ import utils
 
 def main(noeval, **args):
 
-    #args should be the info you need to specify the params
+    # args should be the info you need to specify the params
     # for a given experiment, but only params should be used below
     params = fill_params(**args)
 
@@ -41,43 +41,43 @@ def fill_params(expt_name, chkpt_num, gpus,
 
     params = {}
 
-    #Model params
-    params["in_spec"]     = dict(input=(1,20,192,192))
-    params["output_spec"] = collections.OrderedDict(soma=(1,20,192,192))
-    params["width"]       = [32, 40, 80]
-    params["activation"]  = sigmoid
-    params["chkpt_num"]   = chkpt_num
+    # Model params
+    params["in_spec"] = dict(input=(1, 20, 192, 192))
+    params["output_spec"] = collections.OrderedDict(soma=(1, 20, 192, 192))
+    params["width"] = [32, 40, 80]
+    params["activation"] = sigmoid
+    params["chkpt_num"] = chkpt_num
 
-    #GPUS
+    # GPUS
     params["gpus"] = gpus
 
-    #IO/Record params
-    params["expt_name"]   = expt_name
-    params["expt_dir"]    = "/tigress/zmd/3dunet_data/ctb/network/{}".format(expt_name)
-    params["model_dir"]   = os.path.join(params["expt_dir"], "models")
-    params["log_dir"]     = os.path.join(params["expt_dir"], "logs")
-    params["fwd_dir"]     = os.path.join(params["expt_dir"], "forward")
-    params["log_tag"]     = "fwd_" + tag if len(tag) > 0 else "fwd"
-    params["output_tag"]  = tag
+    # IO/Record params
+    params["expt_name"] = expt_name
+    params["expt_dir"] = "/tigress/ejdennis/cnn/network/{}".format(expt_name)
+    params["model_dir"] = os.path.join(params["expt_dir"], "models")
+    params["log_dir"] = os.path.join(params["expt_dir"], "logs")
+    params["fwd_dir"] = os.path.join(params["expt_dir"], "forward")
+    params["log_tag"] = "fwd_" + tag if len(tag) > 0 else "fwd"
+    params["output_tag"] = tag
 
-    #Dataset params
-    params["data_dir"]    = "/tigress/zmd/3dunet_data/ctb/training_inputs"
-    assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
-    params["dsets"]       = dset_names
-    params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
-    params["scan_spec"]   = collections.OrderedDict(soma=(1,20,192,192))
-    params["scan_params"] = dict(stride=(0.75,0.75,0.75), blend="bump")
+    # Dataset params
+    params["data_dir"] = "/tigress/ejdennis/cnn/training_inputs"
+    assert os.path.isdir(params["data_dir"]), "nonexistent data directory"
+    params["dsets"] = dset_names
+    params["input_spec"] = collections.OrderedDict(input=(20, 192, 192))  # dp dataset spec
+    params["scan_spec"] = collections.OrderedDict(soma=(1, 20, 192, 192))
+    params["scan_params"] = dict(stride=(0.75, 0.75, 0.75), blend="bump")
 
-    #Use-specific Module imports
+    # Use-specific Module imports
     params["model_class"] = utils.load_source(model_fname).Model
 
-    #"Schema" for turning the parameters above into arguments
+    # "Schema" for turning the parameters above into arguments
     # for the model class
-    params["model_args"]   = [params["in_spec"], params["output_spec"],
-                              params["width"]]
+    params["model_args"] = [params["in_spec"], params["output_spec"],
+                            params["width"]]
     params["model_kwargs"] = {}
 
-    #Modules used for record-keeping
+    # Modules used for record-keeping
     params["modules_used"] = [__file__, model_fname, "layers.py"]
 
     return params
@@ -92,7 +92,7 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
         img = utils.read_img(os.path.join(data_dir, dset_name + "_img.h5"))
     elif os.path.isfile(os.path.join(data_dir, dset_name + "_img.tif")):
         img = utils.read_img(os.path.join(data_dir, dset_name + "_img.tif"))
-        
+
     img = (img / 255.).astype("float32")
 
     # Creating DataProvider Dataset
@@ -114,16 +114,15 @@ def save_output(output, dset_name, chkpt_num, fwd_dir, output_tag, **params):
         if len(output_tag) == 0:
             basename = "{}_{}_{}.tif".format(dset_name, k, chkpt_num)
         else:
-            basename = "{}_{}_{}_{}.tif".format(dset_name, k, 
-                                               chkpt_num, output_tag)
+            basename = "{}_{}_{}_{}.tif".format(dset_name, k,
+                                                chkpt_num, output_tag)
 
         full_fname = os.path.join(fwd_dir, basename)
 
         utils.write_img(output_data, full_fname)
 
 
-#============================================================
-
+# ============================================================
 
 
 if __name__ == "__main__":
@@ -147,7 +146,6 @@ if __name__ == "__main__":
                         help="Whether to use eval version of network")
     parser.add_argument("--tag", default="",
                         help="Output (and Log) Filename Tag")
-
 
     args = parser.parse_args()
 
