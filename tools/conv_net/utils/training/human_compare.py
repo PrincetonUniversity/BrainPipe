@@ -6,45 +6,35 @@ Created on Thu Dec 20 15:38:18 2018
 @author: wanglab
 """
 
-import numpy as np
-from tools.conv_net.utils.io import pairwise_distance_metrics, load_dictionary, read_roi_zip
-
-def human_compare_with_raw_rois(ann1roipth, ann2roipth, cutoff = 30):
-            
-    #format ZYX, and remove any rois missaved
-    ann1_zyx_rois = np.asarray([[int(yy) for yy in xx.replace(".roi", "").split("-")] for xx in read_roi_zip(ann1roipth, include_roi_name=True)])
-    ann2_zyx_rois = np.asarray([[int(yy) for yy in xx.replace(".roi", "").split("-")] for xx in read_roi_zip(ann2roipth, include_roi_name=True)])
-        
-    paired,tp,fp,fn = pairwise_distance_metrics(ann1_zyx_rois, ann2_zyx_rois, cutoff) #returns true positive = tp; false positive = fp; false negative = fn
-        
-    precision = tp/(tp+fp); recall = tp/(tp+fn) #calculating precision and recall
-    f1 = 2*( (precision*recall)/(precision+recall) ) #calculating f1 score
-    
-    print ("\n   Finished calculating statistics for set params\n\n\nReport:\n***************************\n\
-    Cutoff: {} \n\
-    F1 score: {}% \n\
-    true positives, false positives, false negatives: {} \n\
-    precision: {}% \n\
-    recall: {}%\n".format(cutoff, round(f1*100, 2), (tp,fp,fn), round(precision*100, 2), round(recall*100, 2)))
-
-    return tp, fp, fn, f1
+import pickle, sys
+sys.path.append("/jukebox/wang/zahra/python/BrainPipe")
+from tools.conv_net.utils.io import pairwise_distance_metrics
 
 if __name__ == "__main__":
     
     #load points dict
-    points_dict = load_dictionary("/home/wanglab/Documents/cfos_inputs/cfos_points_dictionary.p")   
+    pth = "/jukebox/wang/zahra/conv_net/annotations/prv/all/all_points_dictionary.p"
+    points_dict = pickle.load(open(pth, "rb"), encoding = "latin1")
         
     print(points_dict.keys())
+    total_cells = sum([len(v) for k,v, in points_dict.items()])
+    print("\ntotal cells annotated: {}".format(total_cells))
+     
     #separate annotators - will have to modify conditions accordinaly
-    ann1_dsets = ["tp_ann_201904_an22_ymazefos_020719_pfc_z150-169.npy",
-                  "tp_ann_201904_an30_ymazefos_020719_striatum_z416-435.npy"]
-#                 ["tp_ann_201904_an19_ymazefos_020719_pfc_z380-399.npy", 
-#                  "tp_ann_201812_pcdev_lob6_9_forebrain_hypothal_z520-539.npy", 
-#                  "tp_ann_201812_pcdev_lob6_4_forebrain_cortex_z200-219.npy"]
+    ann1_dsets = ["zd_ann_prv_jg05_neocortex_z310-449_01.npy", 
+                  "zd_ann_prv_jg24_neocortex_z300-400_01.npy", 
+                  "zd_ann_prv_jg29_neocortex_z300-500_01.npy", 
+                  "zd_ann_prv_jg32_neocortex_z650-810_01.npy"]
 
-    ann2_dsets = ["jd_ann_201904_an22_ymazefos_020719_pfc_z150-169.npy",
-                  "jd_ann_201904_an30_ymazefos_020719_striatum_z416-435.npy"]
 
+    ann2_dsets = ["cj_ann_prv_jg05_neocortex_z310-449_01.npy", 
+                  "cj_ann_prv_jg24_neocortex_z300-400_01.npy", 
+                  "cj_ann_prv_jg29_neocortex_z300-500_01.npy", 
+                  "cj_ann_prv_jg32_neocortex_z650-810_01.npy"]
+
+    #get number of cells annotated by both users
+    ann_cells = sum([len(v) for k,v, in points_dict.items() if k in ann1_dsets or k in ann2_dsets])
+    print("\ncells annotated by 2 users: {}".format(ann_cells))
     
     #initialise empty vectors
     tps = []; fps = []; fns = []   

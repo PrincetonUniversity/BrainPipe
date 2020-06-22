@@ -5,18 +5,15 @@ Created on Thu Aug 25 10:58:01 2016
 @author: wanglab
 """
 
-from __future__ import division
 from scipy.ndimage.filters import gaussian_filter as gfilt
 from scipy.ndimage import label
 import numpy as np
 import sys, os
-import pickle
 from collections import Counter
 from tools.expression_mask.mask import make_mask
 from tools.utils.io import makedir, load_kwargs
 from skimage.external import tifffile
 import SimpleITK as sitk
-import pickle
 
 
 def find_site(im, thresh=10, filter_kernel=(5,5,5)):
