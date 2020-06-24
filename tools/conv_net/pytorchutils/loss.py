@@ -9,6 +9,9 @@ Nicholas Turner <nturner.cs@princeton.edu>, 2017
 import torch
 from torch import nn
 import numpy as np
+import os,sys
+
+sys.path.append(os.getcwd())
 
 from balance import gunpowder_balance
 

@@ -11,7 +11,7 @@ by Tom Pisano (tpisano@princeton.edu, tjp7rr@gmail.com) & Zahra D (zmd@princeton
 
 import numpy as np, cv2, sys, os, shutil
 import time
-from skimage.external import tifffile
+import tifffile
 
 from scipy import ndimage
 from scipy.ndimage.morphology import generate_binary_structure

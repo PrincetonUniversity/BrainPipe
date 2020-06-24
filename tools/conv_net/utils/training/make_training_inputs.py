@@ -6,13 +6,13 @@ Created on Mon Dec 10 12:39:16 2018
 @author: wanglab
 """
 
-import os, numpy as np, sys, multiprocessing as mp, zipfile
-from skimage.external import tifffile
+import os, sys, numpy as np, sys, multiprocessing as mp, zipfile
+import tifffile
 from skimage import filters
 import matplotlib.pyplot as plt
 import SimpleITK as sitk
 #add your clone of the brainpipe repo to path to import the relevant modules
-sys.path.append("/home/wanglab/python/BrainPipe") 
+sys.path.append("/tigress/ejdennis/BrainPipe") 
 from tools.conv_net.utils.io import listdirfull, load_np, makedir, save_dictionary
 
 def otsu_par(saveLocation, otsufld, size, otsu_factor):
@@ -201,9 +201,9 @@ def generate_mem_mapped_array_for_net_training(impth, roipth, dst, verbose=True)
     
 if __name__ == "__main__":
     #convert first
-    inputFolder = "/jukebox/LightSheetData/rat-brody/processed/201910_tracing/training/raw_data"
-    saveLocation = "/jukebox/LightSheetData/rat-brody/processed/201910_tracing/training/arrays"; makedir(saveLocation)
-    otsufld = "/jukebox/LightSheetData/rat-brody/processed/201910_tracing/training/otsu"; makedir(otsufld)  
+    inputFolder = "/tigress/ejdennis/cnn/cell_counts"
+    saveLocation = "/tigress/ejdennis/cnn/arrays"; makedir(saveLocation)
+    otsufld = "/tigress/ejdennis/cnn/otsu"; makedir(otsufld)  
     size = (5,10,10)    
     otsu_factor = 0.8
     

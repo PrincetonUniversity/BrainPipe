@@ -33,7 +33,7 @@ def directorydeterminer():
 def pth_update(item):
     """simple way to update dictionary, list, or str for local path, should be recursive for dicts
     """
-    for prefix in ["/jukebox/", "/mnt/bucket/labs/", "/home/brodylab/", "/home/ejdennis/", "/scratch/gpfs/ejdennis/", "/tigress/ejdennis/"]:
+    for prefix in ["/jukebox/", "/mnt/bucket/labs/", "/home/ejdennis/", "/scratch/gpfs/ejdennis/", "/tigress/ejdennis/"]:
         if type(item) == dict:
             for keys, values in item.items():
                 if type(values) == str:
