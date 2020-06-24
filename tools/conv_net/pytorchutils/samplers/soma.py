@@ -6,9 +6,10 @@ Created on Fri Nov 16 16:00:03 2018
 @author: wanglab
 """
 
-import os
-
+import os, sys
 import h5py, tifffile
+
+sys.path.append(os.getcwd())
 
 from augmentor import Augment
 from dataprovider3 import DataProvider, Dataset

@@ -10,14 +10,14 @@ import importlib
 import datetime
 import shutil
 import types
-import os
+import os, sys
 import re
 
 import torch
 from torch.autograd import Variable
 import numpy as np
 import h5py, tifffile
-
+sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils")
 
 __all__ = ["timestamp",
            "make_required_dirs","log_tagged_modules","log_params",

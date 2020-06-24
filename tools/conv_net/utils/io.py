@@ -10,7 +10,7 @@ most functions modified from @tpisano's lightsheet repository
 
 import os, h5py, cv2, zipfile, sys, matplotlib.pyplot as plt, numpy as np, pickle, time, pandas as pd, ast
 from subprocess import check_output
-from skimage.external import tifffile
+import tifffile
 from tools.conv_net.utils.postprocessing.cell_stats import consolidate_cell_measures
 from scipy.spatial import distance
 

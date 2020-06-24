@@ -8,16 +8,16 @@ Put all the ugly things that change with every experiment here
 Nicholas Turner, 2017-8
 """
 
-import os
+import os, sys
 import collections
 
 import torch
 import tensorboardX
 
+sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/")
 import utils
 import train
 import loss
-
 
 def main(**args):
 
@@ -50,7 +50,7 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["width"] = [32, 40, 80]
 
     # Training procedure params
-    params["max_iter"] = 1000000
+    params["max_iter"] = 100000
     params["lr"] = 0.00001
     params["test_intv"] = 100
     params["test_iter"] = 10
@@ -64,15 +64,18 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
     params["data_dir"] = "/tigress/ejdennis/cnn/training_inputs"
     assert os.path.isdir(params["data_dir"]), "nonexistent data directory"
 
-    params["train_sets"] = ["z269stackstart150",
-                            "z269stackstart475",
-                            "z266stackstart350",
+    params["train_sets"] = ["z266stackstart150",
+                            "z269stackstart475_ejd",
+                            "z266stackstart350_ejd",
                             "z266stackstart250",
-                            "z268stackstart300",
-                            "z265_zpln165-191_x6325_y4458",
-                            "z265_zpln315-340_x4785_y3793"]
+                            "z266stackstart350",
+                            "z266stackstart420_set2_ejd",
+			    "z266stackstart180_set2_ejd",
+			    "z268stackstart310_set2_ejd",
+			    "z269stackstart500_set2_ejd"]
 
-    params["val_sets"] = ["z269stackstart100"]
+    params["val_sets"] = ["z266stackstart400_set2_ejd",
+			  "z269stackstart400_ejd"]
 
     params["patchsz"] = (20, 192, 192)
     params["sampler_spec"] = dict(input=params["patchsz"],

@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-import os
+import os,sys
 import collections
-
+sys.path.append("/tigress/ejdennis/BrainPipe")
 from torch import sigmoid
-import dataprovider3 as dp
+import tools.conv_net.dataprovider3 as dp
 
 import forward
 import utils

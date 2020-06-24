@@ -3,6 +3,9 @@ from itertools import repeat
 import collections
 import math
 
+import os, sys
+sys.path.append(os.getcwd())
+
 import torch
 import torch.nn as nn
 from torch.nn import functional as F

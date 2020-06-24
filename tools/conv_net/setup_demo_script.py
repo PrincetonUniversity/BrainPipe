@@ -1,10 +1,13 @@
-import numpy as np, os, sys
+import numpy as np
+import os
+import sys
 import tifffile
 import h5py
 
 if __name__ == '__main__':
     
     #get location
+    print(sys.argv)
     location_to_save = sys.argv[1]
     print(location_to_save)
     
