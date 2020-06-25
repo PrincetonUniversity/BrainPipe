@@ -8,10 +8,10 @@ Created on Wed Oct  3 11:39:37 2018
 
 import os, numpy as np, sys, multiprocessing as mp, time, matplotlib.pyplot as plt, pandas as pd, pickle, matplotlib as mpl
 from scipy import ndimage
-from skimage.external import tifffile
+import tifffile
 from scipy.ndimage.morphology import generate_binary_structure
-sys.path.append("/tigress/zmd/3dunet")
-from utils.io import pairwise_distance_metrics
+sys.path.append("/tigress/ejdennis/BrainPipe")
+from tools.conv_net.utils.io import pairwise_distance_metrics
 import h5py
     
 mpl.rcParams["pdf.fonttype"] = 42
@@ -209,8 +209,8 @@ def generate_precision_recall_curve(precisions, recalls, dst):
 if __name__ == "__main__":
     
     #set relevant paths
-    src = "/tigress/zmd/3dunet_data/ctb"
-    pth = os.path.join(src, "network/20200316_peterb_zd_train/forward/iter_12000")
+    src = "/tigress/ejdennis/cnn"
+    pth = os.path.join(src, "network/20200622_ed_train/forward/iter_5000")
 
     f = os.path.join(src,  "points_dictionary.p")
     points_dict = pickle.load(open(f, "rb"), encoding = "latin1")
@@ -224,4 +224,5 @@ if __name__ == "__main__":
     for threshold in thresholds:
         f1, precision, recall = calculate_f1_score(pth, points_dict, threshold, cutoff, verbose = True)
         f1s.append(f1); precisions.append(precision); recalls.append(recall)
+
 

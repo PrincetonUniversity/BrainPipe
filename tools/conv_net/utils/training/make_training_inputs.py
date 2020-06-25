@@ -201,7 +201,7 @@ def generate_mem_mapped_array_for_net_training(impth, roipth, dst, verbose=True)
     
 if __name__ == "__main__":
     #convert first
-    inputFolder = "/tigress/ejdennis/cnn/cell_counts"
+    inputFolder = "/tigress/ejdennis/cnn/"
     saveLocation = "/tigress/ejdennis/cnn/arrays"; makedir(saveLocation)
     otsufld = "/tigress/ejdennis/cnn/otsu"; makedir(otsufld)  
     size = (5,10,10)    

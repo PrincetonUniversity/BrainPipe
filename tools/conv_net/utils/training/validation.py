@@ -71,10 +71,10 @@ def plot_val_curve(loss, dst, start_iter = 0, end_iter = 15000, m = 10):
     
 if __name__ == "__main__":
     
-    fname = "/tigress/zmd/3dunet_data/ctb/network/20200316_peterb_zd_train/logs/stats130000.h5"
+    fname = "/tigress/ejdennis/cnn/network/20200622_ed_train/logs/stats5000.h5"
     test, train = save_stats_h5(fname)
     
     #set dst
-    dst = "/tigress/zmd/3dunet_data/ctb/network/20200316_peterb_zd_train/"
+    dst = "/tigress/ejdennis/cnn/network/20200622_ed_train/"
     plot_val_curve(train, dst, m=5)
     
