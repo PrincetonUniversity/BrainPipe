@@ -7,13 +7,13 @@ Created on Thu Dec 20 15:38:18 2018
 """
 
 import pickle, sys
-sys.path.append("/jukebox/wang/zahra/python/BrainPipe")
+sys.path.append("/tigress/ejdennis/BrainPipe")
 from tools.conv_net.utils.io import pairwise_distance_metrics
 
 if __name__ == "__main__":
     
     #load points dict
-    pth = "/jukebox/wang/zahra/conv_net/annotations/prv/all/all_points_dictionary.p"
+    pth = "/tigress/ejdennis/cnn/points_dictionary.p"
     points_dict = pickle.load(open(pth, "rb"), encoding = "latin1")
         
     print(points_dict.keys())
