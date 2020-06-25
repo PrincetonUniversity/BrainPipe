@@ -26,7 +26,7 @@ def save_stats_h5(fname):
     return test_loss_arr, train_loss_arr
 
 
-def plot_val_curve(loss, dst, start_iter = 0, end_iter = 15000, m = 10):
+def plot_val_curve(loss, dst, start_iter = 0, end_iter = 36000, m = 50):
     '''Function to plot validation data loss value from h5 file from training on tiger2
     Inputs:
         loss = array of loss values
@@ -37,6 +37,7 @@ def plot_val_curve(loss, dst, start_iter = 0, end_iter = 15000, m = 10):
     '''
     #set x and y
     iters = np.arange(0, len(loss[:end_iter]))
+    print(len(loss))
     if len(loss) > 1000: 
         loss = np.take(loss[:end_iter], np.arange(0, len(loss[:end_iter])-1, m)) 
         iters = np.take(iters[:end_iter], np.arange(0, len(iters)-1, m))
@@ -71,7 +72,7 @@ def plot_val_curve(loss, dst, start_iter = 0, end_iter = 15000, m = 10):
     
 if __name__ == "__main__":
     
-    fname = "/tigress/ejdennis/cnn/network/20200622_ed_train/logs/stats5000.h5"
+    fname = "/tigress/ejdennis/cnn/network/20200622_ed_train/logs/stats36000.h5"
     test, train = save_stats_h5(fname)
     
     #set dst
