@@ -21,9 +21,16 @@ if __name__ == "__main__":
     print("\ntotal cells annotated: {}".format(total_cells))
      
     #separate annotators - will have to modify conditions accordinaly
-    ann1_dsets = ["z266stackstart250_ejd.npy"]
+    ann1_dsets = ["zd_ann_prv_jg05_neocortex_z310-449_01.npy", 
+                  "zd_ann_prv_jg24_neocortex_z300-400_01.npy", 
+                  "zd_ann_prv_jg29_neocortex_z300-500_01.npy", 
+                  "zd_ann_prv_jg32_neocortex_z650-810_01.npy"]
 
-    ann2_dsets = ["z266stackstart250_ejd.npy"]
+
+    ann2_dsets = ["cj_ann_prv_jg05_neocortex_z310-449_01.npy", 
+                  "cj_ann_prv_jg24_neocortex_z300-400_01.npy", 
+                  "cj_ann_prv_jg29_neocortex_z300-500_01.npy", 
+                  "cj_ann_prv_jg32_neocortex_z650-810_01.npy"]
 
     #get number of cells annotated by both users
     ann_cells = sum([len(v) for k,v, in points_dict.items() if k in ann1_dsets or k in ann2_dsets])
