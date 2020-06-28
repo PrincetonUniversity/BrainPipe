@@ -17,7 +17,7 @@ import h5py
 mpl.rcParams["pdf.fonttype"] = 42
 mpl.rcParams["ps.fonttype"] = 42
 
-def probabiltymap_to_centers_thresh(src, threshold = (0.1,1), numZSlicesPerSplit = 200, overlapping_planes = 40, cores = 4, return_pixels = False, verbose = False, structure_rank_order = 2):
+def probabiltymap_to_centers_thresh(src, threshold = (0.1,10000), numZSlicesPerSplit = 200, overlapping_planes = 40, cores = 4, return_pixels = False, verbose = False, structure_rank_order = 2):
     """
     by tpisano
     
@@ -164,9 +164,9 @@ def calculate_f1_score(pth, points_dict, threshold = 0.6, cutoff = 30, verbose =
     #iterates through forward pass output
     for dset in os.listdir(pth):
         impth = os.path.join(pth, dset)
-        predicted = probabiltymap_to_centers_thresh(impth, threshold = (threshold, 1))        
+        predicted = probabiltymap_to_centers_thresh(impth, threshold = (threshold, 60001))        
         if verbose: print("\n   Finished finding centers for {}, calculating statistics\n".format(dset))        
-        ground_truth = points_dict[dset[:-22]+".npy"] #modifying file names so they match with original data        
+        ground_truth = points_dict[dset[:-10]+".npy"] #modifying file names so they match with original data        
         paired, tp, fp, fn = pairwise_distance_metrics(list(ground_truth), predicted, cutoff = cutoff, verbose = False) #returns true positive = tp; false positive = fp; false negative = fn        
         
         tps.append(tp); fps.append(fp); fns.append(fn)#append matrix to save all values to calculate f1 score and roc curve
@@ -210,16 +210,15 @@ if __name__ == "__main__":
     
     #set relevant paths
     src = "/tigress/ejdennis/cnn"
-    pth = os.path.join(src, "network/20200622_ed_train/forward/iter_5000")
+    pth = os.path.join(src, "comptoclearmap/celltifs")
 
     f = os.path.join(src,  "points_dictionary.p")
-    points_dict = pickle.load(open(f, "rb"), encoding = "latin1")
+    points_dict = pickle.load(open(f, "rb"))
     
     #which thresholds are being evaluated
     thresholds = np.arange(0.5, 1, 0.05)
     cutoff = 20
     f1s = []; precisions = []; recalls = []
-    
     #generate precision recall list
     for threshold in thresholds:
         f1, precision, recall = calculate_f1_score(pth, points_dict, threshold, cutoff, verbose = True)
