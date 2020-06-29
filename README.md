@@ -4,6 +4,8 @@ Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from 
 
 Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
+# Emily is doing some heavy maintenance on these scripts, and has not yet updated the README. Her instructions are [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit?usp=sharing)
+
 ### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
 [PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
