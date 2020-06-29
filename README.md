@@ -1,12 +1,16 @@
-# Analysis scripts for light sheet microscopy and the cerebellar tracing project using a slurm based computing cluster. 
-## Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
+# Analysis scripts for light sheet microscopy for the Brody lab.
 
-### Contact: tpisano@princeton.edu, zmd@princeton.edu, jduva@princeton.edu
+Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from Zahra (zmd@princeton). Forked from PrincetonUniversity/BrainPipe by Tom Pisano, Zahra John D'Uva. It also includes modified scripts from ClearMapCluster and lightsheet_helper_scripts written by the same people.
+
+Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
+
+# Emily is doing some heavy maintenance on these scripts, and has not yet updated the README. Her instructions are [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit?usp=sharing)
+
 ### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
 [PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
 [Augmentor](https://github.com/torms3/Augmentor)  
-[DataTools](https://github.com/torms3/DataTools) 
+[DataTools](https://github.com/torms3/DataTools)
 
 # *Installation Instructions*:
 * Things you will need to do beforehand:
@@ -16,7 +20,7 @@
 		(1) [Download Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 		(2) [Download Linux Ubuntu](https://www.ubuntu.com/download)
 		(3) [Install the VM machine](http://www.instructables.com/id/How-to-install-Linux-on-your-Windows/)
- 
+
 ## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
 I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7+) to help with setup.
 
@@ -28,14 +32,14 @@ $ pip install opencv-python scikit-image scikit-learn seaborn tqdm numba natsort
 If on a local machine:
 
 ```
-$ sudo apt-get install elastix 
-$ sudo apt-get install xvfb 
+$ sudo apt-get install elastix
+$ sudo apt-get install xvfb
 ```
 
 If on a local machine, make sure you have all the boost libraries installed (important for working with torms3's DataTools)
 
 ```
-$ sudo apt-get install libboost-all-dev 
+$ sudo apt-get install libboost-all-dev
 ```
 
 Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for working with DataProvider3:
@@ -70,7 +74,7 @@ $ which terastitcher
 module load anacondapy/5.3.1
 ```
 * Need to load elastix on cluster (something like):
-``` 
+```
 module load elastix/4.8
 ```
 * Need to then activate your python environment where everything is installed (if your enviroment is named 'lightsheet' then you do not need to change this):
@@ -78,7 +82,7 @@ module load elastix/4.8
 . activate <<<your python environment>>>
 ```
 * Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
- 
+
 ## Edit: lightsheet/slurm_files:
 * Each of these needs the same changes as sub_main_tracing.sh file, e.g.
 ```
@@ -88,25 +92,25 @@ module load elastix/4.8
 ```
 
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
- 
+
 ## Edit: lightsheet/tools/utils/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
 
 ## Edit: lightsheet/tools/conv_net/pytorchutils:
 - main GPU-based scripts are located in the pytorchutils directory
 1. `run_exp.py` --> training
-    - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored) 
+    - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored)
 2. `run_fwd.py` --> inference
-    - lines 57 & 65: modify experiment and data directory 
+    - lines 57 & 65: modify experiment and data directory
 3. `run_chnk_fwd.py` --> large-scale inference
-    - lines 82 & 90: modify experiment and data directory 
+    - lines 82 & 90: modify experiment and data directory
     - if working with a slurm-based scheduler:
 	1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
 	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
 4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
 - `cell_detect.py` --> CPU-based pre-processing and post-processing
 	- output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
-    - if working with a slurm-based scheduler, 
+    - if working with a slurm-based scheduler,
 	1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
 	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
 	3. these need the same changes as `sub_main_tracing.sh` file, e.g.
@@ -114,7 +118,7 @@ module load elastix/4.8
 module load anacondapy/5.3.1
 . activate <<<your python environment>>>
 ```
- 
+
 ## To run, I suggest:
 * Open `run_tracing.py`
 * For **each** brain modify:
@@ -124,8 +128,8 @@ module load anacondapy/5.3.1
 * Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
 ```python
 preprocessing.generateparamdict(os.getcwd(), **params)
-if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')): 
-	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'), 
+if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
+	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'),
 	ignore=shutil.ignore_patterns('^.git'))
 ```
 
@@ -170,7 +174,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 	* see the tutorial for more info.
 
 * tools: convert 3D STP stack to 2D representation based on colouring
-  * imageprocessing: 
+  * imageprocessing:
 	* `preprocessing.py`: functions use to preprocess, stitch, 2d cell detect, and save light sheet images
   * analysis:
 	* `allen_structure_json_to_pandas.py`: simple function used to generate atlas list of structures in coordinate space
@@ -206,4 +210,3 @@ $ cd pytorchutils/
 $ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
 ```
 3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
-
