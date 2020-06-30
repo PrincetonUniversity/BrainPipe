@@ -1,0 +1,44 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c1-4 
+Cpus_allowed_list:	0-1,3,5,7,10,12,14,16,18,20,22
+Array Allocation Number: 18753398
+Array Index: 10
+['run_clearmap_cluster.py', '4', '10']
+10
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+ProcessMethod = cluster
+Process 10: Illumination correction: flatfield : None
+Process 10: Illumination correction: background: None
+Process 10: Illumination correction: scaling   : None
+Process 10: Illumination correction: save      : None
+Process 10: 
+{'stackId': 10, 'nStacks': 60, 'source': '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/full_sizedatafld/_ch00/_C00_Z\\d{4}.tif', 'x': <built-in function all>, 'y': <built-in function all>, 'z': (99, 119), 'zCenters': (104.0, 114.0), 'zCenterIndices': (104, 114), 'zSubStackCenterIndices': (5, 15)}
+Process 10: Background Removal: size: (7, 7)
+Process 10: Background Removal: save: None
+Process 10: 
+Process 10: Background: elapsed time: 0:00:19
+Process 10: 
+Process 10: DoG: size  : None
+Process 10: DoG: sigma : None
+Process 10: DoG: sigma2: None
+Process 10: DoG: save  : None
+Process 10: 
+Process 10: DoG: elapsed time: 0:00:01
+Process 10: 
+Process 10: Extended Max: hMax     : None
+Process 10: Extended Max: size     : 0
+Process 10: Extended Max: threshold: None
+Process 10: Extended Max: save     : None
+Process 10: 
+Process 10: Extended Max: elapsed time: 0:00:02
+Process 10: 
+Process 10: Cell shape detection: threshold: 500
+Process 10: Cell shape detection: save     : None
+Process 10: 
+Process 10: Cell Shape:: elapsed time: 1:11:55
+Process 10: 
+Cell detection complete: jobid 0010,
+     saved as /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/cell_detection/cells_jobid_0010.p

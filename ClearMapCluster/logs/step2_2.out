@@ -1,0 +1,61 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c1-2 
+Cpus_allowed_list:	0-7,9,11,13,15,17,19,21,23
+Array Allocation Number: 18760863
+Array Index: 2
+['run_clearmap_cluster.py', '2', '2']
+2
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+Process 0: resampleData: resampling in XY: image 0 / 606
+Process 10: resampleData: resampling in XY: image 10 / 606
+Process 20: resampleData: resampling in XY: image 20 / 606
+Process 30: resampleData: resampling in XY: image 30 / 606
+Process 40: resampleData: resampling in XY: image 40 / 606
+Process 50: resampleData: resampling in XY: image 50 / 606
+Process 60: resampleData: resampling in XY: image 60 / 606
+Process 70: resampleData: resampling in XY: image 70 / 606
+Process 80: resampleData: resampling in XY: image 80 / 606
+Process 90: resampleData: resampling in XY: image 90 / 606
+Process 100: resampleData: resampling in XY: image 100 / 606
+Process 110: resampleData: resampling in XY: image 110 / 606
+Process 120: resampleData: resampling in XY: image 120 / 606
+Process 130: resampleData: resampling in XY: image 130 / 606
+Process 150: resampleData: resampling in XY: image 150 / 606
+Process 140: resampleData: resampling in XY: image 140 / 606
+Process 0: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 1: resampleData: resampling in XY: image 1 / 606
+Process 10: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 11: resampleData: resampling in XY: image 11 / 606
+Process 30: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 20: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 31: resampleData: resampling in XY: image 31 / 606
+Process 21: resampleData: resampling in XY: image 21 / 606
+Process 40: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 41: resampleData: resampling in XY: image 41 / 606
+Process 50: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 60: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 51: resampleData: resampling in XY: image 51 / 606
+Process 61: resampleData: resampling in XY: image 61 / 606
+Process 90: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 91: resampleData: resampling in XY: image 91 / 606
+Process 80: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 81: resampleData: resampling in XY: image 81 / 606
+Process 70: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 71: resampleData: resampling in XY: image 71 / 606
+Process 110: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 111: resampleData: resampling in XY: image 111 / 606
+Process 140: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 141: resampleData: resampling in XY: image 141 / 606
+Process 130: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 120: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 131: resampleData: resampling in XY: image 131 / 606
+Process 121: resampleData: resampling in XY: image 121 / 606
+Process 150: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 151: resampleData: resampling in XY: image 151 / 606
+Process 100: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 101: resampleData: resampling in XY: image 101 / 606
+Process 1: resampleData: Imagesize: 7341, 8701 Resampled Imagesize: 307, 364
+Process 2: resampleData: resampling in XY: image 2 / 606

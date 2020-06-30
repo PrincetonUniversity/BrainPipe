@@ -1,0 +1,44 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c1-1 
+Cpus_allowed_list:	9-18,20,22
+Array Allocation Number: 18753398
+Array Index: 12
+['run_clearmap_cluster.py', '4', '12']
+12
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+ProcessMethod = cluster
+Process 12: Illumination correction: flatfield : None
+Process 12: Illumination correction: background: None
+Process 12: Illumination correction: scaling   : None
+Process 12: Illumination correction: save      : None
+Process 12: 
+{'stackId': 12, 'nStacks': 60, 'source': '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/full_sizedatafld/_ch00/_C00_Z\\d{4}.tif', 'x': <built-in function all>, 'y': <built-in function all>, 'z': (119, 139), 'zCenters': (124.0, 134.0), 'zCenterIndices': (124, 134), 'zSubStackCenterIndices': (5, 15)}
+Process 12: Background Removal: size: (7, 7)
+Process 12: Background Removal: save: None
+Process 12: 
+Process 12: Background: elapsed time: 0:00:21
+Process 12: 
+Process 12: DoG: size  : None
+Process 12: DoG: sigma : None
+Process 12: DoG: sigma2: None
+Process 12: DoG: save  : None
+Process 12: 
+Process 12: DoG: elapsed time: 0:00:02
+Process 12: 
+Process 12: Extended Max: hMax     : None
+Process 12: Extended Max: size     : 0
+Process 12: Extended Max: threshold: None
+Process 12: Extended Max: save     : None
+Process 12: 
+Process 12: Extended Max: elapsed time: 0:00:05
+Process 12: 
+Process 12: Cell shape detection: threshold: 500
+Process 12: Cell shape detection: save     : None
+Process 12: 
+Process 12: Cell Shape:: elapsed time: 1:19:26
+Process 12: 
+Cell detection complete: jobid 0012,
+     saved as /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/cell_detection/cells_jobid_0012.p
