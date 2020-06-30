@@ -1,0 +1,25 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c0-11 
+Cpus_allowed_list:	4,6,8,10,12
+Array Allocation Number: 18760800
+Array Index: 0
+['run_clearmap_cluster.py', '5', '0']
+0
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+[(array([[  58, 2711,   18],
+       [  59, 2711,   18],
+       [  60, 2711,   18],
+       ...,
+       [4427, 6125,   18],
+       [4513, 7315,    1],
+       [4521, 5777,   18]]), array([[8.850e+02, 5.340e+02, 5.340e+02, 1.000e+00],
+       [9.300e+02, 5.790e+02, 5.790e+02, 1.000e+00],
+       [9.060e+02, 5.820e+02, 5.820e+02, 1.000e+00],
+       ...,
+       [7.750e+02, 5.020e+02, 5.020e+02, 1.000e+00],
+       [6.110e+02, 5.060e+02, 5.060e+02, 1.000e+00],
+       [1.156e+03, 5.160e+02, 5.160e+02, 1.000e+00]]))]
+Length of results: 59

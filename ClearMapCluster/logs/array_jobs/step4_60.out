@@ -1,0 +1,22 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c1-14 
+Cpus_allowed_list:	0,2,4,6,8,10,12,14,17,19,21,23
+Array Allocation Number: 18758199
+Array Index: 60
+['run_clearmap_cluster.py', '4', '60']
+60
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+ProcessMethod = cluster
+Traceback (most recent call last):
+  File "run_clearmap_cluster.py", line 124, in <module>
+    celldetection_operations(jobid, **params)
+  File "/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/ClearMap/cluster/par_tools.py", line 89, in celldetection_operations
+    result, substack = detectCells(**dct["ImageProcessingParameter"])
+  File "/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/ClearMap/ImageProcessing/CellDetection.py", line 90, in detectCells
+    function = detectCells, verbose = verbose, **parameter);
+  File "/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/ClearMap/ImageProcessing/StackProcessing.py", line 507, in sequentiallyProcessStack_usingCluster
+    argdata = [(function, parameter, subStacks[jobid], verbose)]
+IndexError: list index out of range

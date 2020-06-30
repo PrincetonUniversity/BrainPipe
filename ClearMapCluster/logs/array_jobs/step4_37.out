@@ -1,0 +1,44 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c1-14 
+Cpus_allowed_list:	0,2,4,6,8,10,12,14,17,19,21,23
+Array Allocation Number: 18758199
+Array Index: 37
+['run_clearmap_cluster.py', '4', '37']
+37
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+ProcessMethod = cluster
+Process 37: Illumination correction: flatfield : None
+Process 37: Illumination correction: background: None
+Process 37: Illumination correction: scaling   : None
+Process 37: Illumination correction: save      : None
+Process 37: 
+{'stackId': 37, 'nStacks': 60, 'source': '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/full_sizedatafld/_ch00/_C00_Z\\d{4}.tif', 'x': <built-in function all>, 'y': <built-in function all>, 'z': (367, 387), 'zCenters': (372.0, 382.0), 'zCenterIndices': (372, 382), 'zSubStackCenterIndices': (5, 15)}
+Process 37: Background Removal: size: (7, 7)
+Process 37: Background Removal: save: None
+Process 37: 
+Process 37: Background: elapsed time: 0:00:18
+Process 37: 
+Process 37: DoG: size  : None
+Process 37: DoG: sigma : None
+Process 37: DoG: sigma2: None
+Process 37: DoG: save  : None
+Process 37: 
+Process 37: DoG: elapsed time: 0:00:01
+Process 37: 
+Process 37: Extended Max: hMax     : None
+Process 37: Extended Max: size     : 0
+Process 37: Extended Max: threshold: None
+Process 37: Extended Max: save     : None
+Process 37: 
+Process 37: Extended Max: elapsed time: 0:00:02
+Process 37: 
+Process 37: Cell shape detection: threshold: 500
+Process 37: Cell shape detection: save     : None
+Process 37: 
+Process 37: Cell Shape:: elapsed time: 1:13:16
+Process 37: 
+Cell detection complete: jobid 0037,
+     saved as /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/cell_detection/cells_jobid_0037.p

@@ -1,0 +1,44 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c1-12 
+Cpus_allowed_list:	9,11,13,15-23
+Array Allocation Number: 18758199
+Array Index: 48
+['run_clearmap_cluster.py', '4', '48']
+48
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+ProcessMethod = cluster
+Process 48: Illumination correction: flatfield : None
+Process 48: Illumination correction: background: None
+Process 48: Illumination correction: scaling   : None
+Process 48: Illumination correction: save      : None
+Process 48: 
+{'stackId': 48, 'nStacks': 60, 'source': '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/full_sizedatafld/_ch00/_C00_Z\\d{4}.tif', 'x': <built-in function all>, 'y': <built-in function all>, 'z': (476, 496), 'zCenters': (481.0, 491.0), 'zCenterIndices': (481, 491), 'zSubStackCenterIndices': (5, 15)}
+Process 48: Background Removal: size: (7, 7)
+Process 48: Background Removal: save: None
+Process 48: 
+Process 48: Background: elapsed time: 0:00:22
+Process 48: 
+Process 48: DoG: size  : None
+Process 48: DoG: sigma : None
+Process 48: DoG: sigma2: None
+Process 48: DoG: save  : None
+Process 48: 
+Process 48: DoG: elapsed time: 0:00:02
+Process 48: 
+Process 48: Extended Max: hMax     : None
+Process 48: Extended Max: size     : 0
+Process 48: Extended Max: threshold: None
+Process 48: Extended Max: save     : None
+Process 48: 
+Process 48: Extended Max: elapsed time: 0:00:05
+Process 48: 
+Process 48: Cell shape detection: threshold: 500
+Process 48: Cell shape detection: save     : None
+Process 48: 
+Process 48: Cell Shape:: elapsed time: 1:15:14
+Process 48: 
+Cell detection complete: jobid 0048,
+     saved as /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/cell_detection/cells_jobid_0048.p

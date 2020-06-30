@@ -1,0 +1,44 @@
+In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
+As the user: pnilsadmin 
+on host: spock7-c0-6 
+Cpus_allowed_list:	1,3,5,7,16-23
+Array Allocation Number: 18753398
+Array Index: 13
+['run_clearmap_cluster.py', '4', '13']
+13
+setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
+Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
+list index out of range
+ProcessMethod = cluster
+Process 13: Illumination correction: flatfield : None
+Process 13: Illumination correction: background: None
+Process 13: Illumination correction: scaling   : None
+Process 13: Illumination correction: save      : None
+Process 13: 
+{'stackId': 13, 'nStacks': 60, 'source': '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/full_sizedatafld/_ch00/_C00_Z\\d{4}.tif', 'x': <built-in function all>, 'y': <built-in function all>, 'z': (129, 149), 'zCenters': (134.0, 144.0), 'zCenterIndices': (134, 144), 'zSubStackCenterIndices': (5, 15)}
+Process 13: Background Removal: size: (7, 7)
+Process 13: Background Removal: save: None
+Process 13: 
+Process 13: Background: elapsed time: 0:00:18
+Process 13: 
+Process 13: DoG: size  : None
+Process 13: DoG: sigma : None
+Process 13: DoG: sigma2: None
+Process 13: DoG: save  : None
+Process 13: 
+Process 13: DoG: elapsed time: 0:00:02
+Process 13: 
+Process 13: Extended Max: hMax     : None
+Process 13: Extended Max: size     : 0
+Process 13: Extended Max: threshold: None
+Process 13: Extended Max: save     : None
+Process 13: 
+Process 13: Extended Max: elapsed time: 0:00:04
+Process 13: 
+Process 13: Cell shape detection: threshold: 500
+Process 13: Cell shape detection: save     : None
+Process 13: 
+Process 13: Cell Shape:: elapsed time: 1:17:47
+Process 13: 
+Cell detection complete: jobid 0013,
+     saved as /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/cell_detection/cells_jobid_0013.p
