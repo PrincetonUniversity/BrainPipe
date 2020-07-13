@@ -21,8 +21,6 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200709_x050_1_1x_488_016na_1hfls_z5um_50msec_20povlp_16-47-57"): 
-    [["regch", "00"]],
 os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200709_x050_1_1x_647_016na_1hfds_z5um_150msec_20povlp_15-21-23"): 
     [["cellch", "00"]]
 }
@@ -34,7 +32,7 @@ params={
 "outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/x050"),
 "xyz_scale": (5.91,5.91,5), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.20, #percent overlap taken during tiling
-"stitchingmethod": "blending", #"terastitcher", blending see below for details
+"stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
 "AtlasFile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
 "annotationfile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"), ###path to annotation file for structures
 "blendtype": "sigmoidal", #False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
@@ -42,7 +40,8 @@ params={
 "resizefactor": 3, ##in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
 "rawdata": True, # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
 "finalorientation":  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
-"slurmjobfactor": 50 #number of array iterations per arrayjob since max job array on SPOCK is 1000
+"slurmjobfactor": 50, #number of array iterations per arrayjob since max job array on SPOCK is 1000
+"transfertype": "move"
 }
 
 #####################################################################################################################################################
