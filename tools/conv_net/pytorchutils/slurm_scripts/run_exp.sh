@@ -12,5 +12,5 @@
 
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
 . activate 3dunet
-python run_exp.py 20200316_peterb_zd_train models/RSUNet.py samplers/soma.py augmentors/flip_rotate.py --batch_sz 4 --gpus 0
+python run_exp.py 20200316_peterb_zd_train models/RSUNet.py samplers/soma.py augmentors/flip_rotate.py --batch_sz 12 --gpus 0,1,2,3
 
