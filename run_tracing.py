@@ -21,7 +21,7 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200709_x050_1_1x_647_016na_1hfds_z5um_150msec_20povlp_15-21-23"): 
+os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200709_x042_1_1x_647_016na_1hfds_z5um_150msec_20povlp_17-24-24"): 
     [["cellch", "00"]]
 }
 
@@ -29,7 +29,7 @@ os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200709_x050_1_
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/x050"),
+"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/x042"),
 "xyz_scale": (5.91,5.91,5), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.20, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
