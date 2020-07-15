@@ -203,8 +203,7 @@ rBPs = np.arange(3, 17, 2)
 fIPszs = np.arange(10, 100, 10)
 dCSPs = np.arange(50, 400, 50)
 thresholds_rows = [[(500, 10000), (2, 2)],
-                   [(1500, 10000), (2, 2)],
-                   [(20, 900), (2, 2)]]
+                   [(1500, 10000), (2, 2)]]
 
 print(rBPs)
 print(fIPszs)
@@ -221,29 +220,29 @@ iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh)
 
 print("\n\niterations: %d\n\n" % (len(iterlst)))
 
-
 def sweep_params(params):
-
     fn, dst, rBP, fIPsz, dCSP, thresh = params
+    print(params)
     brain_dst = os.path.join(dst, os.path.basename(fn)[:-4])
     if not os.path.exists(brain_dst):
         os.mkdir(brain_dst)
-
+    print(thresh[1][0])
     svdst = os.path.join(
         brain_dst,
         "rBP%02d_fIPsize%03d_dCSP%05d_thres%04d_row%02d.npy" % (
-            rBPs
+            rBPs,
             fIPsz,
             dCSP,
             thresh[0][0],
             thresh[1][0]))
+    print(thresh[1][0])
     print(svdst)
-    tiffsavedst = os.path.join(brain_dst, "cells_rBP%02s_fIPsize%03d_dCSP%05d_thres%04d_row%02d.tif" % (
+    tiffsavedst = os.path.join(brain_dst, "cells_rBP%02s_fIPsize%03d_dCSP%05d_thresh%02d_row%01d.tif" % (
         rBPs,
         fIPsz,
         dCSP,
         thresh[0][0],
-        thresh[1][0])))
+        thresh[1][0]))
     print(tiffsavedst)
     # if not os.path.exists(svdst): #if params have not been tried already
     img = tifffile.imread(fn)  # read as z,y,x
@@ -280,6 +279,5 @@ def sweep_params(params):
     return svdst
 
 p = mp.Pool(6)
-print("in p section")
 p.map(sweep_params, iterlst)
 p.terminate
