@@ -200,15 +200,13 @@ if __name__ == "__main__":
 
 # sweep
 rBPs = np.arange(3, 17, 2)
-fIPszs = np.arange(10, 100, 10)
+fIPszs = np.arange(20, 120, 20)
 dCSPs = np.arange(50, 400, 50)
-thresholds_rows = [[(500, 10000), (2, 2)],
-                   [(1500, 10000), (2, 2)]]
-
-print(rBPs)
-print(fIPszs)
-print(dCSPs)
-print(thresholds_rows)
+threshold_rows = [[(100, 10000), (2, 2)],
+                  [(250, 10000), (2, 2)],
+                  [(500, 10000), (2, 2)],
+                  [(1000, 10000), (2, 2)],
+                  [(20, 900), (2, 2)]]
 
 dst = "/jukebox/scratch/ejdennis/20200715_clearmap_sweep"
 iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh)
@@ -216,33 +214,32 @@ iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh)
            for rBP in rBPs
            for fIPsz in fIPszs
            for dCSP in dCSPs
-           for thresh in thresholds_rows]
+           for thresh in threshold_rows]
 
 print("\n\niterations: %d\n\n" % (len(iterlst)))
 
 def sweep_params(params):
     fn, dst, rBP, fIPsz, dCSP, thresh = params
-    print(params)
     brain_dst = os.path.join(dst, os.path.basename(fn)[:-4])
-    if not os.path.exists(brain_dst):
+    if os.path.exists(brain_dst):
+       print("exists")
+    else:
         os.mkdir(brain_dst)
-    print(thresh[1][0])
     svdst = os.path.join(
         brain_dst,
-        "rBP%02d_fIPsize%03d_dCSP%05d_thres%04d_row%02d.npy" % (
-            rBPs,
+        "rBP%02d_fIPsize%03d_dCSP%05d_thresh%04d_row%01d.npy" % (
+            rBP,
             fIPsz,
             dCSP,
             thresh[0][0],
             thresh[1][0]))
-    print(thresh[1][0])
-    print(svdst)
-    tiffsavedst = os.path.join(brain_dst, "cells_rBP%02s_fIPsize%03d_dCSP%05d_thresh%02d_row%01d.tif" % (
-        rBPs,
-        fIPsz,
-        dCSP,
-        thresh[0][0],
-        thresh[1][0]))
+    print("svdstmade")
+    tiffsavedst = os.path.join(brain_dst, "cells_rBP%02d_fIPsize%03d_dCSP%05d_thresh%04d_row%01d.tif" % (
+            rBP,
+            fIPsz,
+            dCSP,
+            thresh[0][0],
+            thresh[1][0]))
     print(tiffsavedst)
     # if not os.path.exists(svdst): #if params have not been tried already
     img = tifffile.imread(fn)  # read as z,y,x
