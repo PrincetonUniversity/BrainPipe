@@ -9,8 +9,8 @@ edited for rats by Emily Jane Dennis July 2020
 
 from ClearMap.cluster.utils import load_kwargs
 from ClearMap.cluster.par_tools import celldetection_operations
-from ClearMap.cluster.directorydeterminer import directorydeterminer
-from ClearMap.cluster.preprocessing import updateparams, listdirfull, arrayjob, makedir, removedir
+from ClearMap.cluster.preprocessing import updateparams, listdirfull, arrayjob
+from ClearMap.cluster.preprocessing import makedir, removedir
 from skimage.exposure import rescale_intensity
 import os
 import sys
@@ -23,7 +23,7 @@ from xvfbwrapper import Xvfb
 vdisplay = Xvfb()
 vdisplay.start()
 
-systemdirectory = directorydeterminer()
+systemdirectory = "/tigress/ejdennis"
 # set paths to data
 # inputdictionary stucture: key=pathtodata value=list["xx", "##"]
 # where xx=regch, injch, or cellch and ##=two digit channel number
@@ -37,15 +37,16 @@ systemdirectory = directorydeterminer()
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"],
 # ["injch", "01"]]} ###create this dictionary variable BEFORE params
 
+# currently this is historical AFAIK
 inputdictionary = {
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"): [["regch", "00"]],
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"): [["cellch", "00"]]
+    os.path.join(systemdirectory, "cell_tifs"): [["regch", "00"]],
+    os.path.join(systemdirectory, "cell_tifs"): [["cellch", "00"]]
 }
 
 # Required inputs
 params = {
     "inputdictionary": inputdictionary,  # don"t need to touch
-    "outputdirectory": os.path.join(systemdirectory, "LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265"),
+    "outputdirectory": os.path.join(systemdirectory, "clearmap_output"),
     # False/None, float(e.g: 0.4), amount to resize by: >1 means increase size, <1 means decrease
     "resample": False,
     # micron/pixel; 1.3xobjective w/ 1xzoom 5um/pixel; 4x objective = 1.63um/pixel
