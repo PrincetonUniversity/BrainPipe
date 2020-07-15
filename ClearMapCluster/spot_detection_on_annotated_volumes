@@ -179,7 +179,7 @@ if __name__ == "__main__":
     vols = [os.path.join(src, xx) for xx in test_imgs]
 
 """used prev
-    #sweep
+    # sweep
     rBPs = 7
     fIPszs = 30 #this probably won't make a huge difference
     dCSPs = 500
@@ -208,6 +208,7 @@ dst = "/jukebox/wang/zahra/kelly_cell_detection_analysis/comparison_to_clearmap/
 
         svdst = os.path.join(brain_dst,
                              "rBP%02d_fIPsize%03d_dCSP%05d_thres%04d_row%02d.npy" % (rBP, fIPsz,
+        tiffsavedst=svdst=os.path.join(brain_dst, "cells.tif")
                                                                                      dCSP, thresh[0][0], thresh[1][0]))
         # if not os.path.exists(svdst): #if params have not been tried already
         img = tifffile.imread(fn)  # read as z,y,x
@@ -225,6 +226,11 @@ dst = "/jukebox/wang/zahra/kelly_cell_detection_analysis/comparison_to_clearmap/
                                               threshold=thresh[0], row=thresh[1])
 
         np.save(svdst, points.astype(int))  # save cells wth volume name, c in z,y,x
+        cells_map = np.zeros_like(img)
+        for cell in points.astype(int):
+            z, y, x = cell
+            cells_map[z, y, x] = 6000
+        tifffile.imsave(tiffsavedst, cells_map.astype("uint16"))
 
         print("thresholded and saved to %s\nnumber of cells = %d" % (svdst, len(c[0])))
 
