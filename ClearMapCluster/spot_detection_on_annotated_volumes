@@ -99,7 +99,7 @@ def detectSpots(img, detectSpotsParameter=None,
         out=out, **parameter)
 
     # center of maxima
-    if hMax is None:
+    if not hMax is None:
         centers = findCenterOfMaxima(img, imgmax, verbose=verbose,
                                      out=out, **parameter)
     else:
@@ -112,7 +112,7 @@ def detectSpots(img, detectSpotsParameter=None,
         detectCellShapeParameter)
     cellShapeThreshold = getParameter(detectCellShapeParameter,
                                       "threshold", None)
-    if cellShapeThreshold is None:
+    if not cellShapeThreshold is None:
         # cell shape via watershed
         imgshape = detectCellShape(
             img2, centers, detectCellShapeParameter=detectCellShapeParameter, verbose=verbose, out=out, **parameter)
@@ -142,7 +142,7 @@ def detectSpots(img, detectSpotsParameter=None,
         idz = csize > 0
 
         return (centers[idz], numpy.vstack((cintensity[idz], cintensity3[idz], cintensity2[idz], csize[idz])).transpose())
-
+        print("first if")
     else:
         # intensity of cells
         cintensity = findIntensity(img, centers, verbose=verbose, out=out, **parameter)
@@ -170,27 +170,36 @@ if __name__ == "__main__":
     import numpy as np
     import tifffile
 
-    # run it on cfos volumes
-    src = "/jukebox/wang/zahra/kelly_cell_detection_analysis/comparison_to_clearmap/annotated_volumes"
-    test_imgs = ["171209_f37104_demonstrator_20171016_790_015na_1hfsds_z5um_1000msec_15-46-13_plane500to519_volume1.tif",
-                 "171210_m37079_mouse2_20171014_790_015na_1hfsds_z5um_1000msec_17-25-29_planes280to299_volume1.tif",
-                 "181011_f37077_observer_20171011_790_017na_1hfds_z5um_1000msec_13-29-49_planes280to299_volume1.tif"]
+    # run it on annotated volumes
+    src = "/jukebox/scratch/ejdennis/cnn/cell_counts"
+    test_imgs = ["z266stackstart250_ejd.tif",
+                 "z266stackstart350_ejd.tif",
+                 "z266stackstart400_set2_ejd.tif"]
 
     vols = [os.path.join(src, xx) for xx in test_imgs]
 
-    # sweep
-    rBPs = [3, 5, 7]
-    fIPszs = np.arange(1, 8, 2)  # this probably won't make a huge difference
-    dCSPs = np.arange(50, 400, 50)
-    thresholds_rows = [[(500, 10000), (2, 2)], [(1500, 10000), (2, 2)], [(20, 900), (3, 3)]]
+"""used prev
+    #sweep
+    rBPs = 7
+    fIPszs = 30 #this probably won't make a huge difference
+    dCSPs = 500
+    thresholds_rows = [(1500, 10000), (2,2)]
+    dst = "/jukebox/scratch/ejdennis/comptoclearmap_improved"
+    """
 
-    dst = "/jukebox/wang/zahra/kelly_cell_detection_analysis/comparison_to_clearmap/may2020"
-    iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh) for fn in vols for rBP in rBPs
-               for fIPsz in fIPszs for dCSP in dCSPs for thresh in thresholds_rows]
+# sweep
+rBPs = [3, 5, 7]
+fIPszs = np.arange(1, 8, 2)  # this probably won't make a huge difference
+dCSPs = np.arange(50, 400, 50)
+thresholds_rows = [[(500, 10000), (2, 2)], [(1500, 10000), (2, 2)], [(20, 900), (3, 3)]]
 
-    print("\n\niterations: %d\n\n" % (len(iterlst)))
+dst = "/jukebox/wang/zahra/kelly_cell_detection_analysis/comparison_to_clearmap/may2020"
+ iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh) for fn in vols for rBP in rBPs
+             for fIPsz in fIPszs for dCSP in dCSPs for thresh in thresholds_rows]
 
-    def sweep_params(params):
+  print("\n\niterations: %d\n\n" % (len(iterlst)))
+
+   def sweep_params(params):
 
         fn, dst, rBP, fIPsz, dCSP, thresh = params
         brain_dst = os.path.join(dst, os.path.basename(fn)[:-4])
