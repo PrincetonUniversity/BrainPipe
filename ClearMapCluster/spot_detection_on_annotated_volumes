@@ -21,8 +21,8 @@ from ClearMap.ImageProcessing.MaximaDetection import findExtendedMaxima
 from ClearMap.ImageProcessing.MaximaDetection import findPixelCoordinates
 from ClearMap.ImageProcessing.MaximaDetection import findIntensity
 from ClearMap.ImageProcessing.MaximaDetection import findCenterOfMaxima
-from ClearMap.ImageProcessing.MaximaDetection import findCellSize
-from ClearMap.ImageProcessing.MaximaDetection import findCellIntensity
+from ClearMap.ImageProcessing.CellSizeDetection import findCellSize
+from ClearMap.ImageProcessing.CellSizeDetection import findCellIntensity
 from ClearMap.Utils.ParameterTools import getParameter
 from ClearMap.Utils.Timer import Timer
 from ClearMap.Analysis.Statistics import thresholdPoints
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     import multiprocessing as mp
     import numpy as np
     import tifffile
-
+    print("starting")
     # run it on annotated volumes
     src = "/jukebox/scratch/ejdennis/cnn/cell_counts"
     test_imgs = ["z266stackstart250_ejd.tif",
@@ -196,15 +196,7 @@ if __name__ == "__main__":
                  "z266stackstart400_set2_ejd.tif"]
 
     vols = [os.path.join(src, xx) for xx in test_imgs]
-
-"""used prev
-    # sweep
-    rBPs = 7
-    fIPszs = 30 #this probably won't make a huge difference
-    dCSPs = 500
-    thresholds_rows = [(1500, 10000), (2,2)]
-    dst = "/jukebox/scratch/ejdennis/comptoclearmap_improved"
-    """
+    print(vols)
 
 # sweep
 rBPs = np.arange(3, 17, 2)
@@ -213,6 +205,11 @@ dCSPs = np.arange(50, 400, 50)
 thresholds_rows = [[(500, 10000), (2, 2)],
                    [(1500, 10000), (2, 2)],
                    [(20, 900), (2, 2)]]
+
+print(rBPs)
+print(fIPszs)
+print(dCSPs)
+print(thresholds_rows)
 
 dst = "/jukebox/scratch/ejdennis/20200715_clearmap_sweep"
 iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh)
@@ -229,9 +226,10 @@ def sweep_params(params):
 
     fn, dst, rBP, fIPsz, dCSP, thresh = params
     brain_dst = os.path.join(dst, os.path.basename(fn)[:-4])
-    if not os.path.exists(brain_dst):
+    if os.path.exists(brain_dst):
+        print("thing")
+    else:
         os.mkdir(brain_dst)
-
         svdst = os.path.join(
             brain_dst,
             "rBP%02d_fIPsize%03d_dCSP%05d_thres%04d_row%02d.npy" % (
@@ -240,21 +238,22 @@ def sweep_params(params):
                 dCSP,
                 thresh[0][0],
                 thresh[1][0]))
-
+        print(svdst)
         tiffsavedst = os.path.join(brain_dst, "cells.tif")
-        # if not os.path.exists(svdst): #if params have not been tried already
+        print(tiffsavedst)
+	# if not os.path.exists(svdst): #if params have not been tried already
         img = tifffile.imread(fn)  # read as z,y,x
         img = img.astype("uint16")
 
         # find spots
         c = detectSpots(
-            img, detectSpotsParameter=None,
-            correctIlluminationParameter=None,
-            removeBackgroundParameter={"size": (rBP, rBP)},
+	        img, detectSpotsParameter=None,
+        	correctIlluminationParameter=None,
+            	removeBackgroundParameter={"size": (rBP, rBP)},
             # size is based on cell size/resolution
-            findIntensityParameter={"size": (fIPsz, fIPsz, fIPsz),
-                                    "method": "Max"},
-            detectCellShapeParameter={"threshold": dCSP}, verbose=False)
+            	findIntensityParameter={"size": (fIPsz, fIPsz, fIPsz),
+               	                        "method": "Max"},
+            	detectCellShapeParameter={"threshold": dCSP}, verbose=False)
 
         # c is a tuple output, 0 = points, 1 = intensities
         # INTENSITY OR SIZE BASED THRESHOLDING
@@ -276,6 +275,7 @@ def sweep_params(params):
 
         return svdst
 
-    p = mp.Pool(6)
-    p.map(sweep_params, iterlst)
-    p.terminate
+p = mp.Pool(6)
+print("in p section")
+p.map(sweep_params, iterlst)
+p.terminate
