@@ -1,4 +1,4 @@
-# !/usr/bin/env python2
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
 Functions to detect spots in images
@@ -10,7 +10,6 @@ The main routine :func:`detectCells` uses a difference of gaussian filter$
 # copyright: Copyright 2015 by Christoph Kirst, The Rockefeller Universit$
 # license: GNU, see LICENSE.txt for details.
 
-import os
 import sys
 import numpy
 
@@ -115,25 +114,32 @@ def detectSpots(img, detectSpotsParameter=None,
     if not cellShapeThreshold is None:
         # cell shape via watershed
         imgshape = detectCellShape(
-            img2, centers, detectCellShapeParameter=detectCellShapeParameter, verbose=verbose, out=out, **parameter)
+            img2, centers,
+            detectCellShapeParameter=detectCellShapeParameter,
+            verbose=verbose,
+            out=out, **parameter)
 
         # size of cells
-        csize = findCellSize(imgshape, maxLabel=centers.shape[0], out=out, **parameter)
+        csize = findCellSize(imgshape, maxLabel=centers.shape[0],
+                             out=out, **parameter)
 
         # intensity of cells
         cintensity = findCellIntensity(
-            img, imgshape,  maxLabel=centers.shape[0], verbose=verbose, out=out, **parameter)
+            img, imgshape,  maxLabel=centers.shape[0], verbose=verbose,
+            out=out, **parameter)
 
         # intensity of cells in background image
         cintensity2 = findCellIntensity(
-            img2, imgshape,  maxLabel=centers.shape[0], verbose=verbose, out=out, **parameter)
+            img2, imgshape,  maxLabel=centers.shape[0], verbose=verbose,
+            out=out, **parameter)
 
         # intensity of cells in dog filtered image
         if dogSize is None:
             cintensity3 = cintensity2
         else:
             cintensity3 = findCellIntensity(
-                img3, imgshape,  maxLabel=centers.shape[0], verbose=verbose, out=out, **parameter)
+                img3, imgshape,  maxLabel=centers.shape[0],
+                verbose=verbose, out=out, **parameter)
 
         if verbose:
             out.write(timer.elapsedTime(head="Spot Detection") + "\n")
@@ -141,25 +147,38 @@ def detectSpots(img, detectSpotsParameter=None,
         # remove cell;s of size 0
         idz = csize > 0
 
-        return (centers[idz], numpy.vstack((cintensity[idz], cintensity3[idz], cintensity2[idz], csize[idz])).transpose())
+        return (centers[idz], numpy.vstack((cintensity[idz],
+                                            cintensity3[idz],
+                                            cintensity2[idz],
+                                            csize[idz])).transpose())
         print("first if")
     else:
         # intensity of cells
-        cintensity = findIntensity(img, centers, verbose=verbose, out=out, **parameter)
+        cintensity = findIntensity(
+            img, centers, verbose=verbose,
+            out=out, **parameter)
 
         # intensity of cells in background image
-        cintensity2 = findIntensity(img2, centers, verbose=verbose, out=out, **parameter)
+        cintensity2 = findIntensity(
+            img2, centers,
+            verbose=verbose,
+            out=out, **parameter)
 
         # intensity of cells in dog filtered image
         if dogSize is None:
             cintensity3 = cintensity2
         else:
-            cintensity3 = findIntensity(img3, centers, verbose=verbose, out=out, **parameter)
+            cintensity3 = findIntensity(
+                img3, centers,
+                verbose=verbose,
+                out=out, **parameter)
 
         if verbose:
             out.write(timer.elapsedTime(head="Spot Detection") + "\n")
 
-        return (centers, numpy.vstack((cintensity, cintensity3, cintensity2)).transpose())
+        return (
+            centers,
+            numpy.vstack((cintensity, cintensity3, cintensity2)).transpose())
 
 
 # %%
@@ -188,95 +207,75 @@ if __name__ == "__main__":
     """
 
 # sweep
-rBPs = [3, 5, 7]
-fIPszs = np.arange(1, 8, 2)  # this probably won't make a huge difference
+rBPs = np.arange(3, 17, 2)
+fIPszs = np.arange(10, 100, 10)
 dCSPs = np.arange(50, 400, 50)
-thresholds_rows = [[(500, 10000), (2, 2)], [(1500, 10000), (2, 2)], [(20, 900), (3, 3)]]
+thresholds_rows = [[(500, 10000), (2, 2)],
+                   [(1500, 10000), (2, 2)],
+                   [(20, 900), (2, 2)]]
 
-dst = "/jukebox/wang/zahra/kelly_cell_detection_analysis/comparison_to_clearmap/may2020"
- iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh) for fn in vols for rBP in rBPs
-             for fIPsz in fIPszs for dCSP in dCSPs for thresh in thresholds_rows]
+dst = "/jukebox/scratch/ejdennis/20200715_clearmap_sweep"
+iterlst = [(fn, dst, rBP, fIPsz, dCSP, thresh)
+           for fn in vols
+           for rBP in rBPs
+           for fIPsz in fIPszs
+           for dCSP in dCSPs
+           for thresh in thresholds_rows]
 
-  print("\n\niterations: %d\n\n" % (len(iterlst)))
+print("\n\niterations: %d\n\n" % (len(iterlst)))
 
-   def sweep_params(params):
 
-        fn, dst, rBP, fIPsz, dCSP, thresh = params
-        brain_dst = os.path.join(dst, os.path.basename(fn)[:-4])
-        if not os.path.exists(brain_dst):
-            os.mkdir(brain_dst)
+def sweep_params(params):
 
-        svdst = os.path.join(brain_dst,
-                             "rBP%02d_fIPsize%03d_dCSP%05d_thres%04d_row%02d.npy" % (rBP, fIPsz,
-        tiffsavedst=svdst=os.path.join(brain_dst, "cells.tif")
-                                                                                     dCSP, thresh[0][0], thresh[1][0]))
+    fn, dst, rBP, fIPsz, dCSP, thresh = params
+    brain_dst = os.path.join(dst, os.path.basename(fn)[:-4])
+    if not os.path.exists(brain_dst):
+        os.mkdir(brain_dst)
+
+        svdst = os.path.join(
+            brain_dst,
+            "rBP%02d_fIPsize%03d_dCSP%05d_thres%04d_row%02d.npy" % (
+                rBP,
+                fIPsz,
+                dCSP,
+                thresh[0][0],
+                thresh[1][0]))
+
+        tiffsavedst = os.path.join(brain_dst, "cells.tif")
         # if not os.path.exists(svdst): #if params have not been tried already
         img = tifffile.imread(fn)  # read as z,y,x
         img = img.astype("uint16")
 
         # find spots
-        c = detectSpots(img, detectSpotsParameter=None, correctIlluminationParameter=None,
-                        removeBackgroundParameter={"size": (rBP, rBP)},
-                        # size is based on cell size/resolution
-                        findIntensityParameter={"size": (fIPsz, fIPsz, fIPsz), "method": "Max"},
-                        detectCellShapeParameter={"threshold": dCSP}, verbose=False)
+        c = detectSpots(
+            img, detectSpotsParameter=None,
+            correctIlluminationParameter=None,
+            removeBackgroundParameter={"size": (rBP, rBP)},
+            # size is based on cell size/resolution
+            findIntensityParameter={"size": (fIPsz, fIPsz, fIPsz),
+                                    "method": "Max"},
+            detectCellShapeParameter={"threshold": dCSP}, verbose=False)
+
         # c is a tuple output, 0 = points, 1 = intensities
         # INTENSITY OR SIZE BASED THRESHOLDING
-        points, intensities = thresholdPoints(c[0].astype(int), c[1].astype(int),
-                                              threshold=thresh[0], row=thresh[1])
+        points, intensities = thresholdPoints(c[0].astype(int),
+                                              c[1].astype(int),
+                                              threshold=thresh[0],
+                                              row=thresh[1])
 
-        np.save(svdst, points.astype(int))  # save cells wth volume name, c in z,y,x
+        np.save(svdst, points.astype(int))
+        # save cells wth volume name, c in z,y,x
         cells_map = np.zeros_like(img)
         for cell in points.astype(int):
             z, y, x = cell
             cells_map[z, y, x] = 6000
         tifffile.imsave(tiffsavedst, cells_map.astype("uint16"))
 
-        print("thresholded and saved to %s\nnumber of cells = %d" % (svdst, len(c[0])))
+        print("thresholded and saved to %s\nnum of cells = %d" % (svdst,
+                                                                  len(c[0])))
 
         return svdst
 
     p = mp.Pool(6)
     p.map(sweep_params, iterlst)
     p.terminate
-
-# %%
-    from skimage.morphology import ball
-    import cv2
-
-    # run on 4x volume
-    dst = "/jukebox/wang/Jess/lightsheet_output/201904_ymaze_cfos/clearmap_accuracy_quantification/4x_cell_count_merged_maps"
-    vol = "/home/wanglab/Desktop/an19_ymazefos_020719_4x_striatum.tif"
-
-    # reading in the native z,y,x orientation
-    vol = tifffile.imread(vol)
-
-    # dtype
-    img = vol.astype("uint16")
-
-    for i in np.arange(0, vol.shape[0], 20):
-        c = detectSpots(img[i:i+20], detectSpotsParameter=None, correctIlluminationParameter=None,
-                        removeBackgroundParameter={"size": (5, 5)},
-                        filterDoGParameter=None, findExtendedMaximaParameter={"h-max": None, "size": 20, "threshold": 0},
-                        findIntensityParameter={"size": (5, 5, 5), "method": "Max"},
-                        detectCellShapeParameter={"threshold": 150}, verbose=False)
-
-        print("done, found %d cells !" % c[0].shape[0])
-
-        cell_map = np.zeros_like(img[i:i+20])
-
-        for z, y, x in c[0]:
-            cell_map[z, y, x] = 45000
-
-        # dilate
-        r = 3
-        selem = ball(r)[int(r/2)]
-        cell_map = cell_map.astype("uint8")
-        cell_map = np.asarray([cv2.dilate(cell_map[j], selem, iterations=1)
-                               for j in range(cell_map.shape[0])])
-
-        # save out slices
-        merged = np.stack([img[i+1:i+20], cell_map[1:].astype("uint16"),
-                           np.zeros_like(cell_map[1:])], -1)
-        tifffile.imsave(os.path.join(
-            dst, "an19_ymazefos_020719_4x_striatum_test_{}_clearmap.tif".format(i)), merged)
