@@ -25,9 +25,9 @@ systemdirectory = directorydeterminer()
 # "injch" = channels(s) to quantify injection site
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary = {
-    os.path.join(systemdirectory, "wang/mkislin/lightsheet_brains/201903_cntnap2_tsc1_ai148/todo/201707_mk63_488_647_014na_1hfsds_z10um_300msec_ch00"):
+    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"):
     [["regch", "00"]],
-    os.path.join(systemdirectory, "wang/mkislin/lightsheet_brains/201903_cntnap2_tsc1_ai148/todo/201707_mk63_488_647_014na_1hfsds_z10um_300msec_ch01"):
+    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"):
     [["injch", "00"]]
 }
 
@@ -35,7 +35,7 @@ inputdictionary = {
 params = {
     "systemdirectory":  systemdirectory,  # don"t need to touch
     "inputdictionary": inputdictionary,  # don"t need to touch
-    "outputdirectory": os.path.join(systemdirectory, "wang/mkislin/lightsheet_brains/201903_cntnap2_tsc1_ai148/201707_mk63"),
+    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/z265"),
     "xyz_scale": (5, 5, 10),  # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
     "tiling_overlap": 0.00,  # percent overlap taken during tiling
     "stitchingmethod": "blending",  # "terastitcher", blending see below for details
@@ -96,7 +96,7 @@ if __name__ == "__main__":
         # make parameter dictionary and pickle file:
         # e.g. single job assuming directory_determiner function has been properly set
         preprocessing.generateparamdict(os.getcwd(), **params)
-        # preprocessing.updateparams("/home/wanglab/wang/pisano/Python/lightsheet", svnm = "param_dict_local.p", **params) # make a local copy
+        # preprocessing.updateparams("/", svnm = "param_dict_local.p", **params) # make a local copy
         if not os.path.exists(os.path.join(params["outputdirectory"], "lightsheet")):
             shutil.copytree(os.getcwd(), os.path.join(params["outputdirectory"], "lightsheet"),
                             ignore=shutil.ignore_patterns(*(".pyc", "CVS", ".git", "tmp", ".svn",
