@@ -1,26 +1,26 @@
-In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
-As the user: pnilsadmin 
-on host: redshirt-n20 
-Cpus_allowed_list:	0-6,16-22
-Array Allocation Number: 18739718
+In the directory: /scratch/ejdennis/rat_BrainPipe/ClearMapCluster 
+As the user: ejdennis 
+on host: spock7-c0-13 
+Cpus_allowed_list:	0-4,6,8,10,12,14,16,18,20,22
+Array Allocation Number: 19661014
 Array Index: 1
 
-elastix is started at Tue Apr 21 14:40:27 2020.
+elastix is started at Thu Jul 23 12:55:09 2020.
 
 which elastix:   elastix
-elastix runs at: redshirt-n20
+elastix runs at: spock7-c0-13
   Linux 3.10.0-1062.9.1.el7.x86_64 (x64), #1 SMP Fri Dec 6 14:55:59 EST 2019
-  with 257752 MB memory, and 16 cores @ 1952 MHz.
+  with 257562 MB memory, and 24 cores @ 1407 MHz.
 -------------------------------------------------------------------------
 
-Running elastix with parameter file 0: "/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/parameterfolder/Order1_Par0000affine.txt".
+Running elastix with parameter file 0: "/mnt/sink/scratch/ejdennis/rat_BrainPipe/ClearMapCluster/parameterfolder/Order1_Par0000affine.txt".
 
-Current time: Tue Apr 21 14:40:27 2020.
+Current time: Thu Jul 23 12:55:09 2020.
 Reading the elastix parameters from file ...
 
 ERROR: could not read fixed image.
 
-itk::ImageFileReaderException (0x2456140)
+itk::ImageFileReaderException (0x3665c90)
 Location: "unknown" 
 File: /jukebox/pkgs/ITK/InsightToolkit-4.8.2/Modules/IO/ImageBase/include/itkImageFileReader.hxx
 Line: 143
@@ -36,4 +36,4 @@ Errors occurred!
 setting elastixlib path as /jukebox/pkgs/ELASTIX/4.8/bin, ***note this is a hack and may fail***
 Elastix sucessfully initialized from path: /jukebox/pkgs/ELASTIX/4.8
 list index out of range
-['elastix', '-m', '/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif', '-f', '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/autofluo_resampled.tif', '-p', '/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/parameterfolder/Order1_Par0000affine.txt', '-p', '/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/parameterfolder/Order2_Par0000bspline.txt', '-out', '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/elastix_auto_to_atlas']
+['elastix', '-m', '/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif', '-f', '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/autofluo_resampled.tif', '-p', '/mnt/sink/scratch/ejdennis/rat_BrainPipe/ClearMapCluster/parameterfolder/Order1_Par0000affine.txt', '-p', '/mnt/sink/scratch/ejdennis/rat_BrainPipe/ClearMapCluster/parameterfolder/Order2_Par0000bspline.txt', '-out', '/jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/clearmap_cluster_output/elastix_auto_to_atlas']

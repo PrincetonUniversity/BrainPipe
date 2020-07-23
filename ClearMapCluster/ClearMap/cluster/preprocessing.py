@@ -150,18 +150,11 @@ def chunkit(core, cores, item_to_chunk):
 
 
 def regex_determiner(raw, dr):
-    """helper function to determine appropriate regular expression
-    """     
-    lst=[r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)", ###lavision processed
-    r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)", #lavision rawdata
-    r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)"
-    r"(.*)(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)"
-         ]    
+    dr = "/jukebox/LightSheetTransfer/brody/z265"
+    lst=[r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)"]
+    raw=True
     ###########determine raw vs non         
-    if raw==True:
-        fl=[f for f in os.listdir(dr) if "raw_DataStack" in f or "raw_RawDataStack" in f] #sorted for raw files
-    elif raw==False:
-        fl=[f for f in os.listdir(dr) if np.all(("raw_DataStack" not in f and "raw_RawDataStack" not in f)) and ".tif" in f]  
+    fl=os.listdir(dr)
     #### determine regex
     for regexpression in lst:
         reg=re.compile(regexpression)
