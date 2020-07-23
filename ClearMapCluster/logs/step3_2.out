@@ -1,8 +1,8 @@
-In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
-As the user: pnilsadmin 
-on host: redshirt-n20 
-Cpus_allowed_list:	0-6,16-22
-Array Allocation Number: 18739718
+In the directory: /scratch/ejdennis/rat_BrainPipe/ClearMapCluster 
+As the user: ejdennis 
+on host: spock7-c0-14 
+Cpus_allowed_list:	0-4,6,8,10,12,14,16,18,20,22
+Array Allocation Number: 19661014
 Array Index: 2
 ['run_clearmap_cluster.py', '3', '2']
 2
@@ -12,6 +12,6 @@ list index out of range
 Traceback (most recent call last):
   File "run_clearmap_cluster.py", line 116, in <module>
     alignment_operations(jobid, **params)
-  File "/mnt/bucket/PNI-centers/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster/ClearMap/cluster/par_tools.py", line 75, in alignment_operations
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/ClearMapCluster/ClearMap/cluster/par_tools.py", line 75, in alignment_operations
     return resultDirectory
 UnboundLocalError: local variable 'resultDirectory' referenced before assignment
