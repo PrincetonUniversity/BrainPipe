@@ -165,7 +165,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
 * `cell_detect.py`:
-	* `.py` file to be used to manage the parallelization _of CNN preprocessing_ to a SLURM cluster
+	* `.py` file to be used to manage the parallelization _of CNN preprocessing and postprocessing_ to a SLURM cluster
 	* params need to be changed per cohort.
 	* see the tutorial for more info.
 
@@ -207,3 +207,14 @@ $ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_
 ```
 3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
 
+# CNN paralellization
+
+* for whole brain, cellular resolution image volumes (> 100 GB), the neural network inference is parallelized across multiple chunks of image volumes, and stitched together by taking the maxima at the overlaps of the chunks after inference.
+* the chunks are made by running `cnn_preprocess.sh` on a CPU based cluster
+* chunks can then be run for inference on a GPU based cluster (after transfer to the GPU based cluster server or on a server that has both CPU and GPU capabilities)
+	* by modifying paths in `tools/conv_net/pytorchutils/run_chnk_fwd.py`
+	* by then navigating to `tools/conv_net/pytorchutils` and submitting an array batch job
+		* the range ("0-150") will depend on how many chunks were made for the whole brain volume, which are typically 80-200
+```
+sbatch --array=0-150 slurm_scripts/run_chnk_fwd.sh
+````
