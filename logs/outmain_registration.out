@@ -1,0 +1,60 @@
+In the directory: /tigress/ejdennis/rat_BrainPipe 
+As the user: ejdennis 
+on host: tiger-i25c1n21 
+Cpus_allowed_list:	0
+MemTotal:       197559532 kB
+MemFree:        171760008 kB
+MemAvailable:   189087236 kB
+Buffers:            6212 kB
+Cached:         18106516 kB
+SwapCached:           12 kB
+Active:          5337028 kB
+Inactive:       13052908 kB
+Active(anon):     277684 kB
+Inactive(anon):    17760 kB
+Active(file):    5059344 kB
+Inactive(file): 13035148 kB
+Unevictable:     2097152 kB
+Mlocked:         2097152 kB
+SwapTotal:       2097148 kB
+SwapFree:        2093768 kB
+Dirty:                20 kB
+Writeback:             0 kB
+AnonPages:       2342284 kB
+Mapped:           177164 kB
+Shmem:             18236 kB
+Slab:             427056 kB
+SReclaimable:     237804 kB
+SUnreclaim:       189252 kB
+KernelStack:       14560 kB
+PageTables:        12332 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    100876912 kB
+Committed_AS:    2970932 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:     1009648 kB
+VmallocChunk:   34256361268 kB
+Percpu:            10752 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   2150400 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      322656 kB
+DirectMap2M:    11900928 kB
+DirectMap1G:    188743680 kB
+Array Allocation Number: 
+Array Index: 
+Submitted batch job 5018230
+Submitted batch job 5018231
+Submitted batch job 5018232
+Submitted batch job 5018233
+Submitted batch job 5018234
+Submitted batch job 5018235
+Submitted batch job 5018236

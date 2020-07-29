@@ -1,8 +1,8 @@
-In the directory: /jukebox/LightSheetData/rat-brody/processed/201910_tracing/clearmap/z265/ClearMapCluster 
-As the user: pnilsadmin 
-on host: spock7-c0-11 
-Cpus_allowed_list:	4,6,8,10,12
-Array Allocation Number: 18760800
+In the directory: /scratch/ejdennis/rat_BrainPipe/ClearMapCluster 
+As the user: ejdennis 
+on host: spock7-c0-10 
+Cpus_allowed_list:	3,5,7,9,11
+Array Allocation Number: 19661016
 Array Index: 0
 ['run_clearmap_cluster.py', '5', '0']
 0

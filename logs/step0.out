@@ -1,0 +1,7 @@
+Starting step 0
+Traceback (most recent call last):
+  File "run_tracing.py", line 10, in <module>
+    from tools.registration.register import elastix_wrapper
+  File "/tigress/ejdennis/rat_BrainPipe/tools/registration/register.py", line 8, in <module>
+    import os, sys, cv2, shutil
+ImportError: No module named cv2

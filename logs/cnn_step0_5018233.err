@@ -1,0 +1,8 @@
+ModuleCmd_Load.c(213):ERROR:105: Unable to locate a modulefile for 'anacondapy/5.3.1'
+/var/spool/slurmd/job5018233/slurm_script: line 18: activate: No such file or directory
+Traceback (most recent call last):
+  File "cell_detect.py", line 11, in <module>
+    from tools.utils.io import load_kwargs
+  File "/tigress/ejdennis/rat_BrainPipe/tools/utils/io.py", line 14, in <module>
+    from skimage.external import tifffile
+ImportError: No module named skimage.external
