@@ -29,6 +29,7 @@
 (WriteTransformParametersEachIteration "false")
 (WriteResultImage "true")
 (ResultImageFormat "tif")
+//(ResultImagePixelType "float") //  (unsigned) char, (unsigned) short, float, double, etc.
 (CompressResultImage "true")
 (WriteResultImageAfterEachResolution "false") 
 (ShowExactMetricValue "false")

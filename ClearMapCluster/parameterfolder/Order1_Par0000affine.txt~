@@ -1,4 +1,6 @@
-//Bspline Transformation - T.Pisano, Wang Lab 2016.
+//Affine Transformation - T.Pisano, Wang Lab 2016.
+
+// Description: affine, MI, ASGD
 
 //ImageTypes
 (FixedImageDimension 3)
@@ -10,33 +12,34 @@
 (Registration "MultiResolutionRegistration")
 (FixedImagePyramid "FixedSmoothingImagePyramid")
 (MovingImagePyramid "MovingSmoothingImagePyramid")
-(Interpolator "BSplineInterpolator") //(Interpolator "RayCastInterpolator")
+(Interpolator "BSplineInterpolator")
 (Metric "AdvancedMattesMutualInformation")
-(Optimizer "StandardGradientDescent")
-(ResampleInterpolator "FinalBSplineInterpolator") //(ResampleInterpolator "FinalRayCastInterpolator")
+(Optimizer "AdaptiveStochasticGradientDescent")
+(ResampleInterpolator "FinalBSplineInterpolator")
 (Resampler "DefaultResampler")
-(Transform "BSplineTransform")
+(Transform "AffineTransform")
+(ErodeMask "true" ) //False=ROI, True=ValidPixels
 
-(ErodeMask "true" ) //False=ROI, True=PixelValid
 (NumberOfResolutions 8)
-(FinalGridSpacingInVoxels 25.000000 25.000000 25.000000) //might need to make this 10.00 10.00 10.00 if the 10um atlas works
+
 (HowToCombineTransforms "Compose")
+(AutomaticTransformInitialization "true") //(AutomaticTransformInitializationMethod "CenterOfGravity"), or GeometricalCenter
+(AutomaticScalesEstimation "true")
+
 (WriteTransformParametersEachIteration "false")
 (WriteResultImage "true")
-//(ResultImagePixelType "float") //  (unsigned) char, (unsigned) short, float, double, etc.
-(CompressResultImage "false")
-(WriteResultImageAfterEachResolution "false")
+(CompressResultImage "true")
+(WriteResultImageAfterEachResolution "false") 
 (ShowExactMetricValue "false")
-(WriteDiffusionFiles "true")
 
-// Option supported in elastix 4.1:
+// Option supported in elastix 4.1: ADDED 3/15
 (UseFastAndLowMemoryVersion "true")
 
 //Maximum number of iterations in each resolution level:
-(MaximumNumberOfIterations 15000) //Works at 10k
+(MaximumNumberOfIterations 2500) 
 
 //Number of grey level bins in each resolution level:
-(NumberOfHistogramBins 32 )
+(NumberOfHistogramBins 32)
 (FixedLimitRangeRatio 0.0)
 (MovingLimitRangeRatio 0.0)
 (FixedKernelBSplineOrder 3)
@@ -44,10 +47,9 @@
 
 //Number of spatial samples used to compute the mutual information in each resolution level:
 (ImageSampler "RandomCoordinate")
-(FixedImageBSplineInterpolationOrder 1)
-(UseRandomSampleRegion "true")
-(SampleRegionSize 50.0 50.0 50.0)
-(NumberOfSpatialSamples 10000 )
+(FixedImageBSplineInterpolationOrder 3)
+(UseRandomSampleRegion "false")
+(NumberOfSpatialSamples 4000)
 (NewSamplesEveryIteration "true")
 (CheckNumberOfSamples "true")
 (MaximumNumberOfSamplingAttempts 10)
@@ -55,7 +57,7 @@
 (UseDirectionCosines "false")
 
 //Order of B-Spline interpolation used in each resolution level:
-(BSplineInterpolationOrder 3) 
+(BSplineInterpolationOrder 3)
 
 //Order of B-Spline interpolation used for applying the final deformation:
 (FinalBSplineInterpolationOrder 3)
@@ -63,17 +65,9 @@
 //Default pixel value for pixels that come from outside the picture:
 (DefaultPixelValue 0)
 
-(ResultImageFormat "tif")
-
-//Currently not being used:
-//SP: Param_a in each resolution level. a_k = a/(A+k+1)^alpha
-(SP_a 10000.0 )
-
 //SP: Param_A in each resolution level. a_k = a/(A+k+1)^alpha
-(SP_A 100.0 )
-
-//SP: Param_alpha in each resolution level. a_k = a/(A+k+1)^alpha
-(SP_alpha 0.6 )
+(SP_A 20.0 )
+//Should be able to get rid of the above because of adaptivestocgradietn
 
 
 
