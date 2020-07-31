@@ -10,22 +10,26 @@ import importlib
 import datetime
 import shutil
 import types
-import os, sys
+import os
+import sys
 import re
 
 import torch
 from torch.autograd import Variable
 import numpy as np
-import h5py, tifffile
+import h5py
+import tifffile
+print("you did not check paths in pytorchutils/utils/utils.py")
+# edit line 24
 sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils")
 
 __all__ = ["timestamp",
-           "make_required_dirs","log_tagged_modules","log_params",
-           "create_network","load_network","load_learning_monitor",
-           "save_chkpt","load_chkpt","iter_from_chkpt_fname",
+           "make_required_dirs", "log_tagged_modules", "log_params",
+           "create_network", "load_network", "load_learning_monitor",
+           "save_chkpt", "load_chkpt", "iter_from_chkpt_fname",
            "load_source",
            "to_torch", "masks_empty",
-           "read_img","write_img",
+           "read_img", "write_img",
            "set_gpus"]
 
 
@@ -50,9 +54,9 @@ def log_params(param_dict, tstamp=None, log_dir=None):
 
     output_basename = "{}_params.csv".format(tstamp)
 
-    with open(os.path.join(log_dir,output_basename), "w+") as f:
-        for (k,v) in param_dict.items():
-            f.write("{k};{v}\n".format(k=k,v=v))
+    with open(os.path.join(log_dir, output_basename), "w+") as f:
+        for (k, v) in param_dict.items():
+            f.write("{k};{v}\n".format(k=k, v=v))
 
 
 def log_tagged_modules(module_fnames, log_dir, phase, chkpt_num=0, tstamp=None):
@@ -91,7 +95,8 @@ def create_network(model_class, model_args, model_kwargs,
 def load_network(model, chkpt_num, model_dir):
 
     chkpt_fname = os.path.join(model_dir, "model{}.chkpt".format(chkpt_num))
- #   model.load_state_dict(torch.load(chkpt_fname)) use if loading python 2 model - zmd
+    # model.load_state_dict(torch.load(chkpt_fname))
+    # use if loading python 2 model - zmd
     model.module.load_state_dict(torch.load(chkpt_fname))
 
     return model
@@ -144,7 +149,7 @@ def set_gpus(gpu_list):
 
 
 def read_img(fname):
-    
+
     if fname[-3:] == ".h5":
         with h5py.File(fname) as f:
             d = f["/main"].value
@@ -152,18 +157,18 @@ def read_img(fname):
         d = tifffile.imread(fname)
     else:
         raise RuntimeError("only hdf5 and tiff format is supported")
-        
+
     return d
 
 
 def write_img(data, fname):
 
     if os.path.exists(fname):
-      os.remove(fname)
+        os.remove(fname)
 
     if fname[-3:] == ".h5":
         with h5py.File(fname) as f:
-            f.create_dataset("/main",data=data)
+            f.create_dataset("/main", data=data)
     elif fname[-4:] == ".tif":
         tifffile.imsave(fname, data)
     else:
