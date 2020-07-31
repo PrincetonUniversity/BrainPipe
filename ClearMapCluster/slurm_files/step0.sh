@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -n 1                      # number of cores
 #SBATCH -t 20                 # time (minutes)
 #SBATCH -o logs/step0.out        # STDOUT
