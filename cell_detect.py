@@ -58,7 +58,8 @@ def main(**args):
         sys.stdout.write("\ninitialising reconstructed array...\n")
         sys.stdout.flush()
         np.lib.format.open_memmap(params["reconstr_arr"], mode="w+",
-                                  shape=params["inputshape"], dtype=params["dtype"])
+                                  shape=params["inputshape"],
+                                  dtype=params["dtype"])
         sys.stdout.write("done :]\n")
         sys.stdout.flush()
 
