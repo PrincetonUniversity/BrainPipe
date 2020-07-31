@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import loss
+import train
+import utils
 __doc__ = """
 
 Training Script
@@ -8,16 +11,16 @@ Put all the ugly things that change with every experiment here
 Nicholas Turner, 2017-8
 """
 
-import os, sys
+import os
+import sys
 import collections
 
 import torch
 import tensorboardX
 
-sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/")
-import utils
-import train
-import loss
+# sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/")
+print("check sys.path.append")
+
 
 def main(**args):
 
@@ -70,12 +73,12 @@ def fill_params(expt_name, chkpt_num, batch_sz, gpus,
                             "z266stackstart250",
                             "z266stackstart350",
                             "z266stackstart420_set2_ejd",
-			    "z266stackstart180_set2_ejd",
-			    "z268stackstart310_set2_ejd",
-			    "z269stackstart500_set2_ejd"]
+                            "z266stackstart180_set2_ejd",
+                            "z268stackstart310_set2_ejd",
+                            "z269stackstart500_set2_ejd"]
 
     params["val_sets"] = ["z266stackstart400_set2_ejd",
-			  "z269stackstart400_ejd"]
+                          "z269stackstart400_ejd"]
 
     params["patchsz"] = (20, 192, 192)
     params["sampler_spec"] = dict(input=params["patchsz"],
