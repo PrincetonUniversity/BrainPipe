@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -c 1                      # number of cores
 #SBATCH -t 10                # time (minutes)
 #SBATCH -o logs/cnn_preprocess_%j.out        # STDOUT #add _%a to see each array job
@@ -23,7 +22,7 @@ OUT0=$(sbatch slurm_files/cnn_step0.sh "`pwd`")
 echo $OUT0
 
 #generate chunks for cnn input
-OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-130 slurm_files/cnn_step1.sh "`pwd`") 
+OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-610 slurm_files/cnn_step1.sh "`pwd`") 
 echo $OUT1
 
 #check if correct number of patches were made
