@@ -56,31 +56,27 @@ params = {
     "slurmjobfactor": 50  # number of array iterations per arrayjob since max job array on SPOCK is 1000
 }
 print("outputdirectory")
-#####################################################################################################################################################
-##################################################stitchingmethod####################################################################################
-#####################################################################################################################################################
-# "terastitcher": computationally determine overlap. See .py file and http://abria.github.io/TeraStitcher/ for details. NOTE THIS REQUIRES COMPILED SOFTWARE.
+
+# stitchingemthod
+# "terastitcher": computationally determine overlap.
+# See .py file and http://abria.github.io/TeraStitcher/ for details.
+# NOTE THIS REQUIRES COMPILED SOFTWARE.
 # if testing terastitcher I strongly suggest adding to the parameter file
-# transfertype="copy", despite doubling data size this protects original data while testing
-# "blending: using percent overlap to determine pixel overlap. Then merges using blendtype, intensitycorrection, blendfactor. This is not a smart algorithm
+# transfertype="copy", despite doubling data size this protects original
+# data while testing
+# "blending: using percent overlap to determine pixel overlap.
+# Then merges using blendtype, intensitycorrection, blendfactor.
+# This is not a smart algorithm
 
-#####################################################################################################################################################
-##################################################optional arguments for params######################################################################
-#####################################################################################################################################################
-# "regexpression":  r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)", ###lavision preprocessed data
-# "regexpression":  r"(.*)(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)", lavision NONTILING + nonraw**
-# "regexpression":  r"(.*)(.*C+)(.*)(.*Z+)(?P<z>[0-9]{1,4})(.*r+)(?P<ch>[0-9]{1,4})(.ome.tif)",
-# "parameterfolder" : os.path.join(systemdirectory, "wang/pisano/Python/lightsheet/parameterfolder"), ##  * folder consisting of elastix parameter files with prefixes "Order<#>_" to specify application order
+# additional optional params
+# "parameterfolder" :
 # "atlas_scale": (25, 25, 25), #micron/pixel, ABA is likely (25,25,25)
-# "swapaxes" :  (0,2), #Used to account for different orientation between brain and atlas. 0=z, 1=y, 2=x. i.e. to go from horizontal scan to sagittal (0,2).
-# "maskatlas": {"x": all, "y": "125:202", "z": "75:125"}; dictionary consisting of x,y,z ranges of atlas to keep, the rest of the atlas will be zeroed out. Occurs AFTER orientation change.
-# "cropatlas": {"x": all, "y": "125:202", "z": "75:125"}; dictionary consisting of x,y,z ranges of atlas to keep, the rest of the atlas will be REMOVED rather than zeroed out. THIS FUNCTION DOES NOT YET AFFECT THE ANNOTATION FILE
-# "blendfactor" : 4, #only for sigmoidal blending, controls the level of sigmoidal; parameter that is passed to np"s linspace; defaults to 4. Higher numbers = steeper blending; lower number = more gradual blending
-# "bitdepth": specify the fullsizedatafolder bitdepth output
-# "secondary_registration" True (default) - register other channel(s) to registration channel (regch) then apply transform determined from regch->atlas
-#                          useful if imaging conditions were different between channel and regch, i.e. added horizontal foci, sheet na...etc
-#                          False - apply transform determined from regch->atlas to other channels. Use if channel of interest has very different pixel distribution relative regch (i.e. dense labeling)
-
+# "swapaxes" :  (0,2),
+# "maskatlas": {"x": all, "y": "125:202", "z": "75:125"};
+# "cropatlas": {"x": all, "y": "125:202", "z": "75:125"};
+# "blendfactor" :
+# "bitdepth":
+# "secondary_registration"
 # run scipt portions
 if __name__ == "__main__":
 
@@ -96,19 +92,30 @@ if __name__ == "__main__":
     # Make parameter dictionary and setup destination
     if stepid == 0:
         # make parameter dictionary and pickle file:
-        # e.g. single job assuming directory_determiner function has been properly set
+        # e.g. single job assuming directory_determiner function has
+        # been properly set
         preprocessing.generateparamdict(os.getcwd(), **params)
-        # preprocessing.updateparams("/", svnm = "param_dict_local.p", **params) # make a local copy
-        if not os.path.exists(os.path.join(params["outputdirectory"], "lightsheet")):
-            shutil.copytree(os.getcwd(), os.path.join(params["outputdirectory"], "lightsheet"),
-                            ignore=shutil.ignore_patterns(*(".pyc", "CVS", ".git", "tmp", ".svn",
-                                                            "TeraStitcher-Qt4-standalone-1.10.11-Linux")))  # copy run folder into output to save run info
+        # preprocessing.updateparams("/", svnm = "param_dict_local.p",**params)
+        # make a local copy
+        if not os.path.exists(os.path.join(params["outputdirectory"],
+                                           "lightsheet")):
+            shutil.copytree(os.getcwd(), os.path.join(
+                params["outputdirectory"],
+                "lightsheet"),
+                ignore=shutil.ignore_patterns(*(
+                    ".pyc", "CVS",
+                    ".git", "tmp", ".svn",
+                    "TeraStitcher-Qt4-standalone-1.10.11-Linux")))
+            # copy run folder into output to save run info
 
     # Stitch and preprocess each z plane
     elif stepid == 1:
-        if params["stitchingmethod"] not in ["terastitcher", "Terastitcher", "TeraStitcher"]:
-            # stitch based on percent overlap only ("dumb stitching"), and save files; showcelldetection=True: save out cells contours ovelaid on images
-            # process zslice numbers equal to slurmjobfactor*jobid thru (jobid+1)*slurmjobfactor
+        if params["stitchingmethod"] not in ["terastitcher"]:
+            # stitch based on percent overlap only ("dumb stitching"),
+            # and save files; showcelldetection=True:
+            # save out cells contours ovelaid on images
+            # process zslice numbers equal to
+            # slurmjobfactor*jobid thru (jobid+1)*slurmjobfactor
             preprocessing.arrayjob(jobid, cores=6, compression=1, **params)
         else:
             # Stitch using Terastitcher "smart stitching"
