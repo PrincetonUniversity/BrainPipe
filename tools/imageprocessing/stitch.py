@@ -266,12 +266,14 @@ def terastitcher_par(inndct):
     cores = 1
     
     #format data
-    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, 
-                          lightsheet=lightsheet, final_dst=inndct["final_dst"], 
-                          transfertype=transfertype, cores=cores, scalefactor=voxel_size, 
-                          percent_overlap=percent_overlap)    
+    #temporary measure added by zmd to troubleshoot stitching
+    if not os.path.exists(tmp_dst):
+        make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, 
+                              lightsheet=lightsheet, final_dst=inndct["final_dst"], 
+                              transfertype=transfertype, cores=cores, scalefactor=voxel_size, 
+                              percent_overlap=percent_overlap)    
         
-    try: #FIXME
+    try: 
         #stitch
         call_terastitcher(src=tmp_dst, dst=inndct["ts_out"], voxel_size=voxel_size, threshold=threshold, 
                           algorithm = algorithm, outbitdepth = outbitdepth, resolutions="0") 
