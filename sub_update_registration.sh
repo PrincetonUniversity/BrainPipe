@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -n 1                      # number of cores
 #SBATCH -t 20                 # time (minutes)
 #SBATCH -o logs/update_registration.out        # STDOUT
@@ -23,11 +22,11 @@ module load elastix/4.8
 . activate lightsheet
 
 #set up dictionary and save
-OUT0=$(sbatch --array=0 slurm_files/step0.sh) 
+OUT0=$(sbatch --array=0 slurm_files/step0.sh)
 echo $OUT0
 
 #run elastix, note this will not update any orientation changes, useful for new atlas
-OUT3=$(sbatch --dependency=afterany:${OUT0##* } --array=0-2 slurm_files/step3.sh) 
+OUT3=$(sbatch --dependency=afterany:${OUT0##* } --array=0-2 slurm_files/step3.sh)
 echo $OUT3
 
 
