@@ -13,11 +13,13 @@ import sys
 import shutil
 import numpy as np
 import tifffile
-sys.path.append("/jukebox/wang/pisano/Python/lightsheet")
+
+# sys.path.append("/jukebox/wang/pisano/Python/lightsheet")
 
 if __name__ == "__main__":
     # load in ROIS - clicked in horizontal volume
-    roi_pth = "/jukebox/wang/willmore/lightsheet/20181213_fiber_optic_placement/processed/m278/20190211_fiber_points_horizontal_RoiSet.zip"
+    roi_pth =
+    # "/jukebox/wang/willmore/lightsheet/20181213_fiber_optic_placement/processed/m278/20190211_fiber_points_horizontal_RoiSet.zip"
     zyx_rois = np.asarray([[int(yy) for yy in xx.replace(".roi", "").split("-")]
                            for xx in read_roi_zip(roi_pth, include_roi_name=True)])
 
@@ -25,12 +27,14 @@ if __name__ == "__main__":
     zyx_rois = np.asarray([[xx[2], xx[1], xx[0]] for xx in zyx_rois])
 
     # convert to structure
-    annotation_file = "/jukebox/LightSheetTransfer/atlas/allen_atlas/annotation_template_25_sagittal_forDVscans.tif"
+    annotation_file = "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"
     ann = tifffile.imread(annotation_file)
-    points = transformed_pnts_to_allen_helper_func(list(zyx_rois), ann, order="ZYX")
+    points = transformed_pnts_to_allen_helper_func(
+        list(zyx_rois), ann, order="ZYX")
 
     # make dataframe
-    lut_path = "/jukebox/LightSheetTransfer/atlas/allen_atlas/allen_id_table.xlsx"
+    lut_path =
+    # "/jukebox/LightSheetTransfer/atlas/allen_atlas/allen_id_table.xlsx"
     df = count_structure_lister(lut_path, *points)
     df.to_excel(
-        "/jukebox/wang/willmore/lightsheet/20181213_fiber_optic_placement/processed/m278/allen_structures.xlsx")
+        # "/jukebox/wang/willmore/lightsheet/20181213_fiber_optic_placement/processed/m278/allen_structures.xlsx")
