@@ -8,7 +8,7 @@
 
 module load anacondapy/5.3.1
 module load elastix/4.8
-. activate idisco
+. activate lightsheet
 
 echo "In the directory: `pwd` "
 echo "As the user: `whoami` "

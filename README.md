@@ -1,35 +1,31 @@
 # Analysis scripts for light sheet microscopy for the Brody lab.
 
-Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from Zahra (zmd@princeton). Forked from PrincetonUniversity/BrainPipe by Tom Pisano, Zahra John D'Uva. It also includes modified scripts from ClearMapCluster and lightsheet_helper_scripts written by the same people.
+Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from Zahra (zmd@princeton). Forked from PrincetonUniversity/BrainPipe by Tom Pisano, Zahra John D'Uva. It also includes modified scripts from ClearMapCluster and lightsheet_helper_scripts written by the same people. ClearMap Cluster is T. Pisano's parallelization to a cluster of C. Kirst's ClearMap software (https://idisco.info/clearmap/) for use on a cluster using a slurm based scheduler. Written for Python 3.7+. Modifications by Zahra M.  This is using ClearMap 1, but ClearMap2 is now available and we should move to that reasonably soon.
 
 Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
 # Emily is doing some heavy maintenance on these scripts, and has not yet updated the README. Her instructions are [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit?usp=sharing)
 
-### *Dependencies:*
-[DataProvider3](https://github.com/torms3/DataProvider3)  
-[PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
-[Augmentor](https://github.com/torms3/Augmentor)  
-[DataTools](https://github.com/torms3/DataTools)
+## *INSTALLATION INSTRUCTIONS*:
+* Note that this currently has only been tested on Linux (Ubuntu 16 and 18).
+* Things you will need to do beforehand:
+	* Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well.
 
 # *Installation Instructions*:
 * Things you will need to do beforehand:
 	* Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well.
-	* After downloading this package onto your data server (where the cluster has access to it), you will need to install the following depencies. I suggest using an python environment to do this.
-	* This package was made for linux/osx, not windows. If running windows I would suggest using a virtual machine.
-		(1) [Download Virtual Box](https://www.virtualbox.org/wiki/Downloads)
-		(2) [Download Linux Ubuntu](https://www.ubuntu.com/download)
-		(3) [Install the VM machine](http://www.instructables.com/id/How-to-install-Linux-on-your-Windows/)
+	* This package was made for linux/osx, not windows.
 
-## Create an anaconda python environment (Install [anaconda](https://www.anaconda.com/download/) if not already):
-I suggest naming the [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7+) to help with setup.
+## Create an anaconda python environment
+ - use [anaconda](https://www.anaconda.com/download/
+- name an [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7+)
 
 ```
 $ conda create -n lightsheet python=3.7.3
-$ pip install opencv-python scikit-image scikit-learn seaborn tqdm numba natsort tifffile numpy scipy pandas h5py SimpleITK matplotlib futures xvfbwrapper xlrd openpyxl cython tensorboardX torch torchvision
+$ pip install cython futures h5py joblib matplotlib natsort numba numpy opencv-python openpyxl pandas scipy scikit-image scikit-learn seaborn SimpleITK tifffile tensorboardX torch torchvision tqdm xlrd xvfbwrapper
 ```
 
-If on a local machine:
+If on a local machine also do:
 
 ```
 $ sudo apt-get install elastix
@@ -45,8 +41,14 @@ $ sudo apt-get install libboost-all-dev
 Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for working with DataProvider3:
 
 ```
-$ git clone https://github.com/torms3/DataTools.git
 ```
+### *Dependencies:*
+[DataProvider3](https://github.com/torms3/DataProvider3)  
+[PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
+[Augmentor](https://github.com/torms3/Augmentor)  
+
+$ git clone https://github.com/torms3/DataTools.git
+
 
 Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
 

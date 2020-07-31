@@ -1,23 +1,5 @@
-# ClearMapCluster
-
-T. Pisano's parallelization to a cluster of C. Kirst's ClearMap software (https://idisco.info/clearmap-2/) for use on a cluster using a slurm based scheduler. Written for Python 3.7+. Modifications by Zahra M. 
 
 
-## *INSTALLATION INSTRUCTIONS*:
-* Note that this currently has only been tested on Linux (Ubuntu 16 and 18). 
-* Things you will need to do beforehand:
-	* Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well.
-
-### Create a python Environment (Install anaconda if not already):
-```
-$ pip install SimpleITK cython opencv-python tifffile scipy scikit-image natsort h5py joblib xvfbwrapper
-```
-
-### If on local linux machine:
-```
-$ sudo apt-get install elastix
-$ sudo apt-get install xvfb
-```
 
 ## *Descriptions of files*:
 Changes to ClearMap include, but not limited to:
@@ -85,11 +67,10 @@ module load elastix/4.8
 * Then generally the process is using a local machine, run step 0 (be sure that files are saved BEFORE( running this step) this generates a folder where data will be generated:
 ```
 updateparams(os.getcwd(), *params)
-if not os.path.exists(os.path.join(params['outputdirectory'], 'clearmap_cluster')): 
+if not os.path.exists(os.path.join(params['outputdirectory'], 'clearmap_cluster')):
 	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'clearmap_cluster'))
 ```
 
 ## Tutorials and example analysis:
 * For a step-by-step tutorial on testing clearmap cell detection, use `parameter_sweep.ipynb`
 * For an example notebook on how to analyze c-Fos behavioral cohorts using the output from this package, use `ClearMapCluster/ClearMap/Analysis/cell_detection_analysis_cfos.ipynb`
-
