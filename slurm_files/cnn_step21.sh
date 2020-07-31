@@ -1,6 +1,4 @@
 #!/bin/env bash
-#
-#SBATCH -p all                # partition (queue)
 #SBATCH -c 1                      # number of cores
 #SBATCH -t 10                # time (minutes)
 #SBATCH -o logs/cnn_step1_check_%j.out        # STDOUT #add _%a to see each array job

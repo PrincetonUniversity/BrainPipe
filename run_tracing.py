@@ -25,9 +25,9 @@ systemdirectory = directorydeterminer()
 # "injch" = channels(s) to quantify injection site
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary = {
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"):
+    os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
     [["regch", "00"]],
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"):
+    os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
     [["injch", "00"]]
 }
 

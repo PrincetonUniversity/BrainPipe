@@ -9,9 +9,9 @@ Created on Mon Nov 19 15:42:12 2018
 import os, sys, shutil
 import argparse   
 from tools.utils.io import load_kwargs
-from tools.conv_net.utils.preprocessing.preprocess import get_dims_from_folder, make_indices, make_memmap_from_tiff_list, generate_patch, reconstruct_memmap_array_from_tif_dir
-from tools.conv_net.utils.postprocessing.cell_stats import calculate_cell_measures, consolidate_cell_measures
-from tools.conv_net.utils.preprocessing.check import check_patchlist_length_equals_patches    
+from tools.conv_net.utils.functions.preprocessing.preprocess import get_dims_from_folder, make_indices, make_memmap_from_tiff_list, generate_patch, reconstruct_memmap_array_from_tif_dir
+from tools.conv_net.utils.functions.postprocessing.cell_stats import calculate_cell_measures, consolidate_cell_measures
+from tools.conv_net.utils.functions.preprocessing.check import check_patchlist_length_equals_patches    
 import pandas as pd, numpy as np
 
 def main(**args):
@@ -96,7 +96,7 @@ def fill_params(expt_name, stepid, jobid):
     print("\n\n data directory: {}".format(src))
     
     params["cellch_dir"]    = src
-    params["scratch_dir"]   = "/jukebox/scratch/zmd"
+    params["scratch_dir"]   = "/jukebox/scratch/ejdennis"
     params["data_dir"]      = os.path.join(params["scratch_dir"], params["expt_name"])
     
     #changed paths after cnn run
