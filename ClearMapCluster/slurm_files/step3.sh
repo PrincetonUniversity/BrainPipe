@@ -20,7 +20,7 @@ echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
 module load anacondapy/5.3.1
 module load elastix/4.8
-. activate idisco
+. activate lightsheet
 
 xvfb-run python run_clearmap_cluster.py 3 ${SLURM_ARRAY_TASK_ID}
 
