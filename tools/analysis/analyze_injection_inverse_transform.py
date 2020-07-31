@@ -13,9 +13,12 @@ import numpy as np
 import tifffile
 import matplotlib as mpl
 from tools.imageprocessing.orientation import fix_orientation
-from tools.registration.transform import count_structure_lister, transformed_pnts_to_allen_helper_func
+from tools.registration.transform import count_structure_lister
+from tools.registration.transform import transformed_pnts_to_allen_helper_func
 from tools.analysis.analyze_injection import orientation_crop_check, find_site
-from tools.registration.register import make_inverse_transform, point_transform_due_to_resizing, point_transformix
+from tools.registration.register import make_inverse_transform
+from tools.registration.register import point_transform_due_to_resizing
+from tools.registration.register import point_transformix
 from tools.utils.io import load_kwargs, makedir, listdirfull
 from collections import Counter
 import SimpleITK as sitk
@@ -26,22 +29,33 @@ plt.ion()
 
 def pool_injections_inversetransform(**kwargs):
     """Function to pool several injection sites.
-    Assumes that the basic registration AND inverse transform using elastix has been run.
-    If not, runs inverse transform. Additions to analyze_injection.py and pool_injections_for_analysis().
+    Assumes that the basic registration
+    AND inverse transform using elastix has run.
+    If not, runs inverse transform. Additions to analyze_injection.py
+    and pool_injections_for_analysis().
 
     Inputs
     -----------
     kwargs:
-      "inputlist": inputlist, #list of folders generated previously from software
+      "inputlist": inputlist, #list of folders generated
+        previously from software
       "channel": "01",
       "channel_type": "injch",
-      "filter_kernel": (5,5,5), #gaussian blur in pixels (if registered to ABA then 1px likely is 25um)
-      "threshold": 10 (int, value to use for thresholding, this value represents the number of stand devs above the mean of the gblurred image)
-      "num_sites_to_keep": #int, number of injection sites to keep, useful if multiple distinct sites
-      "injectionscale": 45000, #use to increase intensity of injection site visualizations generated - DOES NOT AFFECT DATA
-      "imagescale": 2, #use to increase intensity of background  site visualizations generated - DOES NOT AFFECT DATA
-      "reorientation": ("2","0","1"), #use to change image orientation for visualization only
-      "crop": #use to crop volume, values below assume horizontal imaging and sagittal atlas
+      "filter_kernel": (5,5,5), #gaussian blur in pixels
+        (if registered to ABA then 1px likely is 25um)
+      "threshold": 10 (int, value to use for thresholding,
+        this value represents the number of stand devs above the
+        mean of the gblurred image)
+      "num_sites_to_keep": #int, number of injection sites to keep,
+        useful if multiple distinct sites
+      "injectionscale": 45000, #use to increase intensity of injection
+        site visualizations generated - DOES NOT AFFECT DATA
+      "imagescale": 2, #use to increase intensity of background
+        site visualizations generated - DOES NOT AFFECT DATA
+      "reorientation": ("2","0","1"), #use to change image orientation
+        for visualization only
+      "crop": #use to crop volume,
+        values below assume horizontal imaging and sagittal atlas
                 False
                 cerebellum: "[:,390:,:]"
                 caudal midbrain: "[:,300:415,:]"
@@ -50,13 +64,17 @@ def pool_injections_inversetransform(**kwargs):
                 anterior cortex: "[:,:250,:]"
 
       "dst": "/home/wanglab/Downloads/test", #save location
-      "save_individual": True, #optional to save individual images, useful to inspect brains, which you can then remove bad brains from list and rerun function
+      "save_individual": True, #optional to save individual images,
+        useful to inspect brains, which you can then remove bad brains
+        from list and rerun function
       "colormap": "plasma",
-      "atlas": "/jukebox/LightSheetTransfer/atlas/sagittal_atlas_20um_iso.tif", #whole brain atlas
+      "atlas": "/jukebox/LightSheetTransfer/atlas/sagittal_atlas_20um_iso.tif",
+        #whole brain atlas
 
       Optional:
           ----------
-          "save_array": path to folder to save out numpy array per brain of binarized detected site
+          "save_array": path to folder to save out numpy array per brain of
+            binarized detected site
           "save_tif": saves out tif volume per brain of binarized detected site
           "dpi": dots per square inch to save at
 
@@ -64,7 +82,8 @@ def pool_injections_inversetransform(**kwargs):
       ----------------count_threshold
       a pooled image consisting of max IP of reorientations provide in kwargs.
       a list of structures (csv file) with pixel counts, pooling across brains.
-      if save individual will save individual images, useful for inspection and/or visualization
+      if save individual will save individual images,
+      useful for inspection and/or visualization
     """
 
     inputlist = kwargs["inputlist"]
@@ -78,12 +97,14 @@ def pool_injections_inversetransform(**kwargs):
     save_tif = kwargs["save_tif"] if "save_tif" in kwargs else False
     num_sites_to_keep = kwargs["num_sites_to_keep"] if "num_sites_to_keep" in kwargs else 1
     ann = sitk.GetArrayFromImage(sitk.ReadImage(kwargs["annotation"]))
-    # if kwargs["crop"]: (from original analyze injection function, no functionality here if points file exist)
+    # if kwargs["crop"]: (from original analyze injection function,
+    #    no functionality here if points file exist)
     #    ann = eval("ann{}".format(kwargs["crop"]))
     nonzeros = []
     # not needed as mapped points from point_transformix used
-    #id_table = kwargs["id_table"] if "id_table" in kwargs else "/jukebox/temp_wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx"
-    #allen_id_table = pd.read_excel(id_table)
+    # id_table = kwargs["id_table"] if "id_table" in kwargs else
+    # "/jukebox/temp_wang/pisano/Python/lightsheet/supp_files/allen_id_table.xlsx"
+    # allen_id_table = pd.read_excel(id_table)
 
     for i in range(len(inputlist)):  # to iteratre through brains
         pth = inputlist[i]  # path of each processed brain
@@ -94,11 +115,15 @@ def pool_injections_inversetransform(**kwargs):
         try:
             inj_vol = [xx for xx in dct["volumes"] if xx.ch_type ==
                        "injch"][0]  # set injection channel volume
-            im = tifffile.imread(inj_vol.resampled_for_elastix_vol)  # load inj_vol as numpy array
+            im = tifffile.imread(inj_vol.resampled_for_elastix_vol)
+            # load inj_vol as numpy array
             if kwargs["crop"]:
                 im = eval("im{}".format(kwargs["crop"]))  # ; print im.shape
 
-            # run find site function to segment inj site using non-registered resampled for elastix volume - pulled directly from tools.registration.register.py and tools.analysis.analyze_injection.py
+            # run find site function to segment inj site
+            # using non-registered resampled for elastix volume -
+            # pulled directly from tools.registration.register.py and
+            # tools.analysis.analyze_injection.py
             array = find_site(
                 im, thresh=kwargs["threshold"], filter_kernel=kwargs["filter_kernel"], num_sites_to_keep=num_sites_to_keep)*injscale
             if save_array:
@@ -179,9 +204,11 @@ def pool_injections_inversetransform(**kwargs):
     # load atlas and generate final figure
     print("Generating final figure...")
     atlas = tifffile.imread(kwargs["atlas"])  # reads atlas
-    # necessary to have a representative heat map as these segmentations are done from the resized volume, diff dimensions than atlas
+    # necessary to have a representative heat map as these segmentations
+    # are done from the resized volume, diff dimensions than atlas
     print("Zooming in atlas...")
-    zoomed_atlas = zoom(atlas, 1.3)  # zooms atlas; different than original analyze_injection.py
+    zoomed_atlas = zoom(atlas, 1.3)  # zooms atlas; different than original
+    # analyze_injection.py
     sites = fix_orientation(arr, axes=axes)
 
     # cropping
