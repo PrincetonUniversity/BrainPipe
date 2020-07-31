@@ -24,6 +24,7 @@ vdisplay = Xvfb()
 vdisplay.start()
 
 systemdirectory = "/tigress/ejdennis"
+print(systemdirectory)
 # set paths to data
 # inputdictionary stucture: key=pathtodata value=list["xx", "##"]
 # where xx=regch, injch, or cellch and ##=two digit channel number
