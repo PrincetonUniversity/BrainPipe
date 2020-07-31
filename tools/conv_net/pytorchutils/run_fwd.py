@@ -8,8 +8,8 @@ import os
 import sys
 import collections
 
-# edit lines 13, 59, 67
-print("you did not check paths!")
+# edit lines 13, 59, 67 then comment the following line out
+print("you did not check paths in run_fwd in brainpipe!")
 sys.path.append("/tigress/ejdennis/BrainPipe")
 
 

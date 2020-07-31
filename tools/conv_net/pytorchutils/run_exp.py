@@ -19,7 +19,7 @@ import torch
 import tensorboardX
 
 # sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/")
-print("check sys.path.append")
+print("check sys.path.append AND train/test!")
 
 
 def main(**args):
