@@ -46,14 +46,29 @@ params = {
     "AtlasFile": os.path.join(systemdirectory, "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
     # path to annotation file for structures
     "annotationfile": os.path.join(systemdirectory, "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"),
-    "blendtype": "sigmoidal",  # False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
-    # True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
+    "blendtype": "sigmoidal",  # False/None, "linear", or "sigmoidal"
+    # blending between tiles, usually sigmoidal;
+    # False or None for images where blending would be detrimental
+    # True = calculate mean intensity of overlap between tiles shift higher
+    # of two towards lower - useful for images where relative intensity
+    # is not important (i.e. tracing=True, cFOS=False)
     "intensitycorrection": True,
-    "resizefactor": 3,  # in x and y #normally set to 5 for 4x objective, 3 for 1.3x obj
-    "rawdata": True,  # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
-    # Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
+    "resizefactor": 3,  # in x and y #normally set to 5 for 4x objective,
+    # 3 for 1.3x obj
+    "rawdata": True,  # set to true if raw data is taken from scope and
+    # images need to be flattened; functionality for
+    # rawdata =False has not been tested**
+    # Used to account for different orientation between brain and atlas.
+    # Assumes XYZ ("0","1","2) orientation.
+    # Pass strings NOT ints. "-0" = reverse the order of the xaxis.
+    # For better description see docstring from
+    # tools.imageprocessing.orientation import fix_orientation;
+    # ("2","1","0") for horizontal to sagittal,
+    # Order of operations is reversing of axes BEFORE swapping axes.
     "finalorientation":  ("2", "1", "0"),
-    "slurmjobfactor": 50  # number of array iterations per arrayjob since max job array on SPOCK is 1000
+    "slurmjobfactor": 50
+    # number of array iterations per arrayjob
+    # since max job array on SPOCK is 1000
 }
 print("outputdirectory")
 
