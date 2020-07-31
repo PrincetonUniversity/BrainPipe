@@ -6,6 +6,12 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 
 # Emily is doing some heavy maintenance on these scripts, and has not yet updated the README. Her instructions are [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit?usp=sharing)
 
+### *Dependencies:*
+[DataProvider3](https://github.com/torms3/DataProvider3)  
+[PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
+[Augmentor](https://github.com/torms3/Augmentor)  
+[DataTools](https://github.com/torms3/DataTools)
+
 ## *INSTALLATION INSTRUCTIONS*:
 * Note that this currently has only been tested on Linux (Ubuntu 16 and 18).
 * Things you will need to do beforehand:
@@ -42,10 +48,6 @@ Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for w
 
 ```
 ```
-### *Dependencies:*
-[DataProvider3](https://github.com/torms3/DataProvider3)  
-[PyTorchUtils](https://github.com/nicholasturner1/PyTorchUtils)  
-[Augmentor](https://github.com/torms3/Augmentor)  
 
 $ git clone https://github.com/torms3/DataTools.git
 
@@ -81,7 +83,7 @@ module load elastix/4.8
 ```
 * Need to then activate your python environment where everything is installed (if your enviroment is named 'lightsheet' then you do not need to change this):
 ```
-. activate <<<your python environment>>>
+. activate ligthsheet
 ```
 * Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
 
@@ -90,7 +92,7 @@ module load elastix/4.8
 ```
 module load anacondapy/5.3.1
 module load elastix/4.8
-. activate <<<your python environment>>>
+. activate ligthsheet
 ```
 
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
@@ -118,7 +120,7 @@ module load elastix/4.8
 	3. these need the same changes as `sub_main_tracing.sh` file, e.g.
 ```
 module load anacondapy/5.3.1
-. activate <<<your python environment>>>
+. activate ligthsheet
 ```
 
 ## To run, I suggest:
@@ -202,7 +204,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 		* load the modules and environment in the bash script as such:
 ```
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
-. activate <<<your python environment>>>
+. activate ligthsheet
 ```
 
 2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:

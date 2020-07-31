@@ -1,6 +1,3 @@
-
-
-
 ## *Descriptions of files*:
 Changes to ClearMap include, but not limited to:
 
