@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -n 12                      # number of cores
 #SBATCH -t 500                 # time (minutes)
 #SBATCH -o /scratch/zmd/logs/param_sweep_step0.out        # STDOUT

@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -n 16                      # number of cores
 #SBATCH -t 360                 # time (minutes)
 #SBATCH -o logs/step2_%a.out        # STDOUT
@@ -24,5 +23,4 @@ module load elastix/4.8
 xvfb-run python run_clearmap_cluster.py 2 ${SLURM_ARRAY_TASK_ID}
 
 # HOW TO USE:
-# sbatch --array=0-20 sub_arrayjob.sh 
-
+# sbatch --array=0-20 sub_arrayjob.sh

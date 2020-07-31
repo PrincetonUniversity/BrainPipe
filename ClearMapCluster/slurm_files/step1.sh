@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -n 3                      # number of cores
 #SBATCH -t 150                 # time (minutes)
 #SBATCH -o logs/step1.out        # STDOUT #add _%a to see each array job
@@ -24,5 +23,5 @@ module load elastix/4.8
 xvfb-run python run_clearmap_cluster.py 1 ${SLURM_ARRAY_TASK_ID} #process zplns, check that 1000 > zplns/slurmfactor
 
 # HOW TO USE:
-# sbatch --array=0-20 sub_arrayjob.sh 
-#xvfb-run --auto-servernum --server-num=1 
+# sbatch --array=0-20 sub_arrayjob.sh
+#xvfb-run --auto-servernum --server-num=1
