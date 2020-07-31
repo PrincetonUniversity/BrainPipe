@@ -19,11 +19,14 @@ vdisplay.start()
 systemdirectory = directorydeterminer()
 
 # set paths to data
-# inputdictionary stucture: key=pathtodata value=list["xx", "##"] where xx=regch, injch, or cellch and ##=two digit channel number
-# "regch" = channel to be used for registration, assumption is all other channels are signal
+# inputdictionary stucture: key=pathtodata value=list["xx", "##"] where
+# xx=regch, injch, or cellch and ##=two digit channel number
+# "regch" = channel to be used for registration, assumption is all other
+# channels are signal
 # "cellch" = channel(s) to apply cell detection
 # "injch" = channels(s) to quantify injection site
-# e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
+# e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"],
+# ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary = {
     os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
     [["regch", "00"]],
@@ -35,13 +38,14 @@ inputdictionary = {
 params = {
     "systemdirectory":  systemdirectory,  # don"t need to touch
     "inputdictionary": inputdictionary,  # don"t need to touch
-    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/z265"),
-    "xyz_scale": (5, 5, 10),  # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/z266"),
+    # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
+    "xyz_scale": (5, 5, 10),
     "tiling_overlap": 0.00,  # percent overlap taken during tiling
-    "stitchingmethod": "blending",  # "terastitcher", blending see below for details
-    "AtlasFile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/allen_atlas/average_template_25_sagittal_forDVscans.tif"),
+    "stitchingmethod": "blending",  # "terastitcher" or "blending"
+    "AtlasFile": os.path.join(systemdirectory, "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
     # path to annotation file for structures
-    "annotationfile": os.path.join(systemdirectory, "LightSheetTransfer/atlas/allen_atlas/annotation_template_25_sagittal_forDVscans.tif"),
+    "annotationfile": os.path.join(systemdirectory, "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"),
     "blendtype": "sigmoidal",  # False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental
     # True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
     "intensitycorrection": True,
@@ -51,7 +55,7 @@ params = {
     "finalorientation":  ("2", "1", "0"),
     "slurmjobfactor": 50  # number of array iterations per arrayjob since max job array on SPOCK is 1000
 }
-
+print("outputdirectory")
 #####################################################################################################################################################
 ##################################################stitchingmethod####################################################################################
 #####################################################################################################################################################
@@ -89,9 +93,7 @@ if __name__ == "__main__":
     else:
         jobid = int(sys.argv[2])
 
-    #######################STEP 0 #######################
     # Make parameter dictionary and setup destination
-    #####################################################
     if stepid == 0:
         # make parameter dictionary and pickle file:
         # e.g. single job assuming directory_determiner function has been properly set
@@ -102,9 +104,7 @@ if __name__ == "__main__":
                             ignore=shutil.ignore_patterns(*(".pyc", "CVS", ".git", "tmp", ".svn",
                                                             "TeraStitcher-Qt4-standalone-1.10.11-Linux")))  # copy run folder into output to save run info
 
-    #######################STEP 1 #######################
     # Stitch and preprocess each z plane
-    #####################################################
     elif stepid == 1:
         if params["stitchingmethod"] not in ["terastitcher", "Terastitcher", "TeraStitcher"]:
             # stitch based on percent overlap only ("dumb stitching"), and save files; showcelldetection=True: save out cells contours ovelaid on images
@@ -114,16 +114,11 @@ if __name__ == "__main__":
             # Stitch using Terastitcher "smart stitching"
             from tools.imageprocessing.stitch import terastitcher_from_params
             terastitcher_from_params(jobid=jobid, cores=6, **params)
-
-    #######################STEP 2 #######################
     # Consolidate for Registration
-    #####################################################
     elif stepid == 2:
         # combine downsized ch and ch+cell files
         preprocessing.tiffcombiner(jobid, cores=10, **params)
 
-    #######################STEP 3 #######################
-    #####################################################
     elif stepid == 3:
         elastix_wrapper(jobid, cores=12, **params)  # run elastix
 
