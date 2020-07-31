@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 
-import os,sys
-import collections
-sys.path.append("/tigress/ejdennis/BrainPipe")
-from torch import sigmoid
-import tools.conv_net.dataprovider3.dataprovider3 as dp
-
-import forward
 import utils
+import forward
+import tools.conv_net.dataprovider3.dataprovider3 as dp
+from torch import sigmoid
+import os
+import sys
+import collections
+
+# edit lines 13, 59, 67
+print("you did not check paths!")
+sys.path.append("/tigress/ejdennis/BrainPipe")
 
 
 def main(noeval, **args):

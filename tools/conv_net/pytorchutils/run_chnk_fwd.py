@@ -21,6 +21,9 @@ import dataprovider3 as dp
 import forward
 import utils
 
+# edit data_dir line 106 then comment out next line
+print("you forgot to change data_dir in run_chnk_fwd in pytorchutils!")
+
 
 def main(noeval, **args):
 
@@ -38,10 +41,14 @@ def main(noeval, **args):
                              params["log_tag"], params["chkpt_num"])
 
     # lightsheet mods - input folder contains list of our "big" patches
-    input_fld = os.path.join(params["data_dir"], "input_chnks")  # set patches directory
-    sys.stdout.write("running inference on: \n{}\n".format(os.path.basename(params["data_dir"])))
+    input_fld = os.path.join(params["data_dir"], "input_chnks")
+    # set patches directory
+    sys.stdout.write(
+        "running inference on: \n{}\n".format(
+            os.path.basename(params["data_dir"])))
     sys.stdout.flush()
-    output_fld = os.path.join(params["data_dir"], "output_chnks")  # set output directory
+    output_fld = os.path.join(params["data_dir"], "output_chnks")
+    # set output directory
 
     jobid = int(params["jobid"])  # set patch no. to run through cnn
 
@@ -51,7 +58,8 @@ def main(noeval, **args):
 
     # select the file to process for this array job
     if jobid > len(fls)-1:
-        sys.stdout.write("\njobid {} > number of files {}".format(jobid, len(fls)))
+        sys.stdout.write(
+            "\njobid {} > number of files {}".format(jobid, len(fls)))
         sys.stdout.flush()
     else:
         start = time.time()
@@ -59,17 +67,21 @@ def main(noeval, **args):
 
         fs = make_forward_scanner(dset, **params)
 
-        output = forward.forward(net, fs, params["scan_spec"],  # runs forward pass
-                                 activation=params["activation"])
+        output = forward.forward(
+            net, fs, params["scan_spec"],  # runs forward pass
+            activation=params["activation"])
 
         save_output(output, dset, output_fld, **params)  # saves tif
         fs._init()  # clear out scanner
 
-        sys.stdout.write("patch {}: {} min\n".format(jobid+1, round((time.time()-start)/60, 1)))
+        sys.stdout.write(
+            "patch {}: {} min\n".format(jobid+1, round((
+                time.time()-start)/60, 1)))
         sys.stdout.flush()
 
 
-def fill_params(expt_name, chkpt_num, gpus, nobn, model_fname, dset_name, tag, jobid):
+def fill_params(
+        expt_name, chkpt_num, gpus, nobn, model_fname, dset_name, tag, jobid):
 
     params = {}
 
@@ -97,7 +109,8 @@ def fill_params(expt_name, chkpt_num, gpus, nobn, model_fname, dset_name, tag, j
     params["data_dir"] = "/scratch/gpfs/ejdennis/{}".format(dset_name)
 #    assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"] = dset_name
-    params["input_spec"] = collections.OrderedDict(input=(20, 192, 192))  # dp dataset spec
+    params["input_spec"] = collections.OrderedDict(input=(20, 192, 192))
+    # dp dataset spec
     params["scan_spec"] = collections.OrderedDict(soma=(1, 20, 192, 192))
     params["scan_params"] = dict(stride=(0.75, 0.75, 0.75), blend="bump")
 
@@ -135,7 +148,8 @@ def make_forward_scanner(dset_name, data_dir, input_spec,
     return dp.ForwardScanner(vd, scan_spec, **scan_params)
 
 
-def save_output(output, dset, output_fld, output_tag, jobid, chkpt_num, **params):
+def save_output(
+        output, dset, output_fld, output_tag, jobid, chkpt_num, **params):
     """ Saves the volumes within a DataProvider ForwardScanner """
 
     for k in output.outputs.data:
@@ -143,7 +157,8 @@ def save_output(output, dset, output_fld, output_tag, jobid, chkpt_num, **params
         output_data = output.outputs.get_data(k)
 
         if len(output_tag) == 0:
-            basename = "patch_{}_{}_{}.tif".format(str(jobid).zfill(10), k, chkpt_num)
+            basename = "patch_{}_{}_{}.tif".format(
+                str(jobid).zfill(10), k, chkpt_num)
         else:
             basename = "patch_{}_{}_{}_{}.tif".format(str(jobid).zfill(10), k,
                                                       chkpt_num, output_tag)
