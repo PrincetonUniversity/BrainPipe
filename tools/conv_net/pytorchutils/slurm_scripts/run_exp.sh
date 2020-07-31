@@ -13,6 +13,6 @@
 echo $pwd
 
 module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
-. activate 3dunet
+. activate lightsheet
 
 python /tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/run_exp.py 20200622_ed_train /tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/models/RSUNet.py /tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/samplers/soma.py /tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils/augmentors/flip_rotate.py --batch_sz 4 --gpus 0
