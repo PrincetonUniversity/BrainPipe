@@ -17,76 +17,73 @@ import math
 
 def pad_size(ks, mode):
 
-  assert mode in ["valid","same","full"]
+    assert mode in ["valid", "same", "full"]
 
-  if mode == "valid":
-    return (0,0,0)
+    if mode == "valid":
+        return (0, 0, 0)
 
-  elif mode == "same":
-    assert all([ x % 2 for x in ks ])
-    return tuple( x // 2 for x in ks )
+    elif mode == "same":
+        assert all([x % 2 for x in ks])
+        return tuple(x // 2 for x in ks)
 
-  elif mode == "full":
-    return tuple( x - 1 for x in ks )
+    elif mode == "full":
+        return tuple(x - 1 for x in ks)
 
 
 class Conv(nn.Module):
-  """ Bare bones 3D convolution module w/ MSRA init """
+    """ Bare bones 3D convolution module w/ MSRA init """
 
-  def __init__(self, D_in, D_out, ks, st, pd, bias=True):
+    def __init__(self, D_in, D_out, ks, st, pd, bias=True):
 
-    nn.Module.__init__(self)
-    self.conv = nn.Conv3d(D_in, D_out, ks, st, pd, bias=bias)
-    init.kaiming_normal_(self.conv.weight)
-    if bias:
-      init.constant_(self.conv.bias, 0)
+        nn.Module.__init__(self)
+        self.conv = nn.Conv3d(D_in, D_out, ks, st, pd, bias=bias)
+        init.kaiming_normal_(self.conv.weight)
+        if bias:
+            init.constant_(self.conv.bias, 0)
 
-
-  def forward(self, x):
-    return self.conv(x)
+    def forward(self, x):
+        return self.conv(x)
 
 
 class FactConv(nn.Module):
-  """ Factorized 3D convolution using Conv"""
+    """ Factorized 3D convolution using Conv"""
 
-  def __init__(self, D_in, D_out, ks, st, pd, bias=True):
+    def __init__(self, D_in, D_out, ks, st, pd, bias=True):
 
-    nn.Module.__init__(self)
-    if ks[0] > 1:
-      self.factor = Conv(D_in, D_out, (1,ks[1],ks[2]),
-                         (1,st[1],st[2]), (0,pd[1],pd[2]), bias=False)
-      ks = (ks[0],1,1)
-      st = (st[0],1,1)
-      pd = (pd[0],0,0)
+        nn.Module.__init__(self)
+        if ks[0] > 1:
+            self.factor = Conv(D_in, D_out, (1, ks[1], ks[2]),
+                               (1, st[1], st[2]), (0, pd[1], pd[2]), bias=False)
+            ks = (ks[0], 1, 1)
+            st = (st[0], 1, 1)
+            pd = (pd[0], 0, 0)
 
-    else:
-      self.factor = None
+        else:
+            self.factor = None
 
-    self.conv = Conv(D_in, D_out, ks, st, pd, bias)
+        self.conv = Conv(D_in, D_out, ks, st, pd, bias)
 
+    def forward(self, x):
 
-  def forward(self, x):
-
-    if self.factor is not None:
-      return self.conv(self.factor(x))
-    else:
-      return self.conv(x)
+        if self.factor is not None:
+            return self.conv(self.factor(x))
+        else:
+            return self.conv(x)
 
 
 class ConvT(nn.Module):
-  """ Bare Bones 3D ConvTranspose module w/ MSRA init """
+    """ Bare Bones 3D ConvTranspose module w/ MSRA init """
 
-  def __init__(self, D_in, D_out, ks, st, pd=(0,0,0), bias=True):
+    def __init__(self, D_in, D_out, ks, st, pd=(0, 0, 0), bias=True):
 
-    nn.Module.__init__(self)
-    self.conv = nn.ConvTranspose3d(D_in, D_out, ks, st, pd, bias=bias)
-    init.kaiming_normal_(self.conv.weight)
-    if bias:
-      init.constant_(self.conv.bias, 0)
+        nn.Module.__init__(self)
+        self.conv = nn.ConvTranspose3d(D_in, D_out, ks, st, pd, bias=bias)
+        init.kaiming_normal_(self.conv.weight)
+        if bias:
+            init.constant_(self.conv.bias, 0)
 
-
-  def forward(self, x):
-    return self.conv(x)
+    def forward(self, x):
+        return self.conv(x)
 
 
 class ResizeConv(nn.Module):
@@ -98,7 +95,6 @@ class ResizeConv(nn.Module):
 
         self.upsample = Upsample2D(scale_factor=2, mode=mode)
         self.conv = Conv(D_in, D_out, ks, st, pd, bias=bias)
-
 
     def forward(self, x):
 
@@ -116,32 +112,31 @@ class Upsample2D(nn.Module):
 
     def forward(self, x):
 
-        #upsample in all dimensions, and undo the z upsampling
-        return self.upsample(x)[:,:,::self.scale_factor,:,:]
+        # upsample in all dimensions, and undo the z upsampling
+        return self.upsample(x)[:, :, ::self.scale_factor, :, :]
 
 
 class FactConvT(nn.Module):
-  """ Factorized 3d ConvTranspose using ConvT """
+    """ Factorized 3d ConvTranspose using ConvT """
 
-  def __init__(self, D_in, D_out, ks, st, pd=(0,0,0), bias=True):
+    def __init__(self, D_in, D_out, ks, st, pd=(0, 0, 0), bias=True):
 
-    nn.Module.__init__(self)
-    if ks[0] > 1:
-      self.factor = ConvT(D_in, D_out, (2,ks[1],ks[2]),
-                          (1,st[1],st[2]), (0,pd[1],pd[2]), bias=False)
-      ks = (ks[0],1,1)
-      st = (st[0],1,1)
-      pd = (pd[0],0,0)
+        nn.Module.__init__(self)
+        if ks[0] > 1:
+            self.factor = ConvT(D_in, D_out, (2, ks[1], ks[2]),
+                                (1, st[1], st[2]), (0, pd[1], pd[2]), bias=False)
+            ks = (ks[0], 1, 1)
+            st = (st[0], 1, 1)
+            pd = (pd[0], 0, 0)
 
-    else:
-      self.factor = None
+        else:
+            self.factor = None
 
-    self.conv = ConvT(D_in, D_out, ks, st, pd, bias)
+        self.conv = ConvT(D_in, D_out, ks, st, pd, bias)
 
+    def forward(self, x):
 
-  def forward(self, x):
-
-    if self.factor is not None:
-      return self.conv(self.factor(x))
-    else:
-      return self.conv(x)
+        if self.factor is not None:
+            return self.conv(self.factor(x))
+        else:
+            return self.conv(x)
