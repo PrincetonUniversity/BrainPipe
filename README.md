@@ -14,16 +14,10 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 
 ## *INSTALLATION INSTRUCTIONS*:
 * Note that this currently has only been tested on Linux (Ubuntu 16 and 18).
-* Things you will need to do beforehand:
-	* Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well.
+* If on a cluster - Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well. If at Princeton, elastix is on spock
 
-# *Installation Instructions*:
-* Things you will need to do beforehand:
-	* Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well.
-	* This package was made for linux/osx, not windows.
-
-## Create an anaconda python environment
- - use [anaconda](https://www.anaconda.com/download/
+### Create an anaconda python environment
+ - use [anaconda](https://www.anaconda.com/download/)
 - name an [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7+)
 
 ```
@@ -31,64 +25,50 @@ $ conda create -n lightsheet python=3.7.3
 $ pip install cython futures h5py joblib matplotlib natsort numba numpy opencv-python openpyxl pandas scipy scikit-image scikit-learn seaborn SimpleITK tifffile tensorboardX torch torchvision tqdm xlrd xvfbwrapper
 ```
 
-If on a local machine also do:
+If on a local Ubuntu machine also install elastix and xvfb, and make sure you have all boost libraries installed for DataTools:
 
 ```
 $ sudo apt-get install elastix
 $ sudo apt-get install xvfb
-```
-
-If on a local machine, make sure you have all the boost libraries installed (important for working with torms3's DataTools)
-
-```
 $ sudo apt-get install libboost-all-dev
 ```
 
-Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for working with DataProvider3:
-
-```
-```
-
-$ git clone https://github.com/torms3/DataTools.git
-
-
-Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
-
-```
-$ python setup.py install
-```
-
-## To use TeraStitcher it must be installed locally or on your cluster
-* [Download] and unpack(https://github.com/abria/TeraStitcher/wiki/Binary-packages])
+[Download](https://github.com/abria/TeraStitcher/wiki/Binary-packages) and unpack TeraStitcher
 ```
 $ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
 ```
 * Modify Path in ~/.bashrc:
+
 ```
 export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.16.11-Linux/bin:$PATH"
 ```
 * Check to see if successful
+
 ```
 $ which terastitcher
 ```
 
-## Edit: lightsheet/sub_main_tracing.sh file:
-* Need to load anacondapy 5.3.1 on cluster (something like):
-```
-module load anacondapy/5.3.1
-```
-* Need to load elastix on cluster (something like):
-```
-module load elastix/4.8
-```
-* Need to then activate your python environment where everything is installed (if your enviroment is named 'lightsheet' then you do not need to change this):
-```
-. activate ligthsheet
-```
-* Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
 
-## Edit: lightsheet/slurm_files:
-* Each of these needs the same changes as sub_main_tracing.sh file, e.g.
+Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for working with DataProvider3:
+
+```
+$ git clone https://github.com/torms3/DataTools.git
+```
+
+Go to the dataprovider3, DataTools, and augmentor directories in `tools/conv_net` and run (for each directory):
+
+```
+$ cd tools/conv_net/dataprovider3
+$ python setup.py install
+$ cd ../DataTools
+$ python setup.py install
+$ cd ../augmentor
+$ python setup.py install
+
+```
+
+### If not at Princeton - make sure your slurm scheduler works similarly
+* If not, change .sh in main folder, /slurm_scripts in the main rat_BrainPipe, and ClearMapCluster folders like sub_main_tracing.sh file, e.g.
 ```
 module load anacondapy/5.3.1
 module load elastix/4.8
@@ -97,31 +77,10 @@ module load elastix/4.8
 
 * Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_tracing.py settings
 
-## Edit: lightsheet/tools/utils/directorydeterminer:
+### Edit: lightsheet/tools/utils/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
 
-## Edit: lightsheet/tools/conv_net/pytorchutils:
-- main GPU-based scripts are located in the pytorchutils directory
-1. `run_exp.py` --> training
-    - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored)
-2. `run_fwd.py` --> inference
-    - lines 57 & 65: modify experiment and data directory
-3. `run_chnk_fwd.py` --> large-scale inference
-    - lines 82 & 90: modify experiment and data directory
-    - if working with a slurm-based scheduler:
-	1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
-	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
-4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
-- `cell_detect.py` --> CPU-based pre-processing and post-processing
-	- output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
-    - if working with a slurm-based scheduler,
-	1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
-	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
-	3. these need the same changes as `sub_main_tracing.sh` file, e.g.
-```
-module load anacondapy/5.3.1
-. activate ligthsheet
-```
+### Edit: lightsheet/tools/conv_net/pytorchutils:
 
 ## To run, I suggest:
 * Open `run_tracing.py`
@@ -141,6 +100,22 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
 # *Descriptions of important files*:
+- main GPU-based scripts are located in the pytorchutils directory
+1. `run_exp.py` --> training
+    - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored)
+2. `run_fwd.py` --> inference
+    - lines 57 & 65: modify experiment and data directory
+3. `run_chnk_fwd.py` --> large-scale inference
+    - lines 82 & 90: modify experiment and data directory
+    - if working with a slurm-based scheduler:
+	1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
+	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
+4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
+- `cell_detect.py` --> CPU-based pre-processing and post-processing
+	- output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
+    - if working with a slurm-based scheduler,
+	1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
+	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
 
 * `sub_registration.sh` or `sub_registration_terastitcher.sh`:
 	* `.sh` file to be used to submit to a slurm scheduler
