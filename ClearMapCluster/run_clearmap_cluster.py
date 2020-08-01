@@ -30,15 +30,20 @@ systemdirectory = directorydeterminer()
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"],
 # ["injch", "01"]]} ###create this dictionary variable BEFORE params
 
+# comment the following lines out
+# after you change lines 36-37 and 47 (input and output dictionaries)
+print("you have not changed the default ")
 inputdictionary = {
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"): [["regch", "00"]],
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z265"): [["cellch", "00"]]
+    os.path.join(
+        systemdirectory, "LightSheetTransfer/brody/z265"): [["regch", "00"]],
+    os.path.join(
+        systemdirectory, "LightSheetTransfer/brody/z265"): [["cellch", "00"]]
 }
 # Required inputs
 
-######################################################################################################
-# NOTE: edit clearmap/parameter_file.py for cell some detection parameters, everything else is handled below
-######################################################################################################
+###############################################################################
+# NOTE: also edit clearmap/parameter_file.py for cell some detection parameters
+###############################################################################
 
 params = {
     "inputdictionary": inputdictionary,  # don"t need to touch
@@ -52,7 +57,8 @@ params = {
     "AtlasFile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
     # path to annotation file for structures
     "annotationfile":  os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"),
-    # um/voxel, optional resolution of atlas, used in resampling and will default to 25um if not provided
+    # um/voxel, optional resolution of atlas, used in resampling and will
+    # default to 25um if not provided
     "AtlasResolution": (39, 39, 39),
     "blendtype": "sigmoidal",  # False/None, "linear", or "sigmoidal" blending between tiles, usually sigmoidal; False or None for images where blending would be detrimental;
     # True = calculate mean intensity of overlap between tiles shift higher of two towards lower - useful for images where relative intensity is not important (i.e. tracing=True, cFOS=False)
@@ -62,7 +68,7 @@ params = {
     "FinalOrientation": (3, 2, 1),
     "slurmjobfactor": 50,  # number of array iterations per arrayjob since max job array on SPOCK is 1000
     # Remove the background with morphological opening (optimised for spherical objects), e.g. (7,7)
-    "removeBackgroundParameter_size": (7, 7),
+    "removeBackgroundParameter_size": (3, 3),
     # (float or None)     h parameter (for instance 20) for the initial h-Max transform, if None, do not perform a h-max transform
     "findExtendedMaximaParameter_hmax": None,
     # size in pixels (x,y) for the structure element of the morphological opening
@@ -74,7 +80,7 @@ params = {
     # (tuple)             size of the search box on which to perform the *method*
     "findIntensityParameter_size": (30, 30, 30),
     # (float or None)      threshold to determine mask. Pixels below this are background if None no mask is generated
-    "detectCellShapeParameter_threshold": 500
+    "detectCellShapeParameter_threshold": 220
 }
 #####################################################################################################################################################
 ##################################################optional arguments for params######################################################################
@@ -163,6 +169,6 @@ if __name__ == "__main__":
     elif stepid == 6:
         # clearmap analysis, for description of inputs check docstring ["output_analysis?"]:
         from ClearMap.cluster.par_tools import output_analysis
-        output_analysis(threshold=(1500, 10000), row=(2, 2),
-                        check_cell_detection=False, **params)  # note: zmd has set threshold and
-        # row variable manually... see GDoc for more info?
+        output_analysis(threshold=(100, 600), row=(3, 3),
+                        check_cell_detection=False, **params)
+        # note: threshold, row can be changed

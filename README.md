@@ -4,7 +4,7 @@ Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from 
 
 Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
-# Emily is doing some heavy maintenance on these scripts, and has not yet updated the README. Her instructions are [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit?usp=sharing)
+# Emily is doing some heavy maintenance on these scripts, additional notes [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit?usp=sharing)
 
 ### *Dependencies:*
 [DataProvider3](https://github.com/torms3/DataProvider3)  
@@ -80,7 +80,7 @@ module load elastix/4.8
 ### Edit: lightsheet/tools/utils/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
 
-### Edit: lightsheet/tools/conv_net/pytorchutils:
+### Edit: ADD LIST OF FILES TO CHANGE
 
 ## To run, I suggest:
 * Open `run_tracing.py`
@@ -88,13 +88,7 @@ module load elastix/4.8
 	* `inputdictionary`
 	* `params`
 	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
-* Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited is **before**):
-```python
-preprocessing.generateparamdict(os.getcwd(), **params)
-if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
-	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'lightsheet'),
-	ignore=shutil.ignore_patterns('^.git'))
-```
+* Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited **before**):
 
 * **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
@@ -172,15 +166,7 @@ if not os.path.exists(os.path.join(params['outputdirectory'], 'lightsheet')):
 
 1. if working with a slurm-based scheduler:
 	1. run `sbatch run_demo.sh` within the tools/conv_net
-		* make sure you have an environment setup under your cluster username named "3dunet" or "lightsheet" that has the dependencies described in the installation instructions
-			* NOTE: the environments "3dunet" and "lightsheet" are sometimes used interchangeably in all bash scripts (but represent the same environment)
-			* make sure you have the correct environment name in your bash scripts before executing them
-		* you will also need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster username
-		* load the modules and environment in the bash script as such:
-```
-module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
-. activate ligthsheet
-```
+		* make sure you have "lightsheet" environment set up before running
 
 2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
 ```
