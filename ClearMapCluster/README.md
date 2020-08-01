@@ -1,6 +1,4 @@
-## *Descriptions of files*:
-Changes to ClearMap include, but not limited to:
-
+# *Descriptions of files*:
 * `sub_clearmap_cluster.sh`:
 	* .sh file to be used to submit to a slurm scheduler
 	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to `run_clearmap_cluster.py`:
@@ -28,31 +26,6 @@ Changes to ClearMap include, but not limited to:
   * `directorydeterminer` function to allow for different machines to use the same package
   * `utils`: misc functions taken from tpisano's BrainPipe package
 
-### Edit: ClearMapCluster/sub_clearmap_cluster.sh file:
-* Need to load anacondapy [version] on cluster (something like):
-```
-module load anacondapy/5.3.1
-```
-* Need to load elastix on cluster (something like):
-```
-module load elastix/4.8
-```
-* Need to then activate your python environment where everything is installed (something like):
-```
-. activate idisco
-```
-* Check to make sure your slurm job dependecies and match structure is similar to what our cluster uses.
-
-### Edit: ClearMapCluster/slurm_files:
-* Each of these needs the same changes as sub_clearmap_cluster.sh file: e.g.:
-
-```
-module load anacondapy/5.3.1
-module load elastix/4.8
-. activate idisco
-```
-* Check/change the resource allocations and email alerts at the top of each .sh file based on cluster and run_clearmap_cluster.py settings
-
 ### Edit: ClearMapCluster/ClearMap/cluster/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
 
@@ -62,11 +35,6 @@ module load elastix/4.8
 	* inputdictionary
 	* params
 * Then generally the process is using a local machine, run step 0 (be sure that files are saved BEFORE( running this step) this generates a folder where data will be generated:
-```
-updateparams(os.getcwd(), *params)
-if not os.path.exists(os.path.join(params['outputdirectory'], 'clearmap_cluster')):
-	shutil.copytree(os.getcwd(), os.path.join(params['outputdirectory'], 'clearmap_cluster'))
-```
 
 ## Tutorials and example analysis:
 * For a step-by-step tutorial on testing clearmap cell detection, use `parameter_sweep.ipynb`
