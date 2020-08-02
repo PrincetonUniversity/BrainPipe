@@ -16,11 +16,16 @@ import pickle
 import subprocess as sp
 from collections import Counter
 from skimage.external import tifffile
-from tools.imageprocessing.preprocessing import resample_par, color_movie_merger, resample, gridcompare, combine_images
+from tools.imageprocessing.preprocessing import resample_par
+from tools.imageprocessing.preprocessing import color_movie_merger
+from tools.imageprocessing.preprocessing import resample, gridcompare
+from tools.imageprocessing.preprocessing import combine_images
 from tools.imageprocessing import depth
 from tools.objectdetection.injdetect import find_site
-from tools.registration.masking import generate_masked_atlas, generate_cropped_atlas
-from tools.utils.io import makedir, removedir, writer, load_kwargs, convert_to_mhd
+from tools.registration.masking import generate_masked_atlas
+from tools.registration.masking import generate_cropped_atlas
+from tools.utils.io import makedir, removedir, writer, load_kwargs
+from tools.utils.io import convert_to_mhd
 
 
 def elastix_wrapper(jobid, cores=5, **kwargs):
@@ -312,7 +317,7 @@ def transformix_command_line_call(src, dst, transformfile):
     '''
     from subprocess import check_output
     print('Running transformix, this can take some time....\n')
-    #sp.call(['transformix', '-in', src, '-out', dst, '-tp', transformfile])
+    # sp.call(['transformix', '-in', src, '-out', dst, '-tp', transformfile])
     call = 'transformix -in {} -out {} -tp {}'.format(src, dst, transformfile)
     print(check_output(call, shell=True))
     print('Past transformix command line Call')
@@ -321,7 +326,8 @@ def transformix_command_line_call(src, dst, transformfile):
 
 
 def jacobian_command_line_call(dst, transformfile):
-    '''Wrapper Function to generate jacobian DETERMINANT using the commandline, this can be time consuming
+    '''Wrapper Function to generate jacobian DETERMINANT
+    using the commandline, this can be time consuming
 
     Inputs
     -------------------
@@ -345,10 +351,12 @@ def similarity_transform(fx, mv, dst, nm, level='fast', cleanup=True):
     Inputs
     -------------------
     fx = fixed path (usually Atlas for 'normal' noninverse transforms)
-    mv = moving path (usually volume to register for 'normal' noninverse transforms)
+    mv = moving path (usually volume to register for 'normal' n
+    oninverse transforms)
     dst = location to save
     nm = 'name of file to save'
-    level = 'fast', 'intermediate', 'slow' : links to parameter files of certain complexity
+    level = 'fast', 'intermediate', 'slow' : links to parameter
+    files of certain complexity
     cleanup = if False do not remove files
 
     Returns
@@ -389,14 +397,16 @@ def apply_transformix(vol, reg_vol, svlc, cores, AtlasFile, parameters, transfor
         1) apply sig/inj -> auto then registration->atlas transform
         2) generate depth coded images
 
-    Contrast this with apply_transformix_and_register: which also includes: registration of a sig/inj channel to the autofluro (registration) channel
+    Contrast this with apply_transformix_and_register: which also includes:
+    registration of a sig/inj channel to the autofluro (registration) channel
 
     (vol, reg_vol, svlc, cores, AtlasFile, parameters, transformfile)
 
     Inputs
     ----------------
     vol = volume object to apply transform
-    reg_vol (unused but needed to keep input the same with apply_transformix_and_register)
+    reg_vol (unused but needed to keep input the same with
+        apply_transformix_and_register)
     svlc = path to 'elastix' folder, where files will be written
     cores = int # of cores
     AtlasFile = path to ABA atlas
@@ -416,10 +426,12 @@ def apply_transformix(vol, reg_vol, svlc, cores, AtlasFile, parameters, transfor
     # resample if necessary
     writer(svlc, 'Resizing channel: {}'.format(sig_ch_resized))
     if not vol.ch_type == 'regch':
-        resample(sig_ch_resized, AtlasFile, svlocname=sig_ch_resampledforelastix,
-                 singletifffile=True, resamplefactor=1.3)
+        resample(
+            sig_ch_resized, AtlasFile, svlocname=sig_ch_resampledforelastix,
+            singletifffile=True, resamplefactor=1.3)
     # cannot be resample_par because that be a pool inside of pool
-    #resample_par(cores, transforminput, AtlasFile, svlocname=transforminput_resized, singletifffile=True, resamplefactor=1.3)
+    # resample_par(cores, transforminput, AtlasFile,
+    # svlocname=transforminput_resized, singletifffile=True, resamplefactor=1.3)
 
     # optionally convert to mhd, note convert_to_mhd dims are in XYZ
     if resampled_zyx_dims:
@@ -438,7 +450,9 @@ def apply_transformix(vol, reg_vol, svlc, cores, AtlasFile, parameters, transfor
     return vol
 
 
-def apply_transformix_and_register(vol, reg_vol, svlc, cores, AtlasFile, parameters, transformfile, resampled_zyx_dims):
+def apply_transformix_and_register(
+        vol, reg_vol, svlc, cores, AtlasFile,
+        parameters, transformfile, resampled_zyx_dims):
     '''Function to
         1) register a sig/inj channel to the autofluro (registration) channel
         2) apply sig/inj -> auto then registration->atlas transform
@@ -471,16 +485,21 @@ def apply_transformix_and_register(vol, reg_vol, svlc, cores, AtlasFile, paramet
     reg_ch_resampledforelastix = reg_vol.resampled_for_elastix_vol
     sig_ch_resampledforelastix = sig_ch_resized[:-4]+'_resampledforelastix.tif'
 
-    # run elastix on sig/inj channel -> reg channel (but don't register reg to itself)
+    # run elastix on sig/inj channel -> reg channel
+    # (but don't register reg to itself)
     if not vol.ch_type == 'regch':
         writer(svlc, 'Resizing transforminput: {}'.format(sig_ch_resized))
-        resample(sig_ch_resized, AtlasFile, svlocname=sig_ch_resampledforelastix,
-                 singletifffile=True, resamplefactor=1.3)
+        resample(
+            sig_ch_resized, AtlasFile, svlocname=sig_ch_resampledforelastix,
+            singletifffile=True, resamplefactor=1.3)
         # cannot be resample_par because that be a pool inside of pool
-        #resample_par(cores, sig_ch_resized, AtlasFile, svlocname=sig_ch_resampledforelastix, singletifffile=True, resamplefactor=1.3)
+        # resample_par(cores, sig_ch_resized, AtlasFile,
+        # svlocname=sig_ch_resampledforelastix, singletifffile=True,
+        # resamplefactor=1.3)
 
         ElastixResultFile, TransformParameterFile = elastix_command_line_call(
-            reg_ch_resampledforelastix, sig_ch_resampledforelastix, sig_to_reg_out, parameters)
+            reg_ch_resampledforelastix, sig_ch_resampledforelastix,
+            sig_to_reg_out, parameters)
 
     # copy transform paramters to set up transform series:
     [shutil.copy(os.path.join(svlc, xx), os.path.join(sig_to_reg_out, 'regtoatlas_'+xx))
@@ -538,7 +557,8 @@ def change_transform_parameter_initial_transform(fl, initialtrnsformpth):
 
 
 def change_interpolation_order(fl, order=3):
-    '''Function to change FinalBSplineInterpolationOrder of elastix file. This is import when pixel values need to be the same or exact
+    '''Function to change FinalBSplineInterpolationOrder of elastix file.
+    This is import when pixel values need to be the same or exact
 
     '''
     fl1 = fl[:-5]+'0000.txt'
@@ -554,7 +574,8 @@ def change_interpolation_order(fl, order=3):
 
 
 def change_bspline_interpolation_order(fl, order=3):
-    '''Function to change (BSplineTransformSplineOrder 3) of elastix file. This is import when pixel values need to be the same or exact
+    '''Function to change (BSplineTransformSplineOrder 3) of elastix file.
+    This is import when pixel values need to be the same or exact
 
     '''
     fl1 = fl[:-5]+'0000.txt'
@@ -570,11 +591,13 @@ def change_bspline_interpolation_order(fl, order=3):
 
 
 def allen_compare(AtlasFile, svlc, trnsfrm_out_file, verbose=False, outline=False):
-    '''Function to make a 3 axis depth color overlay between the allen atlas (will be greyscale), and the inputpth (will be color representing depth)
+    '''Function to make a 3 axis depth color overlay between the allen atlas
+    (will be greyscale), and the inputpth (will be color representing depth)
     AtlasFile=pth to atlas
     svlc=pth to save files
     trnsfrm_out_file=file to transform
-    outline = generates an outline of the nonzero label, useful for interacting with allen structures rather than injeciton sites
+    outline = generates an outline of the nonzero label, useful for
+    interacting with allen structures rather than injeciton sites
     '''
     trnsfrm_outpath = trnsfrm_out_file[:trnsfrm_out_file.rfind('/')]
     depth.colorcode(trnsfrm_out_file, trnsfrm_outpath)
@@ -597,7 +620,9 @@ def allen_compare(AtlasFile, svlc, trnsfrm_out_file, verbose=False, outline=Fals
         for xx in color:
             im = cv2.imread(xx, 1)
             im_gray = cv2.imread(xx, 0)
-            #disp, center, cnt = detect_inj_site(im_gray.astype('uint8'), kernelsize = 2, threshold = 0.1, minimumarea=1); cntlst.append(cnt)
+            # disp, center, cnt = detect_inj_site(im_gray.astype('uint8'),
+            # kernelsize = 2, threshold = 0.1, minimumarea=1);
+            # cntlst.append(cnt)
             disp = find_site(im_gray)
             nim = np.zeros((im.shape[0], im.shape[1], 4))
             for i in range(3):
@@ -669,7 +694,8 @@ def getvoxels(filelocation, savefilename=None):
     # read image and convert to np array
     image = tifffile.imread(filelocation)
     # find voxel coordinates of all points greater than zero (all should be 1)
-    # note this automatically looks for voxels above 0 intensity. But an arguement can be used if nonthresholded image
+    # note this automatically looks for voxels above 0 intensity.
+    # But an arguement can be used if nonthresholded image
     voxels = np.argwhere(image)
     if savefilename == None:
         return voxels
