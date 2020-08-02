@@ -101,7 +101,7 @@ module load elastix/4.8
         - submit job to cluster using `sbatch --array=0 sub_main_tracing_cnn.sh`
         - when finished, use [Globus](https://www.globus.org/) to transfer files to tigress
         - on tigress, go into ratname/lightsheet and check that `tools/conv_net/pytorchutils/run_chunked_fwd.py` has the correct paths for tigress. Also check that `tools/conv_net/pytorchutils/slurm_scripts/run_chnk_fwd.sh` uses the correct model/checkpoint
-        - cd into `tools/conv_net/pytorchutils/` and run with `sbatch --array=0 slurm_scripts/run_chnk_fwd.sh`
+        - cd into `tools/conv_net/` and run with `sbatch --array=0 slurm_scripts/run_chnk_fwd.sh`
         - when finished, use [Globus](https://www.globus.org/) to transfer back to spock
         - run `cnn_postprocess.sh` which reconstructs and uses connected components to find cell measures
 
