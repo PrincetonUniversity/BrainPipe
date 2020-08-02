@@ -94,16 +94,26 @@ module load elastix/4.8
     - Detailed instructions on steps 1-3 can be found [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit#)
 
 4. Run inference on whole brains
+    - on spock, make input and patched arrays
+        - in `run_tracing.py` edit the inputdirectory, outputdirectory, and check the atlas and annotation files are correct.
+        - MAKE SURE you have already changed `directorydeterminer` in `tools/utils` and run step0
+        - check the header for `sub_main_tracing_cnn.sh` and make sure for step1, the array job number matches your zplanes. There are 50 jobs/array, so --array=0-12 means 13 sets of 50 (650) zplanes will be run.
+        - submit job to cluster using `sbatch --array=0 sub_main_tracing_cnn.sh`
+        - when finished, use [Globus](https://www.globus.org/) to transfer files to tigress
+        - on tigress, go into ratname/lightsheet and check that `tools/conv_net/pytorchutils/run_chunked_fwd.py` has the correct paths for tigress. Also check that `tools/conv_net/pytorchutils/slurm_scripts/run_chnk_fwd.sh` uses the correct model/checkpoint
+        - cd into `tools/conv_net/pytorchutils/` and run with `sbatch --array=0 slurm_scripts/run_chnk_fwd.sh`
+        - when finished, use [Globus](https://www.globus.org/) to transfer back to spock
+        - run `cnn_postprocess.sh` which reconstructs and uses connected components to find cell measures
 
 5. Visualize network outputs
 
 6. To compare to ClearMap
-    See next steps on how to run clearmap, visualize, and compare ouputs
+    See next steps on how to run ClearMap, visualize, and compare ouputs
 
-**Note** there is a demo for the CNN to test if your paths are correct and everything is installed properly, see end of document
+**NOTE** there is a demo for the CNN to test if your paths are correct and everything is installed properly, see end of document
 
 ## To use ClearMap to identify cell centers
-
+**NOTE** there is a new [ClearMap!](https://github.com/ChristophKirst/ClearMap2) These instructions use the old ClearMap 1
 0. Make test sets
 - If you have already made test sets to train a CNN, use those.
 
@@ -130,28 +140,29 @@ module load elastix/4.8
 
 ### 4. Add annotations to an atlas
 
-_______________________
-# From old readme:
-
-## To run, I suggest:
-* Open `run_tracing.py`
-* For **each** brain modify:
-	* `inputdictionary`
-	* `params`
-	* **NOTE** we've noticed that elastix (registration software) can have issues if there are spaces in path name. I suggest removing ALL spaces in paths.
-* Then, I suggest, using a local machine, run 'step 0' (be sure that `run_tracing.py` is edited **before**):
-
-* **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
-* then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
-
 # File structure and descriptions
 
 ## rat_BrainPipe
 
 These files are the main files used for lightsheet manipulations required for all volumes collected- things like stitching lightsheets and tiles.
 - cell_detect.py
+* `cell_detect.py`:
+	* `.py` file to be used to manage the parallelization _of CNN preprocessing_ to a SLURM cluster
+	* params need to be changed per cohort.
+	* see the tutorial for more info.
 - run_tracing.py
 - sub_main_tracing.sh
+* `sub_main_tracing.sh`:
+	* `.sh` file to be used to submit to a slurm scheduler
+	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to `run_tracing.py` AND `cell_detect.py`:
+		* `stepid` = controlling which 'step' to run
+		* `jobid` = controlling which the jobid (iteration) of each step
+	* Steps:
+		* `0`: set up dictionary and save; requires a single job (jobid=0)
+		* `1`: process (stitch, resize) zplns, ensure that 1000 > zplns/slurmfactor. typically submit 80 jobs for LBVT (jobid=0-80).
+		* `2`: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
+		* `3`: registration via elastix
+		* `cnn_preprocess.sh`
 - sub_registration.sh
 - sub_registration_terastitcher.sh
 - sub_update_registration.sh
@@ -176,6 +187,14 @@ These files are the main files used for lightsheet manipulations required for al
 - registration
     - steps to register volumes, transform coordinates
 - utils: lots of scripts live here that are used lots of places!
+
+* tools: convert 3D STP stack to 2D representation based on colouring
+  * imageprocessing:
+	* `preprocessing.py`: functions use to preprocess, stitch, 2d cell detect, and save light sheet images
+  * analysis:
+	* `allen_structure_json_to_pandas.py`: simple function used to generate atlas list of structures in coordinate space
+	* other functions useful when comparing multiple brains that have been processed using the pipeline
+
 >> **conv_net**
 this houses all the important CNN files!
     - augmentor
@@ -220,77 +239,6 @@ this houses all the important CNN files!
 >> **slurmfiles**
 this is where most of the slurm files live.
 -
-
-
-
-
-
-- main GPU-based scripts are located in the pytorchutils directory
-1. `run_exp.py` --> training
-    - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored)
-2. `run_fwd.py` --> inference
-    - lines 57 & 65: modify experiment and data directory
-3. `run_chnk_fwd.py` --> large-scale inference
-    - lines 82 & 90: modify experiment and data directory
-    - if working with a slurm-based scheduler:
-	1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
-	2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line 		arguments
-4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
-- `cell_detect.py` --> CPU-based pre-processing and post-processing
-	- output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
-    - if working with a slurm-based scheduler,
-	1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
-	2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
-
-* `sub_registration.sh` or `sub_registration_terastitcher.sh`:
-	* `.sh` file to be used to submit to a slurm scheduler
-	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to `run_tracing.py`:
-		* `stepid` = controlling which 'step' to run
-		* `jobid` = controlling which the jobid (iteration) of each step
-	* Steps:
-		* `0`: set up dictionary and save; requires a single job (jobid=0)
-		* `1`: process (stitch, resize) zplns, ensure that 1000 > zplns/slurmfactor. typically submit 80 jobs for LBVT (jobid=0-80).
-		* `2`: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
-		* `3`: registration via elastix
-
-* `sub_main_tracing.sh`:
-	* `.sh` file to be used to submit to a slurm scheduler
-	* this can change depending on scheduler+cluster but generally batch structure requires 2 variables to pass to `run_tracing.py` AND `cell_detect.py`:
-		* `stepid` = controlling which 'step' to run
-		* `jobid` = controlling which the jobid (iteration) of each step
-	* Steps:
-		* `0`: set up dictionary and save; requires a single job (jobid=0)
-		* `1`: process (stitch, resize) zplns, ensure that 1000 > zplns/slurmfactor. typically submit 80 jobs for LBVT (jobid=0-80).
-		* `2`: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
-		* `3`: registration via elastix
-		* `cnn_preprocess.sh` (will add to this)
-
-* `run_tracing.py`:
-	* `.py` file to be used to manage the parallelization to a SLURM cluster
-	* inputdictionary and params need to be changed for each brain
-	* the function `directorydeterminer` in `tools/utils` *REQUIRES MODIFICATION* for both your local machine and cluster. This function handles different paths to the same file server.
-	* generally the process is using a local machine, run step 0 (be sure that files are saved *BEFORE( running this step) to generate a folder where data will be stored
-	* then using the cluster's headnode (in the new folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
-
-* `cell_detect.py`:
-	* `.py` file to be used to manage the parallelization _of CNN preprocessing_ to a SLURM cluster
-	* params need to be changed per cohort.
-	* see the tutorial for more info.
-
-* tools: convert 3D STP stack to 2D representation based on colouring
-  * imageprocessing:
-	* `preprocessing.py`: functions use to preprocess, stitch, 2d cell detect, and save light sheet images
-  * analysis:
-	* `allen_structure_json_to_pandas.py`: simple function used to generate atlas list of structures in coordinate space
-	* other functions useful when comparing multiple brains that have been processed using the pipeline
-
-* supp_files:
-  * `gridlines.tif`, image used to generate registration visualization
-  * `allen_id_table.xlsx`, list of structures from Allen Brain Atlas used to determine anatomical correspondence of xyz location.
-
-* parameterfolder:
-  * folder consisting of elastix parameter files with prefixes `Order<#>_` to specify application order
-
 
   # CNN Demo:
   - demo script to run training and large-scale inference

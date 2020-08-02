@@ -106,7 +106,7 @@ def fill_params(
     params["jobid"] = jobid
 
     # Dataset params
-    params["data_dir"] = "/scratch/gpfs/ejdennis/{}".format(dset_name)
+    params["data_dir"] = "/tigress/ejdennis/{}".format(dset_name)
 #    assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
     params["dsets"] = dset_name
     params["input_spec"] = collections.OrderedDict(input=(20, 192, 192))
