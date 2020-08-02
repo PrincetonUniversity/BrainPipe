@@ -16,4 +16,4 @@ module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
 . activate lightsheet
 
 cd pytorchutils/
-python run_chnk_fwd.py 20200316_peterb_zd_train  models/RSUNet.py 12000 z265 --gpus 0 --noeval --tag noeval ${SLURM_ARRAY_TASK_ID}
+python run_chnk_fwd.py 20200622_ed_train  models/RSUNet.py 5000 z269 --gpus 0 --noeval --tag noeval ${SLURM_ARRAY_TASK_ID}

@@ -143,6 +143,7 @@ module load elastix/4.8
 ## Using Neuroglancer to visualize outputs
 - [python notebook from Austin](https://github.com/PrincetonUniversity/lightsheet_helper_scripts/blob/master/neuroglancer/brodylab_MRI_atlas_customizations.ipynb)
 
+
 # File structure and descriptions
 
 ## rat_BrainPipe
