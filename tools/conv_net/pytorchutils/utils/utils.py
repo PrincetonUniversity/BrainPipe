@@ -21,7 +21,7 @@ import h5py
 import tifffile
 print("you did not check paths in pytorchutils/utils/utils.py")
 # edit line 24
-sys.path.append("/tigress/ejdennis/BrainPipe/tools/conv_net/pytorchutils")
+sys.path.append("/tigress/ejdennis/rat_BrainPipe/tools/conv_net/pytorchutils")
 
 __all__ = ["timestamp",
            "make_required_dirs", "log_tagged_modules", "log_params",

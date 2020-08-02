@@ -104,7 +104,7 @@ def fill_params(expt_name, stepid, jobid):
 
     # find cell channel tiff directory from parameter dict
     kwargs = load_kwargs(os.path.dirname(expt_name))
-    vol = [vol for vol in kwargs["volumes"] if vol.ch_type == "cellch"][0]
+    vol = [vol for vol in kwargs["volumes"]]
     src = vol.full_sizedatafld_vol
     assert os.path.isdir(src), "nonexistent data directory"
     print("\n\n data directory: {}".format(src))
