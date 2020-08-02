@@ -7,8 +7,8 @@
 #SBATCH --contiguous
 #SBATCH --mem=30000 #30gbs
 #SBATCH -t 360                # time (minutes)
-#SBATCH -o /scratch/gpfs/ejdennis/logs/array_jobs/chnk_%a_%j.out
-#SBATCH -e /scratch/gpfs/ejdennis/logs/array_jobs/chnk_%a_%j.err
+#SBATCH -o /logs/array_jobs/chnk_%a_%j.out
+#SBATCH -e /logs/array_jobs/chnk_%a_%j.err
 
 echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
