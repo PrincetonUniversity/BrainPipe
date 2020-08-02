@@ -82,6 +82,59 @@ module load elastix/4.8
 
 ### Edit: ADD LIST OF FILES TO CHANGE
 
+## To train a CNN to identify features (like somas)
+
+0. Make test sets
+    Emily made a document with explicit instructions and examples
+    which can be found [here](https://docs.google.com/document/d/1f5owGhyJiL2dNqIMZ_zwM96QTBm2_WKqoY5HwBRAMVA/edit)
+
+1. Find parameters to use
+2. Train network
+3. Validate and Benchmark Network
+    - Detailed instructions on steps 1-3 can be found [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit#)
+
+4. Run inference on whole brains
+
+5. Visualize network outputs
+
+6. To compare to ClearMap
+    See next steps on how to run clearmap, visualize, and compare ouputs
+
+**Note** there is a demo for the CNN to test if your paths are correct and everything is installed properly, see end of document
+
+## To use ClearMap to identify cell centers
+
+0. Make test sets
+    If you have already made test sets to train a CNN, use those.
+
+1. Find parameters
+- See `ClearMapCluster/ parameter_sweep.ipynb`
+
+2. Run ClearMap on whole brains
+
+3. Visualize outputs
+
+4. Compare to CNN (if desired)
+    - on training data
+    - on whole brains
+
+## Using raw lightsheet images to:
+
+### 1. Make a stitched, whole-brain
+
+### 2. Make an atlas
+
+### 3. Put a brain in atlas space
+ - visualize warping procedure
+
+### 4. Add annotations to an atlas
+
+
+
+
+_______________________
+# From old readme:
+
 ## To run, I suggest:
 * Open `run_tracing.py`
 * For **each** brain modify:
@@ -160,18 +213,19 @@ module load elastix/4.8
 * parameterfolder:
   * folder consisting of elastix parameter files with prefixes `Order<#>_` to specify application order
 
-# CNN Demo:
-- demo script to run training and large-scale inference
-- useful to make sure the environment and modules are imported correctly
 
-1. if working with a slurm-based scheduler:
-	1. run `sbatch run_demo.sh` within the tools/conv_net
-		* make sure you have "lightsheet" environment set up before running
+  # CNN Demo:
+  - demo script to run training and large-scale inference
+  - useful to make sure the environment and modules are imported correctly
 
-2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
-```
-$ python setup_demo_script.py
-$ cd pytorchutils/
-$ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
-```
-3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
+  1. if working with a slurm-based scheduler:
+  	1. run `sbatch run_demo.sh` within the tools/conv_net
+  		* make sure you have "lightsheet" environment set up before running
+
+  2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
+  ```
+  $ python setup_demo_script.py
+  $ cd pytorchutils/
+  $ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
+  ```
+  3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
