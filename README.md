@@ -105,7 +105,7 @@ module load elastix/4.8
 ## To use ClearMap to identify cell centers
 
 0. Make test sets
-    If you have already made test sets to train a CNN, use those.
+- If you have already made test sets to train a CNN, use those.
 
 1. Find parameters
 - See `ClearMapCluster/ parameter_sweep.ipynb`
@@ -126,11 +126,9 @@ module load elastix/4.8
 
 ### 3. Put a brain in atlas space
  - visualize warping procedure
+ - identify locations on images and transform to bregma coordinates
 
 ### 4. Add annotations to an atlas
-
-
-
 
 _______________________
 # From old readme:
@@ -146,7 +144,87 @@ _______________________
 * **why**: This generates a folder where data will be generated, allowing to run multiple brains on the cluster at once.
 * then using the cluster's headnode (in the **new** folder's lightsheet directory generated from the previous step) submit the batch job: `sbatch sub_registration.sh`
 
-# *Descriptions of important files*:
+# File structure and descriptions
+
+## rat_BrainPipe
+
+These files are the main files used for lightsheet manipulations required for all volumes collected- things like stitching lightsheets and tiles.
+- cell_detect.py
+- run_tracing.py
+- sub_main_tracing.sh
+- sub_registration.sh
+- sub_registration_terastitcher.sh
+- sub_update_registration.sh
+
+> slurm_files
+
+- in all, check the headers, and make sure you have the correct array numbers, partition, etc.
+
+> parameter folder
+
+- This contains the four parameter files for elastix warping: one affine and three bspline. This is different for mice (which only only uses two: one affline and one bspline)
+
+> tools
+-  \_\_init\_\_.py we use for initializing
+- analysis: These are mostly for mouse work but could be useful in the future as guides for things to do, so keeping them
+- expression_mask: Additional useful plotting tools, though made for mice, keeping for now
+- imageprocessing: Useful plotting and processing tools for individual volumes, keeping for now
+- objectdetection
+    - detection_qc.py is useful for plotting cell centers onto volumes for quality control and nice plots
+    - find_injection.py is useful for finding contours of a probe/fiber covered in CM DiI
+    - inj_detect.py Similar to find_injection, probably don’t need both, uses connected components analysis
+- registration
+    - steps to register volumes, transform coordinates
+- utils: lots of scripts live here that are used lots of places!
+>> **conv_net**
+this houses all the important CNN files!
+    - augmentor
+    - dataprovider3
+    - DataTools
+    - **pytorchutils**
+        - slurm_scripts
+        - balance.py
+        - demo.py
+        - forward.py
+        - layers.py
+        - losee.py
+        - run_chnk_fwd.py
+        - run_exp.py
+        - run_fwd.py
+        - train.py
+
+
+> logs
+
+- file
+
+> ## ClearMapCluster
+- clearmap_sweep_for_comp
+- parameter_sweep.ipynb
+- README.md
+- run_clearmap_cluster.py
+- run_parameter_sweep.py
+- spot_detection_on_annotated_volumes
+- sub_clearmap_cluster.sh
+
+>> ClearMap
+- copy of ClearMap with some edits as outlined in the ClearMapCluster README.
+- parameter_file.py
+    - this you will need to change
+
+>> docs
+
+>> logs
+- this is where your slurm output logs will go. It also has a sub-folder called array_jobs where slurm array job err/out messages will live.
+
+>> **slurmfiles**
+this is where most of the slurm files live.
+-
+
+
+
+
+
 - main GPU-based scripts are located in the pytorchutils directory
 1. `run_exp.py` --> training
     - lines 64-98: modify data directory, train and validation sets, and named experiment   	  directory (in which the experiment directory of logs and model weights is stored)
