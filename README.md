@@ -67,7 +67,7 @@ $ python setup.py install
 
 ```
 
-### If not at Princeton - make sure your slurm scheduler works similarly
+### If not at Princeton - make sure your cluster works similarly
 * If not, change .sh in main folder, /slurm_scripts in the main rat_BrainPipe, and ClearMapCluster folders like sub_main_tracing.sh file, e.g.
 ```
 module load anacondapy/5.3.1
@@ -79,8 +79,6 @@ module load elastix/4.8
 
 ### Edit: lightsheet/tools/utils/directorydeterminer:
 * Add your paths for BOTH the cluster and local machinery
-
-### Edit: ADD LIST OF FILES TO CHANGE
 
 ## To train a CNN to identify features (like somas)
 
@@ -109,13 +107,13 @@ module load elastix/4.8
             - **NOTE** you actually probably don't need all of these and only need input_chnks and output_chnks but the others are small and used a bunch of places.
         - on tigress, go into ratname/lightsheet and check that `tools/conv_net/pytorchutils/run_chunked_fwd.py` has the correct paths for tigress. Also check that `tools/conv_net/pytorchutils/slurm_scripts/run_chnk_fwd.sh` uses the correct model/checkpoint
         - cd into `tools/conv_net/` and run with `sbatch --array=0 slurm_scripts/run_chnk_fwd.sh`
-        - when finished, use [Globus](https://www.globus.org/) to transfer back to spock
+        - when finished, use [Globus](https://www.globus.org/) to transfer back to spock or `scp -r <username>@tigergpu.princeton.edu:/<folder-location> <username>@spock.princeton.edu:/<folder-location>`
         - run `cnn_postprocess.sh` which reconstructs and uses connected components to find cell measures
 
-5. Visualize network outputs
+5. Visualize network outputs - *documentation in progress*
 
 6. To compare to ClearMap
-    See next steps on how to run ClearMap, visualize, and compare ouputs
+    See next section, has steps on how to run ClearMap 1, visualize, and compare ouputs.
 
 **NOTE** there is a demo for the CNN to test if your paths are correct and everything is installed properly, see end of document
 
@@ -127,25 +125,29 @@ module load elastix/4.8
 1. Find parameters
 - See `ClearMapCluster/ parameter_sweep.ipynb`
 
-2. Run ClearMap on whole brains
+2. Run ClearMap on whole brains *documentation in progress*
 
-3. Visualize outputs
+3. Visualize outputs *documentation in progress*
 
-4. Compare to CNN (if desired)
+4. Compare to CNN (if desired) *documentation in progress*
     - on training data
     - on whole brains
 
 ## Using raw lightsheet images to:
 
 ### 1. Make a stitched, whole-brain
+*documentation in progress*
 
 ### 2. Make an atlas
+*documentation in progress*
 
 ### 3. Put a brain in atlas space
+*documentation in progress*
  - visualize warping procedure
  - identify locations on images and transform to bregma coordinates
 
 ### 4. Add annotations to an atlas
+*documentation in progress*
 
 ## Using Neuroglancer to visualize outputs
 - [python notebook from Austin](https://github.com/PrincetonUniversity/lightsheet_helper_scripts/blob/master/neuroglancer/brodylab_MRI_atlas_customizations.ipynb)
