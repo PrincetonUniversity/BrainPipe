@@ -99,7 +99,14 @@ module load elastix/4.8
         - MAKE SURE you have already changed `directorydeterminer` in `tools/utils` and run step0
         - check the header for `sub_main_tracing_cnn.sh` and make sure for step1, the array job number matches your zplanes. There are 50 jobs/array, so --array=0-12 means 13 sets of 50 (650) zplanes will be run.
         - submit job to cluster using `sbatch --array=0 sub_main_tracing_cnn.sh`
-        - when finished, use [Globus](https://www.globus.org/) to transfer files to tigress
+        - when finished, use [Globus](https://www.globus.org/) to transfer files to tigress. You only need to transfer the:
+            - cnn_param_dict.csv
+            - input_chnks folder
+            - lightsheet folder
+            - LogFile.txt
+            - output_chnks (an empty folder that will be filled on tigress)
+            - param_dict.p
+            - **NOTE** you actually probably don't need all of these and only need input_chnks and output_chnks but the others are small and used a bunch of places.
         - on tigress, go into ratname/lightsheet and check that `tools/conv_net/pytorchutils/run_chunked_fwd.py` has the correct paths for tigress. Also check that `tools/conv_net/pytorchutils/slurm_scripts/run_chnk_fwd.sh` uses the correct model/checkpoint
         - cd into `tools/conv_net/` and run with `sbatch --array=0 slurm_scripts/run_chnk_fwd.sh`
         - when finished, use [Globus](https://www.globus.org/) to transfer back to spock
