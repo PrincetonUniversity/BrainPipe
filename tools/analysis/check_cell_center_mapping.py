@@ -15,7 +15,7 @@ import tifffile
 # edits for Brody lab by ejdennis Aug 2020
 
 
-def resize_merged_stack(pth, dst, dtype="uint16", resizef=3):
+def resize_merged_stack(pth, dst, dtype="uint16", resizef=20):
     """
     resize function for large image stacks using cv2
     inputs:
@@ -24,18 +24,26 @@ def resize_merged_stack(pth, dst, dtype="uint16", resizef=3):
         dtype = default uint16
         resizef = default 6
     """
-
+    print(pth)
+    print("pth above from resize merged")
     # read file
-    if pth[-4:] == ".tif":
-        img = tifffile.imread(pth)
-    elif pth[-4:] == ".npy":
-        img = np.lib.format.open_memmap(pth, dtype=dtype, mode="r")
-    else:
-        img = pth  # if array was input
+
+    #read file
+    if pth[-4:] == ".tif": img = tifffile.imread(pth)
+    elif pth[-4:] == ".npy": img = np.lib.format.open_memmap(pth, dtype = dtype, mode = "r")
+    else: img = pth #if array was input
 
     z, y, x, ch = img.shape
+    print("z y x ch")
+    print(z)
+    print(y)
+    print(x)
+    print(ch)
+    print(resizef)
     resz_img = np.zeros((z, int(y/resizef), int(x/resizef), ch))
-
+    print("new y new x")
+    print(int(y/20))
+    print(int(x/20))
     for i in range(z):
         for j in range(ch):
             # make the factors -
@@ -64,30 +72,20 @@ def check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, resizef):
     start = time.time()
 
     # doing things without loading parameter dict
-    data = os.listdir(os.path.join(brain, "full_sizedatafld"))
-    data.sort()
-
-    # exception if only 1 channel is imaged
-    if len(data) == 1:
-        cellch = os.path.join(brain, "full_sizedatafld/"+data[0])
-    elif len(data) < 3 and len(data) > 1:
-        cellch = os.path.join(brain, "full_sizedatafld/"+data[1])
-    else:
-        cellch = os.path.join(brain, "full_sizedatafld/"+data[2])
-
+    cellch = os.path.join(brain, "full_sizedatafld/_ch00")
+    print(cellch)
     # not the greatest way to do things, but works
     src = [os.path.join(cellch, xx) for xx in os.listdir(cellch) if xx[-3:]
            == "tif" and int(xx[-7:-4]) in range(zstart, zstop)]
     src.sort()
-
+    print("cell ch above, src[0] shape [0] and [1] below")
     raw = np.zeros((
-        len(src), tifffile.imread(
-            src[0]).shape[0], tifffile.imread(src[0]).shape[1]))
+        len(src), tifffile.imread(src[0]).shape[0], tifffile.imread(src[0]).shape[1]))
 
     for i in range(len(src)):
         raw[i, :, :] = tifffile.imread(src[i])
 
-    pth = os.path.join(brain, "3dunet_output/pooled_cell_measures/" +
+    pth = os.path.join(brain, "lightsheet/3dunet_output/pooled_cell_measures/" +
                        os.path.basename(brain)+"_cell_measures.csv")
     cells = pd.read_csv(pth)
 
@@ -123,12 +121,13 @@ def check_cell_center_to_resampled(brain, zstart, zstop, dst):
     """
     start = time.time()
 
+    cellch = os.path.join(brain, "full_sizedatafld/_ch00")
     # doing things without loading parameter dict, could become a problem
-    tifs = [xx for xx in os.listdir(brain) if xx[-4:] == ".tif"]
+    tifs = [xx for xx in os.listdir(cellch) if xx[-4:] == ".tif"]
     tifs.sort()
     raw = tifffile.imread(tifs[len(tifs)-1])
 
-    pth = os.path.join(brain, "3dunet_output/pooled_cell_measures/" +
+    pth = os.path.join(brain, "lightsheet/3dunet_output/pooled_cell_measures/" +
                        os.path.basename(brain)+"_cell_measures.csv")
     cells = pd.read_csv(pth)
 
@@ -149,21 +148,18 @@ def check_cell_center_to_resampled(brain, zstart, zstop, dst):
     resize_merged_stack(
         rbg, os.path.join(
             dst, "{}_raw_cell_centers_resized_z{}-{}.tif".format(
-                os.path.basename(brain), zstart, zstop)), "uint16", 6)
+                os.path.basename(brain), zstart, zstop)), "uint16", 20)
 
     print("%0.1f s to make merged maps for %s" % ((time.time()-start), brain))
 
 
 if __name__ == "__main__":
 
-    ids = ["z269"]
+    brain = "/jukebox/scratch/ejdennis/z269"
+    zstart = 205
+    zstop = 210
+    dst = "/jukebox/scratch/ejdennis/validation"
+    if not os.path.exists(dst):
+        os.mkdir(dst)
 
-    for i in ids:
-        brain = "/jukebox/scratch/ejdennis/"+i
-        zstart = 200
-        zstop = 205
-        dst = "/jukebox/scratch/ejdennis/validation"
-        if not os.path.exists(dst):
-            os.mkdir(dst)
-
-        check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 1)
+    check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 1)

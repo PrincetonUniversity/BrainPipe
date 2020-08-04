@@ -1,0 +1,29 @@
+Starting step 0
+outputdirectory
+['run_tracing.py', '0', '0']
+0
+
+Determined regex as (.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)
+
+*******************STEP 0**********************************
+
+609 *Complete* Zplanes found for /jukebox/LightSheetTransfer/brody/z268
+
+Checking for bad missing files:
+     Bad planes per channel:
+     {'0001': [], '0000': []}
+
+2 Channels found
+
+1x by 1y tile scan determined
+
+1 Light Sheet(s) found. 1 Horizontal Focus Determined
+
+
+USING RAW DATA
+
+Generated volume class('injch') channel('00') pth: /jukebox/LightSheetTransfer/brody/z268
+
+
+Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/z268
+
