@@ -84,10 +84,9 @@ def fill_params(
         expt_name, chkpt_num, gpus, nobn, model_fname, dset_name, tag, jobid):
 
     params = {}
-
     # Model params
-    params["in_spec"] = dict(input=(1, 20, 32, 32))
-    params["output_spec"] = collections.OrderedDict(soma=(1, 20, 32, 32))
+    params["in_spec"] = dict(input=(1, 20, 192, 192))
+    params["output_spec"] = collections.OrderedDict(cleft=(1, 20, 192, 192))
     params["width"] = [32, 40, 80]
     params["activation"] = sigmoid
     params["chkpt_num"] = chkpt_num
