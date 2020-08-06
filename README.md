@@ -92,8 +92,16 @@ module load elastix/4.8
     - Detailed instructions on steps 1-3 can be found [here](https://docs.google.com/document/d/1cuNthPY2Z-69SQi9aSwfbgJlHpvQGivhxFtOUmAKOm4/edit#)
 
 4. Run inference on whole brains
-    - on spock, make input and patched arrays
-        - in `run_tracing.py` edit the inputdirectory, outputdirectory, and check the atlas and annotation files are correct.
+**MAKE SURE YOU HAVE CHECKED that the model params are the same in run_chnk_fwd as they were when you trained the network!**
+
+e.g.
+
+    params["in_spec"] = dict(input=(1, 20, 192, 192))
+    params["output_spec"] = collections.OrderedDict(cleft=(1, 20, 192, 192))
+    params["width"] = [32, 40, 80]
+
+- on spock, make input and patched arrays
+    - in `run_tracing.py` edit the inputdirectory, outputdirectory, and check the atlas and annotation files are correct.
         - MAKE SURE you have already changed `directorydeterminer` in `tools/utils` and run step0
         - check the header for `sub_main_tracing_cnn.sh` and make sure for step1, the array job number matches your zplanes. There are 50 jobs/array, so --array=0-12 means 13 sets of 50 (650) zplanes will be run.
         - submit job to cluster using `sbatch --array=0 sub_main_tracing_cnn.sh`
