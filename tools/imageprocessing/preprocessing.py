@@ -178,14 +178,14 @@ def generateparamdict(cwd, dst=False, update=False, **kwargs):
                 regex=regex_determiner(raw, pth)
                 kwargs["regexpression"]=regex
                 sys.stdout.write("\nDetermined regex as {}\n".format(regex)); sys.stdout.flush()
-    
+
             writer(outdr, "\n*******************STEP 0**********************************\n")
-            
+
             ##update params with channeldictionary of files
             tmpdct = flatten(pth, **kwargs) if raw else zchanneldct(pth, **kwargs)
             if raw: print ("USING RAW DATA")
             if not raw: print ("Using postprocessed data (nonraw data)")
-            
+
             #make the beast
             for i in lst: ### i=["regch", "00"]
                 vol=volume(i[0])
@@ -240,7 +240,7 @@ def generateparamdict(cwd, dst=False, update=False, **kwargs):
         kwargs.update(dict([("volumes", vols)]))
         #copy cuz it works better for some reason
         kwargs.update(kwargscopy)
-    
+
         #save it
         writer(outdr, "\nParameter dictionary saved in the outputdirectory: {}\n".format(kwargs["outputdirectory"]))
         if not dst: dst = kwargs["outputdirectory"]+"/param_dict.p"
@@ -462,7 +462,7 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
     resizefactor=kwargs["resizefactor"]
     bitdepth = kwargs["bitdepth"] if "bitdepth" in kwargs else "uint16" #default to uint16 unless specified
     ####################################
-    
+
     for i, vol in enumerate(kwargs["volumes"]):
         if i==0: writer(vol.full_sizedatafld, "Processing zpln {}...".format(zpln), flnm="process.txt", verbose=verbose)
         try:
@@ -483,7 +483,7 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
         writer(vol.full_sizedatafld, "\n   completed zpln {}, channel {}, channel_type {}, nm {}".format(zpln, vol.channel, vol.ch_type, os.path.basename(vol.full_sizedatafld_vol)), flnm="process.txt", verbose=verbose)
 
     #log and return
-    writer(vol.full_sizedatafld, "\n   ...completed all volumes of zpln {}\n".format(zpln), flnm="process.txt", verbose=verbose)   
+    writer(vol.full_sizedatafld, "\n   ...completed all volumes of zpln {}\n".format(zpln), flnm="process.txt", verbose=verbose)
     return
 
 def process_planes_from_fullsizedatafolder(job, cores, compression, verbose=True, **kwargs):
@@ -496,16 +496,16 @@ def process_planes_from_fullsizedatafolder(job, cores, compression, verbose=True
         ####################################
         for vol in kwargs["volumes"]:
             fl = [xx for xx in listdirfull(vol.full_sizedatafld_vol) if "Z{}".format(zpln) in xx]
-            if len(fl) == 1: resize_save_helper(vol.outdr, kwargs["resizefactor"], vol.brainname, zpln, vol.channel, 
+            if len(fl) == 1: resize_save_helper(vol.outdr, kwargs["resizefactor"], vol.brainname, zpln, vol.channel,
                   tifffile.imread(fl[0]).astype(bitdepth), bitdepth)
     else:
         p = mp.Pool(cores)
         for vol in kwargs["volumes"]:
             fl = [xx for xx in listdirfull(vol.full_sizedatafld_vol, "tif")]; fl.sort()
             zplns = [str(job).zfill(4) for job in range(len(fl))]
-            iterlst = []; [iterlst.append((vol.outdr, kwargs["resizefactor"], vol.brainname, zpln, 
+            iterlst = []; [iterlst.append((vol.outdr, kwargs["resizefactor"], vol.brainname, zpln,
                        vol.channel, tifffile.imread(fl[i]).astype(bitdepth), bitdepth)) for i, zpln in enumerate(zplns)]
-            #parallelize    
+            #parallelize
             p.starmap(resize_save_helper, iterlst)
     return
 
@@ -513,7 +513,7 @@ def process_planes_from_fullsizedatafolder(job, cores, compression, verbose=True
 
 def process_planes_completion_checker(**kwargs):
     """Function to check to ensure each of the process_planes array jobs saved the full size stitched planes for each volume.
-    
+
     Checks for numbers and file size
     """
     kwargs = load_kwargs(**kwargs)
@@ -550,7 +550,7 @@ def process_planes_completion_checker(**kwargs):
 
 def find_outlier_files_from_size(src, deviation = 5):
     """Function to look for files that are larger or smaller(important one) based on other files" sizes
-    
+
     src = list of files
     deviation = number of deviations in file size to consider
     """
@@ -604,7 +604,7 @@ def resize_save(cores, stitchdct, outdr, resizefactor, brainname, zpln, bitdepth
     return svloc
 
 def resize_save_helper(outdr, resizefactor, brainname, zpln, ch, im, bitdepth):
-    
+
     svloc = os.path.join(outdr, brainname+"_resized_ch"+ch)
     makedir(svloc)
     if len(im.shape) == 2:  #grayscale images
@@ -621,7 +621,7 @@ def resize_save_helper(outdr, resizefactor, brainname, zpln, ch, im, bitdepth):
     return svloc
 
 def saver(cores, stitchdct, outdr, brainname, zpln, compression, bitdepth):
-    
+
     makedir(outdr)
     if cores > 1:
         try:
@@ -649,7 +649,7 @@ def stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, blndtype = False, inte
     """return numpy arrays of     """
     #easy way to set ch and zplnlst
     ["stitching for ch_{}".format(ch) for ch, zplnlst in dct.items()] #cheating way to set ch and zplnlst
-    
+
     ###dim setup
     zplnlst = dct[list(dct.keys())[0]] #changed for py37
     ydim, xdim =cv2.imread(zplnlst[0], -1).shape
@@ -1641,24 +1641,24 @@ def flatten_stitcher(cores, outdr, ovlp, xtile, ytile, zpln, dct, lightsheets, *
             raise ValueError("{}\n...This is likely due to not setting the correct 'tiling_overlap' in run_tracing.py params dictionary".format(e))
         p.terminate(); del iterlst
     stitchdct = {}; [stitchdct.update(i) for i in stitchlst]
-    
+
     return stitchdct
 ###
 
-def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp, 
+def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp,
                        tiles, alpha, yalpha, zpln, ch, zplnlst, intensitycorrection, lightsheets):
     """
     #helper function for parallelization of stitcher; this version used with raw data.
-    Currently, independent calculations for each channels mean pixel shift per tile. 
+    Currently, independent calculations for each channels mean pixel shift per tile.
     Ideally this compensates for variable photobleaching in different channels
     """
-    
+
     #list of images going Lshet01, Rsheet01, Lsheet02
     lst=[tifffile.imread("".join(im), multifile=False) for im in zplnlst] #cleaned up 201802 - if breaks change imread as float64
-    
+
     #max project HF
     if len(lst[0].shape) > 2: lst=[np.amax(xx, 0) for xx in lst]
-    
+
     #account for one or two light sheets
     if lightsheets == 2:
         l_ls_imlst=lst[:int(len(lst)/2)] #left ims
@@ -1666,7 +1666,7 @@ def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp,
         lsts=[l_ls_imlst, r_ls_imlst]
     else:
         lsts=[lst]
-    
+
     #stitch
     stitchedlst=[]
     if intensitycorrection:
@@ -1708,7 +1708,7 @@ def flatten_xystitcher(xdim, ydim, xtile, ytile, ovlp, xpxovlp, ypxovlp,
                     xyfrm=xfrm
                 ytick+=1
             stitchedlst.append(xyfrm)
-            
+
     elif not intensitycorrection:
         for lst in lsts:
             warnings.warn("depreciated", DeprecationWarning)
