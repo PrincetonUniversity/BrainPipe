@@ -1,0 +1,1394 @@
+step 1
+Have 662 planes to upload
+TIFFFillStrip: Read error on strip 0; got 270 bytes, expected 17358324.
+TIFFFillStrip: Read error on strip 0; got 270 bytes, expected 17358324.
+Processing slice z= 1
+success
+Processing slice z= 10
+success
+Processing slice z= 18
+success
+Processing slice z= 28
+success
+Processing slice z= 32
+success
+Processing slice z= 40
+success
+Processing slice z= 49
+success
+Processing slice z= 62
+success
+Processing slice z= 69
+success
+Processing slice z= 76
+success
+Processing slice z= 86
+success
+Processing slice z= 95
+success
+Processing slice z= 103
+success
+Processing slice z= 111
+success
+Processing slice z= 119
+success
+Processing slice z= 126
+success
+Processing slice z= 134
+success
+Processing slice z= 140
+success
+Processing slice z= 146
+success
+Processing slice z= 157
+success
+Processing slice z= 166
+success
+Processing slice z= 175
+success
+Processing slice z= 179
+success
+Processing slice z= 189
+success
+Processing slice z= 198
+success
+Processing slice z= 206
+success
+Processing slice z= 213
+success
+Processing slice z= 216
+success
+Processing slice z= 224
+success
+Processing slice z= 237
+success
+Processing slice z= 246
+success
+Processing slice z= 254
+success
+Processing slice z= 262
+success
+Processing slice z= 270
+success
+Processing slice z= 277
+success
+Processing slice z= 284
+success
+Processing slice z= 288
+success
+Processing slice z= 296
+success
+Processing slice z= 304
+success
+Processing slice z= 313
+success
+Processing slice z= 321
+success
+Processing slice z= 332
+success
+Processing slice z= 341
+success
+Processing slice z= 348
+success
+Processing slice z= 356
+success
+Processing slice z= 362
+success
+Processing slice z= 369
+success
+Processing slice z= 377
+success
+Processing slice z= 385
+success
+Processing slice z= 392
+success
+Processing slice z= 400
+success
+Processing slice z= 406
+success
+Processing slice z= 414
+success
+Processing slice z= 423
+success
+Processing slice z= 429
+success
+Processing slice z= 439
+success
+Processing slice z= 452
+success
+Processing slice z= 6
+success
+Processing slice z= 11
+success
+Processing slice z= 19
+success
+Processing slice z= 27
+success
+Processing slice z= 37
+success
+Processing slice z= 45
+success
+Processing slice z= 48
+success
+Processing slice z= 57
+success
+Processing slice z= 64
+success
+Processing slice z= 72
+success
+Processing slice z= 81
+success
+Processing slice z= 88
+success
+Processing slice z= 96
+success
+Processing slice z= 105
+success
+Processing slice z= 112
+success
+Processing slice z= 120
+success
+Processing slice z= 128
+success
+Processing slice z= 141
+success
+Processing slice z= 151
+success
+Processing slice z= 159
+success
+Processing slice z= 163
+success
+Processing slice z= 172
+success
+Processing slice z= 180
+success
+Processing slice z= 190
+success
+Processing slice z= 195
+success
+Processing slice z= 205
+success
+Processing slice z= 214
+success
+Processing slice z= 220
+success
+Processing slice z= 230
+success
+Processing slice z= 235
+success
+Processing slice z= 242
+success
+Processing slice z= 253
+success
+Processing slice z= 258
+success
+Processing slice z= 265
+success
+Processing slice z= 272
+success
+Processing slice z= 281
+success
+Processing slice z= 290
+success
+Processing slice z= 298
+success
+Processing slice z= 305
+success
+Processing slice z= 312
+success
+Processing slice z= 320
+success
+Processing slice z= 329
+success
+Processing slice z= 339
+success
+Processing slice z= 349
+success
+Processing slice z= 354
+success
+Processing slice z= 361
+success
+Processing slice z= 374
+success
+Processing slice z= 381
+success
+Processing slice z= 387
+success
+Processing slice z= 394
+success
+Processing slice z= 403
+success
+Processing slice z= 411
+success
+Processing slice z= 419
+success
+Processing slice z= 427
+success
+Processing slice z= 434
+success
+Processing slice z= 440
+Processing slice z= 447
+Processing slice z= 448
+success
+Processing slice z= 456
+success
+Processing slice z= 3
+success
+Processing slice z= 15
+success
+Processing slice z= 23
+success
+Processing slice z= 31
+success
+Processing slice z= 38
+success
+Processing slice z= 46
+success
+Processing slice z= 53
+success
+Processing slice z= 58
+success
+Processing slice z= 66
+success
+Processing slice z= 77
+success
+Processing slice z= 82
+success
+Processing slice z= 91
+success
+Processing slice z= 99
+success
+Processing slice z= 108
+success
+Processing slice z= 115
+success
+Processing slice z= 123
+success
+Processing slice z= 132
+success
+Processing slice z= 143
+success
+Processing slice z= 148
+success
+Processing slice z= 155
+success
+Processing slice z= 160
+success
+Processing slice z= 169
+success
+Processing slice z= 181
+success
+Processing slice z= 187
+success
+Processing slice z= 199
+success
+Processing slice z= 207
+success
+Processing slice z= 215
+success
+Processing slice z= 223
+success
+Processing slice z= 231
+success
+Processing slice z= 239
+success
+Processing slice z= 243
+success
+Processing slice z= 252
+success
+Processing slice z= 261
+success
+Processing slice z= 269
+success
+Processing slice z= 278
+success
+Processing slice z= 286
+success
+Processing slice z= 294
+success
+Processing slice z= 303
+success
+Processing slice z= 310
+success
+Processing slice z= 319
+success
+Processing slice z= 327
+success
+Processing slice z= 335
+success
+Processing slice z= 343
+success
+Processing slice z= 351
+success
+Processing slice z= 359
+success
+Processing slice z= 367
+success
+Processing slice z= 375
+success
+Processing slice z= 384
+success
+Processing slice z= 390
+success
+Processing slice z= 399
+success
+Processing slice z= 407
+success
+Processing slice z= 418
+success
+Processing slice z= 425
+success
+Processing slice z= 435
+success
+Processing slice z= 443
+Processing slice z= 444
+success
+Processing slice z= 455
+success
+Processing slice z= 5
+success
+Processing slice z= 13
+success
+Processing slice z= 22
+success
+Processing slice z= 25
+success
+Processing slice z= 34
+success
+Processing slice z= 43
+success
+Processing slice z= 54
+success
+Processing slice z= 63
+success
+Processing slice z= 68
+success
+Processing slice z= 74
+success
+Processing slice z= 80
+success
+Processing slice z= 89
+success
+Processing slice z= 97
+success
+Processing slice z= 104
+success
+Processing slice z= 113
+success
+Processing slice z= 121
+success
+Processing slice z= 129
+success
+Processing slice z= 142
+success
+Processing slice z= 147
+success
+Processing slice z= 153
+success
+Processing slice z= 162
+success
+Processing slice z= 173
+success
+Processing slice z= 183
+success
+Processing slice z= 191
+success
+Processing slice z= 193
+success
+Processing slice z= 202
+success
+Processing slice z= 211
+success
+Processing slice z= 221
+success
+Processing slice z= 229
+success
+Processing slice z= 236
+success
+Processing slice z= 245
+success
+Processing slice z= 251
+success
+Processing slice z= 260
+success
+Processing slice z= 266
+success
+Processing slice z= 275
+success
+Processing slice z= 283
+success
+Processing slice z= 291
+success
+Processing slice z= 297
+success
+Processing slice z= 306
+success
+Processing slice z= 315
+success
+Processing slice z= 322
+success
+Processing slice z= 328
+success
+Processing slice z= 336
+success
+Processing slice z= 344
+success
+Processing slice z= 352
+success
+Processing slice z= 360
+success
+Processing slice z= 368
+success
+Processing slice z= 376
+success
+Processing slice z= 383
+success
+Processing slice z= 393
+success
+Processing slice z= 401
+success
+Processing slice z= 408
+success
+Processing slice z= 417
+success
+Processing slice z= 421
+success
+Processing slice z= 430
+success
+Processing slice z= 437
+success
+Processing slice z= 451
+success
+Processing slice z= 459
+success
+Processing slice z= 2
+success
+Processing slice z= 8
+success
+Processing slice z= 16
+success
+Processing slice z= 24
+success
+Processing slice z= 33
+success
+Processing slice z= 42
+success
+Processing slice z= 55
+success
+Processing slice z= 56
+success
+Processing slice z= 67
+success
+Processing slice z= 78
+success
+Processing slice z= 87
+success
+Processing slice z= 94
+success
+Processing slice z= 100
+success
+Processing slice z= 109
+success
+Processing slice z= 117
+success
+Processing slice z= 127
+success
+Processing slice z= 133
+success
+Processing slice z= 138
+success
+Processing slice z= 149
+success
+Processing slice z= 158
+success
+Processing slice z= 164
+success
+Processing slice z= 171
+success
+Processing slice z= 178
+success
+Processing slice z= 184
+success
+Processing slice z= 194
+success
+Processing slice z= 201
+success
+Processing slice z= 210
+success
+Processing slice z= 219
+success
+Processing slice z= 228
+success
+Processing slice z= 238
+success
+Processing slice z= 241
+success
+Processing slice z= 249
+success
+Processing slice z= 259
+success
+Processing slice z= 267
+success
+Processing slice z= 276
+success
+Processing slice z= 285
+success
+Processing slice z= 293
+success
+Processing slice z= 302
+success
+Processing slice z= 311
+success
+Processing slice z= 318
+success
+Processing slice z= 326
+success
+Processing slice z= 334
+success
+Processing slice z= 342
+success
+Processing slice z= 350
+success
+Processing slice z= 358
+success
+Processing slice z= 366
+success
+Processing slice z= 370
+success
+Processing slice z= 378
+success
+Processing slice z= 388
+success
+Processing slice z= 396
+success
+Processing slice z= 404
+success
+Processing slice z= 413
+success
+Processing slice z= 422
+success
+Processing slice z= 431
+success
+Processing slice z= 438
+success
+Processing slice z= 449
+success
+Processing slice z= 458
+success
+Processing slice z= 7
+success
+Processing slice z= 12
+success
+Processing slice z= 20
+success
+Processing slice z= 29
+success
+Processing slice z= 36
+success
+Processing slice z= 44
+success
+Processing slice z= 51
+success
+Processing slice z= 59
+success
+Processing slice z= 65
+success
+Processing slice z= 73
+success
+Processing slice z= 83
+success
+Processing slice z= 93
+success
+Processing slice z= 102
+success
+Processing slice z= 106
+success
+Processing slice z= 116
+success
+Processing slice z= 125
+success
+Processing slice z= 135
+success
+Processing slice z= 137
+success
+Processing slice z= 145
+success
+Processing slice z= 154
+success
+Processing slice z= 167
+success
+Processing slice z= 170
+success
+Processing slice z= 177
+success
+Processing slice z= 188
+success
+Processing slice z= 196
+success
+Processing slice z= 203
+success
+Processing slice z= 208
+success
+Processing slice z= 217
+success
+Processing slice z= 226
+success
+Processing slice z= 234
+success
+Processing slice z= 244
+success
+Processing slice z= 255
+success
+Processing slice z= 263
+success
+Processing slice z= 271
+success
+Processing slice z= 279
+success
+Processing slice z= 287
+success
+Processing slice z= 295
+success
+Processing slice z= 301
+success
+Processing slice z= 309
+success
+Processing slice z= 317
+success
+Processing slice z= 325
+success
+Processing slice z= 333
+success
+Processing slice z= 338
+success
+Processing slice z= 346
+success
+Processing slice z= 357
+success
+Processing slice z= 364
+success
+Processing slice z= 371
+success
+Processing slice z= 379
+success
+Processing slice z= 386
+success
+Processing slice z= 395
+success
+Processing slice z= 402
+success
+Processing slice z= 410
+success
+Processing slice z= 415
+success
+Processing slice z= 424
+success
+Processing slice z= 433
+success
+Processing slice z= 442
+success
+Processing slice z= 454
+success
+Processing slice z= 460
+success
+Processing slice z= 0
+success
+Processing slice z= 9
+success
+Processing slice z= 17
+success
+Processing slice z= 26
+success
+Processing slice z= 35
+success
+Processing slice z= 41
+success
+Processing slice z= 52
+success
+Processing slice z= 61
+success
+Processing slice z= 71
+success
+Processing slice z= 79
+success
+Processing slice z= 84
+success
+Processing slice z= 90
+success
+Processing slice z= 98
+success
+Processing slice z= 107
+success
+Processing slice z= 114
+success
+Processing slice z= 122
+success
+Processing slice z= 131
+success
+Processing slice z= 136
+success
+Processing slice z= 144
+success
+Processing slice z= 152
+success
+Processing slice z= 161
+success
+Processing slice z= 168
+success
+Processing slice z= 176
+success
+Processing slice z= 185
+success
+Processing slice z= 192
+success
+Processing slice z= 200
+success
+Processing slice z= 209
+success
+Processing slice z= 222
+success
+Processing slice z= 227
+success
+Processing slice z= 233
+success
+Processing slice z= 247
+success
+Processing slice z= 250
+success
+Processing slice z= 257
+success
+Processing slice z= 268
+success
+Processing slice z= 273
+success
+Processing slice z= 280
+success
+Processing slice z= 289
+success
+Processing slice z= 299
+success
+Processing slice z= 307
+success
+Processing slice z= 314
+success
+Processing slice z= 324
+success
+Processing slice z= 330
+success
+Processing slice z= 337
+success
+Processing slice z= 345
+success
+Processing slice z= 355
+success
+Processing slice z= 365
+success
+Processing slice z= 372
+success
+Processing slice z= 380
+success
+Processing slice z= 391
+success
+Processing slice z= 398
+success
+Processing slice z= 409
+success
+Processing slice z= 416
+success
+Processing slice z= 426
+success
+Processing slice z= 432
+success
+Processing slice z= 441
+success
+Processing slice z= 450
+success
+Processing slice z= 457
+success
+Processing slice z= 4
+success
+Processing slice z= 14
+success
+Processing slice z= 21
+success
+Processing slice z= 30
+success
+Processing slice z= 39
+success
+Processing slice z= 47
+success
+Processing slice z= 50
+success
+Processing slice z= 60
+success
+Processing slice z= 70
+success
+Processing slice z= 75
+success
+Processing slice z= 85
+success
+Processing slice z= 92
+success
+Processing slice z= 101
+success
+Processing slice z= 110
+success
+Processing slice z= 118
+success
+Processing slice z= 124
+success
+Processing slice z= 130
+success
+Processing slice z= 139
+success
+Processing slice z= 150
+success
+Processing slice z= 156
+success
+Processing slice z= 165
+success
+Processing slice z= 174
+success
+Processing slice z= 182
+success
+Processing slice z= 186
+success
+Processing slice z= 197
+success
+Processing slice z= 204
+success
+Processing slice z= 212
+success
+Processing slice z= 218
+success
+Processing slice z= 225
+success
+Processing slice z= 232
+success
+Processing slice z= 240
+success
+Processing slice z= 248
+success
+Processing slice z= 256
+success
+Processing slice z= 264
+success
+Processing slice z= 274
+success
+Processing slice z= 282
+success
+Processing slice z= 292
+success
+Processing slice z= 300
+success
+Processing slice z= 308
+success
+Processing slice z= 316
+success
+Processing slice z= 323
+success
+Processing slice z= 331
+success
+Processing slice z= 340
+success
+Processing slice z= 347
+success
+Processing slice z= 353
+success
+Processing slice z= 363
+success
+Processing slice z= 373
+success
+Processing slice z= 382
+success
+Processing slice z= 389
+success
+Processing slice z= 397
+success
+Processing slice z= 405
+success
+Processing slice z= 412
+success
+Processing slice z= 420
+success
+Processing slice z= 428
+success
+Processing slice z= 436
+success
+Processing slice z= 445
+Processing slice z= 446
+success
+Processing slice z= 453
+success
+Processing slice z= 461
+success
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+None
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 175, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 153, in _process_chunk
+    return [fn(*args) for args in chunk]
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 153, in <listcomp>
+    return [fn(*args) for args in chunk]
+  File "make_precomputed_ls_atlas.py", line 93, in process_slice
+    image = Image.open(img_name)
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/site-packages/PIL/Image.py", line 2822, in open
+    raise IOError("cannot identify image file %r" % (filename if filename else fp))
+OSError: cannot identify image file '/jukebox/LightSheetData/brodyatlas/testing/w122_43p_low_thres/full_sizedatafld/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00_C00_Z0470.tif'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "make_precomputed_ls_atlas.py", line 140, in <module>
+    for job in executor.map(process_slice,to_upload):
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 366, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/_base.py", line 586, in result_iterator
+    yield fs.pop().result()
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/_base.py", line 425, in result
+    return self.__get_result()
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+    raise self._exception
+OSError: cannot identify image file '/jukebox/LightSheetData/brodyatlas/testing/w122_43p_low_thres/full_sizedatafld/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00_C00_Z0470.tif'
