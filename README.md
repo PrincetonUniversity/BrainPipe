@@ -25,7 +25,7 @@ $ conda create -n lightsheet python=3.7.3
 $ pip install cython futures h5py joblib matplotlib natsort numba numpy opencv-python openpyxl pandas scipy scikit-image scikit-learn seaborn SimpleITK tifffile tensorboardX torch torchvision tqdm xlrd xvfbwrapper
 ```
 
-If on a local Ubuntu machine also install elastix and xvfb, and make sure you have all boost libraries installed for DataTools:
+If on a local Ubuntu machine also install elastix, xvfb, Terastitcher, and make sure you have all boost libraries installed for DataTools:
 
 ```
 $ sudo apt-get install elastix
@@ -33,14 +33,14 @@ $ sudo apt-get install xvfb
 $ sudo apt-get install libboost-all-dev
 ```
 
-[Download](https://github.com/abria/TeraStitcher/wiki/Binary-packages) and unpack TeraStitcher
+[Download](https://github.com/abria/TeraStitcher/wiki/Binary-packages) TeraStitcher-installer. Move file to wherever you want Terastitcher to live, cd into that directory, and then:
 ```
-$ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
+$ bash TeraStitcher-Qt4-standalone-1.10.18-Linux
 ```
 * Modify Path in ~/.bashrc:
 
 ```
-export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.16.11-Linux/bin:$PATH"
+export PATH="<path/to/software>/TeraStitcher-Qt4-standalone-1.10.18-Linux/bin:$PATH"
 ```
 * Check to see if successful
 
@@ -93,12 +93,6 @@ module load elastix/4.8
 
 4. Run inference on whole brains
 **MAKE SURE YOU HAVE CHECKED that the model params are the same in run_chnk_fwd as they were when you trained the network!**
-
-e.g.
-
-    params["in_spec"] = dict(input=(1, 20, 192, 192))
-    params["output_spec"] = collections.OrderedDict(cleft=(1, 20, 192, 192))
-    params["width"] = [32, 40, 80]
 
 - on spock, make input and patched arrays
     - in `run_tracing.py` edit the inputdirectory, outputdirectory, and check the atlas and annotation files are correct.
