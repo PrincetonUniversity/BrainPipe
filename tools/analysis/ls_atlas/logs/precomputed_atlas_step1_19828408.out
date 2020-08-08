@@ -1,0 +1,56 @@
+step 1
+Have 204 planes to upload
+TIFFFillStrip: Read error on strip 0; got 270 bytes, expected 17358324.
+TIFFFillStrip: Read error on strip 0; got 270 bytes, expected 17358324.
+Processing slice z= 447
+Processing slice z= 464
+success
+Processing slice z= 469
+success
+Processing slice z= 440
+Processing slice z= 465
+success
+Processing slice z= 467
+success
+Processing slice z= 443
+Processing slice z= 463
+success
+Processing slice z= 466
+success
+Processing slice z= 470
+success
+Processing slice z= 445
+Processing slice z= 462
+success
+Processing slice z= 468
+success
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 175, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 153, in _process_chunk
+    return [fn(*args) for args in chunk]
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 153, in <listcomp>
+    return [fn(*args) for args in chunk]
+  File "make_precomputed_ls_atlas.py", line 93, in process_slice
+    image = Image.open(img_name)
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/site-packages/PIL/Image.py", line 2822, in open
+    raise IOError("cannot identify image file %r" % (filename if filename else fp))
+OSError: cannot identify image file '/jukebox/LightSheetData/brodyatlas/testing/w122_43p_low_thres/full_sizedatafld/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00_C00_Z0470.tif'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "make_precomputed_ls_atlas.py", line 140, in <module>
+    for job in executor.map(process_slice,to_upload):
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/process.py", line 366, in _chain_from_iterable_of_lists
+    for element in iterable:
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/_base.py", line 586, in result_iterator
+    yield fs.pop().result()
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/_base.py", line 432, in result
+    return self.__get_result()
+  File "/usr/people/ahoag/.conda/envs/precomputed/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+    raise self._exception
+OSError: cannot identify image file '/jukebox/LightSheetData/brodyatlas/testing/w122_43p_low_thres/full_sizedatafld/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00/w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_ch00_C00_Z0470.tif'
