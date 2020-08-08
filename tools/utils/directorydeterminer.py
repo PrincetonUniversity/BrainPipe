@@ -22,8 +22,8 @@ def directorydeterminer():
     """
     if socket.gethostname() == "spock-login.pni.princeton.edu":
         systemdirectory = "/jukebox/"
-    if socket.gethostname() == "PNI-1867vwtq2":
-        systemdirectory = "/jukebox/"
+    if socket.gethostname() == "emilyjanedennis-System-Product-Name":
+        systemdirectory = "/home/emilyjanedennis/"
     else:
         systemdirectory = "/jukebox/"
 
@@ -33,7 +33,7 @@ def directorydeterminer():
 def pth_update(item):
     """simple way to update dictionary, list, or str for local path, should be recursive for dicts
     """
-    for prefix in ["/jukebox/", "/mnt/bucket/labs/", "/home/ejdennis/", "/scratch/gpfs/ejdennis/", "/tigress/ejdennis/"]:
+    for prefix in ["/jukebox/", "/mnt/bucket/labs/", "/home/ejdennis/", "/scratch/gpfs/ejdennis/", "/tigress/ejdennis/", "/home/emilyjanedennis/"]:
         if type(item) == dict:
             for keys, values in item.items():
                 if type(values) == str:
