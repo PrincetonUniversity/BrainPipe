@@ -15,7 +15,6 @@ module load elastix/4.8
 xvfb-run python run_tracing.py 3 ${SLURM_ARRAY_TASK_ID} #run elastix; -d flag is NECESSARY for depth coding
 
 # HOW TO USE:
-# sbatch --array=0-20 sub_arrayjob.sh 
+# sbatch --array=0-20 sub_arrayjob.sh
 #sbatch --mail-type=END,FAIL      # notifications for job done & fail
 #sbatch --mail-user=email@domain.edu # send-to address
-
