@@ -155,7 +155,7 @@ def find_labels_centerofmass_cell_measures(array, start, numZSlicesPerSplit, ove
             
         #adjust z plane to accomodate chunkings
         if start!=0: df["z"] = df["z"]+(start-overlapping_planes) #only changing z based on z chunking
-    
+        df = df[(df["z depth"] > 1) & (df["no_voxels"] > 1)]    
     return df
 
 def perimeter_sphericity_voxels(src, dims = 3):
