@@ -3,8 +3,8 @@
 #SBATCH -c 4                      # number of cores
 #SBATCH -t 25                # time (minutes)
 #SBATCH --mem 48G
-#SBATCH -o /scratch/ejdennis/logs/cnn_eval_%j_%a.out        # STDOUT #add _%a to see each array job
-#SBATCH -e /scratch/ejdennis/logs/cnn_eval_%j_%a.err        # STDERR #add _%a to see each array job
+#SBATCH -o /scratch/ejdennis/cnn_eval_%j.out        # STDOUT #add _%a to see each array job
+#SBATCH -e /scratch/ejdennis/cnn_eval_%j.err        # STDERR #add _%a to see each array job
 
 
 echo "In the directory: `pwd` "
