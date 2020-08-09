@@ -90,7 +90,7 @@ def check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, resizef):
 
     for i, r in cells.iterrows():
         cell_centers[
-            r["z"]-zstart, r["y"]-5:r["y"]+5, r["x"]-5:r["x"]+5] = 50000
+            int(r["z"]-zstart), int(r["y"]-5):int(r["y"]+5), int(r["x"]-5):int(r["x"]+5)] = 50000
 
     rbg = np.stack([raw.astype(
         "uint16"), cell_centers.astype("uint16"), np.zeros_like(raw)], -1)
@@ -169,3 +169,4 @@ if __name__ == "__main__":
                         help="Step ID")
     args = parser.parse_args()
     main(**vars(args))
+
