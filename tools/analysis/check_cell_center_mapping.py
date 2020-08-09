@@ -15,7 +15,7 @@ import tifffile
 # edits for Brody lab by ejdennis Aug 2020
 
 
-def resize_merged_stack(pth, dst, dtype="uint16", resizef=20):
+def resize_merged_stack(pth, dst, dtype="uint16", resizef=10):
     """
     resize function for large image stacks using cv2
     inputs:
@@ -147,7 +147,7 @@ def check_cell_center_to_resampled(brain, zstart, zstop, dst):
     print("%0.1f s to make merged maps for %s" % ((time.time()-start), brain))
 
 def main(**args):
-    wholerange=np.arange(0,10000,5)
+    wholerange=np.arange(0,10000,1)
     print(args)
     step=args["stepid"]
     zstart=wholerange[step]
@@ -158,7 +158,7 @@ def main(**args):
     if not os.path.exists(dst):
         os.mkdir(dst)
 
-    check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 20)
+    check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 10)
 
 
 if __name__ == "__main__":

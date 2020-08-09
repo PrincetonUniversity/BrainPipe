@@ -11,9 +11,9 @@ import sys
 import shutil
 import argparse
 from tools.utils.io import load_kwargs
-from tools.conv_net.utils.functions.preprocessing.preprocess import get_dims_from_folder, make_indices, make_memmap_from_tiff_list, generate_patch, reconstruct_memmap_array_from_tif_dir
-from tools.conv_net.utils.functions.postprocessing.cell_stats import calculate_cell_measures, consolidate_cell_measures
-from tools.conv_net.utils.functions.preprocessing.check import check_patchlist_length_equals_patches
+from tools.conv_net.utils.functions.preprocess import get_dims_from_folder, make_indices, make_memmap_from_tiff_list, generate_patch, reconstruct_memmap_array_from_tif_dir
+from tools.conv_net.utils.functions.cell_stats import calculate_cell_measures, consolidate_cell_measures
+from tools.conv_net.utils.functions.check import check_patchlist_length_equals_patches
 import pandas as pd
 import numpy as np
 
