@@ -140,7 +140,7 @@ def fill_params(expt_name, stepid, jobid):
         params["inputshape"], params["stridesz"])
 
     # post-processing params
-    params["threshold"] = (0.85, 1)  # h129 = 0.6; prv = 0.85
+    params["threshold"] = (0.5, 1)  # h129 = 0.6; prv = 0.85
     params["zsplt"] = 30
     params["ovlp_plns"] = 30
 

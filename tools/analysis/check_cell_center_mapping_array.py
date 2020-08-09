@@ -142,30 +142,24 @@ def check_cell_center_to_resampled(brain, zstart, zstop, dst):
     resize_merged_stack(
         rbg, os.path.join(
             dst, "{}_raw_cell_centers_resized_z{}-{}.tif".format(
-                os.path.basename(brain), zstart, zstop)), "uint16", resizef)
+                os.path.basename(brain), zstart, zstop)), "uint16", 20)
 
     print("%0.1f s to make merged maps for %s" % ((time.time()-start), brain))
-
-def main(**args):
-    wholerange=np.arange(0,10000,5)
-    print(args)
-    step=args["stepid"]
-    zstart=wholerange[step]
-    zstop=wholerange[step+1]
-
-    brain = "/jukebox/scratch/ejdennis/z266"
-    dst = "/jukebox/scratch/ejdennis/validation"
-    if not os.path.exists(dst):
-        os.mkdir(dst)
-
-    check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 20)
 
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("arrayjob", type=int)
 
-    parser.add_argument("stepid", type=int,
-                        help="Step ID")
+
+
+#    brain = "/jukebox/scratch/ejdennis/z269"
+#    zstart = 205
+#    zstop = 210
+#    dst = "/jukebox/scratch/ejdennis/validation"
+    if not os.path.exists(dst):
+        os.mkdir(dst)
+
     args = parser.parse_args()
-    main(**vars(args))
+    check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 20)
