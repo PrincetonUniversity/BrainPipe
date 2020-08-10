@@ -72,7 +72,6 @@ def check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, resizef):
     src = [os.path.join(cellch, xx) for xx in os.listdir(cellch) if xx[-3:]
            == "tif" and int(xx[-7:-4]) in range(zstart, zstop)]
     src.sort()
-    print("cell ch above, src[0] shape [0] and [1] below")
     raw = np.zeros((
         len(src), tifffile.imread(src[0]).shape[0], tifffile.imread(src[0]).shape[1]))
 
