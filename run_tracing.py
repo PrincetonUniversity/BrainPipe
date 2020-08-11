@@ -98,7 +98,7 @@ if __name__ == "__main__":
     # get jobids from SLURM or argv
     print(sys.argv)
     stepid = int(sys.argv[1])
-    if systemdirectory != "/home/ejdennis/":
+    if systemdirectory != "/home/emilyjanedennis/":
         print(os.environ["SLURM_ARRAY_TASK_ID"])
         jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
     else:
