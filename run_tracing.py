@@ -16,7 +16,7 @@ from xvfbwrapper import Xvfb
 vdisplay = Xvfb()
 vdisplay.start()
 
-systemdirectory = directorydeterminer()
+systemdirectory = "/home/emilyjanedennis"
 
 # set paths to data
 # inputdictionary stucture: key=pathtodata value=list["xx", "##"] where
@@ -31,7 +31,7 @@ inputdictionary = {
     os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
     [["regch", "00"]],
     os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
-    [["injch", "00"]]
+    [["cellch", "00"]]
 }
 
 # Required inputs
