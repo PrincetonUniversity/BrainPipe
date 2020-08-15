@@ -1,6 +1,8 @@
 # Analysis scripts for light sheet microscopy for the Brody lab.
 
-Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from Zahra (zmd@princeton). Forked from PrincetonUniversity/BrainPipe by Tom Pisano, Zahra John D'Uva. It also includes modified scripts from ClearMapCluster and lightsheet_helper_scripts written by the same people. ClearMap Cluster is T. Pisano's parallelization to a cluster of C. Kirst's ClearMap software (https://idisco.info/clearmap/) for use on a cluster using a slurm based scheduler. Written for Python 3.7+. Modifications by Zahra M.  This is using ClearMap 1, but ClearMap2 is now available and we should move to that reasonably soon.
+Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from Zahra (zmd@princeton). Forked from PrincetonUniversity/BrainPipe by Tom Pisano, Zahra Dhanerawala, John D'Uva. It also includes modified scripts from ClearMapCluster and lightsheet_helper_scripts written by the same people. ClearMap Cluster is T. Pisano's parallelization to a cluster of C. Kirst's ClearMap software (https://idisco.info/clearmap/) for use on a cluster using a slurm based scheduler. Written for Python 3.7+. Modifications by Zahra.  
+
+This is using ClearMap 1, but ClearMap2 is now available and we should move to that reasonably soon.
 
 Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
@@ -141,10 +143,21 @@ module load elastix/4.8
 *documentation in progress*
 
 ### 2. Make an atlas
-*documentation in progress*
+- for example,
 
 ### 3. Put a brain in atlas space
 *documentation in progress*
+
+#### Use case 1: adding published atlas information to our atlas space
+One use of this can be to take an existing atlas that has parcellations of the brain and put it into our atlas space. This type of 'layer' can be visualized in Neuroglancer (see below) and also can be used to, for example, ID cell centers in different brain regions after tracing.
+
+To do this
+- get your atlas into sagittal, tiff format
+- Run step3 -
+
+#### Use case 2: putting a single experimental brain into our atlas space
+
+#### other todos  
  - visualize warping procedure
  - identify locations on images and transform to bregma coordinates
 
