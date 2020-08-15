@@ -12,7 +12,7 @@ import sys, os
 from collections import Counter
 from tools.expression_mask.mask import make_mask
 from tools.utils.io import makedir, load_kwargs
-from skimage.external import tifffile
+import tifffile
 import SimpleITK as sitk
 
 

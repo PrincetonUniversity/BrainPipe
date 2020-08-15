@@ -15,7 +15,7 @@ import SimpleITK as sitk
 import pickle
 import subprocess as sp
 from collections import Counter
-from skimage.external import tifffile
+import tifffile
 from tools.imageprocessing.preprocessing import resample_par
 from tools.imageprocessing.preprocessing import color_movie_merger
 from tools.imageprocessing.preprocessing import resample, gridcompare
