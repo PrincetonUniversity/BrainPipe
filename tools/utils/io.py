@@ -17,7 +17,7 @@ import os
 import sys
 import time
 import shutil
-from skimage.external import tifffile
+import tifffile
 from skimage.exposure import rescale_intensity
 from scipy.ndimage.interpolation import zoom
 from tools.utils.directorydeterminer import directorydeterminer
