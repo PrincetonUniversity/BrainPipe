@@ -24,7 +24,7 @@ tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/schwarz
            atlasbrain_for_pra.astype("uint16"))
 
 mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/schwarz_brain_for_pra.tif"
-out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/schwarz_to_pra"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/schwarz_to_pra_test"
 if not os.path.exists(out): os.mkdir(out)
 
 param_fld = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/rat_registration_parameter_folder"

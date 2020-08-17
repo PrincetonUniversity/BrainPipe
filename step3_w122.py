@@ -11,24 +11,24 @@ from scipy.ndimage import zoom
 sys.path.append("/home/emilyjanedennis/Desktop/rat_BrainPipe/")
 from tools.registration.register import elastix_command_line_call
 
-mv = "/home/emilyjanedennis/Desktop/w122/_resized_ch00.tif"
+#mv = "/home/emilyjanedennis/Desktop/w122/w122_for_pra.tif"
 fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/median_image.tif"
 
 #need to make MRI atlas larger (~140% of atlas?) to transform to PRA
-atlasbrain = tif.imread(mv)
+#atlasbrain = tif.imread(mv)
 #atlasbrain_for_pra = tif.imread(mv)
 pra = tif.imread(fx)
-zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
-atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
+#zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
+#atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
 
-tif.imsave("/home/emilyjanedennis/Desktop/w122/w122forpra.tif",
-           atlasbrain_for_pra.astype("uint16"))
+#tif.imsave("/home/emilyjanedennis/Desktop/w122/w122forpra.tif",
+#           atlasbrain_for_pra.astype("uint16"))
 
 mv = "/home/emilyjanedennis/Desktop/w122/w122forpra.tif"
-out = "/home/emilyjanedennis/Desktop/w122/warped"
+out = "/home/emilyjanedennis/Desktop/w122/warped_newparams"
 if not os.path.exists(out): os.mkdir(out)
 
 param_fld = "/home/emilyjanedennis/Desktop/w122/parameterfolder"
 params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
-
+print(params)
 e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
