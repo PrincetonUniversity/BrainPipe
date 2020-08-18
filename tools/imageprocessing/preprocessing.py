@@ -171,14 +171,8 @@ def regex_determiner(raw, dr):
     """helper function to determine appropriate regular expression
 
     """
-    lst = [r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)",  # lavision processed
-           # lavision rawdata
-           r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)",
-           r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)",
-           # lavision NONTILING + nonraw # or r"(.*)(.*C+)(?P<ch>[0-9]{1,2})(.*)(.*Z+)(?P<z>[0-9]{1,4})(.*)(.ome.tif)"
-           r"(.*)(.*C+)(?P<ch>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)",
-           r"(.*)(.*C+)(?P<ch>[0-9]{1,2})(.*)(.*Z+)(?P<z>[0-9]{1,4})(.ome.tif)"
-           ]
+    lst = [
+        r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)"]
     # determine raw vs non
     if raw == True:
         # sorted for raw files
@@ -1474,7 +1468,7 @@ def summarycomparision(dr1, dr2, svloc, dr1search=None, dr2search=None):
             cv2.putText(badim2, "File not present for: {}".format(shortdict.keys()[
                         0][shortdict.keys()[0].rfind("/")+1:]), (10, 200), font, 1, color, 3)  # , cv2.LINE_AA)
             badim12 = np.concatenate((badim1, badim2), axis=1)
-            cv2.putText(badim12, badim[badim.rfind("DREADDs/")                                       :badim.rfind("/"+searchfor1)], (100, 535), font, 1.5, color, 2)
+            cv2.putText(badim12, badim[badim.rfind("DREADDs/"):badim.rfind("/"+searchfor1)], (100, 535), font, 1.5, color, 2)
             stack[tick, ...] = badim12
             tick += 1
     tifffile.imsave(os.path.join(svloc, dr1[dr1.rfind("/")+1:] +
