@@ -11,7 +11,7 @@ NOTE WITH CROPPING THIS DOES NOT YET HAVE AN EFFECT ON THE ANNOTATION FILE....TH
 import os, numpy as np
 from tools.utils.io import listdirfull, makedir, removedir, chunkit, writer, load_kwargs, change_bitdepth
 from tools.utils.directorydeterminer import directorydeterminer
-from skimage.external import tifffile
+import tifffile
 
 def mask_atlas(dct = None, atlasfile=None, verbose=False, **kwargs):
     '''Helper function to mask atlas.

@@ -7,7 +7,7 @@ Created on Fri Dec 23 14:11:22 2016
 """
 
 import numpy as np, SimpleITK as sitk, sys
-from skimage.external import tifffile
+import tifffile
 import itertools
 import matplotlib.pyplot as plt
 

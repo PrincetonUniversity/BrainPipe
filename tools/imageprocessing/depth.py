@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as pl
 pl.ioff() 
 import numpy as np
-from skimage.external import tifffile
+import tifffile
 from matplotlib import gridspec
 from scipy.ndimage.interpolation import zoom
 

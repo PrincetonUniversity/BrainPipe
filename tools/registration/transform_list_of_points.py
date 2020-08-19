@@ -28,7 +28,7 @@ def transform_points(src, dst, transformfiles, resample_points=False, param_dict
     param_dictionary_for_reorientation = param_dictionary for lightsheet package to use for reorientation
     """
     #load
-    src = np.load(src) if src[-3:] == "npy" else loadmat(src)["cell_centers_orig_coord"]
+    src = np.load(src) if src[-3:] == "npy" else loadmat(src)["sliding_diff_peak_find_95percentile_test20200728_all_coord"]
     
     #reorient - test to make sure this works
     if param_dictionary_for_reorientation:
