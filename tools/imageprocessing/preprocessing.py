@@ -1646,11 +1646,13 @@ def flatten(dr, **kwargs):
     # INPUTS:
     if dr == None:
         vols = kwargs["volumes"]
-        reg_vol = [xx for xx in vols if xx.ch_type == "regch"][0]
+        # reg_vol = [xx for xx in vols if xx.ch_type == "regch"][0]
+        reg_vol = [xx for xx in vols][0]
         dr = reg_vol.indr
     outdr = kwargs["outputdirectory"]
     regexpression = kwargs["regexpression"]
-    # regexpression=r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)"
+    # if rewriting, should start here - this step makes fl = paths to files with
+    # raw_DataStack or raw_RawDataStack in the given directory dr
     fl = [os.path.join(dr, f) for f in os.listdir(
         dr) if "raw_DataStack" in f or "raw_RawDataStack" in f]  # sorted for raw files
     reg = re.compile(regexpression)
