@@ -59,7 +59,7 @@ def terastitcher_wrapper(**kwargs):
     print("\nvoxel size = {}\n".format(voxel_size))
     #     
     image_dictionary=copy.deepcopy(kwargs)
-    dst = os.path.join(kwargs["outputdirectory"], "FullResolutionData")
+    dst = os.path.join(kwargs["outputdirectory"], "full_sizedatafld")
     makedir(dst)
 
     #if working with 1.1x atlas images for rat
@@ -119,8 +119,7 @@ def terastitcher_wrapper(**kwargs):
             iterlst = [copy.deepcopy(inndct) for inndct in list(jobdct.values())]
             p = mp.Pool(cores)
             outlst = p.map(terastitcher_par, iterlst)
-            p.terminate()
-    
+            p.terminate()    
         else:
             outlst = [terastitcher_par(copy.deepcopy(inndct)) for inndct in list(jobdct.values())]
         #collapse        
@@ -267,11 +266,10 @@ def terastitcher_par(inndct):
     
     #format data
     #temporary measure added by zmd to troubleshoot stitching
-    if not os.path.exists(tmp_dst):
-        make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, 
-                              lightsheet=lightsheet, final_dst=inndct["final_dst"], 
-                              transfertype=transfertype, cores=cores, scalefactor=voxel_size, 
-                              percent_overlap=percent_overlap)    
+    make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel, 
+                          lightsheet=lightsheet, final_dst=inndct["final_dst"], 
+                          transfertype=transfertype, cores=cores, scalefactor=voxel_size, 
+                          percent_overlap=percent_overlap)    
         
     try: 
         #stitch

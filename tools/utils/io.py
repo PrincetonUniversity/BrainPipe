@@ -11,7 +11,7 @@ import numpy as np
 #import dill as pickle
 import pickle
 import os, sys, time, shutil
-from skimage.external import tifffile
+import tifffile
 from skimage.exposure import rescale_intensity
 from scipy.ndimage.interpolation import zoom
 from tools.utils.directorydeterminer import directorydeterminer

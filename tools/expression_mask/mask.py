@@ -3,7 +3,7 @@ from scipy.stats import linregress
 import multiprocessing as mp
 from matplotlib import pyplot as pl
 from scipy.cluster.vq import kmeans2
-from skimage.external import tifffile
+import tifffile
 pl.ioff()
 
 #%%

@@ -10,7 +10,7 @@ import numpy as np, pandas as pd, SimpleITK as sitk
 import pickle
 import subprocess as sp
 from collections import Counter
-from skimage.external import tifffile
+import tifffile
 from tools.imageprocessing.preprocessing import resample_par, color_movie_merger, resample, gridcompare, combine_images
 from tools.imageprocessing import depth
 from tools.objectdetection.injdetect import find_site
