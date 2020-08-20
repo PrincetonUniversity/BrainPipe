@@ -7,7 +7,7 @@ Created on Tue Apr 18 13:13:33 2017
 """
 
 import os, sys, copy, shutil, numpy as np, scipy, cv2, time, SimpleITK as sitk, multiprocessing as mp
-from skimage.external import tifffile
+import tifffile
 from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
 from tools.utils.directorydeterminer import pth_update
 from tools.imageprocessing.preprocessing import flatten
@@ -96,10 +96,8 @@ def terastitcher_wrapper(**kwargs):
             
         #collapse        
         outdct = {xx[0]:[] for xx in outlst}; [outdct[xx[0]].append(xx[1]) for xx in outlst] #{final_dst, [ts_out(lls), ts_out(rls)]}
-        
         #moving to final destination
         move_images_after_stitching(outlst[0][1], volume.full_sizedatafld_vol, volume.channel)
-        
         #delete the blended pre-stitched image folder
         sys.stdout.write("\n\nDeleting blended, pre-stitched images...\n"); sys.stdout.flush()
         shutil.rmtree(dst)
