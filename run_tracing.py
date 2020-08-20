@@ -21,17 +21,15 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200818_x042_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-42-31"): 
-    [["regch", "00"]],
-os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200818_x042_1_1x_647_016na_1hfds_z10um_50msec_20povlp_13-08-56"): 
-    [["injch", "01"]]
+os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/191028_w122_tetrode_1_1x_488_555_008na_1hfds_z10um_100msec_40povlp_10-15-32"): 
+    [["regch", "00"], ["injch", "01"]]
 }
 
 ####Required inputs
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/x042"),
+"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/w122"),
 "xyz_scale": (5.91,5.91,10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.25, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
