@@ -16,7 +16,7 @@ import cv2
 import time
 import SimpleITK as sitk
 import multiprocessing as mp
-from skimage.external import tifffile
+import tifffile
 from tools.utils.io import makedir, save_kwargs, listall, load_kwargs, load_dictionary
 from tools.utils.directorydeterminer import pth_update
 from tools.imageprocessing.preprocessing import flatten
@@ -113,10 +113,8 @@ def terastitcher_wrapper(**kwargs):
         # collapse
         outdct = {xx[0]: [] for xx in outlst}
         [outdct[xx[0]].append(xx[1]) for xx in outlst]  # {final_dst, [ts_out(lls), ts_out(rls)]}
-
         # moving to final destination
         move_images_after_stitching(outlst[0][1], volume.full_sizedatafld_vol, volume.channel)
-
         # delete the blended pre-stitched image folder
         sys.stdout.write("\n\nDeleting blended, pre-stitched images...\n")
         sys.stdout.flush()
@@ -138,7 +136,6 @@ def terastitcher_wrapper(**kwargs):
             p = mp.Pool(cores)
             outlst = p.map(terastitcher_par, iterlst)
             p.terminate()
-
         else:
             outlst = [terastitcher_par(copy.deepcopy(inndct)) for inndct in list(jobdct.values())]
         # collapse
@@ -326,12 +323,13 @@ def terastitcher_par(inndct):
     cores = 1
 
     # format data
+    # temporary measure added by zmd to troubleshoot stitching
     make_folder_heirarchy(image_dictionary, dst=tmp_dst, channel=channel,
                           lightsheet=lightsheet, final_dst=inndct["final_dst"],
                           transfertype=transfertype, cores=cores, scalefactor=voxel_size,
                           percent_overlap=percent_overlap)
 
-    try:  # FIXME
+    try:
         # stitch
         call_terastitcher(src=tmp_dst, dst=inndct["ts_out"], voxel_size=voxel_size, threshold=threshold,
                           algorithm=algorithm, outbitdepth=outbitdepth, resolutions="0")
