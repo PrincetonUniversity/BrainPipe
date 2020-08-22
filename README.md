@@ -35,26 +35,26 @@ export PATH="/usr/people/pnilsadmin/TeraStitcher-Qt4=standalone-1.10.11-Linux/bi
 If on a local Ubuntu machine also install elastix, xvfb, Terastitcher, and make sure you have all boost libraries installed for DataTools:
 
 ```
-$ sudo apt-get install elastix
 $ sudo apt-get install xvfb
 $ sudo apt-get install libboost-all-dev
 ```
 
-to properly use elastix you need a few more steps - specifically you need OpenCL
+To install elastix, follow the instructions in the manual under the easy way, not the "super easy" way
 
-This was tested on a local Ubuntu 18 machine with 2 NVIDIA GeForce RTX 2070 SUPER GPUs in August 2020, these steps worked:
+if you use the 'easy way' but have a modern computer, your gcc version may be too high. For this, you'll need at least ITK 5.0. The following worked on Ubuntu 18 with two GeForce RTX 2070 SUPERs.
 
-    # clinfo is opencl
-    sudo apt install -y clinfo
-    # the next steps check and update nvidia graphics drivers
-    sudo add-apt-repository ppa:graphics-drivers/ppa
-    apt search nvidia-driver
-    # below, I chose 450 because that was the most recent driver, ID'd from the step above
-    sudo apt install nvidia-driver-450
+- made two dirs: ITK-build and elastix-build
+- added ITKSNap 5
+  file:///tmp/mozilla_emilyjanedennis0/InsightSoftwareGuide-Book1-5.1.0.pdf
+  extracted downloaded .tar.gz and .tar.bz2 files to those directories
+  in ITK-build, typed  `cmake ITK-build`
+  then `sudo make install`
+  in elastix-build, `cmake elastix-build` failed, so I went into the folder and found the CMakeFiles.txt
+  `cd elastixfolder
+  nano CMakeLists.txt`
+  and added `list( APPEND CMAKE_PREFIX_PATH "/home/emilyjanedennis/Desktop/Apps/ITK-build/" )`
 
-or follow the instructions in the manual under the easy way, not the "super easy" way
-
-final note on elastix install: if you use the 'easy way' but have a modern computer, your gcc version may be too high. For this, you'll need at least ITK 5.0
+  note: I had to remove line 76 from `elastix-5.0.0/Components/Resamplers/MyStandardResampler/elxMyStandardResampler` which referred to an  undefined type called PointType which was throwing an exception during the make install process for elastix
 
 [Download](https://github.com/abria/TeraStitcher/wiki/Binary-packages) TeraStitcher-installer. Move file to wherever you want Terastitcher to live, cd into that directory, and then:
 ```
