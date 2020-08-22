@@ -40,7 +40,9 @@ $ sudo apt-get install xvfb
 $ sudo apt-get install libboost-all-dev
 ```
 
-to properly use elastix you need a few more steps - specifically you need the OpenCL on a local Ubuntu 18 machine with 2 NVIDIA GeForce RTX 2070 SUPER GPUs in August 2020, these steps worked:
+to properly use elastix you need a few more steps - specifically you need OpenCL
+
+This was tested on a local Ubuntu 18 machine with 2 NVIDIA GeForce RTX 2070 SUPER GPUs in August 2020, these steps worked:
 
     # clinfo is opencl
     sudo apt install -y clinfo
