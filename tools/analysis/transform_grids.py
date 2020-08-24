@@ -32,10 +32,10 @@ ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
 # ann = os.path.join(src, "WHS_SD_rat_atlas_v3_annotation.tif")
 fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PMA.tif"
 
-dst = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid"
+dst = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid_last-affine"
 makedir(dst)
 
-reg = os.path.join(src, "ratmouse")
+reg = os.path.join(src, "ratmouse_afteraffine")
 a2r = [os.path.join(reg, xx) for xx in os.listdir(reg) if "Transform" in xx]
 a2r.sort()
 
