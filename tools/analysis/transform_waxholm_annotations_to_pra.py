@@ -17,7 +17,7 @@ import os
 import sys
 import time
 
-sys.path.append("/scratch/ejdennis/rat_BrainPipe")
+sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe")
 import tifffile as tif
 from tools.utils.io import makedir
 from tools.registration.register import change_interpolation_order
@@ -27,10 +27,10 @@ from scipy.ndimage.interpolation import zoom
 
 
 # setting paths
-src = "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/"
-ann = "/jukebox/brody/ejdennis/sagittal_schwarz_atlas.tif"
+src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
+ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PMA_annotation.tif"
 # ann = os.path.join(src, "WHS_SD_rat_atlas_v3_annotation.tif")
-fx = "/jukebox/LightSheetData/brodyatlas/atlas/2019_meta_atlas/median_image.tif"
+fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/median_image.tif"
 
 # need to make MRI annotation larger (~140% of atlas?) to transform to PRA
 schwarz = tif.imread(ann)
@@ -43,13 +43,15 @@ schwarz_for_pra = zoom(schwarz, (zf, yf, xf), order=1)
 
 # saved out annotation volume
 print("\nsaving zoomed volume...")
-tif.imsave(os.path.join(src, "schwarz_for_pra_reg.tif"),
+tif.imsave(os.path.join(src, "PMA_annotation_for_PRA_reg.tif"),
            schwarz_for_pra.astype("uint16"))
-reg = os.path.join(src, "schwarz_to_pra")
+
+# where are the parameter files
+reg = os.path.join(src, "mouserat")
 a2r = [os.path.join(reg, xx) for xx in os.listdir(reg) if "Transform" in xx]
 a2r.sort()
 
-dst = "/scratch/ejdennis/transformed_annotation_volume"
+dst = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/mouserat_annotation"
 makedir(dst)
 
 
@@ -70,5 +72,5 @@ for fl in transformfiles:  # Read in the file
 
 # run transformix
 transformix_command_line_call(os.path.join(
-    src, "schwarz_for_pra_reg.tif"),
+    src, "PMA_annotation_for_PRA_reg.tif"),
     dst, transformfiles[-1])
