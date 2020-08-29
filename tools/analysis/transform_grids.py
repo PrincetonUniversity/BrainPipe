@@ -28,14 +28,14 @@ from scipy.ndimage.interpolation import zoom
 
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
-ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PMA_annotation_for_PRA_reg.tif"
+ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PMA_forPRA.tif"
 # ann = os.path.join(src, "WHS_SD_rat_atlas_v3_annotation.tif")
 fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/median_image.tif"
 
-dst = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/mouserat_affine_only"
+dst = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/mouserat_transform"
 makedir(dst)
 
-reg = os.path.join(src, "mouserat_affine")
+reg = os.path.join(src, "mouserat")
 a2r = [os.path.join(reg, xx) for xx in os.listdir(reg) if "Transform" in xx]
 a2r.sort()
 
