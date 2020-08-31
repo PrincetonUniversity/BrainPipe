@@ -11,7 +11,79 @@ from scipy.ndimage import zoom
 sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/")
 from tools.registration.register import elastix_command_line_call
 
-mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/median_image.tif"
+# chon to PMA
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon-Allen-brain.tif"
+fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PMA.tif"
+
+#need to make MRI atlas larger (~140% of atlas?) to transform to PRA
+atlasbrain = tif.imread(mv)
+pra = tif.imread(fx)
+zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
+atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
+
+tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_PMA-reg.tif",
+           atlasbrain_for_pra.astype("uint16"))
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_PMA-reg.tif"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_to_PMA"
+if not os.path.exists(out): os.mkdir(out)
+
+param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
+params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+
+e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+
+# chon to PRA
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon-Allen-brain.tif"
+fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/median_image.tif"
+
+#need to make MRI atlas larger (~140% of atlas?) to transform to PRA
+atlasbrain = tif.imread(mv)
+pra = tif.imread(fx)
+zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
+atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
+
+tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_PRA-reg.tif",
+           atlasbrain_for_pra.astype("uint16"))
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_PRA-reg.tif"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_to_PRA"
+if not os.path.exists(out): os.mkdir(out)
+
+param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
+params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+
+e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+
+# chon to valdes
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon-Allen-brain.tif"
+fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_brain.tif"
+
+#need to make MRI atlas larger (~140% of atlas?) to transform to PRA
+atlasbrain = tif.imread(mv)
+pra = tif.imread(fx)
+zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
+atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
+
+tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_valdes-reg.tif",
+           atlasbrain_for_pra.astype("uint16"))
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_valdes-reg.tif"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_to_valdes"
+if not os.path.exists(out): os.mkdir(out)
+
+param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
+params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+
+e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+
+# chon to MRIr
+
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon-Allen-brain.tif"
 fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"
 
 #need to make MRI atlas larger (~140% of atlas?) to transform to PRA
@@ -20,14 +92,61 @@ pra = tif.imread(fx)
 zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
 atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
 
-tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PRA_for_waxholm.tif",
+tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_MRIr-reg.tif",
            atlasbrain_for_pra.astype("uint16"))
 
-mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PRA_for_waxholm.tif"
-out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/PRA_for_waxholm"
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_for_MRIr-reg.tif"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/Chon_to_MRIr"
 if not os.path.exists(out): os.mkdir(out)
 
 param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
 params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
 
 e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+
+# valdes to PRA
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_brain.tif"
+fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/median_image.tif"
+
+#need to make MRI atlas larger (~140% of atlas?) to transform to PRA
+atlasbrain = tif.imread(mv)
+pra = tif.imread(fx)
+zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
+atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
+
+tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_for_PRA-reg.tif",
+           atlasbrain_for_pra.astype("uint16"))
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_for_PRA-reg.tif"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_to_PRA"
+if not os.path.exists(out): os.mkdir(out)
+
+param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
+params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+
+e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+
+# valdes to MRIr
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_brain.tif"
+fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"
+
+#need to make MRI atlas larger (~140% of atlas?) to transform to PRA
+atlasbrain = tif.imread(mv)
+pra = tif.imread(fx)
+zf,yf,xf = (pra.shape[0]/atlasbrain.shape[0])*1.4, (pra.shape[1]/atlasbrain.shape[1])*1.4, (pra.shape[2]/atlasbrain.shape[2])*1.4
+atlasbrain_for_pra = zoom(atlasbrain, (zf,yf,xf), order = 1)
+
+tif.imsave("/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_for_MRIr-reg.tif",
+           atlasbrain_for_pra.astype("uint16"))
+
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_for_MRIr-reg.tif"
+out = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/valdes-hernandes_to_MRIr"
+if not os.path.exists(out): os.mkdir(out)
+
+param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
+params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+
+e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+
