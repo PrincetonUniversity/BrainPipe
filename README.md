@@ -41,7 +41,7 @@ $ sudo apt-get install libboost-all-dev
 
 To install elastix, follow the instructions in the manual under the easy way, not the "super easy" way
 
-if you use the 'easy way' but have a modern computer, your gcc version may be too high. For this, you'll need at least ITK 5.0. The following worked on Ubuntu 18 with two GeForce RTX 2070 SUPERs.
+if you use the 'easy way' but have a modern computer, your gcc version may be too high. For this, you'll need at least ITK 5.0 which means you need to use elastix version 5, not 4.8. The following worked on Ubuntu 18 with two GeForce RTX 2070 SUPERs.
 
 - made two dirs: ITK-build and elastix-build
 - added ITKSNap 5
@@ -161,13 +161,60 @@ module load elastix/4.8
 ## Using raw lightsheet images to:
 
 ### 1. Make a stitched, whole-brain
-*documentation in progress*
+If there are errors in these steps, usually it's
+    1. regex needs to be edited
+    2. elastix isn't installed properly (try `which elastix`) or is missing from bashrc
+    3. terastitcher isn't installed properly (try `which terastitcher`) or is missing from bashrc
+**things to do before running**
+- edit run_tracing.py to poit to the appropriate directories and use the correct parameters for your imaging. especially pay attention to:
+- systemdirectory
+  - if you haven't edited directorydeterminer() appropriately, nothing will work
+- inputdictionary
+  - point to the raw images file, they should be in the format like
+    `10-50-16_UltraII_raw_RawDataStack[00 x 00]_C00_xyz-Table Z0606_UltraII Filter0000.ome.tif`
+  - if the format of your images differs, you'll need to edit the regex expression called in run_tracing (find it in tools/imageprocessing/preprocessing under `def regex_determiner`)
+  - if you have more than one channel imaged in this folder, add channels. Examples:
+    - one channel in the folder: `[["regch", "00"]]`
+    - two chhannels in the folder `[["regch", "00"], ["cellch","01"]]`
+- under params edit:
+  - outputdirectory
+        - give the path where you want things saved. I usually make it the animal's name (e.g. E001) and store temporarily in scratch `scratch/ejdennis/e001`   or more permanently ` /LightSheetData/brodyatlas/processed/e001`
+  - xyz_scale
+    - usually either (5,5,10) for data collected with the 1.3x objective or (1.63,1.63,10) if collected with the 4X objective
+  - stitchingmethod
+    - I keep this as "terastitcher"
+  - AtlasFile
+    - point to the file you want to register the brain to - usually this will be either the Waxholm MRI atlas `/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif` or our atlas
+  - annotationfile
+    - the annotation file that describes the above brain, e.g. `/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif`
+  - resizefactor
+    - usually 5 for 4x images, 3 for 1.3x images
+  - slurmjobfactor
+    - we keep this at 50, it's the number of files processed in step1 of run_tracing and slurm_files/step1.sh
+  - transfertype
+    - MAKE SURE THIS IS "copy" or else your data may get deleted, there are backups, but it's really annoying. Avoid at all costs, you can always clean up and delete things later.
+  - you'll also want to check that in the __main__ run the systemdirectory points to your use case. For example, my scripts see if I'm running locally ("/home/emilyjanedennis/")
+
+**to run**
+if on spock, *after editing run_tracing.py*, go to your rat_BrainPipe folder, and run
+    `sbatch slurm_scripts/step0.sh`
+then go to your outputdirectory (e.g. /scratch/ejdennis/e001) that you specified in run_tracing.py
+    `cd /scratch/ejdennis/e001`
+there should now be a directory called lightsheet, go there
+    `cd lightsheet`
+run the pipeline from this folder (this is useful because it allows you to keep track of the exact parameters you used to run, and also parallelize by launching jobs for different brains at once on the cluster)
+    `sbatch sub_registration.sh`
+
+That's all! If everything runs successfully, you'll end up with a param_dict.p, LogFile.txt, two new resized tiffstacks, a mostly empty folder called injections, a folder called full_sizedatafld with the individual stitched z planes for each channel, and an elastix folder with the brains warped to the atlas defined in run_tracing.py AtlasFile
 
 ### 2. Make an atlas
-- for example,
+*documentation in progress*
 
 ### 3. Put a brain in atlas space
-*documentation in progress*
+if you have already "Made a stitched whole-brain", you may already have your brain in atlas space, depending on what you specified as the AtlasFile. If you have a tiff stack and you want to register it to an atlas file, you can use `elastix_to_pra.py`
+    - change the mv to be your "moving image" (the brain tiffstack) and fx to your "fixed image" (the atlas volume)
+    - change the output directory to where you want your elastix files and newly aligned tiff saved
+   - change the outputfilename - this will be a resized mv file that is 140% the size of fx and is what is actually used for the alignment
 
 #### Use case 1: adding published atlas information to our atlas space
 One use of this can be to take an existing atlas that has parcellations of the brain and put it into our atlas space. This type of 'layer' can be visualized in Neuroglancer (see below) and also can be used to, for example, ID cell centers in different brain regions after tracing.
