@@ -208,7 +208,26 @@ run the pipeline from this folder (this is useful because it allows you to keep 
 That's all! If everything runs successfully, you'll end up with a param_dict.p, LogFile.txt, two new resized tiffstacks, a mostly empty folder called injections, a folder called full_sizedatafld with the individual stitched z planes for each channel, and an elastix folder with the brains warped to the atlas defined in run_tracing.py AtlasFile
 
 ### 2. Make an atlas
-*documentation in progress*
+If you have a group of stitched brains (e.g. e001/full_sizedatafld, e002/full_sizedatafld, and e003/full_sizedatafld), you can make an average brain for an atlas. Our rat atlas is for our lab, and therefore is made of only male (defined operationally by external genitalia) brains. However, we wanted to test our results and publish including female (similarly operationally defined) brains. Therefore we perfused, cleared, and imaged three female brains and created an atlas.
+
+To make your own atlas, use the  `rat_atlas` folder.
+  1. Edit `mk_ls_atl.sh` amd `cmpl_atl.sh` to use your preferred slurm SBATCH headings
+  2. Edit `step1_make_atlas_from_lightsheet_images`
+    - edit sys.path.append in the import section to reference your rat_BrainPipe cloned git repo
+    - main section variables:
+      - src should be where your folders (typically named by animal name, e.g. e001) live, these folders should each have full_sizedatafld folders in them
+      - dst - where you want to save things. If you have a nested structure, make sure the parent structure exists (e.g.if you want to save in /jukebox/scratch/ejdennis/female_atlas/volumes, make sure /jukebox/scratch/ejdennis/female_atlas already exists)
+      - brains should be the list of names of the brains you wish to use, corresponding to the names of the folders in dst that you want to average
+  3. Run `sbatch --array=0-2 mk_ls_atl.sh` for three brains, --array=0-9 for 10 brains, etc.
+  4. Edit `step2_compie_atlas.py`
+    - edit sys.path.append in the import section to reference your rat_BrainPipe cloned git repo
+    - edit main section variables:
+      - src - should be the same as in step2
+      - brains - should be the same as in step2
+      - output_fld - should be a *different* folder than in step2: I like to place them in the same parent folder
+      - parameterfld - this should point to a folder containing the affine/bspline transforms you want to use 
+  5.
+
 
 ### 3. Put a brain in atlas space
 if you have already "Made a stitched whole-brain", you may already have your brain in atlas space, depending on what you specified as the AtlasFile. If you have a tiff stack and you want to register it to an atlas file, you can use `elastix_to_pra.py`
