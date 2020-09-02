@@ -16,8 +16,8 @@ from xvfbwrapper import Xvfb
 vdisplay = Xvfb()
 vdisplay.start()
 
-# systemdirectory = directorydeterminer()
-systemdirectory = "/home/emilyjanedennis"
+systemdirectory = directorydeterminer()
+# systemdirectory = "/home/emilyjanedennis"
 
 # set paths to data
 # inputdictionary stucture: key=pathtodata value=list["xx", "##"] where
@@ -29,8 +29,8 @@ systemdirectory = "/home/emilyjanedennis"
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"],
 # ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary = {
-    os.path.join(systemdirectory, "LightSheetTransfer/brody/z269"):
-    [["regch", "00"], ["cellch","01"]]
+    os.path.join(systemdirectory, "LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38"):
+    [["regch", "00"]]
     # ,
     # os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
     # [["cellch", "00"]]
@@ -40,16 +40,16 @@ inputdictionary = {
 params = {
     "systemdirectory":  systemdirectory,  # don"t need to touch
     "inputdictionary": inputdictionary,  # don"t need to touch
-    "outputdirectory": os.path.join(systemdirectory, "Desktop/brains/z269"),
+    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/f002"),
     # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-    "xyz_scale": (1.63, 1.63, 3),
+    "xyz_scale": (5,5,10),
     "tiling_overlap": 0.20,  # percent overlap taken during tiling
     "stitchingmethod": "terastitcher",  # "terastitcher" or "blending"
-    # "AtlasFile": os.path.join(systemdirectory, "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
+    # "AtlasFile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
     # path to annotation file for structures
-    # "annotationfile": os.path.join(systemdirectory, "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"),
-    "AtlasFile": "home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif",
-    "annotationfile": "home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annoatation.tif",
+    # "annotationfile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"),
+    "AtlasFile": "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif",
+    "annotationfile": "/jukebox/LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annoatation.tif",
     "blendtype": "sigmoidal",  # False/None, "linear", or "sigmoidal"
     # blending between tiles, usually sigmoidal;
     # False or None for images where blending would be detrimental

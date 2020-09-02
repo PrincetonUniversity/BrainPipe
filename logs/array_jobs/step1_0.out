@@ -1,0 +1,42 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe 
+As the user: ejdennis 
+on host: spock-brody01-04 
+Cpus_allowed_list:	14-19
+Array Allocation Number: 20035001
+Array Index: 0
+outputdirectory
+['run_tracing.py', '1', '0']
+0
+Jobid=0, transfertype=copy
+
+algorithm = MIPNCC
+
+threshold = 0.7
+
+voxel size = (5, 5, 10)
+
+
+Making Folders,
+Making Folders, populating folders... populating folders...
+...finished in 5.0 minutes.
+
+
+Running Terastitcher import on 200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38 p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_ch00_right_lightsheet..../bin/sh: terastitcher: command not found
+
+...finished in 5.0 minutes.
+
+
+Running Terastitcher import on 200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38 p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_ch00_left_lightsheet..../bin/sh: terastitcher: command not found
+
+
+Blending lightsheets and moving to final dst...
+Starting blending of /jukebox/scratch/ejdennis/f001/full_sizedatafld/p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_ch00...Traceback (most recent call last):
+  File "run_tracing.py", line 144, in <module>
+    terastitcher_from_params(jobid=jobid, cores=6, **params)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/stitch.py", line 31, in terastitcher_from_params
+    terastitcher_wrapper(**kwargs)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/stitch.py", line 150, in terastitcher_wrapper
+    blend_lightsheets(flds, dst, cores)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/stitch.py", line 567, in blend_lightsheets
+    ydim0, xdim0 = sitk.GetArrayFromImage(sitk.ReadImage(listall(flds[0], keyword=".tif")[0])).shape
+IndexError: list index out of range

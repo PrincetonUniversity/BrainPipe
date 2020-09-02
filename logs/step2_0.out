@@ -1,0 +1,24 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe 
+As the user: ejdennis 
+on host: spock-brody01-04 
+Cpus_allowed_list:	25-34
+Array Allocation Number: 20035002
+Array Index: 0
+outputdirectory
+['run_tracing.py', '2', '0']
+0
+Jobid: 0,
+   loading /jukebox/scratch/ejdennis/f001/p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_resized_ch00
+
+   if memory issues with the cluster, it will happen after this line...
+
+   Traceback (most recent call last):
+  File "run_tracing.py", line 148, in <module>
+    preprocessing.tiffcombiner(jobid, cores=10, **params)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/preprocessing.py", line 1339, in tiffcombiner
+    impth = load_tif_list(vol_to_process, cores=cores, save=vol_to_process)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 457, in load_tif_list
+    inn = [xx for xx in listdirfull(inn) if 'tif' in xx and '~' not in xx]
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 382, in listdirfull
+    x, xx) for xx in os.listdir(x) if xx[0] != '.' and '~' not in xx
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/scratch/ejdennis/f001/p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_resized_ch00'

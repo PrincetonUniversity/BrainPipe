@@ -8,7 +8,7 @@ Created on Sat Nov 16 13:49:34 2019
 
 import os, tifffile, cv2, numpy as np, multiprocessing as mp, sys, shutil, subprocess as sp
 from scipy.ndimage import zoom
-sys.path.append("/jukebox/wang/zahra/python/BrainPipe")
+sys.path.append("/jukebox/scratch/ejdennis/rat_BrainPipe")
 from tools.imageprocessing.orientation import fix_orientation
 
 def listdirfull(x, keyword=False):
@@ -141,46 +141,29 @@ if __name__ == "__main__":
     print(os.environ["SLURM_ARRAY_TASK_ID"])
     jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
 
-    src = "/jukebox/LightSheetData/brodyatlas/processed"
+    src = "/jukebox/scratch/ejdennis"
 
-    brains = ["a235",
-             "a237",
-             "c223",
-             "c514",
-             "c515",
-             "c516",
-             "e106",
-             "f119",
-             "h170",
-             "k293",
-#             "h208",
-             "k281",
-             "k292",
-             "k301",
-             "k302",
-             "k303",
-             "k304",
-             "k307",
-             "w118",
-             "w128"]
+    brains = ["f001",
+             "f002",
+             "f003"]
 
     inputs = [os.path.join(src, xx+"/downsized_for_atlas.tif") for xx in brains]
 
-    output_fld = "/jukebox/LightSheetData/brodyatlas/atlas/2019_meta_atlas"
+    output_fld = "/jukebox/scratch/ejdennis/female_atlas/out"
     if not os.path.exists(output_fld): os.mkdir(output_fld)
 
-    data_fld = "/jukebox/LightSheetData/brodyatlas/atlas/2019_meta_atlas/volumes"
+    data_fld = "/jukebox/scratch/ejdennis/female_atlas/volumes"
     if not os.path.exists(data_fld): os.mkdir(data_fld)
 
     #registration to seed
-    parameterfld = "/jukebox/LightSheetData/brodyatlas/atlas/2019_meta_atlas/parameters" #start with basic affine/bspile
+    parameterfld = "/scratch/ejdennis/two_reg" #start with basic affine/bspile
     parameters = [os.path.join(parameterfld, xx) for xx in os.listdir(parameterfld)]
     #brain to register all other brains to
-    seed = os.path.join(data_fld, "k305.tif")
+    seed = os.path.join(data_fld, "f003.tif")
     #Location to make a memory mapped array
     memmappth = os.path.join(output_fld, "memmap.npy")
     #Location to save out our atlas (median image)
-    final_output_path = os.path.join(output_fld, "median_image.tif")
+    final_output_path = os.path.join(output_fld, "median_female_f003seed_image.tif")
 
     #run registration
     #make output folder:

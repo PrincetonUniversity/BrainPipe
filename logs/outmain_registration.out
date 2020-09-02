@@ -1,0 +1,56 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe 
+As the user: ejdennis 
+on host: spock-brody02-04 
+Cpus_allowed_list:	27
+MemTotal:       196505232 kB
+MemFree:         6806952 kB
+MemAvailable:   179169416 kB
+Buffers:            7608 kB
+Cached:         171706552 kB
+SwapCached:         1908 kB
+Active:         71012716 kB
+Inactive:       114925216 kB
+Active(anon):   13716600 kB
+Inactive(anon):   778936 kB
+Active(file):   57296116 kB
+Inactive(file): 114146280 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       8191996 kB
+SwapFree:        8175356 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:      14223784 kB
+Mapped:           229796 kB
+Shmem:            271776 kB
+Slab:            2047232 kB
+SReclaimable:    1671116 kB
+SUnreclaim:       376116 kB
+KernelStack:       19600 kB
+PageTables:        64644 kB
+NFS_Unstable:          4 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    106444612 kB
+Committed_AS:   29350196 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      774464 kB
+VmallocChunk:   34258235796 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:     10240 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      490244 kB
+DirectMap2M:    55785472 kB
+DirectMap1G:    145752064 kB
+Array Allocation Number: 
+Array Index: 
+Submitted batch job 20035000
+Submitted batch job 20035001
+Submitted batch job 20035002
+Submitted batch job 20035003

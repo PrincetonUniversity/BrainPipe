@@ -22,19 +22,19 @@ module load elastix/4.8
 . activate lightsheet
 
 #set up dictionary and save
-OUT0=$(sbatch --array=0 slurm_files/step0.sh)
+OUT0=$(sbatch --array=0 -p Brody slurm_files/step0.sh)
 echo $OUT0
 
 #process zplns, check that 1000 > zplns/slurmfactor
-OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-80 slurm_files/step1.sh)
+OUT1=$(sbatch -p Brody --dependency=afterany:${OUT0##* } --array=0-130 slurm_files/step1.sh)
 echo $OUT1
 
 #combine stacks into single tifffiles
-OUT2=$(sbatch --dependency=afterany:${OUT1##* } --array=0-3 slurm_files/step2.sh)
+OUT2=$(sbatch --dependency=afterany:${OUT1##* } -p Brody --array=0-2 slurm_files/step2.sh)
 echo $OUT2
 
 #run elastix
-OUT3=$(sbatch --dependency=afterany:${OUT2##* } --array=0-2 slurm_files/step3.sh)
+OUT3=$(sbatch --dependency=afterany:${OUT2##* } -p Brody --array=0-2 slurm_files/step3.sh)
 echo $OUT3
 
 

@@ -1,0 +1,20 @@
+outputdirectory
+['run_tracing.py', '3', '2']
+2
+Traceback (most recent call last):
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 305, in dict_update
+    with open(pth, 'rb') as pckl:
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/scratch/ejdennis/f002'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "run_tracing.py", line 151, in <module>
+    elastix_wrapper(jobid, cores=12, **params)  # run elastix
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/registration/register.py", line 40, in elastix_wrapper
+    kwargs = load_kwargs(**kwargs)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 416, in load_kwargs
+    dict_update(kwargs['outputdirectory'], old_system_directory=system_directories)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 310, in dict_update
+    with open(pth, 'rb') as pckl:
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/scratch/ejdennis/f002/param_dict.p'

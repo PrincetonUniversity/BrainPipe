@@ -8,7 +8,7 @@ Created on Sat Nov 16 13:10:18 2019
 
 import os, tifffile, cv2, numpy as np, multiprocessing as mp, sys, shutil
 from scipy.ndimage import zoom
-sys.path.append("/jukebox/wang/zahra/python/BrainPipe")
+sys.path.append("/jukebox/scratch/ejdennis/rat_BrainPipe")
 from tools.utils.io import load_kwargs
 from tools.imageprocessing.orientation import fix_orientation
 
@@ -90,29 +90,10 @@ if __name__ == "__main__":
     print(os.environ["SLURM_ARRAY_TASK_ID"])
     jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
 
-    src = "/jukebox/LightSheetData/brodyatlas/processed"
-    dst = "/jukebox/LightSheetData/brodyatlas/atlas/2019_meta_atlas/volumes"
+    src = "/jukebox/scratch/ejdennis"
+    dst = "/jukebox/scratch/ejdennis/female_atlas/volumes"
 
-    brains = ["k293"]
-#            ["a235",
-#             "a237",
-#             "c223",
-#             "c514",
-#             "c515",
-#             "c516",
-#             "e106",
-#             "f119",
-#             "h170",
-#             "h208",
-#             "k281",
-#             "k292",
-#             "k301",
-#             "k302",
-#             "k303",
-#             "k304",
-#             "k307",
-#             "w118",
-#             "w128"]
+    brains = ["f001","f002","f003"]
 
     pths = [os.path.join(src, xx) for xx in brains]
 
