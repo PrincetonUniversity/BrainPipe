@@ -5,25 +5,25 @@ outputdirectory
 
 Determined regex as (.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)
 
-*******************STEP 0**********************************
+*******************STEP 0*********************
 
-609 *Complete* Zplanes found for /jukebox/LightSheetTransfer/brody/z268
+890 *Complete* Zplanes found for /jukebox/LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38
 
 Checking for bad missing files:
      Bad planes per channel:
-     {'0001': [], '0000': []}
+     {'0000': []}
 
-2 Channels found
+1 Channels found
 
-1x by 1y tile scan determined
+2x by 2y tile scan determined
 
-1 Light Sheet(s) found. 1 Horizontal Focus Determined
+2 Light Sheet(s) found. 1 Horizontal Focus Determined
 
 
 USING RAW DATA
 
-Generated volume class('injch') channel('00') pth: /jukebox/LightSheetTransfer/brody/z268
+Generated volume class('regch') channel('00') pth: /jukebox/LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38
 
 
-Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/z268
+Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/f002
 

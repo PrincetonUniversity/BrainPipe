@@ -1,0 +1,11 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe 
+As the user: ejdennis 
+on host: spock-brody02-01 
+Cpus_allowed_list:	0-9
+Array Allocation Number: 20035002
+Array Index: 2
+outputdirectory
+['run_tracing.py', '2', '2']
+2
+jobid greater than number of channels
+

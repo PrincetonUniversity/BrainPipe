@@ -1,0 +1,27 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe 
+As the user: ejdennis 
+on host: spock-brody02-03 
+Cpus_allowed_list:	31-36
+Array Allocation Number: 20035001
+Array Index: 70
+outputdirectory
+['run_tracing.py', '1', '70']
+70
+Jobid=70, transfertype=copy
+
+algorithm = MIPNCC
+
+threshold = 0.7
+
+voxel size = (5, 5, 10)
+
+Traceback (most recent call last):
+  File "run_tracing.py", line 144, in <module>
+    terastitcher_from_params(jobid=jobid, cores=6, **params)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/stitch.py", line 31, in terastitcher_from_params
+    terastitcher_wrapper(**kwargs)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/stitch.py", line 126, in terastitcher_wrapper
+    jobdct = make_jobs(image_dictionary, jobid=jobid)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/stitch.py", line 174, in make_jobs
+    volumes = [image_dictionary["volumes"][jobid]]
+IndexError: list index out of range
