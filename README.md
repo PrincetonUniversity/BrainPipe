@@ -225,8 +225,11 @@ To make your own atlas, use the  `rat_atlas` folder.
       - src - should be the same as in step2
       - brains - should be the same as in step2
       - output_fld - should be a *different* folder than in step2: I like to place them in the same parent folder
-      - parameterfld - this should point to a folder containing the affine/bspline transforms you want to use 
-  5.
+      - parameterfld - this should point to a folder containing the affine/bspline transforms you want to use
+  5. Run `sbatch --array=0-2 cmpl_atl.sh` for three brains, --array=0-9 for 10 brains, etc.
+  6. Edit `step3_make_median.py`
+
+  7. Either locally or on the cluster head node (module load anacondapy/5.3.1), use export SLURM_ARRAY_TASK_ID=0, activate the lightsheet conda environment, and run `step3_make_median.py`
 
 
 ### 3. Put a brain in atlas space
