@@ -31,9 +31,6 @@ systemdirectory = directorydeterminer()
 inputdictionary = {
     os.path.join(systemdirectory, "LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38"):
     [["regch", "00"]]
-    # ,
-    # os.path.join(systemdirectory, "LightSheetTransfer/brody/z266"):
-    # [["cellch", "00"]]
 }
 
 # Required inputs
@@ -42,8 +39,8 @@ params = {
     "inputdictionary": inputdictionary,  # don"t need to touch
     "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/f002"),
     # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
-    "xyz_scale": (5,5,10),
-    "tiling_overlap": 0.20,  # percent overlap taken during tiling
+    "xyz_scale": (5.91, 5.91, 10),
+    "tiling_overlap": 0.25,  # percent overlap taken during tiling
     "stitchingmethod": "terastitcher",  # "terastitcher" or "blending"
     # "AtlasFile": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/WHS_SD_rat_T2star_v1.01_atlas.tif"),
     # path to annotation file for structures
@@ -57,7 +54,7 @@ params = {
     # of two towards lower - useful for images where relative intensity
     # is not important (i.e. tracing=True, cFOS=False)
     "intensitycorrection": True,
-    "resizefactor": 5,  # in x and y #normally set to 5 for 4x objective,
+    "resizefactor": 3,  # in x and y #normally set to 5 for 4x objective,
     # 3 for 1.3x obj
     "rawdata": True,  # set to true if raw data is taken from scope and
     # images need to be flattened; functionality for
@@ -73,7 +70,9 @@ params = {
     "slurmjobfactor": 50,
     # number of array iterations per arrayjob
     # since max job array on SPOCK is 1000
-    "transfertype": "copy"
+    "transfertype": "copy",
+    # for rat brains that need different reg params
+    "parameterfolder": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/rat_registration_parameter_folder")
 }
 print("outputdirectory")
 

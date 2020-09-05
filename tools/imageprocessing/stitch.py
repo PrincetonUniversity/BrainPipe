@@ -52,11 +52,10 @@ def terastitcher_wrapper(**kwargs):
     """
     # handle inputs:
     dst = kwargs["dst"] if "dst" in kwargs else False
-    voxel_size = kwargs["xyz_scale"] if "xyz_scale" in kwargs else (1.63, 1.63, 7.5)
-    percent_overlap = kwargs["tiling_overlap"] if "tiling_overlap" in kwargs else 0.1
+    voxel_size = kwargs["xyz_scale"] if "xyz_scale" in kwargs else (1.63, 1.63, 10)
+    percent_overlap = kwargs["tiling_overlap"] if "tiling_overlap" in kwargs else 0.25
     threshold = kwargs["threshold"] if "threshold" in kwargs else 0.7
     algorithm = kwargs["algorithm"] if "algorithm" in kwargs else "MIPNCC"
-    # "move"#"copy" #"move"
     transfertype = kwargs["transfertype"] if "transfertype" in kwargs else "copy"
     outbitdepth = kwargs["outbitdepth"] if "outbitdepth" in kwargs else 16
     cores = kwargs["cores"] if "cores" in kwargs else 12
@@ -85,7 +84,7 @@ def terastitcher_wrapper(**kwargs):
         sys.stdout.write("\n\nBlending lightsheets...")
         sys.stdout.flush()
         volume = volumes[jobid]
-        # gets ride of data and time stamp
+        # gets rid of data and time stamp
         dst = os.path.join(src, os.path.basename(src)[7:-9]+"_ch%s" % volume.channel)
         blend_lightsheets_pre_stitching(left, right, dst, cores)
         sys.stdout.write("...completed")
@@ -251,7 +250,7 @@ def blend_lightsheets_pre_stitching(left, right, dst, cores):
         [blend(dct) for dct in iterlst]
 
     #if cleanup: [shutil.rmtree(xx) for xx in flds]
-    sys.stdout.write("\n...finished in {} minutes.\n".format(
+    sys.stdout.write("\n...finished blend_lightsheet_pre_stitching in {} minutes.\n".format(
         np.round((time.time() - st) / 60), decimals=2))
     sys.stdout.flush()
     return
@@ -562,7 +561,7 @@ def blend_lightsheets(flds, dst, cores, cleanup=False):
     st = time.time()
     name = os.path.basename(dst)
     ch = dst[-2:]
-    sys.stdout.write("\nStarting blending of {}...".format(dst))
+    sys.stdout.write("\nStarting blend_lightsheet blending of {}...".format(dst))
     sys.stdout.flush()
     ydim0, xdim0 = sitk.GetArrayFromImage(sitk.ReadImage(listall(flds[0], keyword=".tif")[0])).shape
     ydim1, xdim1 = sitk.GetArrayFromImage(sitk.ReadImage(listall(flds[1], keyword=".tif")[0])).shape
