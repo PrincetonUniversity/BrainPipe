@@ -20,6 +20,7 @@ echo "Array Index: $SLURM_ARRAY_TASK_ID"
 module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
+export PATH="/usr/people/pnilsadmin/TeraStitcher-Qt4-standalone-1.10.11-Linux/bin:$PATH"
 
 #set up dictionary and save
 OUT0=$(sbatch --array=0 -p Brody slurm_files/step0.sh)
