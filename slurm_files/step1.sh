@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -c 6                      # number of cores
 #SBATCH -t 1000
 #SBATCH -o logs/array_jobs/step1_%a.out        # STDOUT #add _%a to see each array job
@@ -20,9 +19,10 @@ echo "Array Index: $SLURM_ARRAY_TASK_ID"
 module load anacondapy/5.3.1
 module load elastix/4.8
 . activate lightsheet
+export PATH="/usr/people/pnilsadmin/TeraStitcher-Qt4-standalone-1.10.11-Linux/bin:$PATH"
 
 xvfb-run python run_tracing.py 1 ${SLURM_ARRAY_TASK_ID} #process zplns, check that 1000 > zplns/slurmfactor
 
 # HOW TO USE:
-# sbatch --array=0-20 sub_arrayjob.sh 
-#xvfb-run --auto-servernum --server-num=1 
+# sbatch --array=0-20 sub_arrayjob.sh
+#xvfb-run --auto-servernum --server-num=1
