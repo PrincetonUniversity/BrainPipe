@@ -29,14 +29,14 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-ann = os.path.join(src, "tiffs/Chon-Paxinos-annotations-1.tif")
-fx = os.path.join(src, "tiffs/median_image.tif")
+ann = os.path.join(src, "tiffs/WHS_SD_rat_atlas_v3_annotation.tif")
+fx = os.path.join(src, "tiffs/median_female_f003seed_image.tif")
 
-reg = os.path.join(src, "transform_files/Chon_to_PRA")
+reg = os.path.join(src, "output_dirs/MRIr_to_PRAf")
 a2r = [os.path.join(reg, xx) for xx in os.listdir(reg) if "Transform" in xx]
 a2r.sort()
 
-dst = os.path.join(src,"output_dirs/Chon_1_PRA")
+dst = os.path.join(src,"output_dirs/MRIr_to_PRAf")
 makedir(dst)
 
 transformfiles = modify_transform_files(transformfiles=a2r, dst=dst)
@@ -55,6 +55,6 @@ for fl in transformfiles:  # Read in the file
 
 # run transformix
 transformix_plus_command_line_call(os.path.join(
-    src, "enlarged_tiffs/Chon-annotations_to-PRA_1.tif"),
+    src, "enlarged_tiffs/.tif"),
     dst, transformfiles[-1])
 
