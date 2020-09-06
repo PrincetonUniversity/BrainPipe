@@ -6,7 +6,7 @@
 		* jobid = controlling which the jobid (iteration) of each step
 	* Steps:
 		* 0: set up dictionary and save; requires a single job (jobid=0)
-		* 1: process (stitch, resize, etc) zplns (using tpisano lightsheet package), ensure that 1000 > zplns/slurmfactor. Typically submit 1000 jobs (jobid=0-1000)
+		* 1: process (stitch, resize, etc) zplns (using tpisano lightsheet package), ensure that 1000 > zplns/slurmfactor. Typically submit 250 jobs (jobid=0-1000)
 		* 2: resample and combine; typically submit 3 jobs (requires 1 job/channel; jobid=0-3)
 		* 3: elastix (utilizing Kirst's ClearMap; requires 1 job/channel; jobid=0-2)
 		* 4: cell detection (utilizing Kirst's ClearMap; requires ~200 jobs depending on settings; jobid=0-200)
