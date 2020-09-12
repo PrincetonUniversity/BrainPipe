@@ -14,7 +14,7 @@ from tools.registration.register import transformed_pnts_to_allen_helper_func
 from tools.registration.register import count_structure_lister
 import pickle
 from scipy.io import loadmat, savemat
-lsfld = "/jukebox/scratch/ejdennis/rat_BrainPipe"
+lsfld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe"
 sys.path.append(lsfld)
 
 
