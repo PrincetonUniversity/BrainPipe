@@ -14,45 +14,6 @@ import tifffile
 
 # edits for Brody lab by ejdennis Aug 2020
 
-
-def resize_merged_stack(pth, dst, dtype="uint16", resizef=10):
-    """
-    resize function for large image stacks using cv2
-    inputs:
-        pth = 4d stack, memmap array or numpy array
-        dst = path of tif file to save
-        dtype = default uint16
-        resizef = default 6
-    """
-    print("pth above from resize merged")
-    # read file
-
-    #read file
-    if pth[-4:] == ".tif": img = tifffile.imread(pth)
-    elif pth[-4:] == ".npy": img = np.lib.format.open_memmap(pth, dtype = dtype, mode = "r")
-    else: img = pth #if array was input
-
-    z, y, x, ch = img.shape
-    print(resizef)
-    resz_img = np.zeros((z, int(y/resizef), int(x/resizef), ch))
-    print("new y new x")
-    print(int(y/resizef))
-    print(int(x/resizef))
-    for i in range(z):
-        for j in range(ch):
-            # make the factors -
-            # have to resize both image and cell center array
-            xr = int(img[i, :, :, j].shape[1] / resizef)
-            yr = int(img[i, :, :, j].shape[0] / resizef)
-            im = cv2.resize(
-                img[i, :, :, j], (xr, yr), interpolation=cv2.INTER_LINEAR)
-            resz_img[i, :, :, j] = im.astype(dtype)
-
-    tifffile.imsave(dst, resz_img.astype(dtype))
-
-    return dst
-
-
 def check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, resizef):
     """
     maps cnn cell center coordinates to full size cell channel images
@@ -145,6 +106,44 @@ def check_cell_center_to_resampled(brain, zstart, zstop, dst):
 
     print("%0.1f s to make merged maps for %s" % ((time.time()-start), brain))
 
+def resize_merged_stack(pth, dst, dtype="uint16", resizef=10):
+    """
+    resize function for large image stacks using cv2
+    inputs:
+        pth = 4d stack, memmap array or numpy array
+        dst = path of tif file to save
+        dtype = default uint16
+        resizef = default 6
+    """
+    print("pth above from resize merged")
+    # read file
+
+    #read file
+    if pth[-4:] == ".tif": img = tifffile.imread(pth)
+    elif pth[-4:] == ".npy": img = np.lib.format.open_memmap(pth, dtype = dtype, mode = "r")
+    else: img = pth #if array was input
+
+    z, y, x, ch = img.shape
+    print(resizef)
+    resz_img = np.zeros((z, int(y/resizef), int(x/resizef), ch))
+    print("new y new x")
+    print(int(y/resizef))
+    print(int(x/resizef))
+    for i in range(z):
+        for j in range(ch):
+            # make the factors -
+            # have to resize both image and cell center array
+            xr = int(img[i, :, :, j].shape[1] / resizef)
+            yr = int(img[i, :, :, j].shape[0] / resizef)
+            im = cv2.resize(
+                img[i, :, :, j], (xr, yr), interpolation=cv2.INTER_LINEAR)
+            resz_img[i, :, :, j] = im.astype(dtype)
+
+    tifffile.imsave(dst, resz_img.astype(dtype))
+
+    return dst
+
+
 def main(**args):
     wholerange=np.arange(0,10000,1)
     print(args)
@@ -158,8 +157,8 @@ def main(**args):
         os.mkdir(dst)
 
     check_cell_center_to_fullsizedata(brain, zstart, zstop, dst, 10)
-
-
+    
+    
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=__doc__)
