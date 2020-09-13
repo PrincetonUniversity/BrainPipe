@@ -7,37 +7,14 @@ Created on Fri Apr 26 14:44:30 2019
 """
 
 #######################################
-#%%Example eroding only edges
-ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"
-new_erode_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_annotation_100um_erosion.tif"
-zyx_scale = (39,39,39)
-microns_to_erode = 100
-
-
-#NOTE THIS ESSENTIALLY SCALES PIXEL SPACE*****
-from scipy.ndimage.morphology import distance_transform_edt
-import numpy as np
-import tifffile
-ann = tifffile.imread(ann_path)
-distance_space_inside = distance_transform_edt(ann.astype('bool'), sampling=zyx_scale)*-1 #INSIDE
-distance_space_inside = np.abs(distance_space_inside)
-mask = np.copy(distance_space_inside)
-mask[distance_space_inside<=microns_to_erode] = 0
-
-#zero out edges
-eann = np.copy(ann)
-eann[mask==0]=0
-tifffile.imsave(new_erode_path, eann)
-
-#######################################
 #%%Example eroding edges and ventricles
-ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHS_SD_rat_atlas_v3_annotation.tif"
-new_erode_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/WHD_annotation_100um_edge_100um_vent_erosion.tif"
+ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHS_SD_rat_atlas_v3_annotation.tif"
+new_erode_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHD_annotation_117um_edge_194um_vent_erosion.tif"
 #get ventricles - these are the values of ventricles in the annotation image (also the same as the look up file)
 ventricle_values = [33, 125]
-ventricular_microns_to_erode = 100
-edge_microns_to_erode = 100
-zyx_scale = (20,20,20)
+ventricular_microns_to_erode = 194
+edge_microns_to_erode = 117
+zyx_scale = (39,39,39)
 
 #NOTE THIS ESSENTIALLY SCALES PIXEL SPACE*****
 import numpy as np
