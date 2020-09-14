@@ -29,16 +29,18 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-fx = os.path.join(src, "tiffs/median_image.tif")
-mv = os.path.join(src, "output_dirs/MRIr_to_PRAf_transform/result.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/PRAfMRIr_for_PRAm.tif")
+fx = os.path.join(src, "tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif")
+mv = os.path.join(src, "tiffs/sagittal_schwarz_atlas.tif")
+enlargedfilename= os.path.join(src, "enlarged_tiffs/schwarz_atlas_forMRIr.tif")
 
-dst = os.path.join(src,"output_dirs/PRAfMRIr_to_PRAm")
+dst = os.path.join(src,"output_dirs/schwarz_atlas_toMRIr")
 makedir(dst)
-transformfilepath = os.path.join(src, "transform_files/PRAf_to_PRAm")
+transformfilepath = os.path.join(src, "transform_files/schwarz_to_MRIr")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
-zf, yf, xf = (fixed.shape[0]/moving.shape[2])*1.4, (fixed.shape[1]/moving.shape[1])*1.4, (fixed.shape[2]/moving.shape[2])*1.4
+zf, yf, xf = (fixed.shape[0]/moving.shape[0])*1.4, (
+    fixed.shape[1] /
+    moving.shape[1])*1.4, (fixed.shape[2]/moving.shape[2])*1.4
 print("\nzooming...")
 moving_for_fixed = zoom(moving,(zf,yf,xf),order=0)
 
