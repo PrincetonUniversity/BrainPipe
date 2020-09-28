@@ -150,7 +150,10 @@ module load elastix/4.8
 1. Find parameters
 - See `ClearMapCluster/ parameter_sweep.ipynb`
 
-2. Run ClearMap on whole brains *documentation in progress*
+2. Run ClearMap on whole brains
+    ClearMap2 came out in the middle of this process. For us, it worked out of the box with really minor changes, and using the same parameters from parameter_sweep above, gave the same results. The script Emily used to analyze her brains can be found under ClearMapCluster > ClearMap2 > ClearMap > Scripts > CellDetect_custom.py (the complicated file structure is just mimicing the ClearMap2 repo that can be downloaded [here](https://github.com/ChristophKirst/ClearMap2))
+
+    NOTE that you'll need to change the ClearMap2 Settings file to reflect your local machine. 
 
 3. Visualize outputs *documentation in progress*
 
