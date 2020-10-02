@@ -30,12 +30,12 @@ from scipy.ndimage.interpolation import zoom
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
 fx = os.path.join(src, "tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif")
-mv = os.path.join(src, "tiffs/sagittal_schwarz_atlas.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/schwarz_atlas_forMRIr.tif")
+mv = os.path.join(src, "tiffs/SIGMA_sagittal_ann.tif")
+enlargedfilename= os.path.join(src, "enlarged_tiffs/SIGMA_ann_forMRIr.tif")
 
-dst = os.path.join(src,"output_dirs/schwarz_atlas_toMRIr")
+dst = os.path.join(src,"output_dirs/SIGMA_ann_toMRIr")
 makedir(dst)
-transformfilepath = os.path.join(src, "transform_files/schwarz_to_MRIr")
+transformfilepath = os.path.join(src, "transform_files/SIGMA_forMRIr")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 zf, yf, xf = (fixed.shape[0]/moving.shape[0])*1.4, (

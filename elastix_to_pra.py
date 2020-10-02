@@ -18,9 +18,9 @@ src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
 
 fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif"
-mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/sagittal_schwarz_brain.tif"
-outputfilename = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/enlarged_tiffs/schwarz_forMRIr.tif"
-outputdirectory = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/schwarz_forMRIr"
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/SIGMA_sagittal_brain.tif"
+outputfilename = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/enlarged_tiffs/SIGMA_sagittal_forMRIr.tif"
+outputdirectory = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/SIGMA_sagittal_forMRIr"
 
 # need to make moving larger (~140% seems to work well?) to transform to fixed
 moving = tif.imread(mv)

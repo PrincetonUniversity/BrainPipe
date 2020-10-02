@@ -29,10 +29,10 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-ann = os.path.join(src, "tiffs/WHS_SD_rat_atlas_v3_annotation.tif")
-fx = os.path.join(src, "tiffs/median_female_f003seed_image.tif")
+ann = os.path.join(src, "tiffs/SIGMA_sagittal_ann.tif")
+fx = os.path.join(src, "tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif")
 
-reg = os.path.join(src, "output_dirs/MRIr_to_PRAf")
+reg = os.path.join(src, "output_dirs/SIGMA_sagittal_forMRIr")
 a2r = [os.path.join(reg, xx) for xx in os.listdir(reg) if "Transform" in xx]
 a2r.sort()
 
