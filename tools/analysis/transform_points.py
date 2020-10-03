@@ -267,15 +267,15 @@ if __name__ == "__main__":
     # NOTE CHECK TO ENSURE ACCOUNTING FOR INPUT RESAMPLING, and ORIENTATION CHANGE*****
     # inputs
     # numpy file consiting of nx3 (ZYX points) or if .mat file structure where zyx is called "cell_centers_orig_coord"
-    src = "/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/Ex_785_Em_3/stitched/RES(7604x5720x3553)/102090/102090_120640/sliding_diff_peak_find_95percentile_test20200806_all_coord.mat"
+    #src = "/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/Ex_785_Em_3/stitched/RES(7604x5720x3553)/102090/102090_120640/sliding_diff_peak_find_95percentile_test20200806_all_coord.mat"
     # folder location to write points
-    dst = "/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/Ex_785_Em_3/cells_95percentile_test20200806"
+    #dst = "/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/Ex_785_Em_3/cells_95percentile_test20200806"
     if not os.path.exists(dst):
         os.mkdir(dst)
 
     # when marking centers in the  "raw" full sized cfos channel. This will transform those centers into "atlas" space (in this case the moving image)
     # list of all elastix transform files used, and in order of the original transform****
-    transformfiles = ["/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/elastix_inverse_transform/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
+    transformfiles = ["/elastix_inverse_transform/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
                       # this is auto = fixed image; atlas = moving image
                       "/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/elastix_inverse_transform/TransformParameters.1.txt",
                       # this is cfos = fixed image; auto = moving image
@@ -283,9 +283,9 @@ if __name__ == "__main__":
                       "/jukebox/LightSheetTransfer/kelly/2020_07_15/20200715_12_14_06_f37080_mouse2_20171015/elastix_inverse_transform/reg_to_sig785/TransformParameters.1.txt"]  # this is cfos = fixed image; auto = moving image
 
     # optional resampling between fullsized and input to elastix
-    original_dims = (5773, 7574, 3535)  # sagittal
-    resample_dims = (638, 739, 448)  # sagittal
-    resample_points = [original_dims, resample_dims]
+    #original_dims = (5773, 7574, 3535)  # sagittal
+    #resample_dims = (638, 739, 448)  # sagittal
+    #resample_points = [original_dims, resample_dims]
 
     # apply
     transform_points(src, dst, transformfiles, resample_points)
