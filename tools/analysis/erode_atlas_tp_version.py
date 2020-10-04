@@ -8,13 +8,14 @@ Created on Fri Apr 26 14:44:30 2019
 
 #######################################
 #%%Example eroding edges and ventricles
-ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHS_SD_rat_atlas_v3_annotation.tif"
-new_erode_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHD_annotation_117um_edge_194um_vent_erosion.tif"
+ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/SIGMA_ann_toMRIr.tif"
+new_erode_base_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/"
 #get ventricles - these are the values of ventricles in the annotation image (also the same as the look up file)
-ventricle_values = [33, 125]
-ventricular_microns_to_erode = 194
-edge_microns_to_erode = 117
-zyx_scale = (39,39,39)
+ventricle_values = [1171,1172]
+ventricular_microns_to_erode = 90
+edge_microns_to_erode = 90
+zyx_scale = (90,90,90)
+new_erode_path = "{}SIGMA_annotation_{}um_edge_{}um_vent_erosion.tif".format(new_erode_base_path,edge_microns_to_erode, ventricular_microns_to_erode)
 
 #NOTE THIS ESSENTIALLY SCALES PIXEL SPACE*****
 import numpy as np
@@ -49,5 +50,5 @@ eann[mask==0]=0
 
 #now set anything that has been eroded to 73.0==ventricular systems
 voxs = np.where(eann != ann)
-eann[voxs] = 73.0
+eann[voxs] = 0
 tifffile.imsave(new_erode_path, eann)
