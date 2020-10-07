@@ -17,14 +17,11 @@ from tools.registration.register import elastix_command_line_call
 #have MRIr to z265, z268_01 z269_01
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
-outputdirectory_base = os.path.join(src,"output_dirs/MRIr_to_")
-mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif"
+outputdirectory_base = os.path.join(src,"output_dirs/z269_ch01_to_z269_ch00")
+mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/enlarged_tiffs/z269_ch01_resized_forMRIr.tif"
 moving = tif.imread(mv)
 
-brains = ["z266",
-        "z267",
-        "z268_ch00",
-        "z269_ch01"]
+brains = ["z268_ch00","z268_ch00"]
 
 for brain in brains:
     # need to make moving larger (~140% seems to work well?) to transform to fixed
