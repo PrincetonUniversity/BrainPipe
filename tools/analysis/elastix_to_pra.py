@@ -17,23 +17,32 @@ src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 
 param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
 
-mv = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif"
-fx = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/k320_resampled.tif"
-outputfilename = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/k320_resampled.tif"
-outputdirectory = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/MRIr_to_k315_"
+# waxholm = "WHS_SD_rat_T2star_v1.01_atlas.tif"
+# PRA = "PRA.tif"
+
+
+fxtiff = "PRA_10um"
+mvtiff = "mouse_idisco_k302"
+
+fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
+mv = os.path.join(src,"tiffs/{}.tif".format(mvtiff))
+
+outputfilename = os.path.join(src,"enlarged_tiffs/{}_for_{}.tif".format(mvtiff,fxtiff))
+print(outputfilename)
+outputdirectory = os.path.join(src,"output_dirs/{}_to_{}".format(mvtiff,fxtiff))
 
 # need to make moving larger (~140% seems to work well?) to transform to fixed
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
-#zf, yf, xf = (fixed.shape[0]/moving.shape[0])*1.4, (
-#    fixed.shape[1] /
-#    moving.shape[1])*1.4, (fixed.shape[2]/moving.shape[2])*1.4
-#print("\nzooming...")
-#moving_for_fixed = zoom(moving, (zf, yf, xf), order=0,mode='nearest')
+zf, yf, xf = (fixed.shape[0]/moving.shape[0])*1.4, (
+    fixed.shape[1] /
+    moving.shape[1])*1.4, (fixed.shape[2]/moving.shape[2])*1.4
+print("\nzooming...")
+moving_for_fixed = zoom(moving, (zf, yf, xf), order=0,mode='nearest')
 
 # saved out volume
-#print("\nsaving zoomed volume...")
-#tif.imsave(outputfilename,moving_for_fixed.astype("uint16"))
+print("\nsaving zoomed volume...")
+tif.imsave(outputfilename,moving_for_fixed.astype("uint16"))
 
 
 if not os.path.exists(outputdirectory):

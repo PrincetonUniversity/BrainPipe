@@ -84,8 +84,8 @@ def create_text_file_for_elastix(src, dst):
         arr = np.load(src) if src[-3:] == "npy" else loadmat(src)["cell_centers_orig_coord"]
 
     # convert
-    stringtowrite = "\n".join(["\n".join(["{} {} {}".format(i[2], i[1], i[0])])
-                               for i in arr])  # this step converts from zyx to xyz*****
+    stringtowrite = "\n".join(["\n".join(["{} {} {}".format(i[0], i[1], i[2])])
+                               for i in arr])
 
     # write file
     sys.stdout.write("writing centers to transfomix input points text file...")
