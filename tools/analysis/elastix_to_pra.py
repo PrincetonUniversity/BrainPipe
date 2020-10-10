@@ -20,9 +20,8 @@ param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas.tif"
 # PRA = "PRA.tif"
 
-
-fxtiff = "PRA_10um"
-mvtiff = "mouse_idisco_k302"
+fxtiff = "PRA_25um"
+mvtiff = "SIGMA_sagittal_brain"
 
 fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
 mv = os.path.join(src,"tiffs/{}.tif".format(mvtiff))

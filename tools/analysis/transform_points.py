@@ -36,9 +36,6 @@ def transform_points(src, dst, transformfiles, resample_points=False):
         "all_y_coord_together"][0],
         loadmat(src)["all_x_coord_together"][0]]).T
 
-    # reorient - test to make sure this works
-    cells[:, [0, 2]] = cells[:, [2, 0]]  # horizontal to saggittal
-
     # optionally resample points
     if resample_points:
         original_dims, resample_dims = resample_points
