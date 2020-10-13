@@ -12,7 +12,7 @@ import numpy as np
 from math import ceil
 import re, sys, os, cv2, gc, shutil, random
 import pickle
-from skimage.external import tifffile
+import tifffile
 from tools.imageprocessing.preprocessing import resample_par
 from tools.registration.register import make_inverse_transform, point_transformix
 import subprocess as sp

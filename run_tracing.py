@@ -21,7 +21,7 @@ systemdirectory=directorydeterminer()
 #"injch" = channels(s) to quantify injection site
 #e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"], ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary={
-os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200820_e112_1_1x_488_016na_1hfds_z10um_50msec_20povlp_17-05-25"): 
+os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200820_e137_1_1x_488_016na_1hfds_z10um_50msec_20povlp_14-45-08"): 
     [["regch", "00"]]
 }
 
@@ -29,7 +29,7 @@ os.path.join(systemdirectory, "LightSheetData/brodyatlas/raw_data/200820_e112_1_
 params={
 "systemdirectory":  systemdirectory, #don"t need to touch
 "inputdictionary": inputdictionary, #don"t need to touch
-"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/e112"),
+"outputdirectory": os.path.join(systemdirectory, "LightSheetData/brodyatlas/processed/e137"),
 "xyz_scale": (5.91,5.91,10), #(5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
 "tiling_overlap": 0.25, #percent overlap taken during tiling
 "stitchingmethod": "terastitcher", #"terastitcher", blending see below for details
@@ -41,7 +41,7 @@ params={
 "rawdata": True, # set to true if raw data is taken from scope and images need to be flattened; functionality for rawdata =False has not been tested**
 "finalorientation":  ("2","1","0"), #Used to account for different orientation between brain and atlas. Assumes XYZ ("0","1","2) orientation. Pass strings NOT ints. "-0" = reverse the order of the xaxis. For better description see docstring from tools.imageprocessing.orientation import fix_orientation; ("2","1","0") for horizontal to sagittal, Order of operations is reversing of axes BEFORE swapping axes.
 "slurmjobfactor": 50, #number of array iterations per arrayjob since max job array on SPOCK is 1000
-"transfertype": "copy",
+"transfertype": "move",
 "parameterfolder": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/rat_registration_parameter_folder") #for rat brains that need different reg params
 }
 

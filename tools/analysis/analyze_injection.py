@@ -8,7 +8,7 @@ Created on Wed Oct 11 14:14:48 2017
 """
 
 import os, numpy as np
-from skimage.external import tifffile
+import tifffile
 import matplotlib as mpl
 from tools.imageprocessing.orientation import fix_orientation
 from tools.registration.transform import count_structure_lister, transformed_pnts_to_allen_helper_func
