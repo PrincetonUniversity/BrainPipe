@@ -3,8 +3,8 @@
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 1                      # number of cores
 #SBATCH -t 10                # time (minutes)
-#SBATCH -o /scratch/zmd/logs/smartspim_stitch_%j.out        # STDOUT #add _%a to see each array job
-#SBATCH -e /scratch/zmd/logs/smartspim_stitch_%j.err        # STDERR #add _%a to see each array job
+#SBATCH -o /scratch/ejdennis/logs/smartspim_stitch_%j.out        # STDOUT #add _%a to see each array job
+#SBATCH -e /scratch/ejdennis/logs/smartspim_stitch_%j.err        # STDERR #add _%a to see each array job
 
 echo "In the directory: `pwd` "
 echo "As the user: `whoami` "
@@ -38,6 +38,3 @@ echo $OUT3
 
 #functionality
 #go to smartspim_pipeline folder and type sbatch spim_stitch.sh [path to terstitcher folder hierarchy] [destination of stitched directory]
-
-
-

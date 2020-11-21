@@ -3,8 +3,8 @@
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 12                      # number of cores
 #SBATCH -t 600
-#SBATCH -o /scratch/zmd/logs/smartspim_reg_%j.out        # STDOUT #add _%a to see each array job
-#SBATCH -e /scratch/zmd/logs/smartspim_reg_%j.err        # STDERR #add _%a to see each array job
+#SBATCH -o /scratch/ejdennis/logs/smartspim_reg_%j.out        # STDOUT #add _%a to see each array job
+#SBATCH -e /scratch/ejdennis/logs/smartspim_reg_%j.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
 #SBATCH --mem 80000
 

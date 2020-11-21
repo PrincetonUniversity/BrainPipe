@@ -12,13 +12,13 @@ from scipy.ndimage import zoom
 from subprocess import check_output
 
 def csv_to_dict(csv_pth):
-    """ 
+    """
     reads csv and converts to dictionary
     1st column = keys
     2nd column = values
     """
     csv_dict = {}
-    
+
     params = pd.read_csv(csv_pth, header = None)
     keys = list(params[0])
     for i,val in enumerate(params[1].values):
@@ -26,12 +26,12 @@ def csv_to_dict(csv_pth):
             csv_dict[keys[i]] = ast.literal_eval(val)
         except:
             csv_dict[keys[i]] = val
-            
+
     return csv_dict
 
 def sp_call(call):
     print(check_output(call, shell=True))
-    return 
+    return
 
 def fast_scandir(dirname):
     """ gets all folders recursively """
@@ -46,9 +46,9 @@ def resize_helper(img, dst, resizef):
     y,x = im.shape
     yr = int(y/resizef); xr = int(x/resizef)
     im = cv2.resize(im, (xr, yr), interpolation=cv2.INTER_LINEAR)
-    tif.imsave(os.path.join(dst, os.path.basename(img)), 
+    tif.imsave(os.path.join(dst, os.path.basename(img)),
                     im.astype("uint16"), compress=1)
-    
+
 def stitch(volin,xy,z,dest):
     """ call function for terastitcher """
     sp_cell("terastitcher -1 --volin=%s --ref1=x --ref2=y --ref3=z --vxl1=%d --vxl2=%d --vxl3=%d --projout=xml_import" % (volin,xy,xy,z))
@@ -57,7 +57,7 @@ def stitch(volin,xy,z,dest):
     sp_call("terastitcher --displthres --projin=%s --projout=%s --threshold=0.7" % (os.path.join(volin, "xml_displproj.xml"),os.path.join(volin, "xml_displthres.xml")))
     sp_call("terastitcher --placetiles --projin=%s --projout=%s --algorithm=MST" % (os.path.join(volin, "xml_displthres.xml"),os.path.join(volin, "xml_placetiles.xml")))
     sp_call("terastitcher --merge --projin=%s --volout=%s --imout_depth=16 --resolutions=0" % (os.path.join(volin, "xml_placetiles.xml"), dest))
-    
+
     return dest
 
 def downsize(volin,resizefactor,cores,atl):
@@ -72,8 +72,8 @@ def downsize(volin,resizefactor,cores,atl):
     p = mp.Pool(cores)
     p.starmap(resize_helper, iterlst)
     p.terminate()
-    
-    #now downsample to 140% of pma atlas
+
+    #now downsample to 140% of atlas
     imgs = [os.path.join(dst, xx) for xx in os.listdir(dst) if "tif" in xx]; imgs.sort()
     z = len(imgs)
     y,x = sitk.GetArrayFromImage(sitk.ReadImage(imgs[0])).shape
@@ -90,7 +90,7 @@ def downsize(volin,resizefactor,cores,atl):
     z,y,x = arrsag.shape
     print((z,y,x))
     print("\n**********downsizing....heavy!**********\n")
-    
+
     arrsagd = zoom(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
     tif.imsave(os.path.join(os.path.dirname(dst), "downsized_for_atlas.tif"), arrsagd.astype("uint16"))
     print("\ndeleting storage directory after making volume...\n %s" % dst)
@@ -100,14 +100,14 @@ def downsize(volin,resizefactor,cores,atl):
 def register(channel1_downsized,atl,parameterfld,channel2_downsized=None,channel3_downsized=None,
              channel4_downsized=None):
     """ perform registration and inverse registration """
-    
+
     mv = channel1_downsized
     print("\npath to downsized vol for registration to atlas: %s" % mv)
     fx = atl
     print("\npath to atlas: %s" % fx)
     out = os.path.join(os.path.dirname(src), "elastix")
     if not os.path.exists(out): os.mkdir(out)
-    
+
     params = [os.path.join(parameterfld, xx) for xx in os.listdir(parameterfld)]
     #run
     e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
@@ -117,10 +117,10 @@ def register(channel1_downsized,atl,parameterfld,channel2_downsized=None,channel
         print("\nCell channel specified: %s" % cell)
         mv = os.path.join(src, cell+"/downsized_for_atlas.tif")
         fx = os.path.join(src, reg+"/downsized_for_atlas.tif")
-        
+
         out = os.path.join(src, "elastix/%s_to_%s" % (cell, reg))
         if not os.path.exists(out): os.mkdir(out)
-        
+
         params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
         #run
         e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
