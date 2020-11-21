@@ -22,11 +22,11 @@ def resize_helper(img, dst, resizef):
     y,x = im.shape
     yr = int(y/resizef); xr = int(x/resizef)
     im = cv2.resize(im, (xr, yr), interpolation=cv2.INTER_LINEAR)
-    tif.imsave(os.path.join(dst, os.path.basename(img)), 
+    tif.imsave(os.path.join(dst, os.path.basename(img)),
                     im.astype("uint16"), compress=1)
 
 if __name__ == "__main__":
-    
+
     #takes 1 command line args
     print(sys.argv)
     src=str(sys.argv[1]) #folder to main image folder
@@ -43,13 +43,13 @@ if __name__ == "__main__":
     p = mp.Pool(12)
     p.starmap(resize_helper, iterlst)
     p.terminate()
-    
+
     #now downsample to 140% of pma atlas
     imgs = [os.path.join(dst, xx) for xx in os.listdir(dst) if "tif" in xx]; imgs.sort()
     z = len(imgs)
     y,x = sitk.GetArrayFromImage(sitk.ReadImage(imgs[0])).shape
     arr = np.zeros((z,y,x))
-    atlpth = "/jukebox/LightSheetTransfer/atlas/allen_atlas/average_template_25_sagittal_forDVscans.tif"
+    atlpth = "/jukebox/brody/ejdennis/lightsheet/PRA_25.tif" #rat_specific
     atl = sitk.GetArrayFromImage(sitk.ReadImage(atlpth))
     atlz,atly,atlx = atl.shape #get shape, sagittal
     #read all the downsized images
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     z,y,x = arrsag.shape
     print((z,y,x))
     print("\n**********downsizing....heavy!**********\n")
-    
+
     arrsagd = zoom(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
     tif.imsave(os.path.join(os.path.dirname(dst), "downsized_for_atlas.tif"), arrsagd.astype("uint16"))
     print("\ndeleting storage directory after making volume...\n %s" % dst)

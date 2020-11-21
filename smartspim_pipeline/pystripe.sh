@@ -2,9 +2,9 @@
 #
 #SBATCH -p all                # partition (queue)
 #SBATCH -c 12                 # number of cores
-#SBATCH -t 200                 # number of minutes 
-#SBATCH -o /scratch/zmd/logs/spim_pystripe_%j.out        # STDOUT #add _%a to see each array job
-#SBATCH -e /scratch/zmd/logs/spim_pystripe_%j.err        # STDERR #add _%a to see each array job
+#SBATCH -t 200                 # number of minutes
+#SBATCH -o /scratch/ejdennis/logs/spim_pystripe_%j.out        # STDOUT #add _%a to see each array job
+#SBATCH -e /scratch/ejdennis/logs/spim_pystripe_%j.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
 #SBATCH --mem 25000                      #RAM (MBs)- 25GBS
 
