@@ -1,8 +1,8 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
+#SBATCH -p Brody                # partition (queue)
 #SBATCH -c 12                      # number of cores
-#SBATCH -t 10
+#SBATCH -t 2:00:00
 #SBATCH -o /scratch/ejdennis/logs/smartspim_downsize_%j.out        # STDOUT #add _%a to see each array job
 #SBATCH -e /scratch/ejdennis/logs/smartspim_downsize_%j.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous

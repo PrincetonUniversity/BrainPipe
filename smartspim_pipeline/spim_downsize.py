@@ -29,13 +29,25 @@ if __name__ == "__main__":
 
     #takes 1 command line args
     print(sys.argv)
+    animal=sys.argv[4]
+
     src=str(sys.argv[1]) #folder to main image folder
-    pth = fast_scandir(src)[-1] #gets to the end of directory tree
+    osinfo = fast_scandir(src)
+    for xx in osinfo:
+        if "correct" in xx:
+            pth = os.path.join(src,xx)
     print("\nPath to stitched images: %s\n" % pth)
+
+    svpth=os.path.join("/scratch/ejdennis/spimout",sys.argv[4)
+
     #path to store downsized images
-    dst = os.path.join(os.path.dirname(src), "downsized")
+    dst = os.path.join(svpth,"downsized")
     print("\nPath to storage directory: %s\n\n" % dst)
+
     if not os.path.exists(dst): os.mkdir(dst)
+    if not os.path.exists(os.path.join(dst,sys.argv[2]))
+    if not os.path.exists(os.path.join(dst,sys.argv[3]))
+
     imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
     z = len(imgs)
     resizef = 5 #factor to downsize imgs by
