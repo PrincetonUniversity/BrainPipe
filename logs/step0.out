@@ -7,23 +7,17 @@ Determined regex as (.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z
 
 *******************STEP 0*********************
 
-890 *Complete* Zplanes found for /jukebox/LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38
+0 *Complete* Zplanes found for /jukebox/LightSheetData/brodyatlas/raw_data/200824_k321_1_1x_488_016na_1hfds_z10um_50msec_20povlp_12-15-07/
 
 Checking for bad missing files:
      Bad planes per channel:
      {'0000': []}
 
-1 Channels found
-
-2x by 2y tile scan determined
-
-2 Light Sheet(s) found. 1 Horizontal Focus Determined
-
-
-USING RAW DATA
-
-Generated volume class('regch') channel('00') pth: /jukebox/LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38
-
-
-Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/f002
-
+Traceback (most recent call last):
+  File "run_tracing.py", line 119, in <module>
+    preprocessing.generateparamdict(os.getcwd(), **params)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/preprocessing.py", line 242, in generateparamdict
+    tmpdct = flatten(pth, **kwargs) if raw else zchanneldct(pth, **kwargs)
+  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/preprocessing.py", line 1778, in flatten
+    writer(outdr, "{} Channels found\n".format(len(zdct["0001"].keys())))
+KeyError: '0001'
