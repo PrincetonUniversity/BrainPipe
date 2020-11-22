@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/jukebox/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 305, in dict_update
+    with open(pth, 'rb') as pckl:
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/LightSheetData/brodyatlas/processed/e107'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "step1_make_atlas_from_lightsheet_images.py", line 104, in <module>
+    run_downsizing(pth)
+  File "step1_make_atlas_from_lightsheet_images.py", line 44, in run_downsizing
+    kwargs = load_kwargs(pth) #note: this function specifically relies on the paramter dictionary made when processing
+  File "/jukebox/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 416, in load_kwargs
+    dict_update(kwargs['outputdirectory'], old_system_directory=system_directories)
+  File "/jukebox/scratch/ejdennis/rat_BrainPipe/tools/utils/io.py", line 310, in dict_update
+    with open(pth, 'rb') as pckl:
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/LightSheetData/brodyatlas/processed/e107/param_dict.p'

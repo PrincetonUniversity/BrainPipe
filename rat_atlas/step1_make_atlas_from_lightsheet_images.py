@@ -44,7 +44,8 @@ def run_downsizing(pth, cores = 12):
     kwargs = load_kwargs(pth) #note: this function specifically relies on the paramter dictionary made when processing
     #if you move the processed directory to another location, the paths initially saved in this dictionary will be incorrect
     #so suggest you do not move processed directories, or see the BrainPipe scripts on how to correct it if you did
-    regvol = [xx for xx in kwargs["volumes"] if xx.ch_type == "regch"][0]
+    regvol = kwargs["volumes"][0]
+    print(kwargs["volumes"])
     fszdt = regvol.full_sizedatafld_vol
     dst = os.path.join(pth, "downsized_for_atlas") #set destination for downsized planes
     if not os.path.exists(dst): os.mkdir(dst) #make dest directory
@@ -90,11 +91,10 @@ if __name__ == "__main__":
     print(os.environ["SLURM_ARRAY_TASK_ID"])
     jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
 
-    src = "/jukebox/scratch/ejdennis"
-    dst = "/jukebox/scratch/ejdennis/female_atlas/volumes"
+    src = "/jukebox/LightSheetData/brodyatlas/processed"
+    dst = "/jukebox/scratch/ejdennis/male_atlas/volumes_25"
 
-    brains = ["f001","f002","f003"]
-
+    brains = ["a235","c514","e106","f119","k304","k315","k327","c223","c515","h170","k303","k310","k320","k333"]
     pths = [os.path.join(src, xx) for xx in brains]
 
     pth = pths[jobid]

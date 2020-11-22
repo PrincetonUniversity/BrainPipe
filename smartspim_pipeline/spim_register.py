@@ -16,21 +16,26 @@ stepid = int(sys.argv[1])
 src = str(sys.argv[2]) #folder to main image folder
 reg = str(sys.argv[3]) #folder fo registration channel, e.g. Ex_488_Em_0
 try:
-    cell = str(sys.argv[4]) #folder for cell channel e.g. Ex_642_Em_2
+    cell = str(sys.argv[5]) #folder for cell channel e.g. Ex_642_Em_2
 except:
     cell = False
 try:
-    species = str(sys.argv[5]) #species to know for registration parameters
-    param_fld = "/scratch/ejdennis/rat_BrainPipe/parameterfolder" #change if using rat
+    species = str(sys.argv[6]) #species to know for registration parameters
+    param_fld = "/scratch/ejdennis/rat_registration_parameter_folder" #change if using rat
 except:
 
 try:
-    atl = str(sys.argv[6])
+    atl = str(sys.argv[7])
 except:
     atl = "/jukebox/brody/ejdennis/lightsheet/PRA_25.tif" #defaults to pma
 
 if stepid == 0:
-    mv = os.path.join(src, reg, "downsized_for_atlas.tif")
+    svpth=os.path.join("/scratch/ejdennis/spimout",sys.argv[4])
+
+    #path to store downsized images
+    dst = os.path.join(svpth,"downsized")
+
+    mv = os.path.join(dst, reg, "downsized_for_atlas.tif")
     print("\nPath to downsized vol for registration to atlas: %s" % mv)
     fx = atl
     print("\nPath to atlas: %s" % fx)

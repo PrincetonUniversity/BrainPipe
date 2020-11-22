@@ -143,27 +143,24 @@ if __name__ == "__main__":
 
     src = "/jukebox/scratch/ejdennis"
 
-    brains = ["f001",
-             "f002",
-             "f003"]
-
+    brains = ["a235","c514","e106","f119","k304","k327","c223","c515","h170","k303","k320","k333"]
     inputs = [os.path.join(src, xx+"/downsized_for_atlas.tif") for xx in brains]
 
-    output_fld = "/jukebox/scratch/ejdennis/female_atlas/out"
+    output_fld = "/jukebox/scratch/ejdennis/male_atlas/out_25"
     if not os.path.exists(output_fld): os.mkdir(output_fld)
 
-    data_fld = "/jukebox/scratch/ejdennis/female_atlas/volumes"
+    data_fld = "/jukebox/scratch/ejdennis/male_atlas/volumes_25"
     if not os.path.exists(data_fld): os.mkdir(data_fld)
 
     #registration to seed
-    parameterfld = "/scratch/ejdennis/two_reg" #start with basic affine/bspile
+    parameterfld = "/scratch/ejdennis/rat_registration_parameter_folder/" #start with basic affine/bspile
     parameters = [os.path.join(parameterfld, xx) for xx in os.listdir(parameterfld)]
     #brain to register all other brains to
-    seed = os.path.join(data_fld, "f003.tif")
+    seed = os.path.join(data_fld, "k320.tif")
     #Location to make a memory mapped array
     memmappth = os.path.join(output_fld, "memmap.npy")
     #Location to save out our atlas (median image)
-    final_output_path = os.path.join(output_fld, "median_female_f003seed_image.tif")
+    final_output_path = os.path.join(output_fld, "median_male_k320seed_image.tif")
 
     #run registration
     #make output folder:
