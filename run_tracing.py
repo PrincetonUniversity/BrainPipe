@@ -29,15 +29,17 @@ systemdirectory = directorydeterminer()
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"],
 # ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary = {
-    os.path.join(systemdirectory, "LightSheetData/lightserv/ejdennis/three_female_atlas_brains/three_female_atlas_brains-002/imaging_request_1/rawdata/200901_p002_1_1x_488_016na_1hfds_z10um_50msec_20povlp_13-47-38"):
-    [["regch", "00"]]
-}
+    "/jukebox/LightSheetData/brodyatlas/raw_data/200824_k321_1_1x_488_016na_1hfds_z10um_50msec_20povlp_12-15-07/":
+    [["regch", "00"]],
+    "/jukebox/LightSheetData/brodyatlas/raw_data/200824_k321_1_1x_488_016na_1hfds_z10um_50msec_20povlp_12-15-07/":
+    [["cellch","01"]]
+    }
 
 # Required inputs
 params = {
     "systemdirectory":  systemdirectory,  # don"t need to touch
     "inputdictionary": inputdictionary,  # don"t need to touch
-    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/f002"),
+    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/k321"),
     # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
     "xyz_scale": (5.91, 5.91, 10),
     "tiling_overlap": 0.25,  # percent overlap taken during tiling
@@ -97,6 +99,7 @@ print("outputdirectory")
 # "bitdepth":
 # "secondary_registration"
 # run scipt portions
+
 if __name__ == "__main__":
 
     # get jobids from SLURM or argv

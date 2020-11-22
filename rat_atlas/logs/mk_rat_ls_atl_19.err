@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "step1_make_atlas_from_lightsheet_images.py", line 101, in <module>
+    pth = pths[jobid]
+IndexError: list index out of range
