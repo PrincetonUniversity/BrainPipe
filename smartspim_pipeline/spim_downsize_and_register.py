@@ -18,6 +18,14 @@ sys.path.append("/scratch/ejdennis/rat_BrainPipe")
 from tools.registration.register import elastix_command_line_call
 
 
+def fast_scandir(dirname):
+    """ gets all folders recursively """
+    subfolders= [f.path for f in os.scandir(dirname) if f.is_dir()]
+    for dirname in list(subfolders):
+        subfolders.extend(fast_scandir(dirname))
+    return subfolders
+
+
 def get_folderstructure(dirname):
     folderstructure = []
     for i in os.walk(src):
@@ -26,10 +34,8 @@ def get_folderstructure(dirname):
 
 
 def downsize_folder_of_tiffs(pth, dst, atlpth):
-    subdst = os.path.join(dst, "downsized")
-    if not os.path.exists(subdst):
-        os.mkdir(subdst)
-    print("\nPath to storage directory: %s\n\n" % subdst)
+    print("\ndownsizing def with dst is %s\n" % dst)
+    print(" pth is %s " % pth)
     imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
     z = len(imgs)
     resizef = 5  # factor to downsize imgs by
@@ -39,7 +45,7 @@ def downsize_folder_of_tiffs(pth, dst, atlpth):
     p.terminate()
 
     # now downsample to 140% of pra atlas
-    imgs = [os.path.join(subdst, xx) for xx in os.listdir(subdst) if "tif" in xx]
+    imgs = [os.path.join(dst, xx) for xx in os.listdir(dst) if "tif" in xx]
     imgs.sort()
     z = len(imgs)
     y, x = sitk.GetArrayFromImage(sitk.ReadImage(imgs[0])).shape
@@ -63,7 +69,7 @@ def downsize_folder_of_tiffs(pth, dst, atlpth):
 
 
 def register_ch(cell, fx, mv, param_fld, svpth):
-        out = os.path.join(os.path.dirname(svpth), "elastix")
+        out = os.path.join(svpth, "elastix")
         if not os.path.exists(out):
             os.mkdir(out)
 
@@ -123,45 +129,47 @@ if __name__ == "__main__":
         if '488' in i:
             for j in os.listdir(os.path.join(rawdata, i)):
                 if 'corrected' in j:
-                    reg_ch = os.path.join(rawdata, i, j)
+                    reg_ch = fast_scandir(os.path.join(rawdata, i, j))[-1]
         if '64' in i:
             for j in os.listdir(os.path.join(rawdata, i)):
                 if 'corrected' in j:
-                    cell_ch = os.path.join(rawdata, i, j)
+                    cell_ch = fast_scandir(os.path.join(rawdata, i, j))[-1]
 
     print("\nrawdata folder is: %s\n" % rawdata)
     # path to store downsized images
 
     print("\ndownsizing %s \n" % os.path.join(svpth,"reg_ch"))
     downsize_folder_of_tiffs(reg_ch, os.path.join(svpth,"reg_ch"), atlpth)
+
     print("\ndownsizing %s \n" % os.path.join(svpth,"cell_ch"))
     downsize_folder_of_tiffs(cell_ch, os.path.join(svpth,"cell_ch"), atlpth)
+
     print("\n probably finished downsizing successfully \n")
 
-    print("\nregistering %s to %s" % (os.path.join(svpth,"reg_ch","downsized","downsized_for_atlas.tif"),
+    print("\nregistering %s to %s" % (os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
     atlpth))
     register_ch(0,
-                os.path.join(svpth,"reg_ch","downsized","downsized_for_atlas.tif"),
+                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
                 atlpth,
                 param_fld,
                 svpth)
     print("\n probably finished registering reg_ch to atlas successfully \n")
 
-    print("\nregistering %s to %s" % (os.path.join(svpth,"cell_ch","downsized","downsized_for_atlas.tif"),
-    os.path.join(svpth,"reg_ch","downsized","downsized_for_atlas.tif")))
+    print("\nregistering %s to %s" % (os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
+    os.path.join(svpth,"reg_ch","downsized_for_atlas.tif")))
     register_ch(1,
-                os.path.join(svpth,"cell_ch","downsized","downsized_for_atlas.tif"),
-                os.path.join(svpth,"reg_ch","downsized","downsized_for_atlas.tif"),
+                os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
+                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
                 param_fld,
                 svpth)
     print("\n probably finished registering cell_ch to reg_ch successfully \n")
 
-    print("\ninverse registering %s to %s" % (os.path.join(svpth,"reg_ch","downsized","downsized_for_atlas.tif"),
+    print("\ninverse registering %s to %s" % (os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
     atlpth))
 
     register_ch(0,
                 atlpth,
-                os.path.join(svpth,"reg_ch","downsized","downsized_for_atlas.tif"),
+                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
                 param_fld,
                 svpth)
     print("\n probably finished registering atlas to reg_ch successfully \n")
