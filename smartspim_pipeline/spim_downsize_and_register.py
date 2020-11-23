@@ -27,9 +27,9 @@ def get_folderstructure(dirname):
 
 def downsize_folder_of_tiffs(pth, dst, atlpth):
     subdst = os.path.join(dst, "downsized")
-        if not os.path.exists(subdst):
-            os.mkdir(subdst)
-        print("\nPath to storage directory: %s\n\n" % subdst)
+    if not os.path.exists(subdst):
+        os.mkdir(subdst)
+    print("\nPath to storage directory: %s\n\n" % subdst)
     imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
     z = len(imgs)
     resizef = 5  # factor to downsize imgs by
@@ -108,7 +108,10 @@ if __name__ == "__main__":
     # make sure the save path exists, if not, make it
     if not os.path.exists(svpth):
         os.mkdir(svpth)
-
+    if not os.path.exists(os.path.join(svpth,"reg_ch")):
+        os.mkdir(os.path.join(svpth,"reg_ch"))
+    if not os.path.exists(os.path.join(svpth,"cell_ch")):
+        os.mkdir(os.path.join(svpth,"cell_ch"))
     # get relevant foldernames from the structure
     for directory, subdirectories, files in get_folderstructure(src):
         if "rawdata" in directory:
