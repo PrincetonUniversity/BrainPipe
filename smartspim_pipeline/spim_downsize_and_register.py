@@ -64,11 +64,11 @@ def downsize_folder_of_tiffs(pth, dst, atlpth):
     print("\n**********downsizing....heavy!**********\n")
 
     arrsagd = zoom(arrsag, ((atlz*1.4/z), (atly*1.4/y), (atlx*1.4/x)), order=1)
-    tif.imsave(os.path.join(os.path.dirname(subdst), "downsized_for_atlas.tif"),
+    tif.imsave(os.path.join(os.path.dirname(dst), "downsized_for_atlas.tif"),
                arrsagd.astype("uint16"))
 
 
-def register_ch(cell, fx, mv, param_fld, svpth):
+def register_ch(cell,mv,fx, param_fld, svpth):
         out = os.path.join(svpth, "elastix")
         if not os.path.exists(out):
             os.mkdir(out)
