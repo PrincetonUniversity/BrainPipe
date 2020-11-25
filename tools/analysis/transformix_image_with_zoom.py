@@ -29,13 +29,13 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-fx = os.path.join(src, "tiffs/sagittal_LE_brain.tif")
-mv = os.path.join(src, "tiffs/SIGMA_sagittal_ann.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/SIGMA_ann_forLE.tif")
+fx = os.path.join(src, "tiffs/PRA_25um.tif")
+mv = os.path.join(src, "output_dirs/SIGMA_in_fPRA/result.tif")
+enlargedfilename= os.path.join(src, "enlarged_tiffs/SIGMA_fPRA_for_PRA.tif")
 
-dst = os.path.join(src,"output_dirs/SIGMA_ann_forLE")
+dst = os.path.join(src,"output_dirs/SIGMA_fPRA_in_PRA_affine")
 makedir(dst)
-transformfilepath = os.path.join(src, "output_dirs/SIGMA_to_LE")
+transformfilepath = os.path.join(src, "transform_files/ftom_wax")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 
@@ -46,7 +46,7 @@ print("\nzooming...")
 moving_for_fixed = zoom(moving,(zf,yf,xf),order=0)
 
 print("\nsaving zoomed volume...")
-#tif.imsave(enlargedfilename,moving_for_fixed.astype("uint16"))
+tif.imsave(enlargedfilename,moving_for_fixed.astype("uint16"))
 
 # copy the parameter files
 a2r = [os.path.join(transformfilepath, xx) for xx in os.listdir(transformfilepath) if "Transform" in xx]
