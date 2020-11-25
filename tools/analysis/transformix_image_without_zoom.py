@@ -30,11 +30,11 @@ from scipy.ndimage.interpolation import zoom
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 
 # where are the transform files? those are 'reg'
-reg = os.path.join(src, "output_dirs/SIGMA_to_LE_affine")
+reg = os.path.join(src, "output_dirs/WHS_SD_rat_T2star_v1.01_atlas_to_sagittal_LE_brain")
 a2r = [os.path.join(reg, xx) for xx in os.listdir(reg) if "Transform" in xx]
 a2r.sort()
 
-dst = os.path.join(src,"output_dirs/SIGMA_to_LE_transformix_affine")
+dst = os.path.join(src,"output_dirs/WHS_to_LE_transformix")
 makedir(dst)
 
 transformfiles = modify_transform_files(transformfiles=a2r, dst=dst)
@@ -53,6 +53,6 @@ for fl in transformfiles:  # Read in the file
 
 # run transformix
 transformix_plus_command_line_call(os.path.join(
-    src, "enlarged_tiffs/SIGMA_for_LE.tif"),
+    src, "enlarged_tiffs/WHS_SD_rat_T2star_v1.01_atlas_for_sagittal_LE_brain.tif"),
     dst, transformfiles[-1])
 
