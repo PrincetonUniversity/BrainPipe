@@ -62,9 +62,9 @@ def downsize_folder_of_tiffs(pth, dst, atlpth):
     z, y, x = arrsag.shape
     print((z, y, x))
     print("\n**********downsizing....heavy!**********\n")
-
+    print(os.path.join(dst,"downsized_for_atlas"))
     arrsagd = zoom(arrsag, ((atlz*1.4/z), (atly*1.4/y), (atlx*1.4/x)), order=1)
-    tif.imsave(os.path.join(os.path.dirname(dst), "downsized_for_atlas.tif"),
+    tif.imsave(os.path.join(dst, "downsized_for_atlas.tif"),
                arrsagd.astype("uint16"))
 
 
@@ -129,47 +129,65 @@ if __name__ == "__main__":
         if '488' in i:
             for j in os.listdir(os.path.join(rawdata, i)):
                 if 'corrected' in j:
-                    reg_ch = fast_scandir(os.path.join(rawdata, i, j))[-1]
+                    if len(fast_scandir(os.path.join(rawdata, i, j))) == 0:
+                        reg_ch = os.path.join(rawdata,i,j)
+                    else:
+                        reg_ch = fast_scandir(os.path.join(rawdata,i,j))[-1]
         if '64' in i:
             for j in os.listdir(os.path.join(rawdata, i)):
                 if 'corrected' in j:
-                    cell_ch = fast_scandir(os.path.join(rawdata, i, j))[-1]
+                    if len(fast_scandir(os.path.join(rawdata, i, j))) == 0:
+                        cell_ch = os.path.join(rawdata,i,j)
+                    else:
+                        cell_ch = fast_scandir(os.path.join(rawdata, i, j))[-1]
 
     print("\nrawdata folder is: %s\n" % rawdata)
-    # path to store downsized images
 
     print("\ndownsizing %s \n" % os.path.join(svpth,"reg_ch"))
-    downsize_folder_of_tiffs(reg_ch, os.path.join(svpth,"reg_ch"), atlpth)
+    #downsize_folder_of_tiffs(reg_ch, os.path.join(svpth,"reg_ch"), atlpth)
 
     print("\ndownsizing %s \n" % os.path.join(svpth,"cell_ch"))
-    downsize_folder_of_tiffs(cell_ch, os.path.join(svpth,"cell_ch"), atlpth)
+    #downsize_folder_of_tiffs(cell_ch, os.path.join(svpth,"cell_ch"), atlpth)
 
     print("\n probably finished downsizing successfully \n")
 
     print("\nregistering %s to %s" % (os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
     atlpth))
-    register_ch(0,
-                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
-                atlpth,
-                param_fld,
-                svpth)
+    #register_ch(0,
+    #            os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
+    #            atlpth,
+    #            param_fld,
+    #            os.path.join(svpth,"reg_ch"))
     print("\n probably finished registering reg_ch to atlas successfully \n")
 
     print("\nregistering %s to %s" % (os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
     os.path.join(svpth,"reg_ch","downsized_for_atlas.tif")))
-    register_ch(1,
-                os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
-                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
-                param_fld,
-                svpth)
-    print("\n probably finished registering cell_ch to reg_ch successfully \n")
+    #os.mkdir(os.path.join(svpth,"cell_to_reg"))
+    #register_ch(1,
+    #            os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
+    #            os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
+    #            param_fld,
+    #            os.path.join(svpth,"cell_to_reg"))
+    #print("\n probably finished registering cell_ch to reg_ch successfully \n")
 
-    print("\ninverse registering %s to %s" % (os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
-    atlpth))
 
+    if not os.path.exists(os.path.join(svpth,"atl_to_reg_1")):
+        os.mkdir(os.path.join(svpth,"atl_to_reg_1"))
     register_ch(0,
                 atlpth,
                 os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
                 param_fld,
-                svpth)
-    print("\n probably finished registering atlas to reg_ch successfully \n")
+                os.path.join(svpth,"atl_to_reg_1"))
+
+    if not os.path.exists(os.path.join(svpth,"reg_to_atl_1")):
+        os.mkdir(os.path.join(svpth,"reg_to_atl_1"))
+    register_ch(0,
+       	       	os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
+                atlpth,
+                param_fld,
+                os.path.join(svpth,"reg_to_atl_1"))
+
+
+
+
+
