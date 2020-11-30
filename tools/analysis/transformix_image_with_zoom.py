@@ -29,13 +29,13 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-fx = os.path.join(src, "tiffs/PRA_25um.tif")
-mv = os.path.join(src, "output_dirs/SIGMA_in_fPRA/result.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/SIGMA_fPRA_for_PRA.tif")
+fx = os.path.join(src, "tiffs/WHS_SD_rat_T2star_v1.01_atlas.tif")
+mv = os.path.join(src, "tiffs/z269_01_affine_to_00.tif")
+enlargedfilename= os.path.join(src, "enlarged_tiffs/z269_ch00_for_ch01_all.tif")
 
-dst = os.path.join(src,"output_dirs/SIGMA_fPRA_in_PRA_affine")
+dst = os.path.join(src,"output_dirs/z269_01_in_MRIr")
 makedir(dst)
-transformfilepath = os.path.join(src, "transform_files/ftom_wax")
+transformfilepath = os.path.join(src, "output_dirs/z269_0_to_MRIr")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 
