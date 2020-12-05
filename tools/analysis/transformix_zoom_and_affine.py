@@ -80,6 +80,7 @@ for mvtiff in mvtiffs:
 
     dst = os.path.join(src,"output_dirs/{}_in_PRA_affine".format(mvtiff))
     # copy the parameter files
+    makedir(dst)
     a2r = [os.path.join(transformfilepath, xx) for xx in os.listdir(transformfilepath) if "TransformParameters.0" in xx]
 
     transformfiles = modify_transform_files(transformfiles=a2r, dst=dst)
