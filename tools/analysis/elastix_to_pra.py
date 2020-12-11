@@ -20,8 +20,8 @@ param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
 # PRA = "PRA_10um and PRA_25um"
 
-fxtiff = "PMA"
-mvtiffs = ["PRA_25um","k315_resampled","median_image","SIGMA_sagittal_brain","WHS_SD_rat_T2star_v1.01_atlas","fPRA_25um"]
+fxtiff = "WHS_SD_rat_T2star_v1.01_atlas"
+mvtiffs = ["PRA_25um","fPRA_25um"]
 
 fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
 
