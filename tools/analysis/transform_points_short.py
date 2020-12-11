@@ -269,18 +269,18 @@ if __name__ == "__main__":
     # numpy file consiting of nx3 (ZYX points) or if .mat file structure where zyx is called "cell_centers_orig_coord"
     src="/home/emilyjanedennis/Desktop/whs_forpeter.npy"
     # folder location to write points
-    dst = "/home/emilyjanedennis/Desktop/forpeter_PRAtoWHS"
+    dst = "/home/emilyjanedennis/Desktop/forpeter_WHStoPRA"
     if not os.path.exists(dst):
         os.mkdir(dst)
 
     # when marking centers in the  "raw" full sized cfos channel. This will transform those centers into "atlas" space (in this case the moving image)
     # list of all elastix transform files used, and in order of the original transform****
-    transformfiles = ["/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
+    transformfiles = ["/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
                       # this is auto = fixed image; atlas = moving image
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.1.txt",
+                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.1.txt",
                       # this is cfos = fixed image; auto = moving image
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.2.txt",
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.3.txt"] 
+                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.2.txt",
+                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.3.txt"] 
     # this is cfos = fixed image; auto = moving image
     # optional resampling between fullsized and input to elastix
     #original_dims = (5773, 7574, 3535)  # sagittal
