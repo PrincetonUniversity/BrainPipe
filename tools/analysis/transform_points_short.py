@@ -267,20 +267,20 @@ if __name__ == "__main__":
     # NOTE CHECK TO ENSURE ACCOUNTING FOR INPUT RESAMPLING, and ORIENTATION CHANGE*****
     # inputs
     # numpy file consiting of nx3 (ZYX points) or if .mat file structure where zyx is called "cell_centers_orig_coord"
-    src="/home/emilyjanedennis/Desktop/brains/z265/z265_cells_filtered.npy"
+    src="/home/emilyjanedennis/Desktop/whs_forpeter.npy"
     # folder location to write points
-    dst = "/home/emilyjanedennis/Desktop/z265test"
+    dst = "/home/emilyjanedennis/Desktop/forpeter_PRAtoWHS"
     if not os.path.exists(dst):
         os.mkdir(dst)
 
     # when marking centers in the  "raw" full sized cfos channel. This will transform those centers into "atlas" space (in this case the moving image)
     # list of all elastix transform files used, and in order of the original transform****
-    transformfiles = ["/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/transform_files/z265_to_MRIr/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
+    transformfiles = ["/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
                       # this is auto = fixed image; atlas = moving image
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/transform_files/z265_to_MRIr/TransformParameters.1.txt",
+                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.1.txt",
                       # this is cfos = fixed image; auto = moving image
-                     "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/transform_files/z265_to_MRIr/TransformParameters.2.txt",
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/transform_files/z265_to_MRIr/TransformParameters.3.txt"] 
+                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.2.txt",
+                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/PRA_25_to_WHS/TransformParameters.3.txt"] 
     # this is cfos = fixed image; auto = moving image
     # optional resampling between fullsized and input to elastix
     #original_dims = (5773, 7574, 3535)  # sagittal
