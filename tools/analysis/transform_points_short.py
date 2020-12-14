@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -13,8 +14,6 @@ lsfld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe"
 sys.path.append(lsfld)
 
 import os
-from tools.registration.register import transformed_pnts_to_allen_helper_func
-from tools.registration.register import count_structure_lister
 import pickle
 from scipy.io import loadmat, savemat
 
@@ -37,7 +36,7 @@ def transform_points(src, dst, transformfiles, resample_points=False):
         loadmat(src)["all_x_coord_together"][0]]).T
 
     # reorient - test to make sure this works
-    cells[:, [0, 2]] = cells[:, [2, 0]]  # horizontal to saggittal
+    #cells[:, [0, 2]] = cells[:, [2, 0]]  # horizontal to saggittal
 
     # optionally resample points
     if resample_points:
@@ -167,7 +166,7 @@ def point_transformix(pretransform_text_file, transformfile, dst):
     trnsfrm_out_file = os.path.join(dst, "outputpoints.txt")
 
     # run transformix point transform
-    call = "transformix -def {} -out {} -tp {}".format(pretransform_text_file, dst, transformfile)
+    call = "transformix -def {} -in {} -out {} -tp {}".format(pretransform_text_file,"/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/enlarged_tiffs/WHS_SD_rat_T2star_v1.01_atlas_for_PRA_25um.tif", dst, transformfile)
     print(check_output(call, shell=True))
     sys.stdout.write("\n   Transformix File Generated: {}".format(trnsfrm_out_file))
     sys.stdout.flush()
@@ -216,7 +215,7 @@ def unpack_pnts(points_file, dst):
     return dst_fl
 
 
-def points_resample(src, original_dims, resample_dims, verbose=False):
+def points_resample(src, original_dims, resample_dims, verbose=True):
     """Function to adjust points given resizing by generating a transform matrix
 
     ***Assumes ZYX and that any orientation changes have already been done.***
@@ -269,23 +268,23 @@ if __name__ == "__main__":
     # numpy file consiting of nx3 (ZYX points) or if .mat file structure where zyx is called "cell_centers_orig_coord"
     src="/home/emilyjanedennis/Desktop/whs_forpeter.npy"
     # folder location to write points
-    dst = "/home/emilyjanedennis/Desktop/forpeter_WHStoPRA"
+    dst = "/home/emilyjanedennis/Desktop/forpeter2"
     if not os.path.exists(dst):
         os.mkdir(dst)
 
     # when marking centers in the  "raw" full sized cfos channel. This will transform those centers into "atlas" space (in this case the moving image)
     # list of all elastix transform files used, and in order of the original transform****
-    transformfiles = ["/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.0.txt",  # this is auto = fixed image; atlas = moving image
-                      # this is auto = fixed image; atlas = moving image
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.1.txt",
-                      # this is cfos = fixed image; auto = moving image
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.2.txt",
-                      "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs/WHS_ann_in_PRA25/TransformParameters.3.txt"] 
+
+    tsrc = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/output_dirs"
+    transformfiles = [os.path.join(tsrc,"WHS_to_PRA_25/TransformParameters.0.txt"),
+                      os.path.join(tsrc,"WHS_to_PRA_25/TransformParameters.1.txt"),
+                      os.path.join(tsrc,"WHS_to_PRA_25/TransformParameters.2.txt"),
+                      os.path.join(tsrc,"WHS_to_PRA_25/TransformParameters.3.txt")] 
     # this is cfos = fixed image; auto = moving image
     # optional resampling between fullsized and input to elastix
-    #original_dims = (5773, 7574, 3535)  # sagittal
-    #resample_dims = (638, 739, 448)  # sagittal
-    #resample_points = [original_dims, resample_dims]
+    original_dims = (455,774,302) #(455,774,302) #(618,1150,385)  # zyx sagittal
+    resample_dims = (865,1610,539) #(865,1610,539)  #(637,1084,423)  # sagittal
+    resample_points = [original_dims, resample_dims]
 
     # apply
     transform_points(src, dst, transformfiles)
