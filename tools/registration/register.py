@@ -337,7 +337,7 @@ def transformix_plus_command_line_call(src, dst, transformfile):
     from subprocess import check_output
     print('Running transformix, this can take some time....\n')
     # sp.call(['transformix', '-in', src, '-out', dst, '-tp', transformfile])
-    call = 'transformix -jac all -in {} -out {} -tp {}'.format(src, dst, transformfile)
+    call = 'transformix -jac all -def all -in {} -out {} -tp {}'.format(src, dst, transformfile)
     print(check_output(call, shell=True))
     print('Past transformix command line Call')
 
