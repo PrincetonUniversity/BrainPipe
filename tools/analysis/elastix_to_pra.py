@@ -17,11 +17,11 @@ src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 
 param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
 
-# waxholm = "WHS_SD_rat_T2star_v1.01_atlas.tif"
+# waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
 # PRA = "PRA_10um and PRA_25um"
 
+mvtiffs = ["WHS_SD_rat_T2star_v1.01_atlas","x"]
 fxtiff = "PRA_25um"
-mvtiffs = ["k315_resampled","WHS_SD_rat_T2star_v1.01_atlas","sagittal_LE_brain","sagittal_schwarz_brain","PMA","valdes-hernandes_brain"]
 
 fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
 
