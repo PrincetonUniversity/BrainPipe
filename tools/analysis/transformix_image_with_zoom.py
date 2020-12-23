@@ -29,16 +29,16 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-fx = os.path.join(src, "tiffs/PMA.tif")
+fx = os.path.join(src, "tiffs/PRA_25um.tif")
 ################################################### 
 
 # setting paths
-mv = os.path.join(src, "tiffs/k315_resampled.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/k315_for_PMA.tif")
+mv = os.path.join(src, "tiffs/sagittal_grid.tif")
+enlargedfilename= os.path.join(src, "enlarged_tiffs/LEgrid_for_PRA.tif")
 
-dst = os.path.join(src,"output_dirs/k315_in_PMA")
+dst = os.path.join(src,"output_dirs/LE_in_PRA")
 makedir(dst)
-transformfilepath = os.path.join(src, "output_dirs/k315_resampled_to_PMA")
+transformfilepath = os.path.join(src, "output_dirs/LE_sagittal_cropped_to_PRA_25um")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 
