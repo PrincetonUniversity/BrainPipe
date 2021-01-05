@@ -1,4 +1,6 @@
 Starting step 0
+test
+/mnt/sink/scratch/ejdennis/rat_BrainPipe
 outputdirectory
 ['run_tracing.py', '0', '0']
 0
@@ -7,17 +9,24 @@ Determined regex as (.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z
 
 *******************STEP 0*********************
 
-0 *Complete* Zplanes found for /jukebox/LightSheetData/brodyatlas/raw_data/200824_k321_1_1x_488_016na_1hfds_z10um_50msec_20povlp_12-15-07/
+894 *Complete* Zplanes found for /jukebox/LightSheetData/lightserv/ejdennis/2021_01_reimage_2female_brains/2021_01_reimage_2female_brains-001/imaging_request_1/rawdata/resolution_1.1x/210104_T107_1_1x_488_016na_1hfds_z10um_50msec_25povlp_15-19-01/
 
 Checking for bad missing files:
      Bad planes per channel:
      {'0000': []}
 
-Traceback (most recent call last):
-  File "run_tracing.py", line 119, in <module>
-    preprocessing.generateparamdict(os.getcwd(), **params)
-  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/preprocessing.py", line 242, in generateparamdict
-    tmpdct = flatten(pth, **kwargs) if raw else zchanneldct(pth, **kwargs)
-  File "/mnt/sink/scratch/ejdennis/rat_BrainPipe/tools/imageprocessing/preprocessing.py", line 1778, in flatten
-    writer(outdr, "{} Channels found\n".format(len(zdct["0001"].keys())))
-KeyError: '0001'
+1 Channels found
+
+1x by 2y tile scan determined
+
+2 Light Sheet(s) found. 1 Horizontal Focus Determined
+
+
+USING RAW DATA
+zdct contains 0 planes - this will result in an error for stitching
+
+Generated volume class('cellch') channel('01') pth: /jukebox/LightSheetData/lightserv/ejdennis/2021_01_reimage_2female_brains/2021_01_reimage_2female_brains-001/imaging_request_1/rawdata/resolution_1.1x/210104_T107_1_1x_488_016na_1hfds_z10um_50msec_25povlp_15-19-01/
+
+
+Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/t107
+

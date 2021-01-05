@@ -10,7 +10,7 @@ module load elastix/4.8
 . activate lightsheet
 
 echo "Starting step 0"
-
+echo "test"
 xvfb-run python run_tracing.py 0 ${SLURM_ARRAY_TASK_ID} #update dictionary and pickle
 
 # HOW TO USE:

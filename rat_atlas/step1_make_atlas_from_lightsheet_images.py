@@ -94,7 +94,7 @@ if __name__ == "__main__":
     src = "/jukebox/LightSheetData/brodyatlas/processed"
     dst = "/jukebox/scratch/ejdennis/male_atlas/volumes_25"
 
-    brains = ["a235","c514","e106","f119","k304","k315","k327","c223","c515","h170","k303","k310","k320","k333"]
+    brains = ["a235","c514","e106","k320"]
     pths = [os.path.join(src, xx) for xx in brains]
 
     pth = pths[jobid]
