@@ -6,13 +6,15 @@ Created on Sun Mar  6 13:50:08 2016
 @author: tpisano
 """
 
-from tools.utils.directorydeterminer import directorydeterminer
-from tools.registration.register import elastix_wrapper
-from tools.imageprocessing import preprocessing
 import os
 import sys
 import shutil
 from xvfbwrapper import Xvfb
+print(os.getcwd())
+from tools.utils.directorydeterminer import directorydeterminer
+from tools.registration.register import elastix_wrapper
+from tools.imageprocessing import preprocessing
+
 vdisplay = Xvfb()
 vdisplay.start()
 
@@ -29,9 +31,9 @@ systemdirectory = directorydeterminer()
 # e.g.: inputdictionary={path_1: [["regch", "00"]], path_2: [["cellch", "00"],
 # ["injch", "01"]]} ###create this dictionary variable BEFORE params
 inputdictionary = {
-    "/jukebox/LightSheetData/brodyatlas/raw_data/200824_k321_1_1x_488_016na_1hfds_z10um_50msec_20povlp_12-15-07/":
+    "/jukebox/LightSheetData/lightserv/ejdennis/2021_01_reimage_2female_brains/2021_01_reimage_2female_brains-001/imaging_request_1/rawdata/resolution_1.1x/210104_T107_1_1x_488_016na_1hfds_z10um_50msec_25povlp_15-19-01/":
     [["regch", "00"]],
-    "/jukebox/LightSheetData/brodyatlas/raw_data/200824_k321_1_1x_488_016na_1hfds_z10um_50msec_20povlp_12-15-07/":
+    "/jukebox/LightSheetData/lightserv/ejdennis/2021_01_reimage_2female_brains/2021_01_reimage_2female_brains-001/imaging_request_1/rawdata/resolution_1.1x/210104_T107_1_1x_488_016na_1hfds_z10um_50msec_25povlp_15-19-01/":
     [["cellch","01"]]
     }
 
@@ -39,7 +41,7 @@ inputdictionary = {
 params = {
     "systemdirectory":  systemdirectory,  # don"t need to touch
     "inputdictionary": inputdictionary,  # don"t need to touch
-    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/k321"),
+    "outputdirectory": os.path.join(systemdirectory, "scratch/ejdennis/t107"),
     # (5.0,5.0,3), #micron/pixel: 5.0um/pix for 1.3x; 1.63um/pix for 4x
     "xyz_scale": (5.91, 5.91, 10),
     "tiling_overlap": 0.25,  # percent overlap taken during tiling
