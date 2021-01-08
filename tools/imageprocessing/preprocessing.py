@@ -172,6 +172,7 @@ def regex_determiner(raw, dr):
 
     """
     lst = [
+        r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)",
         r"(.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z+)(?P<z>[0-9]{1,4})(.*r)(?P<ch>[0-9]{1,4})(.ome.tif)"]
     # determine raw vs non
     if raw == True:
