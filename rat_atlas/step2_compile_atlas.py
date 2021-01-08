@@ -144,7 +144,7 @@ if __name__ == "__main__":
     src = "/jukebox/scratch/ejdennis"
 
     brains = ["a235","c514","e106","f119","k304","k327","c223","c515","h170","k303","k320","k333"]
-    inputs = [os.path.join(src, xx+"/downsized_for_atlas.tif") for xx in brains]
+    #inputs = [os.path.join(src, xx+"/downsized_for_atlas.tif") for xx in brains]
 
     output_fld = "/jukebox/scratch/ejdennis/male_atlas/out_25"
     if not os.path.exists(output_fld): os.mkdir(output_fld)
