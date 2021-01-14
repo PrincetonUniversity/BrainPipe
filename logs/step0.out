@@ -9,7 +9,7 @@ Determined regex as (.*)(?P<y>\d{2})(.*)(?P<x>\d{2})(.*C+)(?P<ls>[0-9]{1,2})(.*Z
 
 *******************STEP 0*********************
 
-894 *Complete* Zplanes found for /jukebox/LightSheetData/lightserv/ejdennis/2021_01_reimage_2female_brains/2021_01_reimage_2female_brains-001/imaging_request_1/rawdata/resolution_1.1x/210104_T107_1_1x_488_016na_1hfds_z10um_50msec_25povlp_15-19-01/
+907 *Complete* Zplanes found for /scratch/ejdennis/f001_raw/
 
 Checking for bad missing files:
      Bad planes per channel:
@@ -17,16 +17,15 @@ Checking for bad missing files:
 
 1 Channels found
 
-1x by 2y tile scan determined
+2x by 2y tile scan determined
 
 2 Light Sheet(s) found. 1 Horizontal Focus Determined
 
 
 USING RAW DATA
-zdct contains 0 planes - this will result in an error for stitching
 
-Generated volume class('cellch') channel('01') pth: /jukebox/LightSheetData/lightserv/ejdennis/2021_01_reimage_2female_brains/2021_01_reimage_2female_brains-001/imaging_request_1/rawdata/resolution_1.1x/210104_T107_1_1x_488_016na_1hfds_z10um_50msec_25povlp_15-19-01/
+Generated volume class('regch') channel('00') pth: /scratch/ejdennis/f001_raw/
 
 
-Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/t107
+Parameter dictionary saved in the outputdirectory: /jukebox/scratch/ejdennis/f001
 

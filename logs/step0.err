@@ -1,4 +1,0 @@
-This Anaconda version is fairly old but is default (sorts last)
-Anaconda version numbers are now in the YYYY.MM format.
-Try "module avail anacondapy" to check for newer versions.
-            === anacondapy/5.3.1 loaded === 
