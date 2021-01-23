@@ -11,14 +11,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # symlink files to a new directory with filenames Z0000.tif, Z0001.tif, etc...
-# Change the dst_dir to where you want these z planes linked 
+# Change the dst_dir to where you want these z planes linked
 
 src_dir = os.path.join('/jukebox/LightSheetData/lightserv/pbibawi',
 			'pb_udisco_647_488_4x/pb_udisco_647_488_4x-003',
 			'imaging_request_1/rawdata/resolution_3.6x',
 			'Ex_642_Em_2/corrected/')
 
-dst_dir = '/scratch/ejdennis/cm2_brains/e153/ch_642/renamed' 
+# dst_dir is where you want your new labeled Zs saved
+dst_dir = '/scratch/ejdennis/cm2_brains/e153/ch_642/renamed'
 if not os.path.exists(dst_dir):
     os.mkdir(dst_dir)
 
