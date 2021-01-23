@@ -142,7 +142,25 @@ module load elastix/4.8
 
 **NOTE** there is a demo for the CNN to test if your paths are correct and everything is installed properly, see end of document
 
-## To use ClearMap to identify cell centers
+## To use ClearMap2 to identify cell centers
+ClearMap2 is a git submodule. to learn more aboud submodules, see [here](https://gist.github.com/gitaarik/8735255)
+To make that code 'appear' in the repo use
+`git submodule update --init --recursive`
+to update it
+`git submodule update --recursive --remote`
+
+the scripts you need are in `rat_BrainPipe/cm2`
+    - if you're using volumes imaged on the LaVision, these instructions should work for you as-is. If you're using smartSPIM volumes, you'll also need to use `rename_smartspimZ_for_cm2.py`, editing lines 16-22 to reflect your paths as commented 
+    - edit line 5 in `cell_detect.py` to wherever your rat_BrainPipe is stored
+      - e.g. `sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')`
+    - edit lines 12-14 of `cell_detect.sh` as commented there
+    - follow the example run comments at the end of `cell_detect.sh` repeated here for ease of use
+      # example run:
+        `# use rename_for_clearmap.py on head node
+        # change folder name
+        # from rat_BrainPipe/ClearMap2/ClearMap/Scripts
+        # sbatch cell_detect.sh`
+## To use ClearMap1 to identify cell centers
 **NOTE** there is a new [ClearMap!](https://github.com/ChristophKirst/ClearMap2) These instructions use the old ClearMap 1
 0. Make test sets
 - If you have already made test sets to train a CNN, use those.
@@ -153,7 +171,7 @@ module load elastix/4.8
 2. Run ClearMap on whole brains
     ClearMap2 came out in the middle of this process. For us, it worked out of the box with really minor changes, and using the same parameters from parameter_sweep above, gave the same results. The script Emily used to analyze her brains can be found under ClearMapCluster > ClearMap2 > ClearMap > Scripts > CellDetect_custom.py (the complicated file structure is just mimicing the ClearMap2 repo that can be downloaded [here](https://github.com/ChristophKirst/ClearMap2))
 
-    NOTE that you'll need to change the ClearMap2 Settings file to reflect your local machine. 
+    NOTE that you'll need to change the ClearMap2 Settings file to reflect your local machine.
 
 3. Visualize outputs *documentation in progress*
 
