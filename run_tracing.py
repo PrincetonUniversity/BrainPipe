@@ -71,6 +71,7 @@ params = {
     "slurmjobfactor": 50,
     # number of array iterations per arrayjob
     # since max job array on SPOCK is 1000
+    "labeltype": "rat", #this allows for blending lightsheets before copying, used in tools/imageprocessing/stitch.py
     "transfertype": "copy",
     # for rat brains that need different reg params
     "parameterfolder": os.path.join(systemdirectory, "LightSheetData/brodyatlas/atlas/for_registration_to_lightsheet/rat_registration_parameter_folder")
