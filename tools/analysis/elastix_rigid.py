@@ -2,54 +2,83 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Dec 12 15:13:28 2019
+Created on Sat Feb 06 2021
 
-@author: wanglab
+working on aligning individual tiffs from histology stack first to each other, then to a substack of mPRA for Adrian
+
+@author: ejdennis
 """
-
 import os
 import tifffile as tif
 import sys
-from scipy.ndimage import zoom
+import numpy as np
 sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/")
-from tools.registration.register import elastix_command_line_call
-src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
+from tools.utils.directorydeterminer import set_src
+[base_src,git_src,_git_analysis_src,src] = set_src("linux")
+param_fld = os.path.join(git_src,"parameterfolder_rigid")
+from tools.utils.io import makedir, removedir, writer, load_kwargs
+import subprocess as sp
 
-param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameter_folder_rigid"
 
-# waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
-# PRA = "PRA_10um and PRA_25um"
+def elastix_command_line_call(fx, mv, out, parameters, resultnum):
+    '''Wrapper Function to call elastix using the commandline, this can be time consuming
 
-mvtiffs = ["","x"]
-fxtiff = "k320"
+    Inputs
+    -------------------
+    fx = fixed path (usually Atlas for 'normal' noninverse transforms)
+    mv = moving path (usually volume to register for 'normal' noninverse transforms)
+    out = folder to save file
+    parameters = list of paths to parameter files IN ORDER THEY SHOULD BE APPLIED
+    fx_mask= (optional) mask path if desired
 
-fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
+    Outputs
+    --------------
+    ElastixResultFile = '.tif' or '.mhd' result file
+    TransformParameterFile = file storing transform parameters
+
+    '''
+    e_params = ['elastix', '-f', fx, '-m', mv, '-out', out]
+
+    # adding elastix parameter files to command line call
+    for x in range(len(parameters)):
+        e_params.append('-p')
+        e_params.append(parameters[x])
+    writer(out, 'Elastix Command:\n{}\n...'.format(e_params))
+
+    # set paths
+    TransformParameterFile = os.path.join(
+        out, 'TransformParameters.{}.txt'.format((len(parameters)-1)))
+    ElastixResultFile = os.path.join(out,'{}_{}.tif'.format(str(resultnum),str(len(parameters)-1)))
+
+    try:
+        print('Running Elastix, this can take some time....\n')
+        sp.call(e_params)  # sp_call(e_params)#
+        writer(out, 'Past Elastix Commandline Call')
+    except RuntimeError as e:
+        writer(out, '\n***RUNTIME ERROR***: {} Elastix has failed. Most likely the two images are too dissimiliar.\n'.format(e.message))
+        pass
+    os.rename(os.path.join(out,'result.{}.tif'.format(str(len(parameters)-1))),ElastixResultFile)
+    return ElastixResultFile, TransformParameterFile
+
+
+# set your slices here -- assumes you've split your images into brightfield and fluorescent in FIJI
+# I cropped one image, and made a folder within output_dirs called A243
+mvtiffs = []
+rn = -1
+for i in np.arange(0,24):
+	mvtiffs.append("fluorescent{0:0=2d}".format(i))
+fxtiff = "fluorescent18"
+
+fx = os.path.join(src,"tiffs/A243/{}.tif".format(fxtiff))
 
 
 for mvtiff in mvtiffs:
-	mv = os.path.join(src,"tiffs/{}.tif".format(mvtiff))
-	outputfilename = os.path.join(src,"enlarged_tiffs/{}_for_{}.tif".format(mvtiff,fxtiff))
-	print(outputfilename)
-	outputdirectory = os.path.join(src,"output_dirs/{}_to_{}".format(mvtiff,fxtiff))
-
-	# need to make moving larger (~140% seems to work well?) to transform to fixed
-	moving = tif.imread(mv)
-	fixed = tif.imread(fx)
-	zf, yf, xf = (fixed.shape[0]/moving.shape[0])*1.4, (
-		    fixed.shape[1] /
-    		moving.shape[1])*1.4, (fixed.shape[2]/moving.shape[2])*1.4
-	print("\nzooming...")
-	moving_for_fixed = zoom(moving, (zf, yf, xf), order=0,mode='nearest')
-
-	# saved out volume
-	print("\nsaving zoomed volume...")
-	tif.imsave(outputfilename,moving_for_fixed.astype("uint16"))
-
+	mv = os.path.join(src,"tiffs/A243/{}.tif".format(mvtiff))
+	outputdirectory = os.path.join(src,"output_dirs/A243")
 
 	if not os.path.exists(outputdirectory):
     		os.mkdir(outputdirectory)
 
 	params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
-
-	e_out, transformfiles = elastix_command_line_call(fx, outputfilename, outputdirectory, params)
-
+	rn=rn+1
+	e_out, transformfiles = elastix_command_line_call(fx, mv, outputdirectory, params,rn)

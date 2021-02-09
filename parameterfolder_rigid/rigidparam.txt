@@ -1,0 +1,51 @@
+//rigid transform
+// rigid, MI, ASGD
+
+//ImageTypes
+(FixedImageDimension 2)
+(MovingImageDimension 2)
+(FixedInternalImagePixelType "float")
+(MovingInternalImagePixelType "float")
+
+//components
+(Transform "AffineTransform")
+(InitialTransformParametersFileName "NoInitialTransform")
+(HowToCombineTransforms "Compose")
+
+(Registration "MultiResolutionRegistration")
+(FixedImagePyramid "FixedSmoothingImagePyramid")
+(MovingImagePyramid "MovingSmoothingImagePyramid")
+(Interpolator "BSplineInterpolator")
+
+(Metric "AdvancedMattesMutualInformation")
+(Optimizer "AdaptiveStochasticGradientDescent")
+
+(NumberOfResolutions 4)
+(FixedImagePyramidSchedule 64 64 32 32 16 16 8 8)
+(ImagePyramidSchedule 64 64 32 32 16 16 8 8)
+
+//Number of spatial samples used to compute the mutual information in each resolution level:
+(ImageSampler "RandomCoordinate")
+(FixedImageBSplineInterpolationOrder 3)
+(UseRandomSampleRegion "false")
+(NumberOfSpatialSamples 15000)
+(NewSamplesEveryIteration "true")
+(CheckNumberOfSamples "true")
+(MaximumNumberOfSamplingAttempts 50)
+(RequiredRatioOfValidSamples 0.05)
+(UseDirectionCosines "false")
+
+// ResampleInterpolator specific
+(ResampleInterpolator "FinalBSplineInterpolator")
+(FinalBSplineInterpolationOrder 3)
+
+// Resampler specific
+(Resampler "DefaultResampler")
+(DefaultPixelValue 0)
+
+(WriteTransformParametersEachIteration "false")
+(WriteResultImage "true")
+(ResultImageFormat "tif")
+(CompressResultImage "true")
+(WriteResultImageAfterEachResolution "false")
+(ShowExactMetricValue "false")

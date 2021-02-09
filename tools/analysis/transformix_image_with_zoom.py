@@ -29,16 +29,16 @@ from scipy.ndimage.interpolation import zoom
 # setting paths
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
-fx = os.path.join(src, "tiffs/PRA_25um.tif")
+fx = os.path.join(src, "tiffs/mPRA.tif")
 ################################################### 
 
 # setting paths
-mv = os.path.join(src, "tiffs/sagittal_grid.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/LEgrid_for_PRA.tif")
+mv = os.path.join(src, "tiffs/100grid_with_sq.tif")
+enlargedfilename= os.path.join(src, "enlarged_tiffs/100biggrid.tif")
 
-dst = os.path.join(src,"output_dirs/LE_in_PRA")
+dst = os.path.join(src,"output_dirs/100grid_withsq_a235_in_mPRA")
 makedir(dst)
-transformfilepath = os.path.join(src, "output_dirs/LE_sagittal_cropped_to_PRA_25um")
+transformfilepath = os.path.join(src, "output_dirs/a235_to_mPRA")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 
@@ -50,7 +50,6 @@ moving_for_fixed = zoom(moving,(zf,yf,xf),order=0)
 
 print("\nsaving zoomed volume...")
 tif.imsave(enlargedfilename,moving_for_fixed.astype("uint16"))
-
 # copy the parameter files
 a2r = [os.path.join(transformfilepath, xx) for xx in os.listdir(transformfilepath) if "Transform" in xx]
 
@@ -74,15 +73,9 @@ for fl in transformfiles:  # Read in the file
 transformix_plus_command_line_call(enlargedfilename, dst, transformfiles[-1])
 
 ################################################### 
-
-
-
-mv = os.path.join(src, "tiffs/SIGMA_sagittal_brain.tif")
-enlargedfilename= os.path.join(src, "enlarged_tiffs/SIGMA_for_PMA.tif")
-
-dst = os.path.join(src,"output_dirs/SIGMA_in_PMA")
+dst = os.path.join(src,"output_dirs/100grid_a235_in_mPRA_affine")
 makedir(dst)
-transformfilepath = os.path.join(src, "output_dirs/SIGMA_sagittal_brain_to_PMA")
+transformfilepath = os.path.join(src, "output_dirs/a235_in_mPRA_affine")
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 
@@ -117,4 +110,3 @@ for fl in transformfiles:  # Read in the file
 transformix_plus_command_line_call(enlargedfilename, dst, transformfiles[-1])
 
 ################################################### 
-
