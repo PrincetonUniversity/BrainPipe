@@ -14,6 +14,17 @@ import os
 import socket
 import collections
 
+def set_src(whereami):
+    """ function to allow users to set laptop/cluster/desktop shortcuts to set base paths
+    EDIT THIS TO FIT YOUR PATHS"""
+
+    if whereami == "linux":
+        base_src = "/home/emilyjanedennis/Desktop"
+        git_src = os.path.join(base_src,"GitHub/rat_BrainPipe")
+        git_analysis_src = os.path.join(git_src,"tools/analysis")
+        src = os.path.join(base_src,"for_registration_to_lightsheet")
+
+    return [base_src,git_src,git_analysis_src,src]
 
 def directorydeterminer():
     """Function to allow for different paths to the same server. This allows for working locally and on cluster.
