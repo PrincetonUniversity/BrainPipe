@@ -1,0 +1,472 @@
+QStandardPaths: XDG_RUNTIME_DIR points to non-existing path '/run/user/2333', please create it with 0700 permissions.
+libEGL warning: DRI2: failed to create any config
+libEGL warning: DRI2: failed to create any config
+libEGL warning: DRI2: failed to create any config
+libEGL warning: DRI2: failed to create any config
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++ [enabled by default]
+In file included from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarraytypes.h:1832:0,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/arrayobject.h:4,
+                 from /usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:614:
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+ #warning "Using deprecated NumPy API, disable it with " \
+  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_0_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:33378:65: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_uint8_t)__pyx_v_imax);
+                                                                 ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_0_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:33617:65: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_uint8_t)__pyx_v_imax);
+                                                                 ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_0_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:33856:65: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_uint8_t)__pyx_v_imax);
+                                                                 ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_1_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:34095:66: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_uint16_t)__pyx_v_imax);
+                                                                  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_1_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:34334:66: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_uint16_t)__pyx_v_imax);
+                                                                  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_1_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:34573:66: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_uint16_t)__pyx_v_imax);
+                                                                  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_2_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:34812:65: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_int64_t)__pyx_v_imax);
+                                                                 ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_2_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:35051:65: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_int64_t)__pyx_v_imax);
+                                                                 ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_2_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:35290:65: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_int64_t)__pyx_v_imax);
+                                                                 ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_3_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:35529:66: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_double_t)__pyx_v_imax);
+                                                                  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_3_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:35768:66: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_double_t)__pyx_v_imax);
+                                                                  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp: In function ‘void __pyx_fuse_3_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_13BilateralCode_kernel_mean_scale(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/BilateralCode.cpp:36007:66: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+       (__pyx_v_sink[0]) = ((__pyx_t_5numpy_double_t)__pyx_v_imax);
+                                                                  ^
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++ [enabled by default]
+In file included from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarraytypes.h:1832:0,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/arrayobject.h:4,
+                 from /usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:614:
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+ #warning "Using deprecated NumPy API, disable it with " \
+  ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_0_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:26769:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:26769:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:26769:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:26959:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:26959:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27086:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27086:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27086:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27136:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_0_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27478:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27478:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27478:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27668:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27668:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27795:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27795:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27795:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27845:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_0_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28187:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28187:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28187:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28377:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28377:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28504:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28504:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28504:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28554:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_1_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28896:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28896:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28896:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29086:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29086:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29213:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29213:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29213:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29263:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_1_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29605:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29605:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29605:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29795:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29795:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29922:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29922:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29922:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29972:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_1_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30314:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30314:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30314:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30504:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30504:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30631:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30631:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30631:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30681:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘int’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_2_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31023:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31023:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31023:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31213:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31213:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31340:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31340:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31340:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31390:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘__pyx_t_5numpy_int64_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_2_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31732:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31732:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31732:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31922:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31922:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32049:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32049:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32049:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32099:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘__pyx_t_5numpy_int64_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_2_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32441:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32441:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32441:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32631:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32631:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32758:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32758:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32758:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32808:83: warning: format ‘%f’ expects argument of type ‘double’, but argument 3 has type ‘__pyx_t_5numpy_int64_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"value,sink=%f,%f\n"), __pyx_v_total, (__pyx_v_sink[0])));
+                                                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_3_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33150:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33150:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33150:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33340:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33340:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33467:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33467:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33467:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_3_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33859:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33859:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33859:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34049:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34049:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34176:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34176:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34176:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_3_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34568:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pop=%d, limit=%d, clipped=%d, p0=%f, p1=%f\n"), __pyx_v_pop, __pyx_v_clip_limit, __pyx_v_clipped, __pyx_v_percentile_low, __pyx_v_percentile_high));
+                                                                                                                                                                              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34568:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34568:174: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34758:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"pl,ph=%f,%f  sl,sh=%d,%d\n"), __pyx_v_percentile_low, __pyx_v_percentile_high, __pyx_v_sum_low, __pyx_v_sum_high));
+                                                                                                                                             ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34758:141: warning: format ‘%d’ expects argument of type ‘int’, but argument 5 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34885:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+     (void)(printf(((char *)"imin,imax = %d,%d,  sum_valid=%d "), __pyx_v_imin, __pyx_v_imax, __pyx_v_sum_valid));
+                                                                                                               ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34885:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34885:111: warning: format ‘%d’ expects argument of type ‘int’, but argument 4 has type ‘Py_ssize_t {aka long int}’ [-Wformat=]
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34268:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34804:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_2_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32141:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32677:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_1_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30014:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30550:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_0_0_2__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_int64_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27887:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28423:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_3_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33559:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:34095:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_2_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31432:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31968:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_1_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29305:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29841:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_0_0_1__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint16_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27178:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27714:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_3_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_double_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:32850:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:33386:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_2_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_int64_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:30723:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:31259:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_1_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint16_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:28596:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:29132:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp: In function ‘void __pyx_fuse_0_0_0__pyx_f_8ClearMap_15ImageProcessing_6Filter_4Rank_14ParametricCode_kernel_lsac(__pyx_t_5numpy_uint8_t*, Py_ssize_t*, Py_ssize_t, __pyx_t_5numpy_uint8_t, Py_ssize_t, Py_ssize_t*, double*)’:
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:26469:14: warning: ‘__pyx_v_imax’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+   Py_ssize_t __pyx_v_imax;
+              ^
+/usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Filter/Rank/ParametricCode.cpp:27005:51: warning: ‘__pyx_v_imin’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+     __pyx_v_value = (__pyx_v_value - __pyx_v_imin);
+                                                   ^
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++ [enabled by default]
+In file included from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarraytypes.h:1832:0,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/arrayobject.h:4,
+                 from /usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ImageProcessing/Differentiation/HessianCode.cpp:614:
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+ #warning "Using deprecated NumPy API, disable it with " \
+  ^
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++ [enabled by default]
+In file included from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarraytypes.h:1832:0,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/ndarrayobject.h:12,
+                 from /usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/arrayobject.h:4,
+                 from /usr/people/ejdennis/.pyxbld/temp.linux-x86_64-3.6/pyrex/ClearMap/ParallelProcessing/DataProcessing/ConvolvePointListCode.cpp:614:
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/numpy/core/include/numpy/npy_1_7_deprecated_api.h:17:2: warning: #warning "Using deprecated NumPy API, disable it with " "#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION" [-Wcpp]
+ #warning "Using deprecated NumPy API, disable it with " \
+  ^
+gcc: internal compiler error: Killed (program cc1plus)
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <http://bugzilla.redhat.com/bugzilla> for instructions.
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/vispy/visuals/line/line.py:395: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  ('color', np.float32, 4)])
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/vispy/visuals/line/arrow.py:57: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  ('linewidth', np.float32, 1)
+/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/vispy/visuals/isocurve.py:22: UserWarning: VisPy is not yet compatible with matplotlib 2.2+
+  warnings.warn("VisPy is not yet compatible with matplotlib 2.2+")
+Elastix sucessfully initialized from path: /scratch/ejdennis/rat_BrainPipe/ClearMap2/ClearMap/External/elastix/build
+Traceback (most recent call last):
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/unixccompiler.py", line 118, in _compile
+    extra_postargs)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/ccompiler.py", line 909, in spawn
+    spawn(cmd, dry_run=self.dry_run)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/spawn.py", line 36, in spawn
+    _spawn_posix(cmd, search_path, dry_run=dry_run)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/spawn.py", line 159, in _spawn_posix
+    % (cmd, exit_status))
+distutils.errors.DistutilsExecError: command 'gcc' failed with exit status 4
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyximport.py", line 215, in load_module
+    inplace=build_inplace, language_level=language_level)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyximport.py", line 191, in build_module
+    reload_support=pyxargs.reload_support)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyxbuild.py", line 102, in pyx_to_dll
+    dist.run_commands()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/dist.py", line 955, in run_commands
+    self.run_command(cmd)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/dist.py", line 974, in run_command
+    cmd_obj.run()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/Cython/Distutils/old_build_ext.py", line 186, in run
+    _build_ext.build_ext.run(self)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 339, in run
+    self.build_extensions()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/Cython/Distutils/old_build_ext.py", line 195, in build_extensions
+    _build_ext.build_ext.build_extensions(self)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 448, in build_extensions
+    self._build_extensions_serial()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 473, in _build_extensions_serial
+    self.build_extension(ext)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 533, in build_extension
+    depends=ext.depends)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/ccompiler.py", line 574, in compile
+    self._compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/unixccompiler.py", line 120, in _compile
+    raise CompileError(msg)
+distutils.errors.CompileError: command 'gcc' failed with exit status 4
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cm2_spock_filter.py", line 21, in <module>
+    from ClearMap.Environment import *
+  File "/scratch/ejdennis/rat_BrainPipe/ClearMap2/ClearMap/Environment.py", line 65, in <module>
+    import ClearMap.ImageProcessing.Skeletonization.Skeletonization as skl
+  File "/scratch/ejdennis/rat_BrainPipe/ClearMap2/ClearMap/ImageProcessing/Skeletonization/Skeletonization.py", line 36, in <module>
+    import ClearMap.ImageProcessing.Skeletonization.PK12 as PK12
+  File "/scratch/ejdennis/rat_BrainPipe/ClearMap2/ClearMap/ImageProcessing/Skeletonization/PK12.py", line 29, in <module>
+    import ClearMap.ParallelProcessing.DataProcessing.ConvolvePointList as cpl
+  File "/scratch/ejdennis/rat_BrainPipe/ClearMap2/ClearMap/ParallelProcessing/DataProcessing/ConvolvePointList.py", line 32, in <module>
+    import ClearMap.ParallelProcessing.DataProcessing.ConvolvePointListCode as code
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyximport.py", line 462, in load_module
+    language_level=self.language_level)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyximport.py", line 231, in load_module
+    raise exc.with_traceback(tb)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyximport.py", line 215, in load_module
+    inplace=build_inplace, language_level=language_level)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyximport.py", line 191, in build_module
+    reload_support=pyxargs.reload_support)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/pyximport/pyxbuild.py", line 102, in pyx_to_dll
+    dist.run_commands()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/dist.py", line 955, in run_commands
+    self.run_command(cmd)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/dist.py", line 974, in run_command
+    cmd_obj.run()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/Cython/Distutils/old_build_ext.py", line 186, in run
+    _build_ext.build_ext.run(self)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 339, in run
+    self.build_extensions()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/site-packages/Cython/Distutils/old_build_ext.py", line 195, in build_extensions
+    _build_ext.build_ext.build_extensions(self)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 448, in build_extensions
+    self._build_extensions_serial()
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 473, in _build_extensions_serial
+    self.build_extension(ext)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/command/build_ext.py", line 533, in build_extension
+    depends=ext.depends)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/ccompiler.py", line 574, in compile
+    self._compile(obj, src, ext, cc_args, extra_postargs, pp_opts)
+  File "/usr/people/ejdennis/.conda/envs/cm2/lib/python3.6/distutils/unixccompiler.py", line 120, in _compile
+    raise CompileError(msg)
+ImportError: Building module ClearMap.ParallelProcessing.DataProcessing.ConvolvePointListCode failed: ["distutils.errors.CompileError: command 'gcc' failed with exit status 4\n"]
