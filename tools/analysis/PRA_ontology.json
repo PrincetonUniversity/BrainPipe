@@ -1,0 +1,4451 @@
+{
+  "id": 0,
+  "common_name": "root",
+  "graph_order": 0,
+  "parent_structure_id": null,
+  "children": [
+    {
+      "id": 35,
+      "name": "brainstem",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 39,
+          "name": "hindbrain",
+          "parent_id": 35,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 189,
+              "name": "medulla",
+              "parent_id": 39,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 265,
+                  "name": "spinal_trigeminal_nucleus",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 266,
+                  "name": "medulla_beh",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 267,
+                  "name": "medulla_sen",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 589,
+                  "name": "medulla_behavioral_state_related",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 268,
+                      "name": "raphe_magnus_nucleus",
+                      "parent_id": 589,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 269,
+                      "name": "raphe_nuclei",
+                      "parent_id": 589,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 270,
+                      "name": "raphe_obscurus_nucleus",
+                      "parent_id": 589,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 271,
+                      "name": "raphe_pallidus_nucleus",
+                      "parent_id": 589,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 590,
+                  "name": "medulla_motor_related",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 272,
+                      "name": "inferior_olive",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 273,
+                      "name": "abducens_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 274,
+                      "name": "ambiguus_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 275,
+                      "name": "efferent_vestibular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 276,
+                      "name": "facial_motor_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 277,
+                      "name": "facial_nuclei",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 278,
+                      "name": "gigantocellular_reticular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 279,
+                      "name": "hypoglossal_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 280,
+                      "name": "inferior_olive_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 281,
+                      "name": "inferior_salivatory_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 282,
+                      "name": "intermediate_reticular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 283,
+                      "name": "lateral_reticular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 284,
+                      "name": "linear_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 285,
+                      "name": "medulla_mot",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 286,
+                      "name": "medulla_parapyramidal_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 287,
+                      "name": "medulla_reticular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 288,
+                      "name": "medullary_reticular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 289,
+                      "name": "nucleus_x",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 290,
+                      "name": "nucleus_y",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 291,
+                      "name": "olfactory_bulb",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 292,
+                      "name": "paragigantocellular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 293,
+                      "name": "parasolitary_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 294,
+                      "name": "parvicellular_reticular_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 295,
+                      "name": "perihypoglossal_nuclei",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 384,
+                          "name": "intercalated_nucleus",
+                          "parent_id": 295,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 385,
+                          "name": "medulla_intercalated_nucleus",
+                          "parent_id": 295,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 386,
+                          "name": "prepositus_nucleus",
+                          "parent_id": 295,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 387,
+                          "name": "roller_nucleus",
+                          "parent_id": 295,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 296,
+                      "name": "vagus_nerve_nucleus",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 297,
+                      "name": "vestibular_nuclei",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 546,
+                          "name": "lateral_vestibular_nucleus",
+                          "parent_id": 297,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 547,
+                          "name": "medial_vestibular_nucleus",
+                          "parent_id": 297,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 548,
+                          "name": "superior_vestibular_nucleus",
+                          "parent_id": 297,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 298,
+                      "name": "vestibular_nucleus_efferent",
+                      "parent_id": 590,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 591,
+                  "name": "medulla_sensory_related",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 299,
+                      "name": "area_postrema",
+                      "parent_id": 591,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 300,
+                      "name": "cochlear_nuclei",
+                      "parent_id": 591,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 84,
+                          "name": "cochlear_nucleus_ventral",
+                          "parent_id": 300,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 301,
+                      "name": "cuneate_nuclei",
+                      "parent_id": 591,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 302,
+                      "name": "solitary_nucleus",
+                      "parent_id": 591,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 303,
+                      "name": "trapezod_body_nucleus",
+                      "parent_id": 591,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 304,
+                      "name": "trigeminal_spinal_nucleus",
+                      "parent_id": 591,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 599,
+                  "name": "paragigantocellular_reticular_nucleus",
+                  "parent_id": 189,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 376,
+                      "name": "paragigantocellular_nculeus_dorsal",
+                      "parent_id": 599,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 190,
+              "name": "pons",
+              "parent_id": 39,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 405,
+                  "name": "transverse_fibers_of_the_pons",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 406,
+                  "name": "pons_beh",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 407,
+                  "name": "pons_sen",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 598,
+                  "name": "parabrachial_nucleus",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 373,
+                      "name": "kolliker-fuse",
+                      "parent_id": 598,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 374,
+                      "name": "parabrachial_nuclei_lateral",
+                      "parent_id": 598,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 375,
+                      "name": "parabrachial_nucleus_medial",
+                      "parent_id": 598,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 600,
+                  "name": "pons_behavioral_state_related",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 408,
+                      "name": "laterodorsal_tegmental_nucleus",
+                      "parent_id": 600,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 409,
+                      "name": "locus_ceruleus",
+                      "parent_id": 600,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 410,
+                      "name": "pontine_nuclei_raphe",
+                      "parent_id": 600,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 411,
+                      "name": "pontine_nuclei_reticular",
+                      "parent_id": 600,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 412,
+                      "name": "raphe_nucleus_superior_central",
+                      "parent_id": 600,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 601,
+                  "name": "pons_motor_related",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 413,
+                      "name": "barringtons_nucleus",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 32,
+                          "name": "barrington_nucleus_dorsal",
+                          "parent_id": 413,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 33,
+                          "name": "barrington_nucleus_ventral",
+                          "parent_id": 413,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 414,
+                      "name": "barringtons_nucleus_dorsal",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 415,
+                      "name": "barringtons_nucleus_ventral",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 416,
+                      "name": "central_gray",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 417,
+                      "name": "pons_mot",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 418,
+                      "name": "pons_tegmental_reticular_nucleus",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 419,
+                      "name": "pontine_nuclei",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 420,
+                      "name": "superior_salivatory_nucleus",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 421,
+                      "name": "supragenual_nucleus",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 422,
+                      "name": "supragtrigeminal_nucleus",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 423,
+                      "name": "tegmental_nuclei_dorsal",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 424,
+                      "name": "tegmental_reticular_nucleus",
+                      "parent_id": 601,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 602,
+                  "name": "pons_sensory_related",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 425,
+                      "name": "lateral_lemniscus_nucleus",
+                      "parent_id": 602,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 426,
+                      "name": "parabrachial_nucleus_lateral",
+                      "parent_id": 602,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 427,
+                      "name": "superior_olive",
+                      "parent_id": 602,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 496,
+                          "name": "periolive_nuclei",
+                          "parent_id": 427,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 428,
+                      "name": "superior_olive_complex",
+                      "parent_id": 602,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 494,
+                          "name": "superior_olive_lateral",
+                          "parent_id": 428,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 495,
+                          "name": "superior_olive_medial",
+                          "parent_id": 428,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 429,
+                      "name": "trigeminal_nuclei_sensory",
+                      "parent_id": 602,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 608,
+                  "name": "superior_central_nucleus_raphe",
+                  "parent_id": 190,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 484,
+                      "name": "raphe_nucleus_medial",
+                      "parent_id": 608,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "name": "interbrain",
+          "parent_id": 35,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 225,
+              "name": "hypothalamus",
+              "parent_id": 40,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 20,
+                  "name": "hypothalamus_anterior_anterior",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 21,
+                  "name": "hypothalamus_anterior_central",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 22,
+                  "name": "hypothalamus_anterior_posterior",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 211,
+                  "name": "periventricular_region",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 212,
+                  "name": "hypothalamus_lateral_zone",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 213,
+                  "name": "hypothalamus_medial_zone",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 214,
+                  "name": "median_eminence",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 256,
+                  "name": "hypothalamus_tuberomammillary_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 520,
+                      "name": "hypothalamus_tuberomammillary_nucleus_dorsal",
+                      "parent_id": 256,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 377,
+                  "name": "hypothalamus_periventricular_anterior",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 388,
+                  "name": "hypothalamus_dorsomedial_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 389,
+                  "name": "hypothalamus_medial_preoptic_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 390,
+                  "name": "hypothalamus_periventricular_anteroventral",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 391,
+                  "name": "hypothalamus_preoptic_nucleus_posterodorsal",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 392,
+                  "name": "hypothalamus_subparaventricular_zone",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 393,
+                  "name": "lamina_terminalis_vascular_organ",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 394,
+                  "name": "median_preoptic_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 395,
+                  "name": "parastrial_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 396,
+                  "name": "preoptic_nucleus_ventrolateral",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 397,
+                  "name": "preoptic_nucleus_ventromedial",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 399,
+                  "name": "suprachiasmatic_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 400,
+                  "name": "hypothalamus_arcuate_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 401,
+                  "name": "hypothalamus_periventricular_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 402,
+                  "name": "hypothalmus_paraventricular_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 403,
+                  "name": "supraoptic_group_accessory",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 404,
+                  "name": "supraoptic_nucles",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 566,
+                  "name": "accessory_supraoptic_group",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 1,
+                      "name": "circularis_nucleus",
+                      "parent_id": 566,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 2,
+                      "name": "circulur_nucleus",
+                      "parent_id": 566,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 584,
+                  "name": "hypothalamic_lateral_zone",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 196,
+                      "name": "hypothalamus_preoptic_area",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 197,
+                      "name": "hypothalamus_lateral",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 198,
+                      "name": "hypothalamus_parasubthalamic_nucleus",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 199,
+                      "name": "hypothalamus_tuberal_nucleus",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 200,
+                      "name": "hypothalamus_zona_incerta",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 558,
+                          "name": "da13",
+                          "parent_id": 200,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 559,
+                          "name": "da14",
+                          "parent_id": 200,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 560,
+                          "name": "fields_of_forel",
+                          "parent_id": 200,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 201,
+                      "name": "hypothalamus_preoptic_area_lateral",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 202,
+                      "name": "retrochiasmatic_carea",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 203,
+                      "name": "subthalamic_nucleus",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 204,
+                      "name": "tuberal_nucleus",
+                      "parent_id": 584,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 585,
+                  "name": "hypothalamic_medial_zone",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 205,
+                      "name": "hypothalamus_anterior",
+                      "parent_id": 585,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 206,
+                      "name": "hypothalamus_posterior_nucleus",
+                      "parent_id": 585,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 207,
+                      "name": "hypothalamus_premammillary_nucleus",
+                      "parent_id": 585,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 208,
+                      "name": "hypothalamus_premammillary_nucleus_dorsal",
+                      "parent_id": 585,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 209,
+                      "name": "hypothalamus_ventromedial_nucleus",
+                      "parent_id": 585,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 210,
+                      "name": "mammillary_body",
+                      "parent_id": 585,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 257,
+                          "name": "mammillary_nuclei_medial",
+                          "parent_id": 210,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 258,
+                          "name": "mammillary_nucleus_lateral",
+                          "parent_id": 210,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 586,
+                  "name": "hypothalamus_related",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 215,
+                      "name": "hypothalamus_supramammillary_nucleus",
+                      "parent_id": 586,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 216,
+                      "name": "medial_forebrain_bundle",
+                      "parent_id": 586,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 615,
+                  "name": "hypothlamus_tuberomammillary_nucleus",
+                  "parent_id": 225,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 226,
+              "name": "thalamus",
+              "parent_id": 40,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 14,
+                  "name": "thalamus_dorsal_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 15,
+                  "name": "thalamus_anterodorsal_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 16,
+                  "name": "thalamus_anteromedial_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 17,
+                  "name": "thalamus_anteroventral_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 18,
+                  "name": "thalamus_interanterodorsal_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 19,
+                  "name": "thalamus_interanteromedial_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 27,
+                  "name": "thalamus_anteromedial_nucleus_ventral",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 164,
+                  "name": "medial_geniculate_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 165,
+                  "name": "thalamus_lateral_geniculate_nucleus_dorsal",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 166,
+                  "name": "thalamus_lateral_geniculate_nucleus_orsal",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 167,
+                  "name": "intergeniculate_leaflet",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 168,
+                  "name": "thalamus_geniculate_complex",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 169,
+                  "name": "thalamus_subgeniculate_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 227,
+                  "name": "thalamus_central_lateral_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 228,
+                  "name": "thalamus_medial_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 229,
+                  "name": "thalamus_paracentral_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 230,
+                  "name": "thalamus_parafascicular_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 231,
+                  "name": "thalamus_rhomboid_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 245,
+                  "name": "thalamus_lateral_grop",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 246,
+                  "name": "thalamus_lateral_posterior_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 247,
+                  "name": "thalamus_posterior_group",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 248,
+                  "name": "thalamus_posterior_limitans",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 249,
+                  "name": "thalamus_posterior_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 250,
+                  "name": "thalamus_suprageniculate_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 262,
+                  "name": "thalamus_intermediodorsal_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 263,
+                  "name": "thalamus_mediodorsal_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 264,
+                  "name": "thalamus_submedial_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 336,
+                  "name": "reuniens_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 337,
+                  "name": "thalamus_parataenial_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 338,
+                  "name": "thalamus_paraventricular",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 339,
+                  "name": "thalamus_xiphoid_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 501,
+                  "name": "thalamus_medial_geniculate_body",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 502,
+                  "name": "reunions_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 503,
+                  "name": "thalamus_polymodal",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 504,
+                  "name": "thalamus_sensory_motor",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 505,
+                  "name": "epithalamus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 143,
+                      "name": "habenula_lateral",
+                      "parent_id": 505,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 144,
+                      "name": "habenula_medial_nucleus",
+                      "parent_id": 505,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 145,
+                      "name": "hebenula_lateral",
+                      "parent_id": 505,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 146,
+                      "name": "pineal_body",
+                      "parent_id": 505,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 578,
+                      "name": "epithalamus_related",
+                      "parent_id": 505,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 147,
+                          "name": "stria_medullaris",
+                          "parent_id": 578,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 148,
+                          "name": "fasciculus_retroflexus",
+                          "parent_id": 578,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 149,
+                          "name": "habenular_commissure",
+                          "parent_id": 578,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 506,
+                  "name": "thalamus_dorsal_anterior",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 507,
+                  "name": "thalamus_intralaminar_nuclei",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 508,
+                  "name": "thalamus_lateral_group",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 509,
+                  "name": "thalamus_midline_group",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 510,
+                  "name": "thalamus_reticular_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 515,
+                  "name": "peripeduncular_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 516,
+                  "name": "thalamus_geniculate_group",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 517,
+                  "name": "thalamus_subparafascicular_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 518,
+                  "name": "thalamus_ventral_group",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 522,
+                  "name": "thalamic_nucleus_ventrolateral",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 523,
+                  "name": "thalamic_nucleus_ventromedial",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 524,
+                  "name": "thalamus_posterior_nucleus_ventral",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 525,
+                  "name": "thalamus_triangular_nucleus_posterior",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 526,
+                  "name": "thalamus_venterolateral_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 527,
+                  "name": "thalamus_ventromedial_nucleus",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 528,
+                  "name": "thalaus_posterolateral_nucleus_ventral",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 529,
+                  "name": "thalaus_posteromedial_nucleus_ventral",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 614,
+                  "name": "thalamus_related",
+                  "parent_id": 226,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 511,
+                      "name": "auditory_radiation",
+                      "parent_id": 614,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 512,
+                      "name": "internal_medullary_lamina",
+                      "parent_id": 614,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 513,
+                      "name": "optic_radiation",
+                      "parent_id": 614,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 514,
+                      "name": "thalamus_external_medullary_lamina",
+                      "parent_id": 614,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "midbrain",
+          "parent_id": 35,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 305,
+              "name": "midbrain_beh",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 306,
+              "name": "midbrain_sen",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 592,
+              "name": "midbrain_behavioral_state_related",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 307,
+                  "name": "midbrain_raphe_nuclei",
+                  "parent_id": 592,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 326,
+                      "name": "interfascicular_nucleus",
+                      "parent_id": 307,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 327,
+                      "name": "interpeduncular_nucleus",
+                      "parent_id": 307,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 328,
+                      "name": "linear_nucleus_raphe_caudal",
+                      "parent_id": 307,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 329,
+                      "name": "raphe_nucleus_dorsal",
+                      "parent_id": 307,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 330,
+                      "name": "raphe_nucleus_rostral_linear",
+                      "parent_id": 307,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 308,
+                  "name": "pedunculopontine_nucleus",
+                  "parent_id": 592,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 309,
+                  "name": "pedunculotegmental_nucleus",
+                  "parent_id": 592,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 310,
+                  "name": "substantia_nigra",
+                  "parent_id": 592,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 593,
+              "name": "midbrain_motor_related",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 311,
+                  "name": "cuneiform_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 312,
+                  "name": "edinger_westphal_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 313,
+                  "name": "midbrain_mot",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 314,
+                  "name": "midbrain_reticular_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 315,
+                  "name": "oculomotor_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 316,
+                  "name": "optic_tract_terminal_nucleus_medial",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 317,
+                  "name": "periaqueductal_gray",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 380,
+                      "name": "darkschewitsch_nucleus",
+                      "parent_id": 317,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 381,
+                      "name": "interstitial_nucleus_of_cajal",
+                      "parent_id": 317,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 382,
+                      "name": "periaqueductal_gray_supraoculomotor",
+                      "parent_id": 317,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 383,
+                      "name": "precommissural_nucleus",
+                      "parent_id": 317,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 318,
+                  "name": "pretectum",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 431,
+                      "name": "posterior_commissure_nucleus",
+                      "parent_id": 318,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 432,
+                      "name": "pretectal_nucleus_anterior",
+                      "parent_id": 318,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 433,
+                      "name": "pretectal_nucleus_posterior",
+                      "parent_id": 318,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 434,
+                      "name": "pretectum_medial",
+                      "parent_id": 318,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 435,
+                      "name": "pretectum_olive_nucleus",
+                      "parent_id": 318,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 319,
+                  "name": "red_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 320,
+                  "name": "retroisthmic_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 321,
+                  "name": "tegmental_area_ventral",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 322,
+                  "name": "tegmental_nucleus_ventral",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 323,
+                  "name": "tegmetal_nucleus_anterior",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 324,
+                  "name": "terminal_nucleus_dorsal",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 325,
+                  "name": "trochlear_nucleus",
+                  "parent_id": 593,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 594,
+              "name": "midbrain_sensory_related",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 331,
+                  "name": "inferior_colliculus",
+                  "parent_id": 594,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 219,
+                      "name": "inferior_colliculus_brachium",
+                      "parent_id": 331,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 220,
+                      "name": "inferior_colliculus_nuclei_dorsal",
+                      "parent_id": 331,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 221,
+                      "name": "inferior_colliculus_nuclei_external",
+                      "parent_id": 331,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 222,
+                      "name": "inferior_colliculus_central_nucleus",
+                      "parent_id": 331,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 223,
+                      "name": "inferior_colliculus_nuclei_central",
+                      "parent_id": 331,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 332,
+                  "name": "inferior_colliculus_brachium_nucleus",
+                  "parent_id": 594,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 333,
+                  "name": "midbrain_trigeminal_nucleus",
+                  "parent_id": 594,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 334,
+                  "name": "parabigeminal_nucleus",
+                  "parent_id": 594,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 335,
+                  "name": "sagulum_nucleus",
+                  "parent_id": 594,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 611,
+              "name": "superior_colliculus_motor_related",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 489,
+                  "name": "superior_colliculus_intermediate_gray",
+                  "parent_id": 611,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 490,
+                  "name": "superior_colliculus_intermediate_white",
+                  "parent_id": 611,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 612,
+              "name": "superior_colliculus_sensory_related",
+              "parent_id": 41,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 491,
+                  "name": "superior_colliculus_optic",
+                  "parent_id": 612,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 492,
+                  "name": "superior_colliculus_superficial_gray",
+                  "parent_id": 612,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 493,
+                  "name": "superior_colliculus_zonal",
+                  "parent_id": 612,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 577,
+          "name": "dorsal_column_nuclei",
+          "parent_id": 35,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 134,
+              "name": "cuneate_nucleus",
+              "parent_id": 577,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 135,
+              "name": "gracile_nucleus",
+              "parent_id": 577,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 595,
+          "name": "nucleus_of_the_lateral_lemniscus",
+          "parent_id": 35,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 340,
+              "name": "lateral_lemniscus_nucleus_dorsal",
+              "parent_id": 595,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 341,
+              "name": "lateral_lemniscus_nucleus_ventral",
+              "parent_id": 595,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "cerebellum",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 43,
+          "name": "cerebellar_vermis_ii",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 51,
+          "name": "cerebellar_cortex",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 44,
+              "name": "hemispheric_regions",
+              "parent_id": 51,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 45,
+              "name": "vermal_regions",
+              "parent_id": 51,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 536,
+                  "name": "cerebellar_lobule_vii",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 537,
+                  "name": "cerebellar_vermis_i",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 538,
+                  "name": "cerebellar_vermis_ix",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 539,
+                  "name": "cerebellar_vermis_lobule_ix",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 540,
+                  "name": "cerebellar_vermis_lobule_viii",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 541,
+                  "name": "cerebellar_vermis_vi",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 542,
+                  "name": "cerebellar_vermis_vii",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 543,
+                  "name": "cerebellar_vermis_viii",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 544,
+                  "name": "cerebellar_vermis_x",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 545,
+                  "name": "culmen",
+                  "parent_id": 45,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "name": "cerebellar_nuclei",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 46,
+              "name": "cerebellar_nuclei_medial",
+              "parent_id": 52,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 47,
+              "name": "interposed_nucleus",
+              "parent_id": 52,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "name": "descending_corticofugal_pathways",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 54,
+          "name": "molecular_layer_of_the_cerebellum",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 55,
+          "name": "granule_cell_level_of_the_cerebellum",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 127,
+          "name": "cerebellar_vermis_iv",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 128,
+          "name": "cerebellar_vermis_iv_v",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 129,
+          "name": "cerebellar_vermis_v",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 184,
+          "name": "cerebellar_flocculus",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 185,
+          "name": "cerebelluar_copula_pyramis",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 186,
+          "name": "paraflocculus",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 187,
+          "name": "paramedian_lobule",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 188,
+          "name": "simple_lobule",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 255,
+          "name": "cerebellar_vermis_iii",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 568,
+          "name": "ansiform_lobule",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 9,
+              "name": "cerebellar_crus_1",
+              "parent_id": 568,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 10,
+              "name": "cerebellar_crus_2",
+              "parent_id": 568,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 580,
+          "name": "grooves_of_the_cerebellar_cortex",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 170,
+              "name": "interpeduncular_fossa",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 171,
+              "name": "ansoparamedian_fissure",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 172,
+              "name": "fissure_intercrural",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 173,
+              "name": "fissure_prepyramidal",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 174,
+              "name": "paraflocculus_sulcus",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 175,
+              "name": "post_superior_fissure",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 176,
+              "name": "posterolateral_fissure",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 177,
+              "name": "precentral_fissure",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 178,
+              "name": "preculminate",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 179,
+              "name": "primary_fissure",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 180,
+              "name": "secondary_fissure",
+              "parent_id": 580,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 587,
+          "name": "inferior_cerebellar_peduncle",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 217,
+              "name": "bulbocerebellar_tract",
+              "parent_id": 587,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 42,
+                  "name": "olivocerebellar_tract",
+                  "parent_id": 217,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 218,
+              "name": "spinocerebellar_tract_dorsal",
+              "parent_id": 587,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 609,
+          "name": "superior_cerebellar_peduncles",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 485,
+              "name": "cerebellar_peduncle_superior_decussation",
+              "parent_id": 609,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 486,
+              "name": "uncinate_fascicle",
+              "parent_id": 609,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 610,
+          "name": "superior_cerebellar_peduncle_decussation",
+          "parent_id": 36,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 487,
+              "name": "spinocerebellar_tract",
+              "parent_id": 610,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 488,
+              "name": "spiocerebellar_tract",
+              "parent_id": 610,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "cerebrum",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 59,
+          "name": "cortex",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 91,
+              "name": "cingulate_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 11,
+                  "name": "cingulate_cortex_anterior",
+                  "parent_id": 91,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 12,
+                  "name": "cingulate_cortex_dorsal",
+                  "parent_id": 91,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 13,
+                  "name": "cingulate_cortex_ventral",
+                  "parent_id": 91,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 76,
+                  "name": "cingulate_cortex_infralimbic",
+                  "parent_id": 91,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 77,
+                  "name": "cingulate_cortex_prelimbic",
+                  "parent_id": 91,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 92,
+              "name": "entorhinal_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 139,
+                  "name": "entorhinal_cortex_dorsal",
+                  "parent_id": 92,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 140,
+                  "name": "entorhinal_cortex_lateral",
+                  "parent_id": 92,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 141,
+                  "name": "entorhinal_cortex_ventral",
+                  "parent_id": 92,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 142,
+                  "name": "entorhinal_cortex_medial",
+                  "parent_id": 92,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 93,
+              "name": "frontal_pole",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 94,
+              "name": "postrhinal_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 95,
+              "name": "perirhinal_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 96,
+              "name": "primary_somatosensory_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 97,
+              "name": "primary_visual_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 98,
+              "name": "temporal_association_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 104,
+              "name": "hippocampal_formation",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 192,
+                  "name": "ammons_horn",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 6,
+                      "name": "ca1",
+                      "parent_id": 192,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 7,
+                      "name": "ca2",
+                      "parent_id": 192,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 8,
+                      "name": "ca3",
+                      "parent_id": 192,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 193,
+                  "name": "dentate_gyrus",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 130,
+                      "name": "dentate_gyrus_granule",
+                      "parent_id": 193,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 131,
+                      "name": "dentate_gyrus_polymorph",
+                      "parent_id": 193,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 194,
+                  "name": "fasciola_cinerea",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 195,
+                  "name": "induseum_griseum",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 440,
+                  "name": "retrohippocampus",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 436,
+                      "name": "parasubiculum",
+                      "parent_id": 440,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 437,
+                      "name": "postsubiculum",
+                      "parent_id": 440,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 438,
+                      "name": "presubiculum",
+                      "parent_id": 440,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 439,
+                      "name": "prosubiculum",
+                      "parent_id": 440,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 441,
+                      "name": "subiculum",
+                      "parent_id": 440,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 482,
+                          "name": "subiculum_dorsal",
+                          "parent_id": 441,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 483,
+                          "name": "subiculum_ventral",
+                          "parent_id": 441,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": 579,
+                  "name": "fornix_system",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 160,
+                      "name": "alveus_of_the_hippocampus",
+                      "parent_id": 579,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 161,
+                      "name": "fimbria",
+                      "parent_id": 579,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 162,
+                      "name": "fornix_postcommissural",
+                      "parent_id": 579,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 163,
+                      "name": "hippocampal_commissure",
+                      "parent_id": 579,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 582,
+                  "name": "hippocampal_commissures",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 191,
+                      "name": "hippocampal_commissure_dorsal",
+                      "parent_id": 582,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 583,
+                  "name": "hippocampal_region",
+                  "parent_id": 104,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 105,
+              "name": "olfactory_areas",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 344,
+                  "name": "amygdalar_cortical_area_posterior_medial",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 345,
+                  "name": "amygdalar_nuclei_cortical",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 346,
+                  "name": "amygdalar_piriform_area",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 347,
+                  "name": "amygdalopiriform_cortex",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 348,
+                  "name": "cingulate_cortex_dorsal_peduncle",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 349,
+                  "name": "cingulate_cortex_dorsal_peduncular",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 350,
+                  "name": "olfactory_nucleus_anterior",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 351,
+                  "name": "olfactory_nucleus_anterior_posterior",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 352,
+                  "name": "olfactory_nucleus_anterior_ventral",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 353,
+                  "name": "piriform_cortex",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 354,
+                  "name": "piriform_cortex_amygdalar",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 355,
+                  "name": "postpiriform_transition_area",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 356,
+                  "name": "taenia_tecta",
+                  "parent_id": 105,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 497,
+                      "name": "tenia_tecta_dorsal",
+                      "parent_id": 356,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 498,
+                      "name": "tenia_tecta_ventral",
+                      "parent_id": 356,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 233,
+              "name": "auditory_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 28,
+                  "name": "primary_auditory_cortex",
+                  "parent_id": 233,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 30,
+                  "name": "secondary_auditory_cortex",
+                  "parent_id": 233,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 29,
+                      "name": "seconary_auditory_cortex_ventral",
+                      "parent_id": 30,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 31,
+                      "name": "secondary_auditory_cortex_dorsal",
+                      "parent_id": 30,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 234,
+              "name": "ectorhinal_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 237,
+              "name": "visual_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 551,
+                  "name": "secondary_visal_cortex",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 552,
+                  "name": "secondary_visual_cortex",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 454,
+                      "name": "secondary_visual_cortex_mediolateral",
+                      "parent_id": 552,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 553,
+                  "name": "secondary_visual_cortex_anterolateral",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 554,
+                  "name": "secondary_visual_cortex_anteromedial",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 555,
+                  "name": "secondary_visual_cortex_lateral",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 556,
+                  "name": "secondary_visual_cortex_posteriomedial",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 557,
+                  "name": "secondary_visual_cortex_posterior",
+                  "parent_id": 237,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 238,
+              "name": "motor_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 463,
+                  "name": "primary_motor_cortex",
+                  "parent_id": 238,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 464,
+                  "name": "secondary_motor_cortex",
+                  "parent_id": 238,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 239,
+              "name": "orbital_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 363,
+                  "name": "orbital_cortex_lateral",
+                  "parent_id": 239,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 364,
+                  "name": "orbital_cortex_medial",
+                  "parent_id": 239,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 365,
+                  "name": "orbital_cortex_ventral",
+                  "parent_id": 239,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 366,
+                  "name": "orbital_cortex_dorsolateral",
+                  "parent_id": 239,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 240,
+              "name": "parietal_association_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 378,
+                  "name": "parietal_association_cortex_lateral",
+                  "parent_id": 240,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 379,
+                  "name": "parietal_association_cortex_posterior",
+                  "parent_id": 240,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 561,
+                  "name": "parietal_association_cortex_medial",
+                  "parent_id": 240,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 562,
+                  "name": "parietal_cortex_posterior_area_rostral_part",
+                  "parent_id": 240,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 242,
+              "name": "somatosensory_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 465,
+                  "name": "secondary_somatosensory_cortex",
+                  "parent_id": 242,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 466,
+                  "name": "seondary_somatosensory_cortex",
+                  "parent_id": 242,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 597,
+              "name": "olfactory_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 23,
+                  "name": "olfactory_cortex_anterior_dorsal",
+                  "parent_id": 597,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 24,
+                  "name": "olfactory_cortex_anterior_lateral",
+                  "parent_id": 597,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 25,
+                  "name": "olfactory_cortex_anterior_medial",
+                  "parent_id": 597,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 26,
+                  "name": "olfactory_cortex_anterior_posteroventral",
+                  "parent_id": 597,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 604,
+              "name": "retrosplenial_cortex",
+              "parent_id": 59,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 241,
+                  "name": "retrosplenial_cortex_granular",
+                  "parent_id": 604,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 442,
+                  "name": "retrosplenial_cortex_dysgranular",
+                  "parent_id": 604,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 63,
+          "name": "amygdalar_area",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 64,
+          "name": "superior_colliculus",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 65,
+          "name": "hypothalamic_region",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 66,
+          "name": "basal_forebrain",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 34,
+              "name": "basal_ganglia",
+              "parent_id": 66,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 60,
+                  "name": "pallidum",
+                  "parent_id": 34,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 367,
+                      "name": "ventral_pallidum",
+                      "parent_id": 60,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 368,
+                      "name": "bed_nuclei_of_the_stria_terminalis",
+                      "parent_id": 60,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 369,
+                      "name": "bed_nucleus_of_the_anterior_commissure",
+                      "parent_id": 60,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 370,
+                      "name": "globus_pallidus",
+                      "parent_id": 60,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 371,
+                      "name": "magnocellular_nucleus",
+                      "parent_id": 60,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 372,
+                      "name": "substantia_innominata",
+                      "parent_id": 60,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 61,
+                  "name": "striatum",
+                  "parent_id": 34,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 469,
+                      "name": "septum",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 470,
+                      "name": "amygdalar_nuclei_striatum_like",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 471,
+                      "name": "septal_nuclei",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 457,
+                          "name": "septal_nuclei_medial",
+                          "parent_id": 471,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 458,
+                          "name": "septal_nuclei_lateral",
+                          "parent_id": 471,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 459,
+                          "name": "septal_nucleus_triangular",
+                          "parent_id": 471,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 460,
+                          "name": "septofimbrial_nucleus",
+                          "parent_id": 471,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 461,
+                          "name": "septohippocampal_nucleus",
+                          "parent_id": 471,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 462,
+                          "name": "septum_medial",
+                          "parent_id": 471,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 472,
+                      "name": "striatm_ventral",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 473,
+                      "name": "striatum_dorsal",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 606,
+                      "name": "striatum_dorsal_region",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 474,
+                          "name": "caudoputamen",
+                          "parent_id": 606,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 607,
+                      "name": "striatum_ventral_region",
+                      "parent_id": 61,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 357,
+                          "name": "island_of_calleja",
+                          "parent_id": 607,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 475,
+                          "name": "accumbens_nucleus",
+                          "parent_id": 607,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 476,
+                          "name": "olfactory_tubercle",
+                          "parent_id": 607,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 477,
+                          "name": "striatum_fundus",
+                          "parent_id": 607,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 563,
+              "name": "diagonal_domain",
+              "parent_id": 66,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 67,
+          "name": "cerebral_nuclei",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 398,
+          "name": "subfornical_organ",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 564,
+          "name": "diencephalon",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 565,
+          "name": "pituitary",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 567,
+          "name": "amygdalar_nuclei",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 38,
+              "name": "amygdalar_nuclei_basomedial",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 106,
+              "name": "amygdalar_nuclei_basolateral",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 107,
+              "name": "amygdalar_nuclei_lateral",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 108,
+              "name": "amygdalar_nuclei_posterior",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 109,
+              "name": "amygdalohippocampal_cortex",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 110,
+              "name": "claustrum",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 111,
+              "name": "endopiriform_nucleus",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 137,
+                  "name": "endopiriform_nucleus_dorsal",
+                  "parent_id": 111,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 138,
+                  "name": "endopiriform_nucleus_ventral",
+                  "parent_id": 111,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 575,
+              "name": "cortical_amygdalar_area",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 99,
+                  "name": "amygdalar_cortical_area_posterior",
+                  "parent_id": 575,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 100,
+                  "name": "amygdalar_nuclei_anterior",
+                  "parent_id": 575,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 101,
+                  "name": "amygdalar_nuclei_cortical_anterior",
+                  "parent_id": 575,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 102,
+                  "name": "amygdalar_nuclei_cortical_posterior",
+                  "parent_id": 575,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 576,
+              "name": "cortical_amygdalar_area_posterior_part",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 103,
+                  "name": "amygdalar_cortical_area_posterior_lateral",
+                  "parent_id": 576,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 605,
+              "name": "striatum-like_amygdalar_nuclei",
+              "parent_id": 567,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 478,
+                  "name": "amygdalar_nuclei_central",
+                  "parent_id": 605,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 479,
+                  "name": "amygdalar_nuclei_intercalated",
+                  "parent_id": 605,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 480,
+                  "name": "amygdalar_nuclei_medial",
+                  "parent_id": 605,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 481,
+                  "name": "bed_nucleus_of_the_accessory_olfactory_tract",
+                  "parent_id": 605,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 570,
+          "name": "cerebral_nuclei_related",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 62,
+              "name": "nigrostriatal_tract",
+              "parent_id": 570,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 571,
+          "name": "cerebrum_related",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 68,
+              "name": "anterior_commissure",
+              "parent_id": 571,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 69,
+              "name": "stria_terminalis",
+              "parent_id": 571,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 70,
+              "name": "anterior_commissure_anterior",
+              "parent_id": 571,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 71,
+              "name": "anterior_commissure_posterior",
+              "parent_id": 571,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 72,
+              "name": "cingulum",
+              "parent_id": 571,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 73,
+              "name": "longitudinal_association_bundle",
+              "parent_id": 571,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 573,
+          "name": "corpus_callosum",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 87,
+              "name": "corpus_callosum_forceps",
+              "parent_id": 573,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 88,
+              "name": "corpus_callosum_genu",
+              "parent_id": 573,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 89,
+              "name": "corpus_callosum_splenium",
+              "parent_id": 573,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 574,
+              "name": "corpus_callosum_anterior_forceps",
+              "parent_id": 573,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 90,
+                  "name": "external_capsule",
+                  "parent_id": 574,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 581,
+          "name": "grooves_of_the_cerebral_cortex",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 181,
+              "name": "endorhinal_groove",
+              "parent_id": 581,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 182,
+              "name": "hippocampal_fissure",
+              "parent_id": 581,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 183,
+              "name": "rhinal_fissure",
+              "parent_id": 581,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 617,
+          "name": "forebrain",
+          "parent_id": 37,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 588,
+              "name": "mammillary_related",
+              "parent_id": 617,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 259,
+                  "name": "mammillotegmental_tract",
+                  "parent_id": 588,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 260,
+                  "name": "mammillothalamic_tract",
+                  "parent_id": 588,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 261,
+                  "name": "principal_mammillary_tract",
+                  "parent_id": 588,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 243,
+      "name": "corpus_collosum",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    },
+    {
+      "id": 244,
+      "name": "corticospinal_tract",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 112,
+          "name": "cerebral_peduncles",
+          "parent_id": 244,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 113,
+          "name": "internal_capsule",
+          "parent_id": 244,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 114,
+          "name": "pyramidal_decussation",
+          "parent_id": 244,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 115,
+          "name": "pyramidal_tract",
+          "parent_id": 244,
+          "graph_order": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 443,
+      "name": "cochlea",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 572,
+          "name": "cochlear_nucleus",
+          "parent_id": 443,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 85,
+              "name": "cochlear_nucleus_dosal",
+              "parent_id": 572,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 86,
+              "name": "cochlear_nucleus_posterior",
+              "parent_id": 572,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 616,
+          "name": "vestibulocochlear_nerve",
+          "parent_id": 443,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 549,
+              "name": "cochlear_nerve",
+              "parent_id": 616,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 78,
+                  "name": "acoustic_striae",
+                  "parent_id": 549,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 79,
+                  "name": "brachium_of_the_inferior_colliculus",
+                  "parent_id": 549,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 80,
+                  "name": "dorsal_acoustic_stria",
+                  "parent_id": 549,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 81,
+                  "name": "inferior_colliculus_commissure",
+                  "parent_id": 549,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 82,
+                  "name": "lemniscus_lateral",
+                  "parent_id": 549,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 83,
+                  "name": "trapezoid_body",
+                  "parent_id": 549,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 550,
+              "name": "vestibular_nerve",
+              "parent_id": 616,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 444,
+      "name": "olfactory_structures",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    },
+    {
+      "id": 445,
+      "name": "spinal_cord",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 613,
+          "name": "tectospinal_pathway",
+          "parent_id": 445,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 499,
+              "name": "doral_tegmental_decussation",
+              "parent_id": 613,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 500,
+              "name": "tegmental_decussation_dorsal",
+              "parent_id": 613,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 446,
+      "name": "ventricular_systems",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 530,
+          "name": "central_canal",
+          "parent_id": 446,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 531,
+          "name": "cerebral_aqueduct",
+          "parent_id": 446,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 532,
+          "name": "fourth_ventricle",
+          "parent_id": 446,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 533,
+          "name": "interventricular_foramen",
+          "parent_id": 446,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 534,
+          "name": "lateral_ventricle",
+          "parent_id": 446,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 253,
+              "name": "choroid_plexus",
+              "parent_id": 534,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 254,
+              "name": "subependymal_zone",
+              "parent_id": 534,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 535,
+          "name": "third_ventricle",
+          "parent_id": 446,
+          "graph_order": 2,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 447,
+      "name": "venricular_systems",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    },
+    {
+      "id": 448,
+      "name": "vestibular_apparatus",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    },
+    {
+      "id": 449,
+      "name": "basic_cell_groups_and_regions",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    },
+    {
+      "id": 450,
+      "name": "fiber_tracts",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": [
+        {
+          "id": 154,
+          "name": "medial_lemniscus_decussation",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 155,
+          "name": "supraoptic_decussation",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 156,
+          "name": "cerebellar_fiber_tracts",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 157,
+          "name": "cranial_nerves",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 116,
+              "name": "dorsal_roots",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 136,
+                  "name": "cervicothalamic_tract",
+                  "parent_id": 116,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 74,
+                      "name": "dorsal_column",
+                      "parent_id": 136,
+                      "graph_order": 5,
+                      "children": [
+                        {
+                          "id": 132,
+                          "name": "cuneate_fascicle",
+                          "parent_id": 74,
+                          "graph_order": 6,
+                          "children": []
+                        },
+                        {
+                          "id": 133,
+                          "name": "gracile_fascicle",
+                          "parent_id": 74,
+                          "graph_order": 6,
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": 75,
+                      "name": "lemniscus_medial",
+                      "parent_id": 136,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 117,
+              "name": "facial_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 153,
+                  "name": "facial_nerve_genu",
+                  "parent_id": 117,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 118,
+              "name": "glossopharyngeal_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 119,
+              "name": "hypoglossal_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 120,
+              "name": "olfactory_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 121,
+              "name": "optic_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 358,
+                  "name": "optic_pathways",
+                  "parent_id": 121,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 359,
+                  "name": "optic_chiasm",
+                  "parent_id": 121,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 360,
+                  "name": "brachium_of_the_superior_colliculus",
+                  "parent_id": 121,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 361,
+                  "name": "optic_tract",
+                  "parent_id": 121,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 362,
+                  "name": "superior_colliculus_commissure",
+                  "parent_id": 121,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 122,
+              "name": "spinothalamic_tract",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 467,
+                  "name": "spinotelenchephalic_pathway",
+                  "parent_id": 122,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 468,
+                  "name": "spinovestibular_pathway",
+                  "parent_id": 122,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 123,
+              "name": "trigeminal_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 519,
+                  "name": "sensory_root_of_the_trigeminal_nerve",
+                  "parent_id": 123,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 455,
+                      "name": "midbrain_trigeminal_tract",
+                      "parent_id": 519,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 456,
+                      "name": "spinal_tract_trigeminal_nerve",
+                      "parent_id": 519,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 124,
+              "name": "trochlear_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 125,
+              "name": "vagus_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 521,
+                  "name": "solitary_tract",
+                  "parent_id": 125,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 126,
+              "name": "vomeronasal_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 596,
+              "name": "oculomotor_nerve",
+              "parent_id": 157,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 342,
+                  "name": "fascicle_medial_longitudinal",
+                  "parent_id": 596,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 343,
+                  "name": "posterior_commissure",
+                  "parent_id": 596,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 158,
+          "name": "extrapyramidal_fiber_systems",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 150,
+              "name": "insular_cortex",
+              "parent_id": 158,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 224,
+                  "name": "insular_cortex_granular_dysgranular",
+                  "parent_id": 150,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 232,
+                  "name": "agranular_insular_cortex",
+                  "parent_id": 150,
+                  "graph_order": 4,
+                  "children": [
+                    {
+                      "id": 3,
+                      "name": "agranular_insular_cortex_dorsal",
+                      "parent_id": 232,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 4,
+                      "name": "agranular_insular_cortex_posterior",
+                      "parent_id": 232,
+                      "graph_order": 5,
+                      "children": []
+                    },
+                    {
+                      "id": 5,
+                      "name": "agranular_insular_cortex_ventral",
+                      "parent_id": 232,
+                      "graph_order": 5,
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": 235,
+                  "name": "insular_cortex_dysgranular",
+                  "parent_id": 150,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 236,
+                  "name": "insular_cortex_granular",
+                  "parent_id": 150,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 151,
+              "name": "rubrospinal_tract",
+              "parent_id": 158,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 453,
+                  "name": "tegmenta_area_ventral_decussation",
+                  "parent_id": 151,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 152,
+              "name": "tectospinal_tract",
+              "parent_id": 158,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 159,
+          "name": "forebrain_bundle_system_lateral",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 251,
+          "name": "olfactory_tract",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 252,
+          "name": "olfactory_tract_latera",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": []
+        },
+        {
+          "id": 569,
+          "name": "cerebellum_related_fiber_tracts",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 56,
+              "name": "cerebellar_commissure",
+              "parent_id": 569,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 57,
+              "name": "cerebellar_peduncle_inferior",
+              "parent_id": 569,
+              "graph_order": 3,
+              "children": []
+            },
+            {
+              "id": 58,
+              "name": "cerebellar_peduncles",
+              "parent_id": 569,
+              "graph_order": 3,
+              "children": [
+                {
+                  "id": 48,
+                  "name": "cerebellar_peduncles_inferior",
+                  "parent_id": 58,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 49,
+                  "name": "cerebellar_peduncles_superior",
+                  "parent_id": 58,
+                  "graph_order": 4,
+                  "children": []
+                },
+                {
+                  "id": 50,
+                  "name": "middle_cerebellar_peduncle",
+                  "parent_id": 58,
+                  "graph_order": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 603,
+          "name": "postcommissural_fornix",
+          "parent_id": 450,
+          "graph_order": 2,
+          "children": [
+            {
+              "id": 430,
+              "name": "fornix",
+              "parent_id": 603,
+              "graph_order": 3,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 451,
+      "name": "grooves",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    },
+    {
+      "id": 452,
+      "name": "clear_label",
+      "parent_id": 0,
+      "graph_order": 1,
+      "children": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 (Transform "AffineTransform")
 (NumberOfParameters 6)
-(TransformParameters 0.808389 0.082207 -0.051902 0.890099 -57.017537 -49.949623)
+(TransformParameters 0.877756 0.041429 0.078509 0.801146 -115.493378 -97.280927)
 (InitialTransformParametersFileName "NoInitialTransform")
 (UseBinaryFormatForTransformationParameters "false")
 (HowToCombineTransforms "Compose")
@@ -10,7 +10,7 @@
 (MovingImageDimension 2)
 (FixedInternalImagePixelType "float")
 (MovingInternalImagePixelType "float")
-(Size 618 489)
+(Size 996 684)
 (Index 0 0)
 (Spacing 1.0000000000 1.0000000000)
 (Origin 0.0000000000 0.0000000000)
@@ -18,7 +18,7 @@
 (UseDirectionCosines "true")
 
 // AdvancedAffineTransform specific
-(CenterOfRotationPoint 307.4482288759 246.5911537868)
+(CenterOfRotationPoint 497.5999932744 341.5665607890)
 
 // ResampleInterpolator specific
 (ResampleInterpolator "FinalBSplineInterpolator")
