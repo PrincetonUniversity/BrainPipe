@@ -15,12 +15,12 @@ sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/")
 from tools.registration.register import elastix_command_line_call
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 
-param_fld = "/home/emilyjanedennis/Desktop/brains/w122/parameterfolder"
+param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder"
 
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
 # PRA = "PRA_10um and PRA_25um"
 
-mvtiffs = ["a235","c514","e106","k320"]
+mvtiffs = ["schwarz_addedR","schwarz_prewarp"]
 fxtiff = "mPRA"
 
 fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))

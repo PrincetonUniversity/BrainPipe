@@ -14,24 +14,23 @@ import sys
 from scipy.ndimage import zoom
 sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/")
 from tools.registration.register import elastix_command_line_call
-src = "/home/emilyjanedennis/Desktop/vols"
+src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 
-param_fld = "/home/emilyjanedennis/Desktop/affine/"
+param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder_affine"
 
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
-# PRA = "PRA_10um and PRA_25um"
 
-#mvtiffs = ["t107_a235_median","c514_f003_median"]
-#fxtiffs = ["e106_f002_median","f110_k320_median"]
+mvtiffs = ["tom4_and_a235","e106_and_tom3"]
+fxtiffs = ["k320_and_tom1","tom2_and_c514_3"]
 
-for pairnum in np.arange(0,1):
-	#mvtiff = mvtiffs[pairnum]
-	#fxtiff = fxtiffs[pairnum]
-	mvtiff = "t107_a235_median_e106_f002_median_median"
-	fxtiff = "c514_f003_median_f110_k320_median_median"
+for pairnum in np.arange(0,len(mvtiffs)):
+	mvtiff = mvtiffs[pairnum]
+	fxtiff = fxtiffs[pairnum]
+	#mvtiff = "t107_a235_median_e106_f002_median_median"
+	#fxtiff = "c514_f003_median_f110_k320_median_median"
 	print(fxtiff)
-	fx = os.path.join(src,"out/{}.tif".format(fxtiff))
-	mv = os.path.join(src,"out/{}.tif".format(mvtiff))
+	fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
+	mv = os.path.join(src,"tiffs/{}.tif".format(mvtiff))
 	outputfilename = os.path.join(src,"enlarged_tiffs/{}_for_{}.tif".format(mvtiff,fxtiff))
 	print(outputfilename)
 	outputdirectory = os.path.join(src,"output_dirs/{}_to_{}".format(mvtiff,fxtiff))
