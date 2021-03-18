@@ -31,6 +31,7 @@ def get_folderstructure(dirname):
     return folderstructure
 
 def dwnsz(pth,save_str,src):
+    savestr=save_str
     print("\nPath to stitched images: %s\n" % pth)
     #path to store downsized images
     dst = os.path.join(os.path.dirname(src), "{}_downsized".format(save_str))
@@ -49,7 +50,7 @@ def dwnsz(pth,save_str,src):
     z = len(imgs)
     y,x = sitk.GetArrayFromImage(sitk.ReadImage(imgs[0])).shape
     arr = np.zeros((z,y,x))
-    atlpth = "/scratch/ejdennis/lightsheet/male_atlas/out_25/20201007_median_male_k320seed_25um.tif"
+    atlpth = "/jukebox/brody/lightsheet/atlasdir/mPRA.tif"
     atl = sitk.GetArrayFromImage(sitk.ReadImage(atlpth))
     atlz,atly,atlx = atl.shape #get shape, sagittal
     #read all the downsized images
@@ -57,7 +58,7 @@ def dwnsz(pth,save_str,src):
         if i%5000==0: print(i)
         arr[i,:,:] = sitk.GetArrayFromImage(sitk.ReadImage(img)) #horizontal
     #switch to sagittal
-    #arrsag = np.swapaxes(arr,2,0)
+    arrsag = np.swapaxes(arr,2,0)
     z,y,x = arr.shape
     print((z,y,x))
     print("\n**********downsizing....heavy!**********\n")
