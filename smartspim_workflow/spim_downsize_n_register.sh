@@ -14,7 +14,7 @@ echo "on host: `hostname` "
 cat /proc/$$/status | grep Cpus_allowed_list
 cat /proc/meminfo
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 . activate lightsheet
 
 echo "Storage directory:" "$1"
@@ -22,7 +22,7 @@ echo "Registration channel directory:" "$2"
 echo "Cell channel directory:" "$3"
 
 #downsize
-OUT0=$(sbatch spim_downsize.sh "$1")
+OUT0=$(sbatch spim_downsize.sh "$1" "$2" "$3")
 echo $OUT0
 
 #register

@@ -24,7 +24,7 @@ try:
     species = str(sys.argv[6])  # species to know for registration parameters
     param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"  # change if using rat
 except:
-
+    print('nope')
 try:
     atl = str(sys.argv[7])
 except:

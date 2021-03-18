@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
     src = sys.argv[1]  # main image folder
     svpth = sys.argv[2]  # save path
-    atlpth = "/jukebox/brody/ejdennis/lightsheet/PRA_25um.tif"  # rat_atlas
+    atlpth = "/jukebox/brody/ejdennis/lightsheet/2021_03_PRA.tif"  # rat_atlas
     param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"
 
 

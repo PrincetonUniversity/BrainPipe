@@ -24,19 +24,16 @@ def resize_helper(img, dst, resizef):
     im = cv2.resize(im, (xr, yr), interpolation=cv2.INTER_LINEAR)
     tif.imsave(os.path.join(dst, os.path.basename(img)), 
                     im.astype("uint16"), compress=1)
+def get_folderstructure(dirname):
+    folderstructure = []
+    for i in os.walk(src):
+        folderstructure.append(i)
+    return folderstructure
 
-if __name__ == "__main__":
-    
-    #takes 1 command line args
-    print(sys.argv)
-    src=str(sys.argv[1]) #folder to main image folder
-    try:
-        pth = fast_scandir(src)[-1] #gets to the end of directory tree
-    except:
-        pth = src #if images already in first directory
+def dwnsz(pth,save_str,src):
     print("\nPath to stitched images: %s\n" % pth)
     #path to store downsized images
-    dst = os.path.join(os.path.dirname(src), "downsized")
+    dst = os.path.join(os.path.dirname(src), "{}_downsized".format(save_str))
     print("\nPath to storage directory: %s\n\n" % dst)
     if not os.path.exists(dst): os.mkdir(dst)
     imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
@@ -46,7 +43,7 @@ if __name__ == "__main__":
     p = mp.Pool(12)
     p.starmap(resize_helper, iterlst)
     p.terminate()
-    
+
     #now downsample to 140% of pra atlas
     imgs = [os.path.join(dst, xx) for xx in os.listdir(dst) if "tif" in xx]; imgs.sort()
     z = len(imgs)
@@ -64,8 +61,32 @@ if __name__ == "__main__":
     z,y,x = arr.shape
     print((z,y,x))
     print("\n**********downsizing....heavy!**********\n")
-    
+
     arrsagd = zoom(arr, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
-    tif.imsave(os.path.join(os.path.dirname(dst), "downsized_for_atlas.tif"), arrsagd.astype("uint16"))
-    print("\ndeleting storage directory after making volume...\n %s" % dst)
-    shutil.rmtree(dst)
+    print('saving tiff at {}'.format(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr))))
+    tif.imsave(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)), arrsagd.astype("uint16"))
+
+
+if __name__ == "__main__":
+    
+    #takes 1 command line args
+    print(sys.argv)
+    src=str(sys.argv[1]) #folder to main image folder
+    rawdata=[]
+    rawdata.append(os.path.join(src,str(sys.argv[2])))
+    rawdata.append(os.path.join(src,str(sys.argv[3])))
+    print(rawdata)
+    for i in rawdata:
+        if 'Ex_488' in i:
+            reg_ch = i
+            while len([file for file in os.listdir(reg_ch) if '.tif' in file]) < 10:
+                reg_ch = os.path.join(reg_ch,[f.name for f in os.scandir(reg_ch) if f.is_dir()][0])
+            print('reg ch is {}'.format(reg_ch))
+            dwnsz(reg_ch,'reg_',src)
+        if 'Ex_64' in i:
+            cell_ch=i
+            while len([file for file in os.listdir(cell_ch) if '.tif' in file]) < 10:
+       	       	cell_ch = os.path.join(cell_ch,[f.name for f in os.scandir(cell_ch) if f.is_dir()][0])
+            print('cell ch is {}'.format(cell_ch))
+            dwnsz(cell_ch,'cell_',src)
+    print('done?')
