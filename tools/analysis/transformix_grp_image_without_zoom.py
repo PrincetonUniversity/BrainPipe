@@ -50,14 +50,6 @@ for i in np.arange(0,len(mvlist)):
 	moving = tif.imread(mv)
 	fixed = tif.imread(fx)
 
-	zf, yf, xf = (fixed.shape[0]/moving.shape[0])*1.4, (
-	    fixed.shape[1] /
-	    moving.shape[1])*1.4, (fixed.shape[2]/moving.shape[2])*1.4
-	print("\nzooming...")
-	moving_for_fixed = zoom(moving,(zf,yf,xf),order=0)
-	
-	print("\nsaving zoomed volume...")
-	tif.imsave(enlargedfilename,moving_for_fixed.astype("uint16"))
 	# copy the parameter files
 	a2r = [os.path.join(transformfilepath, xx) for xx in os.listdir(transformfilepath) if "Transform" in xx]
 	
@@ -78,5 +70,5 @@ for i in np.arange(0,len(mvlist)):
 	        file.write(filedata)
 	
 	# run transformix
-	transformix_plus_command_line_call(enlargedfilename, dst, transformfiles[-1])
+	transformix_plus_command_line_call(mv, dst, transformfiles[-1])
 

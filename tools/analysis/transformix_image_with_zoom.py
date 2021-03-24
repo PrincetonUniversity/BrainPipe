@@ -31,15 +31,15 @@ src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
 
 # setting paths
-mvname = "SIGMA_sagittal_ann"
-fxname = "m_matlas_alt"
+mvname = "a235_Rshrunk"
+fxname = "mPRA"
 fx = os.path.join(src, "tiffs/{}.tif".format(fxname))
 mv = os.path.join(src, "tiffs/{}.tif".format(mvname))
 enlargedfilename= os.path.join(src, "enlarged_tiffs/{}_for_{}.tif".format(mvname,fxname))
 
 dst = os.path.join(src,"output_dirs/{}_in_{}".format(mvname,fxname))
 makedir(dst)
-transformfilepath = os.path.join(src, "output_dirs/SIGMA_sagittal_brain_to_{}".format(fxname))
+transformfilepath = os.path.join(src, "output_dirs/{}_to_{}".format(mvname,fxname))
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 
@@ -56,7 +56,7 @@ a2r = [os.path.join(transformfilepath, xx) for xx in os.listdir(transformfilepat
 
 a2r.sort()
 
-transformfiles = modify_transform_files(transformfiles=a2r, dst=dst)
+transformfiles = modify_transform_files(transformfiles=a2r, dst=dst).sort()
 [change_interpolation_order(xx, 0) for xx in transformfiles]
 
 # change the parameter in the transform files that outputs 16bit images i>

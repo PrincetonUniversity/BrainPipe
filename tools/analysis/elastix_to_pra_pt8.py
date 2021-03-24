@@ -20,8 +20,8 @@ param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder"
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
 # PRA = "PRA_10um and PRA_25um"
 
-mvtiffs = ["k323","x"]
-fxtiff = "f110"
+mvtiffs = ["a235_Rshrunk","a235"]
+fxtiff = "mPRA"
 
 fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
 
@@ -50,6 +50,8 @@ for mvtiff in mvtiffs:
     		os.mkdir(outputdirectory)
 
 	params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+	print("{} are params".format(params))
 	params.sort()
+	print("{} sorted params".format(params))
 	e_out, transformfiles = elastix_command_line_call(fx, outputfilename, outputdirectory, params)
 

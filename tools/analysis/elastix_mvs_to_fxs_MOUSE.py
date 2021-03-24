@@ -8,6 +8,7 @@ Created on Thu Dec 12 15:13:28 2019
 """
 
 import os
+import numpy as np
 import tifffile as tif
 import sys
 from scipy.ndimage import zoom
@@ -15,19 +16,27 @@ sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/")
 from tools.registration.register import elastix_command_line_call
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 
-param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder"
+param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder_a1b"
 
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
-# PRA = "PRA_10um and PRA_25um"
-
-mvtiffs = ["k323","x"]
-fxtiff = "f110"
-
-fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
 
 
-for mvtiff in mvtiffs:
-	mv = os.path.join(src,"tiffs/{}.tif".format(mvtiff))
+femtiffs = os.listdir('/home/emilyjanedennis/Desktop/TomData/probably_females')
+masctiffs = os.listdir('/home/emilyjanedennis/Desktop/TomData/probably_males')
+
+for pairnum in np.arange(9,len(femtiffs)):
+	if pairnum%2 == 0:
+		mvtiff = femtiffs[pairnum]
+		fxtiff = masctiffs[pairnum]
+		mv = os.path.join('/home/emilyjanedennis/Desktop/TomData/probably_females',mvtiff)
+		fx = os.path.join('/home/emilyjanedennis/Desktop/TomData/probably_males',fxtiff)
+
+	else:
+		mvtiff = masctiffs[pairnum]
+		fxtiff = femtiffs[pairnum]
+		fx = os.path.join('/home/emilyjanedennis/Desktop/TomData/probably_females',fxtiff)
+		mv = os.path.join('/home/emilyjanedennis/Desktop/TomData/probably_males',mvtiff)
+
 	outputfilename = os.path.join(src,"enlarged_tiffs/{}_for_{}.tif".format(mvtiff,fxtiff))
 	print(outputfilename)
 	outputdirectory = os.path.join(src,"output_dirs/{}_to_{}".format(mvtiff,fxtiff))
@@ -52,4 +61,5 @@ for mvtiff in mvtiffs:
 	params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
 	params.sort()
 	e_out, transformfiles = elastix_command_line_call(fx, outputfilename, outputdirectory, params)
+	os.rename(os.path.join(outputdirectory,'result.1.tif'),"/home/emilyjanedennis/Desktop/TomData/{}_in_{}.tif".format(mvtiff,fxtiff))
 

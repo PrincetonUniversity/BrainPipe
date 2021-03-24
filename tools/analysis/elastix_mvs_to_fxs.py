@@ -16,12 +16,12 @@ sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/")
 from tools.registration.register import elastix_command_line_call
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet"
 
-param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder_affine"
+param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder_a1b"
 
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
 
-mvtiffs = ["tom4_and_a235","e106_and_tom3"]
-fxtiffs = ["k320_and_tom1","tom2_and_c514_3"]
+mvtiffs = ["k323_f110_t107_k320","f003_k327_k321_f002"]
+fxtiffs = ["f003_k327_k321_f002","k323_f110_t107_k320"]
 
 for pairnum in np.arange(0,len(mvtiffs)):
 	mvtiff = mvtiffs[pairnum]
@@ -53,5 +53,5 @@ for pairnum in np.arange(0,len(mvtiffs)):
     		os.mkdir(outputdirectory)
 
 	params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
-
+	params.sort()
 	e_out, transformfiles = elastix_command_line_call(fx, outputfilename, outputdirectory, params)
