@@ -20,8 +20,8 @@ param_fld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe/parameterfolder"
 # waxholm = "WHS_SD_rat_T2star_v1.01_atlas"
 # PRA = "PRA_10um and PRA_25um"
 
-mvtiffs = ["k323","x"]
-fxtiff = "f110"
+mvtiffs = ["WHS_SD_rat_T2star_v1.01_atlas","SIGMA_sagittal_brain"]
+fxtiff = "PRAf_seed4"
 
 fx = os.path.join(src,"tiffs/{}.tif".format(fxtiff))
 

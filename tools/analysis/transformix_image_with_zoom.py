@@ -31,15 +31,17 @@ src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
 
 # setting paths
-mvname = "a235_Rshrunk"
+mvname = "WHS_SD_rat_atlas_v3_annotation"
 fxname = "mPRA"
+mvdname = "WHS_brain_in_mPRA"
+
 fx = os.path.join(src, "tiffs/{}.tif".format(fxname))
 mv = os.path.join(src, "tiffs/{}.tif".format(mvname))
 enlargedfilename= os.path.join(src, "enlarged_tiffs/{}_for_{}.tif".format(mvname,fxname))
 
 dst = os.path.join(src,"output_dirs/{}_in_{}".format(mvname,fxname))
 makedir(dst)
-transformfilepath = os.path.join(src, "output_dirs/{}_to_{}".format(mvname,fxname))
+transformfilepath = os.path.join(src, "output_dirs/{}_to_{}".format(mvdname,fxname))
 moving = tif.imread(mv)
 fixed = tif.imread(fx)
 

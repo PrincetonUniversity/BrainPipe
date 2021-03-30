@@ -8,14 +8,14 @@ Created on Fri Apr 26 14:44:30 2019
 
 #######################################
 #%%Example eroding edges and ventricles
-ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/SIGMA_ann_toMRIr.tif"
+ann_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/WHS_ann_in_mPRA.tif"
 new_erode_base_path = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/tiffs/"
 #get ventricles - these are the values of ventricles in the annotation image (also the same as the look up file)
 ventricle_values = [1171,1172]
 ventricular_microns_to_erode = 90
 edge_microns_to_erode = 90
 zyx_scale = (90,90,90)
-new_erode_path = "{}SIGMA_annotation_{}um_edge_{}um_vent_erosion.tif".format(new_erode_base_path,edge_microns_to_erode, ventricular_microns_to_erode)
+new_erode_path = "{}WHS_annotation_in_mPRA_{}um_edge_{}um_vent_erosion.tif".format(new_erode_base_path,edge_microns_to_erode, ventricular_microns_to_erode)
 
 #NOTE THIS ESSENTIALLY SCALES PIXEL SPACE*****
 import numpy as np

@@ -21,7 +21,7 @@ sys.path.append("/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe")
 import tifffile as tif
 from tools.utils.io import makedir
 from tools.registration.register import change_interpolation_order
-from tools.registration.register import transformix_plus_command_line_call
+from tools.registration.register import transformix_command_line_call
 from tools.registration.transform_list_of_points import modify_transform_files
 from scipy.ndimage.interpolation import zoom
 import numpy as np
@@ -30,10 +30,9 @@ import numpy as np
 src = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/"
 # ann = "/home/emilyjanedennis/Desktop/for_registration_to_lightsheet/10grid.tif"
 
-mvlist = ["k320","k321","k323","k327","t107","f002","f003","f110","k320","k321","k323","k327","t107","f002","f003","f110"]
-fxlist = ["PRAf_seed4","PRAf_seed4","PRAf_seed4","PRAf_seed4","PRAf_seed4","PRAf_seed4","PRAf_seed4","PRAf_seed4","PRAm_seed4","PRAm_seed4","PRAm_seed4","PRAm_seed4","PRAm_seed4","PRAm_seed4","PRAm_seed4","PRAm_seed4"]
-#alignedlist =  ["WHS_SD_rat_T2star_v1.01_atlas","Chon-Allen-brain","PMA"]
-alignedlist = mvlist
+mvlist = ["WHS_SD_rat_atlas_v3_annotation","SIGMA_sagittal_ann"]
+fxlist = ["PRAm_seed4","PRAm_seed4"]
+alignedlist =  ["WHS_SD_rat_T2star_v1.01_atlas","SIGMA_sagittal_brain"]
 
 for i in np.arange(0,len(mvlist)):
 	# setting paths
@@ -78,5 +77,5 @@ for i in np.arange(0,len(mvlist)):
 	        file.write(filedata)
 	
 	# run transformix
-	transformix_plus_command_line_call(enlargedfilename, dst, transformfiles[-1])
+	transformix_command_line_call(enlargedfilename, dst, transformfiles[-1])
 
