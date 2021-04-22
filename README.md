@@ -24,6 +24,7 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 
 ```
 $ conda create -n lightsheet python=3.7.3
+$ conda activate lightsheet
 $ pip install cython futures h5py joblib matplotlib natsort numba numpy opencv-python openpyxl pandas scipy scikit-image scikit-learn seaborn SimpleITK tifffile tensorboardX torch torchvision tqdm xlrd xvfbwrapper
 ```
 If on the cluster, and typing which terastitcher can't find terastitcher, try adding the following to your path
