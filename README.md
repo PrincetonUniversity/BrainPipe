@@ -2,6 +2,8 @@
 
 Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from Zahra (zmd@princeton). Forked from PrincetonUniversity/BrainPipe by Tom Pisano, Zahra Dhanerawala, John D'Uva. It also includes modified scripts from ClearMapCluster and lightsheet_helper_scripts written by the same people. ClearMap Cluster is T. Pisano's parallelization to a cluster of C. Kirst's ClearMap software (https://idisco.info/clearmap/) for use on a cluster using a slurm based scheduler. Written for Python 3.7+. Modifications by Zahra.  
 
+Windows 10 install notes added by Adrian Bondy.
+
 This is using ClearMap 1, but ClearMap2 is now available and we should move to that reasonably soon.
 
 Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
@@ -15,7 +17,7 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 [DataTools](https://github.com/torms3/DataTools)
 
 ## *INSTALLATION INSTRUCTIONS*:
-* Note that this currently has only been tested on Linux (Ubuntu 16 and 18).
+* Note that this currently has only been tested on Linux (Ubuntu 16 and 18). SimpleElastix installation has also been tested in Windows 10 by Adrian.
 * If on a cluster - Elastix needs to be compiled on the cluster - this was challenging for IT here and suspect it will be for your IT as well. If at Princeton, elastix is on spock
 
 ### Create an anaconda python environment
@@ -24,8 +26,10 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 
 ```
 $ conda create -n lightsheet python=3.7.3
+$ conda activate lightsheet
 $ pip install cython futures h5py joblib matplotlib natsort numba numpy opencv-python openpyxl pandas scipy scikit-image scikit-learn seaborn SimpleITK tifffile tensorboardX torch torchvision tqdm xlrd xvfbwrapper
 ```
+
 If on the cluster, and typing which terastitcher can't find terastitcher, try adding the following to your path
 
 ```
@@ -39,7 +43,13 @@ $ sudo apt-get install xvfb
 $ sudo apt-get install libboost-all-dev
 ```
 
-To install elastix, follow the instructions in the manual under the easy way, not the "super easy" way
+### Install simpleelastix 
+
+*_For Windows_*, Follow the instructions on [read the docs](https://simpleelastix.readthedocs.io/GettingStarted.html#compiling-on-windows).
+Use the command line step (step 3) and skip the IDE steps 4 and 5.  If the Python wrapping fails, see this [known issue](https://github.com/SuperElastix/SimpleElastix/issues/243).
+
+-------------
+_*To install elastix on linux*_, follow the instructions in the manual under the easy way, not the "super easy" way
 
 if you use the 'easy way' but have a modern computer, your gcc version may be too high. For this, you'll need at least ITK 5.0 which means you need to use elastix version 5, not 4.8. The following worked on Ubuntu 18 with two GeForce RTX 2070 SUPERs.
 
