@@ -2,7 +2,7 @@ import os,sys, pickle
 import numpy as np 
 #ClearMap path
 #sys.path.append('/usr/people/ejdennis/.local/bin')
-sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')
+#sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')
 
 #load ClearMap modules
 #from ClearMap.Environment import *  #analysis:ignore
@@ -19,10 +19,8 @@ cell_detection_parameter = cells.default_cell_detection_parameter.copy()
 cell_detection_parameter['illumination'] = None
 cell_detection_parameter['maxima_detection']['valid']=True # keep this on if you want to combine results from multiple blocks
 
-cell_detection_parameter['background_correction']['shape'] = (7,7)
 cell_detection_parameter['background_correction']['save'] = None
 cell_detection_parameter['intensity_detection']['measure'] = ['source','background']
-cell_detection_parameter['shape_detection']['threshold'] = 175
 cell_detection_parameter['verbose'] = False # I set this to False because I didn't want to see the output like "running background removal" stuff for each of the ~100 or so blocks
 
 cell_detection_parameter['maxima_detection']['save'] = None
@@ -58,6 +56,16 @@ if __name__ == '__main__':
 	#directories and files
 	jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
 	step = int(sys.argv[1])
+
+	if sys.argv[4] == "lavision":
+		cell_detection_parameter['background_correction']['shape'] = (3,3)
+		cell_detection_parameter['shape_detection']['threshold'] = 300
+		print('/n params are k3, 300')
+	else:
+		cell_detection_parameter['background_correction']['shape'] = (5,5)
+		cell_detection_parameter['shape_detection']['threshold'] = 130
+		print('/n params are k5, 130')
+
 	directory = str(sys.argv[2]) #e.g. os.path.join('/scratch/ejdennis/cm2_brains/j317/ch_488/')
 
 	expression_raw      = 'renamed/Z<Z,4>.tif'    
