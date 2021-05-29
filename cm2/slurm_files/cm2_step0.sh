@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p Brody                # partition (queue)
 #SBATCH -c 12                      # number of cores
 #SBATCH -t 60                  # time (minutes)
 #SBATCH -o logs/clearmap2_%j_%a.out        # STDOUT #add _%a to see each array job
@@ -10,8 +9,11 @@
 
 PYTHONPATH="${PYTHONPATH}:/scratch/ejdennis/rat_BrainPipe/ClearMap2"
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 . activate cm2
 
 #convert z planes to stitched npy
-xvfb-run python cell_detect.py 0 ${FOLDER_TO_USE}
+echo "STEP0 SLURM"
+echo "$1"
+echo "$2"
+xvfb-run python cell_detect.py 0 $1 $2

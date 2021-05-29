@@ -10,8 +10,12 @@
 
 PYTHONPATH="${PYTHONPATH}:/scratch/ejdennis/rat_BrainPipe/ClearMap2"
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 . activate cm2
 
+echo "echo input 1 then 2"
+echo "$1"
+echo "$2"
+
 #combine blocks
-xvfb-run python cell_detect.py 3 ${FOLDER_TO_USE}
+xvfb-run python cell_detect.py 3 $1 $2

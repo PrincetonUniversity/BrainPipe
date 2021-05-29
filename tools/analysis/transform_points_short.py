@@ -12,7 +12,7 @@ import numpy as np
 import sys
 lsfld = "/home/emilyjanedennis/Desktop/GitHub/rat_BrainPipe"
 sys.path.append(lsfld)
-
+import glob
 import os
 import pickle
 from scipy.io import loadmat, savemat
@@ -266,7 +266,10 @@ if __name__ == "__main__":
     # NOTE CHECK TO ENSURE ACCOUNTING FOR INPUT RESAMPLING, and ORIENTATION CHANGE*****
     # inputs
     # numpy file consiting of nx3 (ZYX points) or if .mat file structure where zyx is called "cell_centers_orig_coord"
-    src="/home/emilyjanedennis/Desktop/whs_forpeter.npy"
+    
+
+    fld = "/scratch/ejdennis/spim_cells"
+    src= #path to cell centers
     # folder location to write points
     dst = "/home/emilyjanedennis/Desktop/forpeter2"
     if not os.path.exists(dst):

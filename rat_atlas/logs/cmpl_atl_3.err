@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "step2_compile_atlas.py", line 177, in <module>
+    brain = brains[jobid]
+IndexError: list index out of range

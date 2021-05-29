@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p Brody                # partition (queue)
 #SBATCH -c 12                      # number of cores
 #SBATCH -t 10                  # time (minutes)
 #SBATCH -o logs/clearmap2_%j_%a.out        # STDOUT #add _%a to see each array job
@@ -10,10 +9,14 @@
 
 PYTHONPATH="${PYTHONPATH}:/scratch/ejdennis/rat_BrainPipe/ClearMap2"
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 . activate cm2
+
+echo "step 1 launching with inputs scope and file as follows:"
+echo "$1"
+echo "$2"
 
 #make into blocks
 #run cell detect on blocks
 sleep $[ ( $RANDOM % 30 )  + 1 ]s
-xvfb-run python cell_detect.py 1 ${FOLDER_TO_USE}
+xvfb-run python cell_detect.py 1 $1 $2

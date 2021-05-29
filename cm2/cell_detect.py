@@ -2,8 +2,8 @@ import os,sys, pickle
 import numpy as np 
 #ClearMap path
 #sys.path.append('/usr/people/ejdennis/.local/bin')
-#sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')
 
+sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')
 #load ClearMap modules
 #from ClearMap.Environment import *  #analysis:ignore
 
@@ -13,7 +13,6 @@ import ClearMap.IO.IO as io
 import ClearMap.ImageProcessing.Experts.Cells as cells
 import ClearMap.ParallelProcessing.BlockProcessing as bp
 import ClearMap.Alignment.Resampling as res
-
 
 cell_detection_parameter = cells.default_cell_detection_parameter.copy()
 cell_detection_parameter['illumination'] = None
@@ -52,12 +51,14 @@ def process_block(block,params=cell_detection_parameter,):
     return block_result
 
 if __name__ == '__main__':
+
 	print('starting')
 	#directories and files
 	jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
 	step = int(sys.argv[1])
+	print('sysarg v output is {}'.format(sys.argv))
 
-	if sys.argv[4] == "lavision":
+	if sys.argv[3] == "lavision":
 		cell_detection_parameter['background_correction']['shape'] = (3,3)
 		cell_detection_parameter['shape_detection']['threshold'] = 300
 		print('/n params are k3, 300')
@@ -68,8 +69,8 @@ if __name__ == '__main__':
 
 	directory = str(sys.argv[2]) #e.g. os.path.join('/scratch/ejdennis/cm2_brains/j317/ch_488/')
 
-	expression_raw      = 'renamed/Z<Z,4>.tif'    
-	expression_auto	= 'renamed/Z<Z,4>.tif'
+	expression_raw      = 'Z<Z,4>.tif'    
+	expression_auto	= 'Z<Z,4>.tif'
 
 	ws = wsp.Workspace('CellMap', directory=directory);
 	ws.update(raw=expression_raw)
@@ -81,6 +82,7 @@ if __name__ == '__main__':
 	sink   = ws.filename('stitched')
 	
 	if step == 0:
+		print("++++++++++ STEP 0 +++++++++++++")
 		# convert single z planes to stitched
 		io.delete_file(sink)
 		io.convert(source, sink, processes=None, verbose=True);
@@ -96,7 +98,9 @@ if __name__ == '__main__':
 			overlap=2,
 			verbose=True)
 		print("Done splitting into blocks")
-
+		
+		if ~os.path.exists(os.path.join(directory,"final_blocks")):
+			os.mkdir(os.path.join(directory,"final_blocks"))
 		# run cell detection on each block
 		print(ws.info())
 		block = blocks[jobid]
