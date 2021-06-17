@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p all                # partition (queue)
 #SBATCH -c 12                 # number of cores
 #SBATCH -t 200                 # number of minutes
 #SBATCH -o /scratch/ejdennis/logs/spim_pystripe_%j.out        # STDOUT #add _%a to see each array job
@@ -15,7 +14,7 @@ echo "on host: `hostname` "
 cat /proc/$$/status | grep Cpus_allowed_list
 
 #required
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 . activate lightsheet
 
 echo "Input directory (path to stitched images):" "$1"

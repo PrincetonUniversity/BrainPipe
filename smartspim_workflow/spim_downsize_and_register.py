@@ -105,7 +105,8 @@ if __name__ == "__main__":
 
     src = sys.argv[1]  # main image folder
     svpth = sys.argv[2]  # save path
-    atlpth = "/jukebox/brody/ejdennis/lightsheet/2021_03_PRA.tif"  # rat_atlas
+    #atlpth = "/jukebox/brody/ejdennis/lightsheet/2021_03_PRA.tif"  # rat_atlas
+    atlpth = "/jukebox/brody/ejdennis/lightsheet/mPRA_adj.tif"
     param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"
 
 
@@ -144,31 +145,31 @@ if __name__ == "__main__":
     print("\nrawdata folder is: %s\n" % rawdata)
 
     print("\ndownsizing %s \n" % os.path.join(svpth,"reg_ch"))
-    #downsize_folder_of_tiffs(reg_ch, os.path.join(svpth,"reg_ch"), atlpth)
+    downsize_folder_of_tiffs(reg_ch, os.path.join(svpth,"reg_ch"), atlpth)
 
     print("\ndownsizing %s \n" % os.path.join(svpth,"cell_ch"))
-    #downsize_folder_of_tiffs(cell_ch, os.path.join(svpth,"cell_ch"), atlpth)
+    downsize_folder_of_tiffs(cell_ch, os.path.join(svpth,"cell_ch"), atlpth)
 
     print("\n probably finished downsizing successfully \n")
 
     print("\nregistering %s to %s" % (os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
     atlpth))
-    #register_ch(0,
-    #            os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
-    #            atlpth,
-    #            param_fld,
-    #            os.path.join(svpth,"reg_ch"))
+    register_ch(0,
+                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
+                atlpth,
+                param_fld,
+                os.path.join(svpth,"reg_ch"))
     print("\n probably finished registering reg_ch to atlas successfully \n")
 
     print("\nregistering %s to %s" % (os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
     os.path.join(svpth,"reg_ch","downsized_for_atlas.tif")))
-    #os.mkdir(os.path.join(svpth,"cell_to_reg"))
-    #register_ch(1,
-    #            os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
-    #            os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
-    #            param_fld,
-    #            os.path.join(svpth,"cell_to_reg"))
-    #print("\n probably finished registering cell_ch to reg_ch successfully \n")
+    os.mkdir(os.path.join(svpth,"cell_to_reg"))
+    register_ch(1,
+                os.path.join(svpth,"cell_ch","downsized_for_atlas.tif"),
+                os.path.join(svpth,"reg_ch","downsized_for_atlas.tif"),
+                param_fld,
+                os.path.join(svpth,"cell_to_reg"))
+    print("\n probably finished registering cell_ch to reg_ch successfully \n")
 
 
     if not os.path.exists(os.path.join(svpth,"atl_to_reg_1")):

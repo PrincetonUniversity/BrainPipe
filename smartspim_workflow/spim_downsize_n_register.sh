@@ -35,3 +35,5 @@ echo $OUT2
 
 #functionality
 #go to smartspim_pipeline folder and type sbatch spim_downsize_n_register.sh [path to main image folder] [reg channel subfolder name] [cell channel subfolder name]
+
+

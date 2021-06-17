@@ -50,7 +50,7 @@ def dwnsz(pth,save_str,src):
     z = len(imgs)
     y,x = sitk.GetArrayFromImage(sitk.ReadImage(imgs[0])).shape
     arr = np.zeros((z,y,x))
-    atlpth = "/jukebox/brody/lightsheet/atlasdir/mPRA.tif"
+    atlpth = "/jukebox/brody/ejdennis/lightsheet/mPRA_adj.tif"
     atl = sitk.GetArrayFromImage(sitk.ReadImage(atlpth))
     atlz,atly,atlx = atl.shape #get shape, sagittal
     #read all the downsized images
@@ -59,18 +59,18 @@ def dwnsz(pth,save_str,src):
         arr[i,:,:] = sitk.GetArrayFromImage(sitk.ReadImage(img)) #horizontal
     #switch to sagittal
     arrsag = np.swapaxes(arr,2,0)
-    z,y,x = arr.shape
+    z,y,x = arrsag.shape
     print((z,y,x))
     print("\n**********downsizing....heavy!**********\n")
 
-    arrsagd = zoom(arr, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
+    arrsagd = zoom(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
     print('saving tiff at {}'.format(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr))))
     tif.imsave(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)), arrsagd.astype("uint16"))
 
 
 if __name__ == "__main__":
     
-    #takes 1 command line args
+    #takes 3 command line args
     print(sys.argv)
     src=str(sys.argv[1]) #folder to main image folder
     rawdata=[]
