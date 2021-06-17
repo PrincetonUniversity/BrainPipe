@@ -3,7 +3,7 @@ import numpy as np
 #ClearMap path
 #sys.path.append('/usr/people/ejdennis/.local/bin')
 
-sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')
+sys.path.append('../ClearMap2')
 #load ClearMap modules
 #from ClearMap.Environment import *  #analysis:ignore
 
@@ -80,7 +80,10 @@ if __name__ == '__main__':
 	# convert raw to stitched npy file      
 	source = ws.source('raw');
 	sink   = ws.filename('stitched')
-	
+
+	if not os.path.exists(os.path.join(directory,"final_blocks")):
+		os.mkdir(os.path.join(directory,"final_blocks"))	
+
 	if step == 0:
 		print("++++++++++ STEP 0 +++++++++++++")
 		# convert single z planes to stitched
@@ -99,8 +102,6 @@ if __name__ == '__main__':
 			verbose=True)
 		print("Done splitting into blocks")
 		
-		if ~os.path.exists(os.path.join(directory,"final_blocks")):
-			os.mkdir(os.path.join(directory,"final_blocks"))
 		# run cell detection on each block
 		print(ws.info())
 		block = blocks[jobid]

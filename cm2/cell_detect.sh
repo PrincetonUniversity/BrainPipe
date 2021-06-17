@@ -11,18 +11,17 @@ module load anacondapy/5.3.1
 
 # CHANGE THIS!! 
 #set folder where you have a renamed folder filled with Z planes in 0000-end order
-export FOLDER_TO_USE="/scratch/ejdennis/cm2_brains/j317/ch_642/"
 
 #convert z planes to stitched npy
-OUT0=$(sbatch --array=0 --export=FOLDER_TO_USE=$FOLDER_TO_USE slurm_files/cm2_step0.sh)
+OUT0=$(sbatch --array=0 --export=FOLDER_TO_USE=$1 slurm_files/cm2_step0.sh)
 echo $OUT0
 
 # find cells in blocks                        
-OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-500 --export=FOLDER_TO_USE=$FOLDER_TO_USE slurm_files/cm2_step1.sh)
+OUT1=$(sbatch --dependency=afterany:${OUT0##* } --array=0-500 --export=FOLDER_TO_USE=$1 slurm_files/cm2_step1.sh)
 echo $OUT1
 
 # combine blocks                                  
-OUT3=$(sbatch --dependency=afterany:${OUT1##* } --array=0 --export=FOLDER_TO_USE=$FOLDER_TO_USE slurm_files/cm2_step3.sh)
+OUT3=$(sbatch --dependency=afterany:${OUT1##* } --array=0 --export=FOLDER_TO_USE=$1 slurm_files/cm2_step3.sh)
 echo $OUT3
 
 
