@@ -4,8 +4,6 @@ Edits made by Emily Jane Dennis (ejdennis@princeton) with significant help from 
 
 Windows 10 install notes added by Adrian Bondy.
 
-This is using ClearMap 1, but ClearMap2 is now available and we should move to that reasonably soon.
-
 Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K. Lee, Zung, Li, Jain, & Sebastian Seung, 2017) with added packages developed by Kisuk Lee (Massachusetts Institute of Technology), Nick Turner (Princeton University), James Gornet (Columbia University), and Kannan Umadevi Venkatarju (Cold Spring Harbor Laboratories).
 
 # This is a work in progress. Emily has largely updated scripts and README, but some documentation is not fully fleshed out.
@@ -22,13 +20,7 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 
 ### Create an anaconda python environment
  - use [anaconda](https://www.anaconda.com/download/)
-- name an [environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) 'lightsheet' (in python 3.7+)
-
-```
-$ conda create -n lightsheet python=3.7.3
-$ conda activate lightsheet
-$ pip install cython futures h5py joblib matplotlib natsort numba numpy opencv-python openpyxl pandas scipy scikit-image scikit-learn seaborn SimpleITK tifffile tensorboardX torch torchvision tqdm xlrd xvfbwrapper
-```
+ - when in the main rat_BrainPipe directory, in a terminal type `conda create env -f environment.yaml`
 
 If on the cluster, and typing which terastitcher can't find terastitcher, try adding the following to your path
 
@@ -36,14 +28,14 @@ If on the cluster, and typing which terastitcher can't find terastitcher, try ad
 export PATH="/usr/people/pnilsadmin/TeraStitcher-Qt4=standalone-1.10.11-Linux/bin$PATH"
 ```
 
-If on a local Ubuntu machine also install elastix, xvfb, Terastitcher, and make sure you have all boost libraries installed for DataTools:
+If on a local Ubuntu machine also install elastix (see section below), xvfb, Terastitcher, and make sure you have all boost libraries installed for DataTools:
 
 ```
 $ sudo apt-get install xvfb
 $ sudo apt-get install libboost-all-dev
 ```
 
-### Install simpleelastix 
+### Install simpleelastix
 
 *_For Windows_*, Follow the instructions on [read the docs](https://simpleelastix.readthedocs.io/GettingStarted.html#compiling-on-windows).
 Use the command line step (step 3) and skip the IDE steps 4 and 5.  If the Python wrapping fails, see this [known issue](https://github.com/SuperElastix/SimpleElastix/issues/243).
@@ -160,7 +152,7 @@ to update it
 `git submodule update --recursive --remote`
 
 the scripts you need are in `rat_BrainPipe/cm2`
-    - if you're using volumes imaged on the LaVision, these instructions should work for you as-is. If you're using smartSPIM volumes, you'll also need to use `rename_smartspimZ_for_cm2.py`, editing lines 16-22 to reflect your paths as commented 
+    - if you're using volumes imaged on the LaVision, these instructions should work for you as-is. If you're using smartSPIM volumes, you'll also need to use `rename_smartspimZ_for_cm2.py`, editing lines 16-22 to reflect your paths as commented
     - edit line 5 in `cell_detect.py` to wherever your rat_BrainPipe is stored
       - e.g. `sys.path.append('/scratch/ejdennis/rat_BrainPipe/ClearMap2')`
     - edit lines 12-14 of `cell_detect.sh` as commented there
@@ -192,6 +184,7 @@ the scripts you need are in `rat_BrainPipe/cm2`
 ## Using raw lightsheet images to:
 
 ### 1. Make a stitched, whole-brain
+#### If imaged on LaVision
 If there are errors in these steps, usually it's
     1. regex needs to be edited
     2. elastix isn't installed properly (try `which elastix`) or is missing from bashrc
