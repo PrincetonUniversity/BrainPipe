@@ -9,6 +9,8 @@ Created on Tue Jul 21 16:01:17 2020
 import sys
 import os
 sys.path.append("../")
+import tifffile as tif
+import numpy as np
 from tools.registration.register import elastix_command_line_call
 
 param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"  # change if using mouse

@@ -1,10 +1,9 @@
 #!/bin/env bash
 #
-#SBATCH -p Brody               # partition (queue)
 #SBATCH -c 12                      # number of cores
 #SBATCH -t 600
-#SBATCH -o /scratch/ejdennis/logs/smartspim_dsz_%j.out        # STDOUT #add _%a to see each array job
-#SBATCH -e /scratch/ejdennis/logs/smartspim_dsz_%j.err        # STDERR #add _%a to see each array job
+#SBATCH -o logs/smartspim_dsz_%j.out        # STDOUT #add _%a to see each array job
+#SBATCH -e logs/smartspim_dsz_%j.err        # STDERR #add _%a to see each array job
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
 #SBATCH --mem 120000
 

@@ -3,8 +3,8 @@
 #SBATCH -p Brody                # partition (queue)
 #SBATCH -c 1                      # number of cores
 #SBATCH -t 10                # time (minutes)
-#SBATCH -o /scratch/ejdennis/logs/spim_downsize_n_register_%j.out        # STDOUT #add _%a to see each array job
-#SBATCH -e /scratch/ejdennis/logs/spim_downsize_n_register_%j.err        # STDERR #add _%a to see each array job
+#SBATCH -o logs/spim_downsize_n_register_%j.out        # STDOUT #add _%a to see each array job
+#SBATCH -e logs/spim_downsize_n_register_%j.err        # STDERR #add _%a to see each array job
 
 echo "In the directory: `pwd` "
 echo "As the user: `whoami` "

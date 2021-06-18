@@ -7,7 +7,7 @@ Created on Mon Jul 20 12:04:02 2020
 """
 
 import os, numpy as np, tifffile as tif, SimpleITK as sitk, cv2, multiprocessing as mp, shutil, sys
-from scipy.ndimage import zoom
+from skimage.transform import resize
 
 def fast_scandir(dirname):
     """ gets all folders recursively """
@@ -57,13 +57,15 @@ def dwnsz(pth,save_str,src):
     for i,img in enumerate(imgs):
         if i%5000==0: print(i)
         arr[i,:,:] = sitk.GetArrayFromImage(sitk.ReadImage(img)) #horizontal
+    xx,yy,zz=arr.shape
+    print("############### THE AXES ARE {},{},{}".format(zz,yy,xx))
     #switch to sagittal
     arrsag = np.swapaxes(arr,2,0)
     z,y,x = arrsag.shape
+    print("############### THE NEW AXES ARE {},{},{}".format(z,y,x))
     print((z,y,x))
     print("\n**********downsizing....heavy!**********\n")
-
-    arrsagd = zoom(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
+    arrsagd = resize(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), anti_aliasing=True)
     print('saving tiff at {}'.format(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr))))
     tif.imsave(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)), arrsagd.astype("uint16"))
 
@@ -90,4 +92,4 @@ if __name__ == "__main__":
        	       	cell_ch = os.path.join(cell_ch,[f.name for f in os.scandir(cell_ch) if f.is_dir()][0])
             print('cell ch is {}'.format(cell_ch))
             dwnsz(cell_ch,'cell_',src)
-    print('done?')
+    print('done')

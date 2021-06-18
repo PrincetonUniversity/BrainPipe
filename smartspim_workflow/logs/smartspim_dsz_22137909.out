@@ -1,0 +1,14 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: spock7-c0-8 
+Cpus_allowed_list:	1,3-4,6-7,9-12,15,19,22
+['spim_downsize.py', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/resolution_3.6x', 'Ex_488_Em_0_corrected', 'Ex_642_Em_2_corrected/RESx12060x7605x3756']
+['/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/resolution_3.6x/Ex_642_Em_2_corrected/RESx12060x7605x3756']
+reg ch is /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected
+
+Path to stitched images: /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected
+
+
+Path to storage directory: /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/reg__downsized
+
+
