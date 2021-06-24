@@ -34,7 +34,23 @@ def get_folderstructure(dirname):
 
 
 def dwnsz(pth,save_str,src):
-    print('starting dnsz fx')
+    savestr=save_str
+    print("\nPath to stitched images: %s\n" % pth)
+    #path to store downsized images
+    dst = os.path.join(os.path.dirname(src), "{}_downsized".format(save_str))
+    print("\nPath to storage directory: %s\n\n" % dst)
+    if not os.path.exists(dst): os.mkdir(dst)
+    imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
+    z = len(imgs)
+    print("z is {}".format(z))
+    resizef = 5 #factor to downsize imgs by
+    print("resize factor is {}".format(resizef))
+    iterlst = [(img, dst, resizef) for img in imgs]
+    p = mp.Pool(11)
+    p.starmap(resize_helper, iterlst)
+    p.terminate()
+    print("terminated p")
+
     #now downsample to 140% of pra atlas
     imgs = [os.path.join(dst, xx) for xx in os.listdir(dst) if "tif" in xx]; imgs.sort()
     z = len(imgs)
@@ -54,7 +70,7 @@ def dwnsz(pth,save_str,src):
     z,y,x = arrsag.shape
     print("############### THE NEW AXES ARE {},{},{}".format(z,y,x))
     print("\n**********downsizing....heavy!**********\n")
-    arrsagd = zoom(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
+    arrsagd = resize(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), anti_aliasing=True)
     print('saving tiff at {}'.format(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr))))
     tif.imsave(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)), arrsagd.astype("uint16"))
 
@@ -75,32 +91,11 @@ if __name__ == "__main__":
                 reg_ch = os.path.join(reg_ch,[f.name for f in os.scandir(reg_ch) if f.is_dir()][0])
             print('reg ch is {}'.format(reg_ch))
             print("downsizing to {}".format(src))
-            savestr="reg_"
-            pth= reg_ch
+            dwnsz(reg_ch,'reg_',src)
         if 'Ex_64' in i:
             cell_ch=i
             while len([file for file in os.listdir(cell_ch) if '.tif' in file]) < 10:
        	       	cell_ch = os.path.join(cell_ch,[f.name for f in os.scandir(cell_ch) if f.is_dir()][0])
             print('cell ch is {}'.format(cell_ch))
-            print("downsizing to {}".format(src))
-            savestr = "cell_"
-            pth=cell_ch
-
-        print("\nPath to stitched images: %s\n" % pth)
-        #path to store downsized images
-        dst = os.path.join(os.path.dirname(src), "{}_downsized".format(savestr))
-        print("\nPath to storage directory: %s\n\n" % dst)
-        if not os.path.exists(dst): os.mkdir(dst)
-        imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
-        z = len(imgs)
-        print("z is {}".format(z))
-        resizef = 5 #factor to downsize imgs by
-        print("resize factor is {}".format(resizef))
-        iterlst = [(img, dst, resizef) for img in imgs]
-        p = mp.Pool(11)
-        p.starmap(resize_helper, iterlst)
-        p.terminate()
-        print("terminated p")
-        dwnsz(pth,savestr,src)
-
+            dwnsz(cell_ch,'cell_',src)
     print('done')
