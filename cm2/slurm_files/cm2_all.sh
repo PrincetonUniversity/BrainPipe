@@ -1,6 +1,5 @@
 #!/bin/env bash
 #
-#SBATCH -p Brody
 #SBATCH -c 12                      # number of cores
 #SBATCH -t 4                  # time (minutes)
 #SBATCH -o logs/clearmap2_%j_%a.out        # STDOUT #add _%a to see each array job
@@ -44,7 +43,7 @@ echo "done with stp1"
 # add step 3
 OUT3=$(sbatch --dependency=afterany:${OUT2##* } -p Brody --array=0 slurm_files/cm2_step3.sh $DEST $SCOPE)
 echo $OUT3
-echo "donew ith stp3"
+echo "done with stp3"
 
 
 
