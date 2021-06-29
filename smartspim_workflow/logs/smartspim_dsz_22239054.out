@@ -6094,3 +6094,13 @@ resize factor is 5
 058950_092840_032640.tif
 058950_092840_062800.tif
 058950_092840_012320.tif
+terminated p
+starting dnsz fx
+0
+############### THE AXES ARE 3849,2108,1523
+############### THE NEW AXES ARE 1523,2108,3849
+
+**********downsizing....heavy!**********
+
+saving tiff at /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_/pb_udisco_647_488_A300/imaging_request_1/rawdata/cell__downsized_for_atlas.tif
+done

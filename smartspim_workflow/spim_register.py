@@ -15,7 +15,7 @@ from tools.registration.register import elastix_command_line_call
 
 param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"  # change if using mouse
 param_fld_affine = "/scratch/ejdennis/rat_BrainPipe/parameterfolder_affine"
-atl = "/jukebox/brody/ejdennis/lightsheet/mPRA_adj.tif"  # defaults to pra
+atl = "/scratch/ejdennis/mPRA_adj_crop.tif"  # defaults to pra
 
 
 # takes 6 command line arguments max
@@ -37,7 +37,7 @@ except:
 # sometimes these are one level up
 if os.path.exists(os.path.join(src,'reg__downsized_for_atlas.tif')):
     output_src = src
-elif src[-1]=='/' and os.path.exists(os.path.join(os.path.dirname(src),'reg__downsized_for_atlas.tif')):
+elif os.path.exists(os.path.join(os.path.dirname(src),'reg__downsized_for_atlas.tif')):
     output_src = os.path.dirname(src)
 else:
     output_src = os.path.dirname(os.path.dirname(src))
@@ -63,7 +63,7 @@ if stepid == 0:
     print("++++++++++++ {} TO {} IN {}+++++++++++".format(mv,fx,out))
     e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
 
-    if cell:
+    if len(cell) > 1:
         # cell vol to registration vol
         print("\nCell channel specified: %s" % cell)
         mv = os.path.join(output_src, "cell__downsized_for_atlas.tif")
@@ -94,7 +94,7 @@ else:
     print("------------------- {} TO {} IN {} +++++++++++++++++++++".format(mv,fx,out))
     e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
 
-    if cell:
+    if len(cell)>1:
         #cell to reg inverse
         fx=os.path.join(output_src,"cell__downsized_for_atlas.tif")
         mv=os.path.join(output_src, "reg__downsized_for_atlas.tif")
