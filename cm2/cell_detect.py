@@ -100,8 +100,8 @@ if __name__ == '__main__':
 			size_max=20, 
 			overlap=2,
 			verbose=True)
-		print("Done splitting into blocks")
-		if arrayid < len(blocks)+1:
+		print("Done splitting into blocks of len {} for array {}".format(len(blocks),arrayid))
+		if arrayid <= len(blocks):
 			# run cell detection on each block
 			print(ws.info())
 			block = blocks[arrayid]
@@ -111,7 +111,7 @@ if __name__ == '__main__':
 			print("Done running cell detection")
 		else:			
 			print("jobid is {}".format(jobid))
-			subprocess.Popen(["scancel",jobid)	
+			subprocess.Popen(["scancel",jobid])	
 	elif step == 3:
 		# merge blocks
 		list_of_blocks = os.listdir(os.path.join(directory,'final_blocks'))
