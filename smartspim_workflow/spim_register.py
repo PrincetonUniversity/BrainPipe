@@ -57,7 +57,7 @@ if stepid == 0:
     if not os.path.exists(out):
         os.mkdir(out)
 
-    params = [os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
+    params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
     
     # run
     print("++++++++++++ {} TO {} IN {}+++++++++++".format(mv,fx,out))
