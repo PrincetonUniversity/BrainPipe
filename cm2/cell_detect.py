@@ -1,7 +1,6 @@
-import os,sys, pickle
+import os,sys, pickle, subprocess
 import numpy as np 
 #ClearMap path
-#sys.path.append('/usr/people/ejdennis/.local/bin')
 
 sys.path.append('../ClearMap2')
 #load ClearMap modules
@@ -54,7 +53,8 @@ if __name__ == '__main__':
 
 	print('starting')
 	#directories and files
-	jobid = int(os.environ["SLURM_ARRAY_TASK_ID"])
+	jobid = os.environ["SLURM_ARRAY_JOB_ID"]
+	arrayid = int(os.environ["SLURM_ARRAY_TASK_ID"])
 	step = int(sys.argv[1])
 	print('sysarg v output is {}'.format(sys.argv))
 
@@ -101,15 +101,17 @@ if __name__ == '__main__':
 			overlap=2,
 			verbose=True)
 		print("Done splitting into blocks")
-		
-		# run cell detection on each block
-		print(ws.info())
-		block = blocks[jobid]
-		print(f"Running cell detection on single block: blocks[{jobid}]")
-		sys.stdout.flush()
-		block_result = process_block(block,params=cell_detection_parameter)
-		print("Done running cell detection")
-	
+		if arrayid < len(blocks)+1:
+			# run cell detection on each block
+			print(ws.info())
+			block = blocks[arrayid]
+			print(f"Running cell detection on single block: blocks[{arrayid}]")
+			sys.stdout.flush()
+			block_result = process_block(block,params=cell_detection_parameter)
+			print("Done running cell detection")
+		else:			
+			print("jobid is {}".format(jobid))
+			subprocess.Popen(["scancel",jobid)	
 	elif step == 3:
 		# merge blocks
 		list_of_blocks = os.listdir(os.path.join(directory,'final_blocks'))

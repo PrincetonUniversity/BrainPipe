@@ -20,12 +20,12 @@ Includes three-dimensional CNN with a U-Net architecture (Gornet et al., 2019; K
 
 ### Create an anaconda python environment
  - use [anaconda](https://www.anaconda.com/download/)
- - when in the main rat_BrainPipe directory, in a terminal type `conda create env -f environment.yaml`
+ - when in the main rat_BrainPipe directory, in a terminal type `conda env create -f environment.yaml`
 
 If on the cluster, and typing which terastitcher can't find terastitcher, try adding the following to your path
 
 ```
-export PATH="/usr/people/pnilsadmin/TeraStitcher-Qt4=standalone-1.10.11-Linux/bin$PATH"
+export PATH="/usr/people/pnilsadmin/TeraStitcher-Qt4-standalone-1.10.11-Linux/bin$PATH"
 ```
 
 If on a local Ubuntu machine also install elastix (see section below), xvfb, Terastitcher, and make sure you have all boost libraries installed for DataTools:
