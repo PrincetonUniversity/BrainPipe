@@ -15,13 +15,10 @@ from tools.registration.register import elastix_command_line_call
 
 param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"  # change if using mouse
 param_fld_affine = "/scratch/ejdennis/rat_BrainPipe/parameterfolder_affine"
-atl = "/scratch/ejdennis/mPRA_adj_crop.tif"  # defaults to pra
-
+atl = "/scratch/ejdennis/mPRA_0703.tif"  # defaults to pra
 
 # takes 6 command line arguments max
-stepid = str(sys.argv[1])
-print("stepid is 1 is {}".format(str(stepid==1)))
-print("stepid is {}".format(stepid))
+stepid = int(sys.argv[1])
 src = str(sys.argv[2])  # folder to main image folder
 print("src is {}".format(src))
 
@@ -48,60 +45,48 @@ if not os.path.exists(elsrc):
     os.mkdir(elsrc)
 
 if stepid == 0:
-    print("step id is zero")
+    print("step id is zero, reg -> atl")
     mv = os.path.join(output_src, "reg__downsized_for_atlas.tif")
-    #print("\nPath to downsized vol for registration to atlas: %s" % mv)
     fx = atl
-    print("\nPath to atlas: %s" % fx)
-    out = os.path.join(os.path.dirname(elsrc), "reg_to_atl")
+    out = os.path.join(elsrc, "reg_to_atl")
     if not os.path.exists(out):
         os.mkdir(out)
-
     params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
-    
-    # run
     print("++++++++++++ {} TO {} IN {}+++++++++++".format(mv,fx,out))
-    e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
 
-    if len(cell) > 1:
-        # cell vol to registration vol
-        print("\nCell channel specified: %s" % cell)
-        mv = os.path.join(output_src, "cell__downsized_for_atlas.tif")
-        fx = os.path.join(output_src, "reg__downsized_for_atlas.tif")
-        out = os.path.join(elsrc, "cell_to_reg")
-        if not os.path.exists(out):
-            os.mkdir(out)
-
-        params = [os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
-        # run
-        print("------------------- {} TO {} IN {} ------------------".format(mv,fx,out))
-        e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
-
-else:
-    print("stepid is one")
-    # atlas to registration vol
-    # inverse transform
-    fx = os.path.join(output_src, "reg__downsized_for_atlas.tif")
+elif stepid == 1:
+    print("stepid is 1, atl -> reg")
     mv = atl
-    print("\nPath to downsized vol for inverse registration to atlas: %s" % fx)
-    print("\nPath to atlas: %s" % mv)
-    out = os.path.join(elsrc, "elastix_inverse_transform")
+    fx = os.path.join(output_src, "reg__downsized_for_atlas.tif")
+    out = os.path.join(elsrc, "atl_to_reg")
     if not os.path.exists(out):
         os.mkdir(out)
-
-    params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
+    params = [os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
     # run
-    print("------------------- {} TO {} IN {} +++++++++++++++++++++".format(mv,fx,out))
-    e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+    print("------------------- {} TO {} IN {} ------------------".format(mv,fx,out))        
 
-    if len(cell)>1:
-        #cell to reg inverse
-        fx=os.path.join(output_src,"cell__downsized_for_atlas.tif")
-        mv=os.path.join(output_src, "reg__downsized_for_atlas.tif")
-        out = os.path.join(elsrc, "reg_to_cell")
-        if not os.path.exists(out):
-            os.mkdir(out)
+elif stepid == 2:
+    print("stepid is 2, reg -> cell")
+    fx = os.path.join(output_src, "cell__downsized_for_atlas.tif")
+    mv = os.path.join(output_src, "reg__downsized_for_atlas.tif")
+    out = os.path.join(elsrc, "cell_to_reg")
+    if not os.path.exists(out):
+        os.mkdir(out)
+    params = [os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
+    # run
+    print("------------------- {} TO {} IN {} ------------------".format(mv,fx,out))
+
+elif stepid == 3:
+    print("stepid is 3, cell -> reg")
+    fx=os.path.join(output_src,"cell__downsized_for_atlas.tif")
+    mv=os.path.join(output_src, "reg__downsized_for_atlas.tif")
+    out = os.path.join(elsrc, "reg_to_cell")
+    if not os.path.exists(out):
+        os.mkdir(out)
         
-        params=[os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
-        print("------------------- {} TO {} IN {} +++++++++++++++++++++".format(mv,fx,out))
-        e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+    params=[os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
+    print("------------------- {} TO {} IN {} +++++++++++++++++++++".format(mv,fx,out))
+else:
+    print(" STEP ID WAS NOT VALID ")
+
+e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
