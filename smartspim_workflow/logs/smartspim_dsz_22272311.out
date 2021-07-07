@@ -1,0 +1,6 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n25 
+Cpus_allowed_list:	0-5,16-21
+['spim_downsize.py', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/', 'Ex_488_Em_0_corrected/RES\\(10565x7620x3837\\)/046480/046480_088370/', 'Ex_642_Em_2_corrected/RES\\(10564x7615x3832\\)/046480/046480_088390/']
+['/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected/RES\\(10565x7620x3837\\)/046480/046480_088370/', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/Ex_642_Em_2_corrected/RES\\(10564x7615x3832\\)/046480/046480_088390/']

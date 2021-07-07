@@ -15,7 +15,9 @@ from tools.registration.register import elastix_command_line_call
 
 param_fld = "/scratch/ejdennis/rat_registration_parameter_folder"  # change if using mouse
 param_fld_affine = "/scratch/ejdennis/rat_BrainPipe/parameterfolder_affine"
-atl = "/scratch/ejdennis/mPRA_0703.tif"  # defaults to pra
+atl = "/scratch/ejdennis/mPRA_0703.tif"
+#fx_mask = "/scratch/ejdennis/mPRA_padded_mask.tif"
+#mv_mask = fx_mask
 
 # takes 6 command line arguments max
 stepid = int(sys.argv[1])
@@ -61,7 +63,7 @@ elif stepid == 1:
     out = os.path.join(elsrc, "atl_to_reg")
     if not os.path.exists(out):
         os.mkdir(out)
-    params = [os.path.join(param_fld_affine, xx) for xx in os.listdir(param_fld_affine)]
+    params = [os.path.join(param_fld, xx) for xx in os.listdir(param_fld)]
     # run
     print("------------------- {} TO {} IN {} ------------------".format(mv,fx,out))        
 
@@ -89,4 +91,6 @@ elif stepid == 3:
 else:
     print(" STEP ID WAS NOT VALID ")
 
+
 e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+

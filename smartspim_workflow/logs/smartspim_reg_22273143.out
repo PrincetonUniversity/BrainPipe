@@ -1,0 +1,8 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n12 
+Cpus_allowed_list:	0-5,16-21
+src is /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/
+elsrc is /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix
+step id is zero, reg -> atl
+++++++++++++ /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/reg__downsized_for_atlas.tif TO /scratch/ejdennis/mPRA_crop.tif IN /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl+++++++++++

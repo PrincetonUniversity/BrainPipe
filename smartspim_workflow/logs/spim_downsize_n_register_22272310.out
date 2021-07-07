@@ -1,0 +1,59 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n12 
+Cpus_allowed_list:	6
+MemTotal:       263938536 kB
+MemFree:        64771572 kB
+MemAvailable:   205532476 kB
+Buffers:          165160 kB
+Cached:         139734536 kB
+SwapCached:          280 kB
+Active:         118499440 kB
+Inactive:       71052784 kB
+Active(anon):   49569980 kB
+Inactive(anon):   166448 kB
+Active(file):   68929460 kB
+Inactive(file): 70886336 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       4194300 kB
+SwapFree:        4186620 kB
+Dirty:                60 kB
+Writeback:             0 kB
+AnonPages:      49652308 kB
+Mapped:           188384 kB
+Shmem:             83896 kB
+Slab:            1987908 kB
+SReclaimable:    1829284 kB
+SUnreclaim:       158624 kB
+KernelStack:       10880 kB
+PageTables:       104672 kB
+NFS_Unstable:         20 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    136163568 kB
+Committed_AS:   50532648 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      698560 kB
+VmallocChunk:   34224736252 kB
+Percpu:             8192 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:    272384 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      610964 kB
+DirectMap2M:    10889216 kB
+DirectMap1G:    258998272 kB
+Storage directory: /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/
+Registration channel directory: Ex_488_Em_0_corrected/RES\(10565x7620x3837\)/046480/046480_088370/
+Cell channel directory: Ex_642_Em_2_corrected/RES\(10564x7615x3832\)/046480/046480_088390/
+Submitted batch job 22272311
+Submitted batch job 22272312
+Submitted batch job 22272313
+Submitted batch job 22272314
+Submitted batch job 22272315

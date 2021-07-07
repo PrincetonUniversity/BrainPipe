@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "spim_register.py", line 95, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+TypeError: cannot unpack non-iterable NoneType object
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "spim_register.py", line 98, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, fmask, params)
+NameError: name 'fmask' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "spim_register.py", line 100, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, fmask, mmask, params)
+NameError: name 'fmask' is not defined

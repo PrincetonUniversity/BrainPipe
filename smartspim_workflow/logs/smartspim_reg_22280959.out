@@ -1,0 +1,4 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n25 
+Cpus_allowed_list:	4-7,14,16-17,20-23,30

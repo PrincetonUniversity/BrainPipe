@@ -1,0 +1,44 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n25 
+Cpus_allowed_list:	0-5,16-21
+
+elastix is started at Sun Jul  4 22:25:43 2021.
+
+which elastix:   elastix
+elastix runs at: redshirt-n25
+  Linux 3.10.0-1160.25.1.el7.x86_64 (x64), #1 SMP Thu Apr 29 08:35:21 EDT 2021
+  with 257752 MB memory, and 16 cores @ 1320 MHz.
+-------------------------------------------------------------------------
+
+Running elastix with parameter file 0: "/scratch/ejdennis/rat_BrainPipe/parameterfolder_affine/Order1_Par0000affine.txt".
+
+Current time: Sun Jul  4 22:25:43 2021.
+Reading the elastix parameters from file ...
+
+ERROR: could not read fixed image.
+
+itk::ImageFileReaderException (0x2180000)
+Location: "unknown" 
+File: /jukebox/pkgs/ITK/InsightToolkit-4.8.2/Modules/IO/ImageBase/include/itkImageFileReader.hxx
+Line: 143
+Description:  Could not create IO object for reading file /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/reg__downsized_for_atlas.tif
+The file doesn't exist. 
+Filename = /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/reg__downsized_for_atlas.tif
+
+
+
+Errors occurred!
+src is /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/
+elsrc is /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/elastix
+stepid is 1, atl -> reg
+------------------- /scratch/ejdennis/mPRA_padded.tif TO /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/reg__downsized_for_atlas.tif IN /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/elastix/atl_to_reg ------------------
+Elastix Command:
+['elastix', '-f', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/reg__downsized_for_atlas.tif', '-m', '/scratch/ejdennis/mPRA_padded.tif', '-out', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/elastix/atl_to_reg', '-p', '/scratch/ejdennis/rat_BrainPipe/parameterfolder_affine/Order1_Par0000affine.txt']
+...
+Running Elastix, this can take some time....
+
+Past Elastix Commandline Call
+
+***ERROR***Cannot find elastix result file
+: /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/elastix/atl_to_reg/result.0.tif

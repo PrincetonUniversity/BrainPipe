@@ -1,0 +1,16 @@
+TIFFReadDirectory: Warning, Unknown field with tag 50838 (0xc696) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50839 (0xc697) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50838 (0xc696) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50839 (0xc697) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50838 (0xc696) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50839 (0xc697) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50838 (0xc696) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50839 (0xc697) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50838 (0xc696) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50839 (0xc697) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50838 (0xc696) encountered.
+TIFFReadDirectory: Warning, Unknown field with tag 50839 (0xc697) encountered.
+Traceback (most recent call last):
+  File "spim_register.py", line 95, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, params, fx_mask = fx_mask)
+TypeError: cannot unpack non-iterable NoneType object

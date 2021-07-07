@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "spim_register.py", line 95, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+TypeError: cannot unpack non-iterable NoneType object
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "spim_register.py", line 98, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, fx_mask, params)
+  File "../tools/registration/register.py", line 275, in elastix_command_line_call
+    if mv_mask:
+NameError: name 'mv_mask' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "spim_register.py", line 100, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, fx_mask, mv_mask, params)
+TypeError: elastix_command_line_call() takes from 4 to 5 positional arguments but 6 were given

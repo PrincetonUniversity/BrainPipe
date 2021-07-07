@@ -1,0 +1,13 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n12 
+Cpus_allowed_list:	0-5,16-21
+src is /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/
+elsrc is /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix
+step id is zero, reg -> atl
+++++++++++++ /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/reg__downsized_for_atlas.tif TO /scratch/ejdennis/mPRA_padded.tif IN /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl+++++++++++
+Elastix Command:
+['elastix', '-f', '/scratch/ejdennis/mPRA_padded.tif', '-m', '/jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/reg__downsized_for_atlas.tif', '-fMask', ['/scratch/ejdennis/rat_registration_parameter_folder/Order1_Par0000affine.txt', '/scratch/ejdennis/rat_registration_parameter_folder/Order4_Par0000bspline.txt', '/scratch/ejdennis/rat_registration_parameter_folder/Order5_Par0000bspline.txt', '/scratch/ejdennis/rat_registration_parameter_folder/Order2_Par0000bspline.txt'], '-out', '/jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl', '-p', '/', '-p', 's', '-p', 'c', '-p', 'r', '-p', 'a', '-p', 't', '-p', 'c', '-p', 'h', '-p', '/', '-p', 'e', '-p', 'j', '-p', 'd', '-p', 'e', '-p', 'n', '-p', 'n', '-p', 'i', '-p', 's', '-p', '/', '-p', 'm', '-p', 'P', '-p', 'R', '-p', 'A', '-p', '_', '-p', 'p', '-p', 'a', '-p', 'd', '-p', 'd', '-p', 'e', '-p', 'd', '-p', '_', '-p', 'm', '-p', 'a', '-p', 's', '-p', 'k', '-p', '.', '-p', 't', '-p', 'i', '-p', 'f']
+...
+Running Elastix, this can take some time....
+

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "spim_register.py", line 92, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, params)
+  File "../tools/registration/register.py", line 284, in elastix_command_line_call
+    writer(out, 'Elastix Command:\n{}\n...'.format(e_params))
+  File "../tools/utils/io.py", line 921, in writer
+    with open(os.path.join(saveloc, flnm), "a") as filelog:
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl/LogFile.txt'

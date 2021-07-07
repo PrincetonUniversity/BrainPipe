@@ -1,0 +1,28 @@
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/multiprocessing/pool.py", line 121, in worker
+    result = (True, func(*args, **kwds))
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/multiprocessing/pool.py", line 47, in starmapstar
+    return list(itertools.starmap(args[0], args[1]))
+  File "spim_downsize.py", line 21, in resize_helper
+    im = sitk.GetArrayFromImage(sitk.ReadImage(img))
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/site-packages/SimpleITK/extra.py", line 346, in ReadImage
+    return reader.Execute()
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/site-packages/SimpleITK/SimpleITK.py", line 5779, in Execute
+    return _SimpleITK.ImageFileReader_Execute(self)
+RuntimeError: Exception thrown in SimpleITK ImageFileReader_Execute: /tmp/SimpleITK/Code/IO/src/sitkImageReaderBase.cxx:105:
+sitk::ERROR: Unable to determine ImageIO reader for "/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected/RES(10582x7586x4069)/045600/045600_096560/045600_096560_025460.tif"
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "spim_downsize.py", line 101, in <module>
+    p.starmap(resize_helper, iterlst)
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/multiprocessing/pool.py", line 276, in starmap
+    return self._map_async(func, iterable, starmapstar, chunksize).get()
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/multiprocessing/pool.py", line 657, in get
+    raise self._value
+RuntimeError: Exception thrown in SimpleITK ImageFileReader_Execute: /tmp/SimpleITK/Code/IO/src/sitkImageReaderBase.cxx:105:
+sitk::ERROR: Unable to determine ImageIO reader for "/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected/RES(10582x7586x4069)/045600/045600_096560/045600_096560_025460.tif"

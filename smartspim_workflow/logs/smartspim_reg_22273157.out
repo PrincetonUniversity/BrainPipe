@@ -1,0 +1,44 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n12 
+Cpus_allowed_list:	0-5,16-21
+
+elastix is started at Mon Jul  5 12:23:04 2021.
+
+which elastix:   elastix
+elastix runs at: redshirt-n12
+  Linux 3.10.0-1160.25.1.el7.x86_64 (x64), #1 SMP Thu Apr 29 08:35:21 EDT 2021
+  with 257752 MB memory, and 16 cores @ 1424 MHz.
+-------------------------------------------------------------------------
+
+Running elastix with parameter file 0: "/scratch/ejdennis/rat_registration_parameter_folder/Order1_Par0000affine.txt".
+
+Current time: Mon Jul  5 12:23:04 2021.
+Reading the elastix parameters from file ...
+
+ERROR: could not read fixed image.
+
+itk::ImageFileReaderException (0x1fd33f0)
+Location: "unknown" 
+File: /jukebox/pkgs/ITK/InsightToolkit-4.8.2/Modules/IO/ImageBase/include/itkImageFileReader.hxx
+Line: 143
+Description:  Could not create IO object for reading file /scratch/ejdennis/mPRA.tif
+The file doesn't exist. 
+Filename = /scratch/ejdennis/mPRA.tif
+
+
+
+Errors occurred!
+src is /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/
+elsrc is /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix
+step id is zero, reg -> atl
+++++++++++++ /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/reg__downsized_for_atlas.tif TO /scratch/ejdennis/mPRA.tif IN /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl+++++++++++
+Elastix Command:
+['elastix', '-f', '/scratch/ejdennis/mPRA.tif', '-m', '/jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/reg__downsized_for_atlas.tif', '-out', '/jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl', '-p', '/scratch/ejdennis/rat_registration_parameter_folder/Order1_Par0000affine.txt', '-p', '/scratch/ejdennis/rat_registration_parameter_folder/Order4_Par0000bspline.txt', '-p', '/scratch/ejdennis/rat_registration_parameter_folder/Order5_Par0000bspline.txt', '-p', '/scratch/ejdennis/rat_registration_parameter_folder/Order2_Par0000bspline.txt']
+...
+Running Elastix, this can take some time....
+
+Past Elastix Commandline Call
+
+***ERROR***Cannot find elastix result file
+: /jukebox/LightSheetData/lightserv/abondy/A323/A323-001/imaging_request_1/rawdata/resolution_3.6x/elastix/reg_to_atl/result.3.tif

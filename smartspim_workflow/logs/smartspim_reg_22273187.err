@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "spim_register.py", line 95, in <module>
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, fx_mask, params)
+  File "../tools/registration/register.py", line 290, in elastix_command_line_call
+    sp.call(e_params)  # sp_call(e_params)#
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/subprocess.py", line 339, in call
+    with Popen(*popenargs, **kwargs) as p:
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/subprocess.py", line 800, in __init__
+    restore_signals, start_new_session)
+  File "/usr/people/ejdennis/.conda/envs/lightsheet/lib/python3.7/subprocess.py", line 1482, in _execute_child
+    restore_signals, start_new_session, preexec_fn)
+TypeError: expected str, bytes or os.PathLike object, not list

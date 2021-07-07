@@ -1,0 +1,4 @@
+  File "spim_register.py", line 95
+    e_out, transformfiles = elastix_command_line_call(fx, mv, out, fx_mask = fx_mask, params)
+                                                                                     ^
+SyntaxError: positional argument follows keyword argument
