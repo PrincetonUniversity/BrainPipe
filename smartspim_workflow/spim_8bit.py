@@ -96,7 +96,6 @@ if __name__ == "__main__":
             savestr = "cell_"
             pth=cell_ch
 
-        print("path to atlas used for scaling {}".format(atlpth))
         print("\nPath to stitched images: %s\n" % pth)
         #path to store downsized images
         dst = os.path.join(os.path.dirname(src), "{}_downsized".format(savestr))
@@ -104,10 +103,7 @@ if __name__ == "__main__":
         if not os.path.exists(dst): os.mkdir(dst)
         imgs = [os.path.join(pth, xx) for xx in os.listdir(pth) if "tif" in xx]
         z = len(imgs)
-        imgtest = tif.imread(imgs[int(z/2)]))
-        x,y=np.shape(imgtest)
-        print("z is {}, y is {}, x is {}".format(z,y,x))
-        np.save(os.path.join(src,"zyx.npy"),[z,y,x])
+        print("z is {}".format(z))
         resizef = 5 #factor to downsize imgs by
         print("resize factor is {}".format(resizef))
         iterlst = [(img, dst, resizef) for img in imgs]
