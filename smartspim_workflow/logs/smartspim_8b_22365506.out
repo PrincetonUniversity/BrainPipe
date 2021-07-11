@@ -1,0 +1,12 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n17 
+Cpus_allowed_list:	6
+['spim_8bit.py', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/', 'Ex_488_Em_0_corrected/RES(10565x7620x3837)/046480/046480_088370/', 'Ex_642_Em_2_corrected/RES(10564x7615x3832)/046480/046480_088390/']
+['/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected/RES(10565x7620x3837)/046480/046480_088370/', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/Ex_642_Em_2_corrected/RES(10564x7615x3832)/046480/046480_088390/']
+reg ch is /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/Ex_488_Em_0_corrected/RES(10565x7620x3837)/046480/046480_088370/
+downsizing to /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/
+cell ch is /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/Ex_642_Em_2_corrected/RES(10564x7615x3832)/046480/046480_088390/046480_088390
+downsizing to /jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/
+/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco-E155/imaging_request_1/rawdata/resolution_3.6x/cell__downsized_for_atlas.tif
+done

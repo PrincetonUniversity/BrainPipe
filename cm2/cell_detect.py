@@ -62,15 +62,22 @@ if __name__ == '__main__':
 		cell_detection_parameter['background_correction']['shape'] = (3,3)
 		cell_detection_parameter['shape_detection']['threshold'] = 300
 		print('/n params are k3, 300')
+		i=0
+		for file in os.listdir(str(sys.argv[2])):
+			while i==0:
+				if file[-4:]=='tif':
+					expession_raw = file.split('_Z')[0]+'_'+'Z<Z,4>.tif'
+					expression_auto = expression_raw
+					x=1
+
 	else:
 		cell_detection_parameter['background_correction']['shape'] = (5,5)
 		cell_detection_parameter['shape_detection']['threshold'] = 130
 		print('/n params are k5, 130')
+		expression_raw      = 'Z<Z,4>.tif'
+		expression_auto = 'Z<Z,4>.tif'
 
 	directory = str(sys.argv[2]) #e.g. os.path.join('/scratch/ejdennis/cm2_brains/j317/ch_488/')
-
-	expression_raw      = 'Z<Z,4>.tif'    
-	expression_auto	= 'Z<Z,4>.tif'
 
 	ws = wsp.Workspace('CellMap', directory=directory);
 	ws.update(raw=expression_raw)
@@ -109,8 +116,10 @@ if __name__ == '__main__':
 			sys.stdout.flush()
 			block_result = process_block(block,params=cell_detection_parameter)
 			print("Done running cell detection")
-		else:			
+		else:	
+			final_array = jobid + "_" + arrayid 		
 			print("jobid is {}".format(jobid))
+			subprocess.Popen(["wait",final_array])
 			subprocess.Popen(["scancel",jobid])	
 	elif step == 3:
 		# merge blocks

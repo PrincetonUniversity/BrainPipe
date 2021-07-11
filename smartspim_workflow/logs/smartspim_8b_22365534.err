@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "spim_8bit.py", line 92, in <module>
+    while len([file for file in os.listdir(cell_ch) if '.tif' in file]) < 10:
+FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco_647_488_4x/pb_udisco_647_488_4x-009/imaging_request_1/rawdata/resolution_3.6x/Ex_642_Em_2_corrected\n'

@@ -1,8 +1,0 @@
-STEP0 SLURM
-/scratch/ejdennis/cm2_brains/E155/642
-smartspim
-QStandardPaths: XDG_RUNTIME_DIR points to non-existing path '/run/user/2333', please create it with 0700 permissions.
-libEGL warning: DRI2: failed to create any config
-libEGL warning: DRI2: failed to create any config
-libEGL warning: DRI2: failed to create any config
-libEGL warning: DRI2: failed to create any config

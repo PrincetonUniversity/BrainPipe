@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "spim_register.py", line 48, in <module>
-    os.mkdir(elsrc)
-FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_M128/imaging_request_1/rawdata/resolution_3.6x/elastix'
-Traceback (most recent call last):
-  File "spim_register.py", line 48, in <module>
-    os.mkdir(elsrc)
-FileNotFoundError: [Errno 2] No such file or directory: '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_M128/imaging_request_1/rawdata/resolution_3.6x/elastix'

@@ -31,9 +31,8 @@ def resize_helper(img, dst, resizef):
     y,x = im.shape
     yr = int(y/resizef); xr = int(x/resizef)
     im = cv2.resize(im, (xr, yr), interpolation=cv2.INTER_LINEAR)
-    im = to_eight_bit_range(im)
     tif.imsave(os.path.join(dst, os.path.basename(img)), 
-                    im.astype("uint8"), compress=1)
+                    im.astype("uint16"), compress=1)
 
 
 def get_folderstructure(dirname):
@@ -65,8 +64,9 @@ def dwnsz(pth,save_str,src):
     print("############### THE NEW AXES ARE {},{},{}".format(z,y,x))
     print("\n**********downsizing....heavy!**********\n")
     arrsagd = zoom(arrsag, ((atlz*1.4/z),(atly*1.4/y),(atlx*1.4/x)), order=1)
+    arrsagd = to_eight_bit_range(arrsagd)
     print('saving tiff at {}'.format(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr))))
-    tif.imsave(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)), arrsagd.astype("uint16"))
+    tif.imsave(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)), arrsagd.astype("uint8"))
 
 
 if __name__ == "__main__":

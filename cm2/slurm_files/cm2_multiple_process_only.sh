@@ -12,23 +12,16 @@ module load anacondapy/2020.11
 . activate cm2
 
 # change these:
-declare -a LIST_OF_FOLDERS=("/scratch/ejdennis/cm2_brains/m128/488"
-"/scratch/ejdennis/cm2_brains/m128/642"
-"/scratch/ejdennis/cm2_brains/X073/488"
-"/scratch/ejdennis/cm2_brains/X073/642"
-"/scratch/ejdennis/cm2_brains/X077/488"
-"/scratch/ejdennis/cm2_brains/X077/642"
-"/scratch/ejdennis/cm2_brains/X078/488"
-"/scratch/ejdennis/cm2_brains/X078/642")
+declare -a LIST_OF_FOLDERS=("/scratch/ejdennis/cm2_brains/A300/642"
+"/scratch/ejdennis/cm2_brains/E130/642"
+"/scratch/ejdennis/cm2_brains/E131/642"
+"/scratch/ejdennis/cm2_brains/E131/488")
 
-declare -a LIST_OF_DESTINATIONS=("/scratch/ejdennis/cm2_brains/m128/488"
-"/scratch/ejdennis/cm2_brains/m128/642"
-"/scratch/ejdennis/cm2_brains/X073/488"
-"/scratch/ejdennis/cm2_brains/X073/642"
-"/scratch/ejdennis/cm2_brains/X077/488"
-"/scratch/ejdennis/cm2_brains/X077/642"
-"/scratch/ejdennis/cm2_brains/X078/488"
-"/scratch/ejdennis/cm2_brains/X078/642")
+declare -a LIST_OF_DESTINATIONS=("/scratch/ejdennis/cm2_brains/A300/642"
+"/scratch/ejdennis/cm2_brains/E130/642" 
+"/scratch/ejdennis/cm2_brains/E131/642"
+"/scratch/ejdennis/cm2_brains/E131/488"
+)
 
 module load anacondapy/2020.11
 . activate cm2

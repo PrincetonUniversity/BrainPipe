@@ -1,1 +1,0 @@
-/usr/bin/xvfb-run: line 181: 180877 Bus error               DISPLAY=:$SERVERNUM XAUTHORITY=$AUTHFILE "$@" 2>&1

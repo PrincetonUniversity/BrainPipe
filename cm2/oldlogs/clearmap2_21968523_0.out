@@ -1,8 +1,0 @@
-rename slurm
-
-
-in rename, source is
-Traceback (most recent call last):
-  File "rename_smartspimZ_for_cm2.py", line 18, in <module>
-    print(sys.argv[1])
-IndexError: list index out of range

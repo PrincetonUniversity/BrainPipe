@@ -1,0 +1,5 @@
+In the directory: /scratch/ejdennis/rat_BrainPipe/smartspim_workflow 
+As the user: ejdennis 
+on host: redshirt-n17 
+Cpus_allowed_list:	6
+['spim_8bit.py', '/jukebox/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X073/imaging_request_1/rawdata/resolution_3.6x/', 'Ex_488_Em_0_corrected/RES(10519x7581x4124)/082890/082890_087410/', 'Ex_642_Em_2_corrected/RES(10516x7619x4092)/082910/082910_087140/']

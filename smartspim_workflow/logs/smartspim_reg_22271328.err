@@ -1,4 +1,0 @@
-  File "spim_register.py", line 76
-    print("------------------- {} TO {} IN {} ------------------".format(mv,fx,out))        
-    ^
-IndentationError: unexpected indent

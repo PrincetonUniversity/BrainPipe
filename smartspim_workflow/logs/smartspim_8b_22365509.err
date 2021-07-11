@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "spim_8bit.py", line 98, in <module>
+    dst = os.path.join(os.path.dirname(src), "{}_downsized".format(savestr))
+NameError: name 'savestr' is not defined

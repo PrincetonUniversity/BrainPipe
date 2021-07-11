@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "spim_8bit.py", line 101, in <module>
+    sixteenbit = tif.imread(os.path.join(os.path.dirname(dst), "{}_downsized_for_atlas.tif".format(savestr)))    
+  File "/usr/people/ejdennis/.local/lib/python3.7/site-packages/tifffile/tifffile.py", line 771, in imread
+    with TiffFile(files, **kwargs_file) as tif:
+  File "/usr/people/ejdennis/.local/lib/python3.7/site-packages/tifffile/tifffile.py", line 2864, in __init__
+    fh = FileHandle(arg, mode=mode, name=name, offset=offset, size=size)
+  File "/usr/people/ejdennis/.local/lib/python3.7/site-packages/tifffile/tifffile.py", line 8596, in __init__
+    self.open()
+  File "/usr/people/ejdennis/.local/lib/python3.7/site-packages/tifffile/tifffile.py", line 8609, in open
+    self._fh = open(self._file, self._mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/bucket/PNI-centers/LightSheetData/lightserv/pbibawi/pb_udisco/pb_udisco_X077/imaging_request_1/rawdata/resolution_3.6x/cell__downsized_for_atlas.tif'

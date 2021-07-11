@@ -1,4 +1,0 @@
-/var/spool/slurmd/job21995587/slurm_script: line 22: syntax error near unexpected token `('
-/var/spool/slurmd/job21995587/slurm_script: line 22: `for (( n=0; n<=${#LIST_OF_FOLDERS[@]}; n++ ))'
-/var/spool/slurmd/job21995587/slurm_script: line 23: syntax error near unexpected token `do'
-/var/spool/slurmd/job21995587/slurm_script: line 23: `do'
