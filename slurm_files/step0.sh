@@ -6,13 +6,13 @@
 #SBATCH -o logs/step0.out        # STDOUT
 #SBATCH -e logs/step0.err        # STDERR
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 module load elastix/4.8
-. activate lightsheet
+. activate lightsheet-demo
 
 echo "Starting step 0"
 
-xvfb-run python run_tracing.py 0 ${SLURM_ARRAY_TASK_ID} #update dictionary and pickle
+xvfb-run python main.py 0 #update dictionary and pickle
 
 # HOW TO USE:
 # sbatch --array=0-20 sub_arrayjob.sh 

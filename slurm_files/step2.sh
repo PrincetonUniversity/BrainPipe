@@ -17,11 +17,11 @@ cat /proc/$$/status | grep Cpus_allowed_list
 echo "Array Allocation Number: $SLURM_ARRAY_JOB_ID"
 echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 module load elastix/4.8
-. activate lightsheet
+. activate lightsheet-demo
 
-xvfb-run python run_tracing.py 2 ${SLURM_ARRAY_TASK_ID} #combine stacks into single tifffiles
+xvfb-run -d python main.py 2 ${SLURM_ARRAY_TASK_ID} #combine stacks into single tifffiles
 
 # HOW TO USE:
 # sbatch --array=0-20 sub_arrayjob.sh 

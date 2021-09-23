@@ -7,7 +7,8 @@ Created on Wed Feb 24 22:07:30 2016
 """
 
 import os, sys, cv2, time, re, warnings, shutil, mmap, collections, random, numpy as np, SimpleITK as sitk, multiprocessing as mp
-import scipy.stats, pickle, scipy.ndimage, tifffile
+import scipy.stats, pickle, scipy.ndimage
+from skimage.external import tifffile
 from tools.imageprocessing.orientation import fix_orientation
 from tools.utils.io import listdirfull, makedir, removedir, chunkit, writer, load_kwargs, load_tif_list, save_kwargs
 
@@ -468,8 +469,8 @@ def process_planes(job, cores, compression, verbose=True, **kwargs):
         try:
             dct=vol.zdct[zpln] #dictionary of files for single z plane
         except KeyError:
-            print("ArrayJobID/SF exceeds number of planes")
-
+            print("ArrayJobID/SF exceeds number of planes. Skipping")
+            continue
         #handle raw vs nonraw
         if vol.raw: stitchdct = flatten_stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, vol.lightsheets, **kwargs)
         if not vol.raw: stitchdct = stitcher(cores, vol.outdr, vol.tiling_overlap, vol.xtile, vol.ytile, zpln, dct, **kwargs)
