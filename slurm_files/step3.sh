@@ -8,9 +8,9 @@
 #SBATCH --contiguous #used to try and get cpu mem to be contigous
 
 
-module load anacondapy/5.3.1
+module load anacondapy/2020.11
 module load elastix/4.8
-. activate lightsheet
+. activate lightsheet-demo
 
 xvfb-run python run_tracing.py 3 ${SLURM_ARRAY_TASK_ID} #run elastix; -d flag is NECESSARY for depth coding
 
