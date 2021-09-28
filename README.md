@@ -105,7 +105,7 @@ If you have two channels in your `parameter_dictionary.py`.
 For each channel, a `*_resized_chXX.tif` will be created in the `outputdirectory`. These files are oriented the same as the reference atlas and downsized in your original data x and y dimensions by a factor of `resizefactor` that you set in `parameter_dictionary.py`. 
 
 
-###Step 3:
+### Step 3:
 ```python
 python main.py 3 $jobid
 ```
