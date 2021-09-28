@@ -105,7 +105,7 @@ If you have two channels in your `parameter_dictionary.py`.
 For each channel, a `*_resized_chXX.tif` will be created in the `outputdirectory`. These files are oriented the same as the reference atlas and downsized in your original data x and y dimensions by a factor of `resizefactor` that you set in `parameter_dictionary.py`. 
 
 
-<a name="step3"></a> ### Step 3:
+###Step 3:
 ```python
 python main.py 3 $jobid
 ```
@@ -146,7 +146,7 @@ module load elastix/4.8
 reflect the module names and versions that your cluster administrator installed for you to enable you to create your conda `brainpipe` environment and run elastix on the cluster. 
 - edit `registration_pipeline.sh` so that the number of array jobs in step1 are sufficient to cover all z planes. Remember that each array job will process `slurmjobfactor` z planes (see your `parameter_dictionary.py`, default is 50).
 - edit `registration_pipeline.sh` so that the number of array jobs in step2 corresponds to the number of channels you want to downsize and register.
-- edit `registration_pipeline.sh` so that the array jobs in step3 correspond to the types of registration you want to perform (see [step3](#step3))
+- edit `registration_pipeline.sh` so that the array jobs in step3 correspond to the types of registration you want to perform (see [step3](#step-3))
 
 Edit: lightsheet/sub_main_tracing.sh file:
 * Need to load anacondapy 5.3.1 on cluster (something like):
