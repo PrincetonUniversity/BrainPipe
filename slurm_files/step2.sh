@@ -19,7 +19,7 @@ echo "Array Index: $SLURM_ARRAY_TASK_ID"
 
 module load anacondapy/2020.11
 module load elastix/4.8
-. activate lightsheet-demo
+. activate brainpipe
 
 xvfb-run -d python main.py 2 ${SLURM_ARRAY_TASK_ID} #combine stacks into single tifffiles
 
