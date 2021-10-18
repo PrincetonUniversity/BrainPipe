@@ -1,4 +1,4 @@
-name: lightsheet-demo
+name: brainpipe
 channels:
   - defaults
 dependencies:

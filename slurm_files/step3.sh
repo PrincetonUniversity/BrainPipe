@@ -10,7 +10,7 @@
 
 module load anacondapy/2020.11
 module load elastix/4.8
-. activate lightsheet-demo
+. activate brainpipe
 
 xvfb-run python run_tracing.py 3 ${SLURM_ARRAY_TASK_ID} #run elastix; -d flag is NECESSARY for depth coding
 

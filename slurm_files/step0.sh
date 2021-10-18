@@ -8,7 +8,7 @@
 
 module load anacondapy/2020.11
 module load elastix/4.8
-. activate lightsheet-demo
+. activate brainpipe
 
 echo "Starting step 0"
 
