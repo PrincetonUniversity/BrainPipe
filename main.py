@@ -38,7 +38,6 @@ if __name__ == "__main__":
     if stepid == 0:
         ###make parameter dictionary and pickle file:
         preprocessing.generateparamdict(os.getcwd(), **params) # e.g. single job assuming directory_determiner function has been properly set
-        #preprocessing.updateparams("/home/wanglab/wang/pisano/Python/lightsheet", svnm = "param_dict_local.p", **params) # make a local copy
         if not os.path.exists(os.path.join(params["outputdirectory"], "lightsheet")): 
             shutil.copytree(os.getcwd(), os.path.join(params["outputdirectory"], "lightsheet"), 
                             ignore=shutil.ignore_patterns(*(".pyc","CVS",".git","tmp",".svn", 
