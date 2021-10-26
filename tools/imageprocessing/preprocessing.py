@@ -195,7 +195,7 @@ def generateparamdict(cwd, dst=False, update=False, **kwargs):
                 vol.add_outdr(kwargs["outputdirectory"])
                 vol.add_indr(pth)
                 vol.add_packagedirectory(kwargs["packagedirectory"])
-                vol.add_brainname(pth[pth.rfind("/")+8:-9])
+                vol.add_brainname(os.path.basename(pth))
                 #add downsized volume path. This is done here instead of during process to prevent pickling IO issues
                 vol.add_downsized_vol(os.path.join(outdr, vol.brainname+"_resized_ch"+vol.channel))
                 vol.add_resampled_for_elastix_vol(vol.downsized_vol + "_resampledforelastix.tif")
@@ -309,7 +309,7 @@ def updateparams(cwd=False, **kwargs):
         vol.add_outdr(kwargs["outputdirectory"])
         vol.add_indr(pth)
         vol.add_packagedirectory(kwargs["packagedirectory"])
-        vol.add_brainname(pth[pth.rfind("/")+8:-9])
+        vol.add_brainname(os.path.basename(pth))
         #add downsized volume path. This is done here instead of during process to prevent pickling IO issues
         vol.add_downsized_vol(os.path.join(outdr, vol.brainname+"_resized_ch"+vol.channel))
         vol.add_resampled_for_elastix_vol(vol.downsized_vol + "_resampledforelastix.tif")
@@ -1470,7 +1470,7 @@ def flatten(dr, **kwargs):
     ###max zpln
     mx_zpln=max([len(chdct[xx]) for xx in chdct])
     ###zdct: keys=pln, values=dictionary of channels with subvalues being tiles/lightsheet
-    for xx in range(mx_zpln-1):
+    for xx in range(mx_zpln):
         tmpdct={}
         [tmpdct.update(dict([(chann, chdct[chann][str(xx).zfill(4)])])) for chann in chdct]
         zdct[str(xx).zfill(4)]=tmpdct
