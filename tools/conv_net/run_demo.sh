@@ -10,8 +10,8 @@
 #SBATCH -o demo_%j.out
 #SBATCH -e demo_%j.err
 
-module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
-. activate 3dunet
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anacondapy/2020.11
+. activate brainpipe
 
 echo 'Folder to save: '
 demo_folder=$(pwd)$'/demo'

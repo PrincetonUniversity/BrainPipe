@@ -240,7 +240,7 @@ This step should take no more than 10 minutes. When it finishes, the 25 stitched
 
 Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to Figure 1 above.
 
-# CNN demo 
+# CNN Demo 
 We set up a demo script to run training and large-scale inference on some randomized data. This is useful to make sure the environment and modules are imported correctly
 
 If working with a slurm-based scheduler:
