@@ -12,7 +12,7 @@ module load elastix/4.8
 
 echo "Starting step 0"
 
-xvfb-run python main.py 0 #update dictionary and pickle
+python main.py 0 #update dictionary and pickle
 
 # HOW TO USE:
 # sbatch --array=0-20 sub_arrayjob.sh 
