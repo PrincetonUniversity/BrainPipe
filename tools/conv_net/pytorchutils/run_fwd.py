@@ -35,8 +35,8 @@ def main(noeval, **args):
         save_output(output, dset, **params)
 
 
-def fill_params(expt_name, chkpt_num, gpus,
-                nobn, model_fname, dset_names, tag):
+def fill_params(expt_name, expt_dir,chkpt_num, gpus,
+                nobn, model_fname, tag):
 
     params = {}
 
@@ -52,7 +52,7 @@ def fill_params(expt_name, chkpt_num, gpus,
 
     #IO/Record params
     params["expt_name"]   = expt_name
-    params["expt_dir"]    = "/tigress/zmd/3dunet_data/ctb/network/{}".format(expt_name)
+    params["expt_dir"]    = expt_dir
     params["model_dir"]   = os.path.join(params["expt_dir"], "models")
     params["log_dir"]     = os.path.join(params["expt_dir"], "logs")
     params["fwd_dir"]     = os.path.join(params["expt_dir"], "forward")
@@ -60,9 +60,13 @@ def fill_params(expt_name, chkpt_num, gpus,
     params["output_tag"]  = tag
 
     #Dataset params
-    params["data_dir"]    = "/tigress/zmd/3dunet_data/ctb/training_inputs"
-    assert os.path.isdir(params["data_dir"]),"nonexistent data directory"
-    params["dsets"]       = dset_names
+    test_dir = os.path.join(expt_dir,"training_data","test")
+    params["data_dir"] = test_dir
+    assert os.path.isdir(test_dir),"nonexistent data directory"
+
+    test_sets = [x.split('_lbl.tif')[0] for x in os.listdir(test_dir) if 'lbl' in x] 
+    assert len(test_sets) > 0
+    params["dsets"]       = test_sets
     params["input_spec"]  = collections.OrderedDict(input=(20,192,192)) #dp dataset spec
     params["scan_spec"]   = collections.OrderedDict(soma=(1,20,192,192))
     params["scan_params"] = dict(stride=(0.75,0.75,0.75), blend="bump")
@@ -133,12 +137,12 @@ if __name__ == "__main__":
 
     parser.add_argument("expt_name",
                         help="Experiment Name")
+    parser.add_argument("expt_dir",
+                        help="Experiment Directory")
     parser.add_argument("model_fname",
                         help="Model Template Name")
     parser.add_argument("chkpt_num", type=int,
                         help="Checkpoint Number")
-    parser.add_argument("dset_names", nargs="+",
-                        help="Inference Dataset Names")
     parser.add_argument("--nobn", action="store_true",
                         help="Whether net uses batch normalization")
     parser.add_argument("--gpus", default=["0"], nargs="+")

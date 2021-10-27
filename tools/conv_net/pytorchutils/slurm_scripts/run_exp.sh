@@ -1,16 +1,12 @@
 #!/bin/bash
 #SBATCH -p all                # partition (queue)
 #SBATCH -N 1
-#SBATCH --ntasks-per-node=4
-#SBATCH --ntasks-per-socket=2
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:2
 #SBATCH --contiguous
 #SBATCH --mem=20000 #20gbs
-#SBATCH -t 8500                 # time (minutes)
-#SBATCH -o /scratch/gpfs/zmd/logs/cnn_train.out
-#SBATCH -e /scratch/gpfs/zmd/logs/cnn_train.err
-
-module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
-. activate 3dunet
-python run_exp.py 20200316_peterb_zd_train models/RSUNet.py samplers/soma.py augmentors/flip_rotate.py --batch_sz 12 --gpus 0,1,2,3
-
+#SBATCH -t 25                 # time (minutes)
+#SBATCH -o /tigress/ahoag/cnn/exp2/slurm_logs/cnn_train_%j.out
+#SBATCH -e /tigress/ahoag/cnn/exp2/slurm_logs/cnn_train_%j.err
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/2020.11
+. activate brainpipe
+python run_exp.py exp2 /tigress/ahoag/cnn/exp2 models/RSUNet.py samplers/soma.py augmentors/flip_rotate.py --max_iter 201 --batch_sz 2 --chkpt_num 0 --chkpt_intv 50 --gpus 0,1
