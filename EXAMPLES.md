@@ -1,6 +1,4 @@
 # Example: brain registration 
----
-This example is useful to run through once even if you ultimately plan to run the pipeline on a computing cluster.
 - Download the demo dataset for registration: https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/lavision_1.3x_twochannels_z4um_demodataset.tar.gz.
 - Unpack it: 
 ```
@@ -42,19 +40,21 @@ and set your `outputdirectory` to where you want to save the outputted data prod
 The file `main.py` actually runs the registration pipeline and imports the file `parameter_dictionary.py`. The registration pipeline has four steps, where the step index is the first command line argument you pass to `main.py`. 
  
 ## Registration on a local machine 
+This is useful to run through once even if you ultimately plan to run the pipeline on a computing cluster.
+
 If on a local machine, first activate your anaconda environment:
 ```
 conda activate brainpipe
 ```
 Then run the following steps from the command line. 
 ### Step 0:
-```python
+```
 python main.py 0
 # or: python main.py 0 2>&1 | tee logs/step0.log # if you want to log output to a file and see stdout while the program is running
 ```
 This will create the `outputdirectory` directory that you set in `parameter_dictionary.py` and write a few files and sub-directories in there. 
 ### Step 1:
-```python
+```
 python main.py 1 $jobid
 ```
 If any channels of your raw data consist of multiple light-sheets or multiple tiles, this step will blend and stitch them into a single file for each Z plane. In this example, we are only using 1 light sheet per plane and 1 tile per plane so no blending or stitching will occur. Note that there is a second command line argument passed to `main.py` for this step, $jobid. 
@@ -64,12 +64,12 @@ In our example here where we are not stitching, the `jobid` parameter is used to
 Even if you do not need to blend or stitch your data, you still need to run this step, as it creates files that later steps in the pipeline read. It should take less than one minute for this demo. The Z planes created during this step will be created in a sub-directory called `full_sizedatafld/` inside your `outputdirectory`. Each channel will have its own sub-directory inside of this directory. These Z planes will have the same voxel resolution as your raw data. For example you should see 696 Z planes in: `full_sizedatafld/ch488_ch00` of the format `ch488_C00_Z????.tif`, likewise for ch647. 
 
 ### Step 2:
-```python
+```
 python main.py 2 $jobid
 ```
 For each channel you specified in `parameter_dictionary.py`, this step will downsize the volume to dimensions that are closer to the dimensions of the reference atlas volume you set in `parameter_dictionary.py`, in preparation for the registration in the following step. It will also reorient your data to the same orientation as the reference atlas volume, if necessary. It also creates a single tif file for each downsized channel representing the entire volume. Here the `jobid` is used to index which channel to downsize, so run this step for each channel index like:
 
-```python
+```
 python main.py 2 0
 python main.py 2 1
 ```
@@ -80,7 +80,7 @@ You should now see a `ch488_resized_ch00.tif` and `ch647_resized_ch00.tif` that 
 
 ### Step 3:
 This step first resamples the downsized files from Step 2 so that they are 1.4x the size of reference atlas in x, y and z dimensions. This is an optimal factor for performing registration. These resampled and downsized files are saved as `ch488_resized_ch00_resampledforelastix.tif` and `ch488_resized_ch00_resampledforelastix.tif` in `outputdirectory` during this step. These files are then used as the inputs for the registration to the reference atlas specified in `parameter_dictionary.py`. Whichever channel you set as the `regch` in `parameter_dictionary` will be directly registered to the atlas, since this is often the autofluorescence channel which is closest in appeareance to the atlas. The other channels, if set as `injch` or `cellch` in `parameter_dictionary.py` will first be registered to the `regch` channel and then registered to the atlas. This two-step registration process for non-autofluorescent channels typically results in a better final registration of these channels to the reference atlas. 
-```python
+```
 python main.py 3 $jobid
 ```
 
@@ -92,7 +92,7 @@ jobid =
         2: 'injchannel`
 ```
 Therefore when you run:
-```python
+```
 python main.py 3 0
 ```
 
@@ -133,10 +133,11 @@ ch647_resized_ch00/
 The `sig_to_reg` folder contains the elastix transformation results between the signal channel (cell channel) in our case and the registration channel. The file `sig_to_reg/result.1.tif` is the cell channel volume registered to the 488 (registration channel) coordinate space. The file `result.tif` is the cell channel file registered to the atlas space. The reason we include the `sig_to_reg` folder is if there the registration and non-registration channel are not well aligned. In that case, you can use the `sig_to_reg` folder to apply a two-step registration process. This would be sig -> reg -> atlas, instead of sig -> atlas. This is not needed in this example, but the code performs that transformation just in case. 
 
 Using `jobid=0` will allow you to register the brain volumes to the atlas, but often it is of interest to register cells or other detected objects in a non-registration image channel to the atlas. That is what the other `jobid` values are for. For example:
-```python
+```
 python main.py 3 1
 ```
 will create a folder called `elastix_inverse_transform` in your `outputdirectory` containing the inverse transforms of the normal registration achieved with `jobid=0`. These inverse transforms are necessary for transforming coordinates in the cell channel volume to the atlas coordinate space. 
+
 ## Registration on a computing cluster
 Instead of running the steps with Python from the command line, you will run a sequence of sbatch scripts. This can either be done from a bash file all at once or one by one from the command line. In this example we will run the sbatch scripts one by one to illustrate them more clearly. 
 
@@ -191,7 +192,6 @@ os.path.join(/path/to/lavision_4x_cellch_z4um_10percentoverlap_demodataset"):
     [["cellch","00"]]
 }
 ```
--
 - Farther down in `parameter_dictionary.py` make sure to update the following entries in `params` to these values:
         - `"xyz_scale": (1.63,1.63,4)`
         - `"tiling_overlap": 0.1`
@@ -204,18 +204,24 @@ Once you have set up your `parameter_dictionary.py` file, load your conda enviro
 conda activate brainpipe
 ```
 Then run step 0:
-```python
+```
 python main.py 0
 ```
 This will create your `outputdirectory` if it does not already exist and populate it with some files, most importantly the parameter dictionary pickle file which will be used in the next step.
 
 Now run step 1 on your only channel:
-```python
+```
 python main.py 1 0
 ```
-This step may take between a few minutes depending on your available computing resources. When it finishes, the 25 stitched and blended full size Z planes (.tif files) will live in `outputdirectory/full_sizedatafld/n_4x_cellch_z4um_10percentoverlap_de_ch00`
+This step may take between a few minutes depending on your available computing resources. When it finishes, the 25 stitched and blended full size Z planes (.tif files) will live in `outputdirectory/full_sizedatafld/lavision_4x_cellch_z4um_10percentoverlap_demodataset_ch00`
 
-Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to this:
+Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical (or very close) to this:
+<figure>
+        <img src="static/stitching_demo_plane0.png" style="width:100%">
+  <figcaption>Figure 1: What the demo Z=0 plane looks like after stitching </figcaption>
+</figure>
+
+
 
 ## Stitching on a computing cluster instructions:
 Once you have set up your `parameter_dictionary.py` file, modify `slurm_files/step0.sh` to load the correct module names for your computing cluster. Then run step0 via sbatch:
@@ -232,8 +238,7 @@ sbatch array=0 slurm_files/step1.sh
 ```
 This step should take no more than 10 minutes. When it finishes, the 25 stitched and blended full size Z planes (.tif files) will live in `outputdirectory/full_sizedatafld/n_4x_cellch_z4um_10percentoverlap_de_ch00`
 
-Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to this:
-<img src="static/stitching_demo_plane0.png">
+Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to the 
 
 ## Edit: lightsheet/tools/conv_net/pytorchutils:
 - main GPU-based scripts are located in the pytorchutils directory
