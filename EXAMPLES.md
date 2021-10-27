@@ -240,7 +240,27 @@ This step should take no more than 10 minutes. When it finishes, the 25 stitched
 
 Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to Figure 1 above.
 
-## Edit: lightsheet/tools/conv_net/pytorchutils:
+# CNN demo 
+We set up a demo script to run training and large-scale inference on some randomized data. This is useful to make sure the environment and modules are imported correctly
+
+If working with a slurm-based scheduler:
+- run `sbatch run_demo.sh` within `tools/conv_net`
+- Note you will need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster 
+- load the modules and environment in the bash script as such (changing names as necessary):
+```
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
+ <<<your python environment>>>
+```
+
+2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
+```
+$ python setup_demo_script.py
+$ cd pytorchutils/
+$ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
+```
+3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
+
+Edit: lightsheet/tools/conv_net/pytorchutils:
 - main GPU-based scripts are located in the pytorchutils directory
 1. `run_exp.py` --> training
     - lines 64-98: modify data directory, train and validation sets, and named experiment         directory (in which the experiment directory of logs and model weights is stored) 
@@ -263,32 +283,6 @@ module load anacondapy/5.3.1
 . activate <<<your python environment>>>
 ```
 
-
-
-
-# CNN Demo:
-- demo script to run training and large-scale inference
-- useful to make sure the environment and modules are imported correctly
-
-1. if working with a slurm-based scheduler:
-        1. run `sbatch run_demo.sh` within the tools/conv_net
-                * make sure you have an environment setup under your cluster username named "3dunet" or "lightsheet" that has the dependencies described in the installation instructions
-                        * NOTE: the environments "3dunet" and "lightsheet" are sometimes used interchangeably in all bash scripts (but represent the same environment)
-                        * make sure you have the correct environment name in your bash scripts before executing them
-                * you will also need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster username
-                * load the modules and environment in the bash script as such:
-```
-module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
-. activate <<<your python environment>>>
-```
-
-2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
-```
-$ python setup_demo_script.py
-$ cd pytorchutils/
-$ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
-```
-3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
 
 # CNN paralellization
 
