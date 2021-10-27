@@ -40,7 +40,7 @@ $ which terastitcher
 ```
 This should show the path. If it shows nothing, then check the `export` line in your bashrc file to make sure it is correct.
 
-If you are planning to run BrainPipe on a computing cluster ask your system administrator to install the dependencies mentioned above on the cluster. You will also need Cuda installed under your username to run the CNN (see ([EXAMPLES #CNN Demo](EXAMPLES.md#cnn-demo)))
+If you are planning to run BrainPipe on a computing cluster ask your system administrator to install the dependencies mentioned above on the cluster. You will also need Cuda installed under your username to run the CNN (see [EXAMPLES #CNN Demo](EXAMPLES.md#cnn-demo)
 
 ## Python setup
 Once you have completed the system-wide requirements, install [anaconda](https://www.anaconda.com/download/) if not already present on your machine or cluster.
