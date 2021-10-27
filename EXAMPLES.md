@@ -238,7 +238,7 @@ sbatch array=0 slurm_files/step1.sh
 ```
 This step should take no more than 10 minutes. When it finishes, the 25 stitched and blended full size Z planes (.tif files) will live in `outputdirectory/full_sizedatafld/n_4x_cellch_z4um_10percentoverlap_de_ch00`
 
-Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to the 
+Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to Figure 1 above.
 
 ## Edit: lightsheet/tools/conv_net/pytorchutils:
 - main GPU-based scripts are located in the pytorchutils directory
