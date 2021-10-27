@@ -241,56 +241,102 @@ This step should take no more than 10 minutes. When it finishes, the 25 stitched
 Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to Figure 1 above.
 
 # CNN Demo 
-We set up a demo script to run training and large-scale inference on some randomized data. This is useful to make sure the environment and modules are imported correctly
+We set up a demo script to run training and large-scale inference on some randomized data. This is useful to make sure the environment and modules are imported correctly, and to familiarize you with the format of the inputs and outputs of the CNN.
 
-If working with a slurm-based scheduler:
-- run `sbatch run_demo.sh` within `tools/conv_net`
+If working on a computing cluster:
+- change the names of modules and conda environment in the sbatch script `tools/conv_net/run_demo.sh` as necessary for your cluster:
+```
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anacondapy/2020.11
+```
 - Note you will need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster 
-- load the modules and environment in the bash script as such (changing names as necessary):
+- Navigate to `tools/conv_net` and run:
 ```
-module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/5.3.1
- <<<your python environment>>>
-```
-
-2. else, navigate to tools/conv_net; in the terminal, in the lightsheet environment, run:
-```
-$ python setup_demo_script.py
-$ cd pytorchutils/
-$ python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
-```
-3. output will be in a 'tools/conv_net/demo/cnn_output' subfolder (as a TIFF)
-
-Edit: lightsheet/tools/conv_net/pytorchutils:
-- main GPU-based scripts are located in the pytorchutils directory
-1. `run_exp.py` --> training
-    - lines 64-98: modify data directory, train and validation sets, and named experiment         directory (in which the experiment directory of logs and model weights is stored) 
-2. `run_fwd.py` --> inference
-    - lines 57 & 65: modify experiment and data directory 
-3. `run_chnk_fwd.py` --> large-scale inference
-    - lines 82 & 90: modify experiment and data directory 
-    - if working with a slurm-based scheduler:
-        1. modify `run_chnk_fwd.sh` in `pytorchutils/slurm_scripts`
-        2. use `python pytorchutils/run_chnk_fwd.py -h` for more info on command line           arguments
-4. modify parameters (stride, window, # of iterations, etc.) in the main parameter dictionaries
-- `cell_detect.py` --> CPU-based pre-processing and post-processing
-        - output is a "3dunet_output" directory containing a '[brain_name]_cell_measures.csv'
-    - if working with a slurm-based scheduler, 
-        1. `cnn_preprocess.sh` --> chunks full sized data from working processed directory  
-        2. `cnn_postprocess.sh` --> reconstructs and uses connected components to find cell measures
-        3. these need the same changes as `sub_main_tracing.sh` file, e.g.
-```
-module load anacondapy/5.3.1
-. activate <<<your python environment>>>
+sbatch run_demo.sh
 ```
 
+If working on a local computer, navigate to tools/conv_net; in the terminal, in the brainpipe environment, run:
+```
+python setup_demo_script.py demo
+```
+
+Run the training and inference via: 
+```
+cd pytorchutils/
+python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
+```
+
+In either case (cluster or local), a folder will be created called `tools/conv_net/demo` containing the training and validation sets that were created as well as the results of the training and the inference. 
+This folder will have the structure:
+```
+demo
+├── cnn_output
+│   └── 0000000000_soma_10_demo.tif
+├── experiments
+│   └── demo
+├── input_patches
+│   └── demo.tif
+├── train_img.h5
+├── train_lbl.h5
+├── val_img.h5
+└── val_lbl.h5
+```
+where `train_img.h5` and `train_lbl.h5` are the training set data and labels, and `val_img.h5` and `val_lbl.h5` are the validation set data and labels, respectively. The `cnn_output` folder contains the result of running the inference from the trained model on the validation set. 
+
+## CNN Demo (real data)
+For running the CNN on real data, follow the instructions outlined in this jupyter notebook for your own data: [notebooks/make_UNet_training_set.ipynb](notebooks/make_UNet_training_set.ipynb). The inputs for training are pairs of subvolumes and their respective labels. Let's take a look at the script you will run to train the net on your own data. This is the file: `tools/conv_net/pytorchutils/slurm_scripts/run_exp.sh`:
+```
+#!/bin/bash
+#SBATCH -p all                # partition (queue)
+#SBATCH -N 1
+#SBATCH --gres=gpu:2
+#SBATCH --contiguous
+#SBATCH --mem=20000 #20gbs
+#SBATCH -t 2500                # time (minutes)
+#SBATCH -o /tigress/ahoag/cnn/exp2/slurm_logs/cnn_train_%j.out
+#SBATCH -e /tigress/ahoag/cnn/exp2/slurm_logs/cnn_train_%j.err
+
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/2020.11
+. activate brainpipe
+python run_exp.py exp2 /tigress/ahoag/cnn/exp2 models/RSUNet.py samplers/soma.py augmentors/flip_rotate.py --max_iter 201 --batch_sz 2 --chkpt_num 0 --chkpt_intv 50 --gpus 0,1
+```
+This script is intended to be run from the `tools/conv_net/pytorchutils` directory. In the last line it calls the python script `run_exp.py` in that folder using a number of required and optional arguments. See that python script for the details about these parameters, but the basic syntax for this is: 
+```
+python run_exp.py expt_name expt_dir model_fname sampler_fname augmentor_fname [optional args]
+```
+The `expt_dir` is where you will store your training, validation and test data. Before you run `run_exp.sh`, make a directory structure inside of that directory like this: 
+```
+└── training_data
+    ├── test
+    ├── train
+    └── val
+```
+Inside each of `test`, `train`, `val` directories put the pairs of subvolumes and their labels as created in the jupyter notebook above. 
+
+Once you have trained your model and found a checkpoint with an acceptable loss on the validation set, run the inference on the test set using the script: `tools/conv_net/pytorchutils/slurm_scripts/run_fwd.sh`:
+```
+#!/bin/bash
+#SBATCH -p all                # partition (queue)
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-socket=1
+#SBATCH --gres=gpu:1
+#SBATCH --contiguous
+#SBATCH --mem=5000 #5 gbs
+#SBATCH -t 10                # time (minutes)
+#SBATCH -o /tigress/ahoag/cnn/exp2/slurm_logs/cnn_inf_%j.out
+#SBATCH -e /tigress/ahoag/cnn/exp2/slurm_logs/cnn_inf_%j.err
+
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/2020.11
+. activate brainpipe
+
+python run_fwd.py exp2 /tigress/ahoag/cnn/exp2 models/RSUNet.py 12000 --gpus 0 --noeval --tag exp2
+```
+Like `run_exp.sh` this script is intended to be run from the `tools/conv_net/pytorchutils` directory. The last line calls the python script `run_fwd.py` in that folder. See that python script for the details about the parameters. The inference will use the model saved at the checkpoint passed (12000 in the above example) in the arguments to create the predicted labels from the subvolumes in your test set directory. The predicted label volumes from running the inference on each volume in the test set directory will be saved in the `expt_dir/forward`. 
 
 # CNN paralellization
-
-* for whole brain, cellular resolution image volumes (> 100 GB), the neural network inference is parallelized across multiple chunks of image volumes, and stitched together by taking the maxima at the overlaps of the chunks after inference.
-* the chunks are made by running `cnn_preprocess.sh` on a CPU based cluster
-* chunks can then be run for inference on a GPU based cluster (after transfer to the GPU based cluster server or on a server that has both CPU and GPU capabilities)
-        * by modifying paths in `tools/conv_net/pytorchutils/run_chnk_fwd.py`
-        * by then navigating to `tools/conv_net/pytorchutils` and submitting an array batch job
-                * the range ("0-150") will depend on how many chunks were made for the whole brain volume, which are typically 80-200
+- For whole brain, cellular resolution image volumes (> 100 GB), the neural network inference is parallelized across multiple chunks of image volumes, and stitched together by taking the maxima at the overlaps of the chunks after inference.
+- The chunks are made by running `slurm_files/cnn_preprocess.sh` on a CPU based cluster.
+- Chunks can then be run for inference on a GPU based cluster (after transfer to the GPU based cluster server or on a server that has both CPU and GPU capabilities) by then navigating to `tools/conv_net/pytorchutils` and submitting an array batch job the range ("0-150") will depend on how many chunks were made for the whole brain volume, which are typically 80-200.
 ```
 sbatch --array=0-150 slurm_scripts/run_chnk_fwd.sh
+```
