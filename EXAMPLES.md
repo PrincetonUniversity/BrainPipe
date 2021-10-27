@@ -217,8 +217,8 @@ This step may take between a few minutes depending on your available computing r
 
 Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical (or very close) to this:
 <figure>
-        <img src="static/stitching_demo_plane0.png" style="width:100%">
-  <figcaption>Figure 1: What the demo Z=0 plane looks like after stitching </figcaption>
+        <img src="static/stitching_demo_plane0.png" style="width:50%">
+  <figcaption>Figure 1: What the demo Z=0 plane should look like after stitching </figcaption>
 </figure>
 
 
