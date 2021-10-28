@@ -16,8 +16,7 @@ The file format is:
 ```
 15-24-10_UltraII_raw_RawDataStack[00 x 00]_C00_xyz-Table Z{ZPLANE_CODE}_UltraII Filter0000.ome.tif
 ```
-where {ZPLANE_CODE} is a 4 digit 0-padded string representing the z plane index, which is 0-indexed.
-
+where {ZPLANE_CODE} is a 4 digit 0-padded string representing the z plane index, which is 0-indexed. For formatting your own files see [FILE-FORMATTING](FILE-FORMATTING.md).
 - The file `parameter_dictionary.py` sets up a dictionary containing all of the information that will be needed to run the code. Edit this file according to its documentation. Most importantly, the `inputdictionary` needs to look something like this:
 ```
 inputdictionary={
