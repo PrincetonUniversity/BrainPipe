@@ -21,22 +21,27 @@ First, clone this repository.
 
 If on a local machine:
 ```
-$ sudo apt-get install elastix 
-$ sudo apt-get install xvfb 
-$ sudo apt-get install libboost-all-dev 
+sudo apt-get install elastix 
+sudo apt-get install xvfb 
+sudo apt-get install libboost-all-dev 
 ```
-* [Download] and unpack terastitcher: https://github.com/abria/TeraStitcher/wiki/Binary-packages and then run:
+
+[Download] and unpack terastitcher: https://github.com/abria/TeraStitcher/wiki/Binary-packages and then run:
+
 ```
-$ bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
+bash TeraStitcher-Qt4-standalone-1.10.16-Linux.sh?dl=1
 ```
+
 Note that the filename may slightly differ from this if the version has changed.
-- Modify Path in ~/.bashrc:
+- Modify Path in `~/.bashrc`:
+
 ```
 export PATH="<path/to/software>TeraStitcher-Qt4-standalone-1.16.11-Linux/bin:$PATH"
 ```
-* Check to see if successful
+
+Check to see if successful
 ```
-$ which terastitcher
+which terastitcher
 ```
 This should show the path. If it shows nothing, then check the `export` line in your bashrc file to make sure it is correct.
 
@@ -47,24 +52,35 @@ Once you have completed the system-wide requirements, install [anaconda](https:/
 
 The file in this github repository called: `brainpipe_environment.yml` contains the configuration of the specific anaconda environment used for BrainPipe. Install the anaconda environment by running the command:
 ```
-$ conda env create -f brainpipe_environment.yml
+conda env create -f brainpipe_environment.yml
 ```
-This will create an anaconda environment called `brainpipe` on your machine. Once, activate the environment by running:
+This will create an anaconda environment called `brainpipe` on your machine. Activate the environment by running:
 ```
-$ conda activate brainpipe
+conda activate brainpipe
 ```
+If you want to go through the example jupyter notebooks in `tutorials/` you will need to add this conda environment as a jupyter kernel:
+```
+pip install --user ipykernel
+python -m ipykernel install --user --name=brainpipe
+```
+
 Navigate to `tools/conv_net` and clone the necessary C++ extension scripts for working with DataProvider3:
 ```
-$ git clone https://github.com/torms3/DataTools.git
+git clone https://github.com/torms3/DataTools.git
 ```
 Go to the dataprovider3 and DataTools directories in `tools/conv_net` and run (for each directory):
 ```
-$ python setup.py install
+python setup.py install
 ```
 Then go to the augmentor directory in tools/conv_net and run:
 ```
-$ pip install -e .
+pip install -e .
 ```
 
-Edit tools/utils/directorydeterminer:
-* Add your paths for BOTH the cluster and local machinery
+Edit the function `directorydeterminer()` in `tools/utils/directorydeterminer.py` to include your system paths on your cluster and/or local machine.
+
+## Usage
+
+We recommend going through the [EXAMPLES](EXAMPLES.md) to explore the different use cases of BrainPipe.
+
+BrainPipe expects a certain file format for the light sheet files you input to it. This is flexible (see [FILE-FORMATTING](FILE-FORMATTING.md) for details). 
