@@ -13,8 +13,8 @@ echo "on host: `hostname` "
 cat /proc/$$/status | grep Cpus_allowed_list
 cat /proc/meminfo
 
-module load anacondapy/5.3.1
-. activate lightsheet
+module load anacondapy/2020.11
+. activate brainpipe
 
 echo "Experiment name:" "`pwd`"
 
