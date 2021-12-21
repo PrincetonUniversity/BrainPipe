@@ -1,5 +1,5 @@
 # Example: brain registration 
-- Download the demo dataset for registration: https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/lavision_1.3x_twochannels_z4um_demodataset.tar.gz.
+- Download the demo dataset for registration: https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/lavision_1.3x_twochannels_z10um_demodataset.tar.gz.
 - Unpack it: 
 ```
 tar -zxvf lavision_1.3x_twochannels_z4um_demodataset.tar.gz`
@@ -215,11 +215,13 @@ python main.py 1 0
 This step may take between a few minutes depending on your available computing resources. When it finishes, the 25 stitched and blended full size Z planes (.tif files) will live in `outputdirectory/full_sizedatafld/lavision_4x_cellch_z4um_10percentoverlap_demodataset_ch00`
 
 Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical (or very close) to this:
-<figure>
-        <img src="static/stitching_demo_plane0.png" style="width:50%">
-  <figcaption>Figure 1: What the demo Z=0 plane should look like after stitching </figcaption>
-</figure>
-
+<div align="center">
+    <figure>
+            <img src="static/stitching_demo_plane0.png" style="width:45%">
+            <img src="static/stitching_demo_plane0_tiles.png" style="width:45%">
+      <figcaption>Figure 1: What the demo Z=0 plane should look like before and after stitching </figcaption>
+    </figure>
+</div>
 
 
 ## Stitching on a computing cluster instructions:
