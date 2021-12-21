@@ -219,6 +219,7 @@ Visualize them to make sure the stitching worked propertly. The Z=0 plane should
     <figure>
             <img src="static/stitching_demo_plane0_tiles.png" style="width:45%">
             <img src="static/stitching_demo_plane0.png" style="width:45%"></figure>
+       </br>     
       <figcaption>Figure 1: What the demo Z=0 plane should look like before and after stitching </figcaption>
 </div>
 
