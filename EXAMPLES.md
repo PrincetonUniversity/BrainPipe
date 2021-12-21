@@ -284,7 +284,7 @@ demo
 where `train_img.h5` and `train_lbl.h5` are the training set data and labels, and `val_img.h5` and `val_lbl.h5` are the validation set data and labels, respectively. The `cnn_output` folder contains the result of running the inference from the trained model on the validation set. 
 
 ## CNN Demo (real data)
-For running the CNN on real data, follow the instructions outlined in this jupyter notebook for your own data: [notebooks/make_UNet_training_set.ipynb](notebooks/make_UNet_training_set.ipynb). The inputs for training are pairs of subvolumes and their respective labels. Let's take a look at the script you will run to train the net on your own data. This is the file: `tools/conv_net/pytorchutils/slurm_scripts/run_exp.sh`:
+For running the CNN on real data, follow the instructions outlined in this jupyter notebook for your own data: [tutorials/make_UNet_training_set.ipynb](tutorials/make_UNet_training_set.ipynb). The inputs for training are pairs of subvolumes and their respective labels. Let's take a look at the script you will run to train the net on your own data. This is the file: `tools/conv_net/pytorchutils/slurm_scripts/run_exp.sh`:
 ```
 #!/bin/bash
 #SBATCH -p all                # partition (queue)
