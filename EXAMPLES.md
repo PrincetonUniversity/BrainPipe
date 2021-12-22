@@ -1,6 +1,6 @@
 # Example: Stitching on a local machine and a cluster
 - Download the demo dataset for stitching: https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/lavision_4x_cellch_z4um_10percentoverlap_demodataset.tar.gz.
-- Unpack it: 
+- Unpack it:
 ```
 tar -zxvf lavision_4x_cellch_z4um_10percentoverlap_demodataset.tar.gz`
 ```
@@ -17,7 +17,7 @@ where {X_TILE} and {Y_TILE} are 2 digit 0-padded strings representing the row an
 - After unpacking these files, modify `parameter_dictionary.py` so that `inputdictionary` points to where you downloaded and unzipped the dataset. This dataset only represents a single channel (647nm) which was used to identify cells, so your `inputdictionary` should look something like:
 ```
 inputdictionary={
-os.path.join(/path/to/lavision_4x_cellch_z4um_10percentoverlap_demodataset"): 
+os.path.join(/path/to/lavision_4x_cellch_z4um_10percentoverlap_demodataset"):
     [["cellch","00"]]
 }
 ```
@@ -69,53 +69,14 @@ sbatch array=0 slurm_files/step1.sh
 ```
 This step should take no more than 10 minutes. When it finishes, the 25 stitched and blended full size Z planes (.tif files) will live in `outputdirectory/full_sizedatafld/n_4x_cellch_z4um_10percentoverlap_de_ch00`
 
-Visualize them to make sure the stitching worked propertly. The Z=0 plane should look identical to Figure 1 above.
+Visualize them to make sure the stitching worked properly. The Z=0 plane should look identical to Figure 1 above.
 
-# CNN Demo 
-We set up a demo script to run training and large-scale inference on some randomized data. This is useful to make sure the environment and modules are imported correctly, and to familiarize you with the format of the inputs and outputs of the CNN.
 
-If working on a computing cluster:
-- change the names of modules and conda environment in the sbatch script `tools/conv_net/run_demo.sh` as necessary for your cluster:
-```
-module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anacondapy/2020.11
-```
-- Note you will need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster 
-- Navigate to `tools/conv_net` and run:
-```
-sbatch run_demo.sh
-```
 
-If working on a local computer, navigate to tools/conv_net; in the terminal, in the brainpipe environment, run:
-```
-python setup_demo_script.py demo
-```
 
-Run the training and inference via: 
-```
-cd pytorchutils/
-python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
-```
-
-In either case (cluster or local), a folder will be created called `tools/conv_net/demo` containing the training and validation sets that were created as well as the results of the training and the inference. 
-This folder will have the structure:
-```
-demo
-├── cnn_output
-│   └── 0000000000_soma_10_demo.tif
-├── experiments
-│   └── demo
-├── input_patches
-│   └── demo.tif
-├── train_img.h5
-├── train_lbl.h5
-├── val_img.h5
-└── val_lbl.h5
-```
-where `train_img.h5` and `train_lbl.h5` are the training set data and labels, and `val_img.h5` and `val_lbl.h5` are the validation set data and labels, respectively. The `cnn_output` folder contains the result of running the inference from the trained model on the validation set. 
-
-# Example: brain registration 
+# Example: brain registration
 - Download the demo dataset for registration: https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/lavision_1.3x_twochannels_z10um_demodataset.tar.gz.
-- Unpack it: 
+- Unpack it:
 ```
 tar -zxvf lavision_1.3x_twochannels_z4um_demodataset.tar.gz`
 ```
@@ -125,7 +86,7 @@ This unpacks into a directory containing two directories, one for each channel:
     ├── ch488_z10um
     └── ch647_z10um
 ```
-Each channel folder contains 696 .tif files, each representing a single horizontal slice through a mouse brain from a single lightsheet (left lightsheet only). These will be referred to as "Z planes" hereafter. Each Z plane is spaced by 10 microns and has pixels which are 5 microns on a side. This dataset is not tiled in X and Y, so it does not need to be stitched (see other example below for how to stitch a dataset that is tiled). 
+Each channel folder contains 696 .tif files, each representing a single horizontal slice through a mouse brain from a single lightsheet (left lightsheet only). These will be referred to as "Z planes" hereafter. Each Z plane is spaced by 10 microns and has pixels which are 5 microns on a side. This dataset is not tiled in X and Y, so it does not need to be stitched (see other example below for how to stitch a dataset that is tiled).
 
 The file format is:
 ```
@@ -135,9 +96,9 @@ where {ZPLANE_CODE} is a 4 digit 0-padded string representing the z plane index,
 - The file `parameter_dictionary.py` sets up a dictionary containing all of the information that will be needed to run the code. Edit this file according to its documentation. Most importantly, the `inputdictionary` needs to look something like this:
 ```
 inputdictionary={
-    "/path/to/lavision_1.3x_twochannels_z4um_demodataset/ch488_z10um": 
+    "/path/to/lavision_1.3x_twochannels_z4um_demodataset/ch488_z10um":
     [["regch","00"]],
-    "/path/to/lavision_1.3x_twochannels_z4um_demodataset/ch647_z10um": 
+    "/path/to/lavision_1.3x_twochannels_z4um_demodataset/ch647_z10um":
     [["cellch","00"]]
 }
 ```
@@ -151,31 +112,31 @@ and
 ```
 and set your `outputdirectory` to where you want to save the outputted data products.
 
-The file `main.py` actually runs the registration pipeline and imports the file `parameter_dictionary.py`. The registration pipeline has four steps, where the step index is the first command line argument you pass to `main.py`. 
- 
-## Registration on a local machine 
+The file `main.py` actually runs the registration pipeline and imports the file `parameter_dictionary.py`. The registration pipeline has four steps, where the step index is the first command line argument you pass to `main.py`.
+
+## Registration on a local machine
 This is useful to run through once even if you ultimately plan to run the pipeline on a computing cluster.
 
 If on a local machine, first activate your anaconda environment:
 ```
 conda activate brainpipe
 ```
-Then run the following steps from the command line. 
+Then run the following steps from the command line.
 ### Step 0:
 ```
 python main.py 0
 # or: python main.py 0 2>&1 | tee logs/step0.log # if you want to log output to a file and see stdout while the program is running
 ```
-This will create the `outputdirectory` directory that you set in `parameter_dictionary.py` and write a few files and sub-directories in there. 
+This will create the `outputdirectory` directory that you set in `parameter_dictionary.py` and write a few files and sub-directories in there.
 ### Step 1:
 ```
 python main.py 1 $jobid
 ```
-If any channels of your raw data consist of multiple light-sheets or multiple tiles, this step will blend and stitch them into a single file for each Z plane. In this example, we are only using 1 light sheet per plane and 1 tile per plane so no blending or stitching will occur. Note that there is a second command line argument passed to `main.py` for this step, $jobid. 
+If any channels of your raw data consist of multiple light-sheets or multiple tiles, this step will blend and stitch them into a single file for each Z plane. In this example, we are only using 1 light sheet per plane and 1 tile per plane so no blending or stitching will occur. Note that there is a second command line argument passed to `main.py` for this step, $jobid.
 
-In our example here where we are not stitching, the `jobid` parameter is used to index which chunk of Z planes to work on (see the stitching example below where this parameter has a different meaning). The `slurmjobfactor` parameter in `parameter_dictionary.py` determines how many planes to work on for each jobid, so if `slurmjobfactor: 50` (the default), then for `jobid=0` Z planes 0-49 are processed. For `jobid=1` Z planes 50-99 are processed, and so on. You will need to run this step with multiple jobids until all of your Z planes are processed. For this example there are 696 Z planes, so a total of 14 (0-13) jobids are needed. This step is a lot more convenient to run via slurm on a computing cluster due to the `--array` notation, but for a local machine one could just write a script to run this step for all 14 job ids simultaneously. 
+In our example here where we are not stitching, the `jobid` parameter is used to index which chunk of Z planes to work on (see the stitching example below where this parameter has a different meaning). The `slurmjobfactor` parameter in `parameter_dictionary.py` determines how many planes to work on for each jobid, so if `slurmjobfactor: 50` (the default), then for `jobid=0` Z planes 0-49 are processed. For `jobid=1` Z planes 50-99 are processed, and so on. You will need to run this step with multiple jobids until all of your Z planes are processed. For this example there are 696 Z planes, so a total of 14 (0-13) jobids are needed. This step is a lot more convenient to run via slurm on a computing cluster due to the `--array` notation, but for a local machine one could just write a script to run this step for all 14 job ids simultaneously.
 
-Even if you do not need to blend or stitch your data, you still need to run this step, as it creates files that later steps in the pipeline read. It should take less than one minute for this demo. The Z planes created during this step will be created in a sub-directory called `full_sizedatafld/` inside your `outputdirectory`. Each channel will have its own sub-directory inside of this directory. These Z planes will have the same voxel resolution as your raw data. For example you should see 696 Z planes in: `full_sizedatafld/ch488_ch00` of the format `ch488_C00_Z????.tif`, likewise for ch647. 
+Even if you do not need to blend or stitch your data, you still need to run this step, as it creates files that later steps in the pipeline read. It should take less than one minute for this demo. The Z planes created during this step will be created in a sub-directory called `full_sizedatafld/` inside your `outputdirectory`. Each channel will have its own sub-directory inside of this directory. These Z planes will have the same voxel resolution as your raw data. For example you should see 696 Z planes in: `full_sizedatafld/ch488_ch00` of the format `ch488_C00_Z????.tif`, likewise for ch647.
 
 ### Step 2:
 ```
@@ -187,20 +148,20 @@ For each channel you specified in `parameter_dictionary.py`, this step will down
 python main.py 2 0
 python main.py 2 1
 ```
-This step should only take a few seconds. 
+This step should only take a few seconds.
 
-You should now see a `ch488_resized_ch00.tif` and `ch647_resized_ch00.tif` that were created in the `outputdirectory`. These files are oriented the same as the reference atlas and downsized in your original data x and y dimensions by a factor of `resizefactor` that you set in `parameter_dictionary.py`. 
+You should now see a `ch488_resized_ch00.tif` and `ch647_resized_ch00.tif` that were created in the `outputdirectory`. These files are oriented the same as the reference atlas and downsized in your original data x and y dimensions by a factor of `resizefactor` that you set in `parameter_dictionary.py`.
 
 
 ### Step 3:
-This step first resamples the downsized files from Step 2 so that they are 1.4x the size of reference atlas in x, y and z dimensions. This is an optimal factor for performing registration. These resampled and downsized files are saved as `ch488_resized_ch00_resampledforelastix.tif` and `ch488_resized_ch00_resampledforelastix.tif` in `outputdirectory` during this step. These files are then used as the inputs for the registration to the reference atlas specified in `parameter_dictionary.py`. Whichever channel you set as the `regch` in `parameter_dictionary` will be directly registered to the atlas, since this is often the autofluorescence channel which is closest in appeareance to the atlas. The other channels, if set as `injch` or `cellch` in `parameter_dictionary.py` will first be registered to the `regch` channel and then registered to the atlas. This two-step registration process for non-autofluorescent channels typically results in a better final registration of these channels to the reference atlas. 
+This step first resamples the downsized files from Step 2 so that they are 1.4x the size of reference atlas in x, y and z dimensions. This is an optimal factor for performing registration. These resampled and downsized files are saved as `ch488_resized_ch00_resampledforelastix.tif` and `ch488_resized_ch00_resampledforelastix.tif` in `outputdirectory` during this step. These files are then used as the inputs for the registration to the reference atlas specified in `parameter_dictionary.py`. Whichever channel you set as the `regch` in `parameter_dictionary` will be directly registered to the atlas, since this is often the autofluorescence channel which is closest in appeareance to the atlas. The other channels, if set as `injch` or `cellch` in `parameter_dictionary.py` will first be registered to the `regch` channel and then registered to the atlas. This two-step registration process for non-autofluorescent channels typically results in a better final registration of these channels to the reference atlas.
 ```
 python main.py 3 $jobid
 ```
 
-In this step, the `jobid` command line argument references the channel type via: 
+In this step, the `jobid` command line argument references the channel type via:
 ```
-jobid = 
+jobid =
         0: 'normal registration'
         1: 'cellchannel'
         2: 'injchannel`
@@ -210,7 +171,7 @@ Therefore when you run:
 python main.py 3 0
 ```
 
-A directory called `elastix` will be created in your `outputdirectory`, which will contain the registration results between the `regch` and the `AtlasFile` you set in `parameter_dictionary.py`. The files: `result.0.tif` and `result.1.tif` in `elastix/` directory refer to registration channel volume that has been registered to the reference atlas coordinate space. `result.0.tif` is the volume after an affine transformation, `result.1.tif` is the volume after affine + bspline transformation, and is usually the more accurate result. 
+A directory called `elastix` will be created in your `outputdirectory`, which will contain the registration results between the `regch` and the `AtlasFile` you set in `parameter_dictionary.py`. The files: `result.0.tif` and `result.1.tif` in `elastix/` directory refer to registration channel volume that has been registered to the reference atlas coordinate space. `result.0.tif` is the volume after an affine transformation, `result.1.tif` is the volume after affine + bspline transformation, and is usually the more accurate result.
 
 <div align="center">
     <figure>
@@ -253,19 +214,19 @@ ch647_resized_ch00/
 └── transformix.log
 ```
 
-The `sig_to_reg` folder contains the elastix transformation results between the signal channel (cell channel) in our case and the registration channel. The file `sig_to_reg/result.1.tif` is the cell channel volume registered to the 488 (registration channel) coordinate space. The file `result.tif` is the cell channel file registered to the atlas space. The reason we include the `sig_to_reg` folder is if there the registration and non-registration channel are not well aligned. In that case, you can use the `sig_to_reg` folder to apply a two-step registration process. This would be sig -> reg -> atlas, instead of sig -> atlas. This is not needed in this example, but the code performs that transformation just in case. 
+The `sig_to_reg` folder contains the elastix transformation results between the signal channel (cell channel) in our case and the registration channel. The file `sig_to_reg/result.1.tif` is the cell channel volume registered to the 488 (registration channel) coordinate space. The file `result.tif` is the cell channel file registered to the atlas space. The reason we include the `sig_to_reg` folder is if there the registration and non-registration channel are not well aligned. In that case, you can use the `sig_to_reg` folder to apply a two-step registration process. This would be sig -> reg -> atlas, instead of sig -> atlas. This is not needed in this example, but the code performs that transformation just in case.
 
 Using `jobid=0` will allow you to register the brain volumes to the atlas, but often it is of interest to register cells or other detected objects in a non-registration image channel to the atlas. That is what the other `jobid` values are for. For example:
 ```
 python main.py 3 1
 ```
-will create a folder called `elastix_inverse_transform` in your `outputdirectory` containing the inverse transforms of the normal registration achieved with `jobid=0`. These inverse transforms are necessary for transforming coordinates in the cell channel volume to the atlas coordinate space. 
+will create a folder called `elastix_inverse_transform` in your `outputdirectory` containing the inverse transforms of the normal registration achieved with `jobid=0`. These inverse transforms are necessary for transforming coordinates in the cell channel volume to the atlas coordinate space.
 
 ## Registration on a computing cluster
-Instead of running the steps with Python from the command line, you will run a sequence of sbatch scripts. This can either be done from a bash file all at once or one by one from the command line. In this example we will run the sbatch scripts one by one to illustrate them more clearly. 
+Instead of running the steps with Python from the command line, you will run a sequence of sbatch scripts. This can either be done from a bash file all at once or one by one from the command line. In this example we will run the sbatch scripts one by one to illustrate them more clearly.
 
 ### Step 0:
-This will produce all of the same outputs as running on a local machine, so refer to the steps of that section for the description of output files. 
+This will produce all of the same outputs as running on a local machine, so refer to the steps of that section for the description of output files.
 Modify `slurm_files/step0.sh` to point to the correct modules set up on your cluster. Then run:
 ```
 sbatch slurm_files/step0.sh
@@ -292,6 +253,51 @@ Conveniently, slurm has an option that allows you to make sbatch commands depend
 ```
 This will execute all of the same sbatch commands we ran one by one above. This will hopefully serve as a template for other use cases of BrainPipe.
 
+
+
+
+# CNN Demo
+We set up a demo script to run training and large-scale inference on some randomized data. This is useful to make sure the environment and modules are imported correctly, and to familiarize you with the format of the inputs and outputs of the CNN.
+
+If working on a computing cluster:
+- change the names of modules and conda environment in the sbatch script `tools/conv_net/run_demo.sh` as necessary for your cluster:
+```
+module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anacondapy/2020.11
+```
+- Note you will need CUDA installed under your username; check with IT on how to setup CUDA properly under your cluster
+- Navigate to `tools/conv_net` and run:
+```
+sbatch run_demo.sh
+```
+
+If working on a local computer, navigate to tools/conv_net; in the terminal, in the brainpipe environment, run:
+```
+python setup_demo_script.py demo
+```
+
+Run the training and inference via:
+```
+cd pytorchutils/
+python demo.py demo models/RSUNet.py samplers/demo_sampler.py augmentors/flip_rotate.py 10 --batch_sz 1 --nobn --noeval --tag demo
+```
+
+In either case (cluster or local), a folder will be created called `tools/conv_net/demo` containing the training and validation sets that were created as well as the results of the training and the inference.
+This folder will have the structure:
+```
+demo
+├── cnn_output
+│   └── 0000000000_soma_10_demo.tif
+├── experiments
+│   └── demo
+├── input_patches
+│   └── demo.tif
+├── train_img.h5
+├── train_lbl.h5
+├── val_img.h5
+└── val_lbl.h5
+```
+where `train_img.h5` and `train_lbl.h5` are the training set data and labels, and `val_img.h5` and `val_lbl.h5` are the validation set data and labels, respectively. The `cnn_output` folder contains the result of running the inference from the trained model on the validation set.
+
 ## CNN Demo (real data)
 For running the CNN on real data, follow the instructions outlined in this jupyter notebook for your own data: [tutorials/make_UNet_training_set.ipynb](tutorials/make_UNet_training_set.ipynb). The inputs for training are pairs of subvolumes and their respective labels. Let's take a look at the script you will run to train the net on your own data. This is the file: `tools/conv_net/pytorchutils/slurm_scripts/run_exp.sh`:
 ```
@@ -309,18 +315,18 @@ module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/2020.11
 . activate brainpipe
 python run_exp.py exp2 /tigress/ahoag/cnn/exp2 models/RSUNet.py samplers/soma.py augmentors/flip_rotate.py --max_iter 201 --batch_sz 2 --chkpt_num 0 --chkpt_intv 50 --gpus 0,1
 ```
-This script is intended to be run from the `tools/conv_net/pytorchutils` directory. In the last line it calls the python script `run_exp.py` in that folder using a number of required and optional arguments. See that python script for the details about these parameters, but the basic syntax for this is: 
+This script is intended to be run from the `tools/conv_net/pytorchutils` directory. In the last line it calls the python script `run_exp.py` in that folder using a number of required and optional arguments. See that python script for the details about these parameters, but the basic syntax for this is:
 ```
 python run_exp.py expt_name expt_dir model_fname sampler_fname augmentor_fname [optional args]
 ```
-The `expt_dir` is where you will store your training, validation and test data. Before you run `run_exp.sh`, make a directory structure inside of that directory like this: 
+The `expt_dir` is where you will store your training, validation and test data. Before you run `run_exp.sh`, make a directory structure inside of that directory like this:
 ```
 └── training_data
     ├── test
     ├── train
     └── val
 ```
-Inside each of `test`, `train`, `val` directories put the pairs of subvolumes and their labels as created in the jupyter notebook above. 
+Inside each of `test`, `train`, `val` directories put the pairs of subvolumes and their labels as created in the jupyter notebook above.
 
 Once you have trained your model and found a checkpoint with an acceptable loss on the validation set, run the inference on the test set using the script: `tools/conv_net/pytorchutils/slurm_scripts/run_fwd.sh`:
 ```
@@ -341,9 +347,9 @@ module load cudatoolkit/10.0 cudnn/cuda-10.0/7.3.1 anaconda3/2020.11
 
 python run_fwd.py exp2 /tigress/ahoag/cnn/exp2 models/RSUNet.py 12000 --gpus 0 --noeval --tag exp2
 ```
-Like `run_exp.sh` this script is intended to be run from the `tools/conv_net/pytorchutils` directory. The last line calls the python script `run_fwd.py` in that folder. See that python script for the details about the parameters. The inference will use the model saved at the checkpoint passed (12000 in the above example) in the arguments to create the predicted labels from the subvolumes in your test set directory. The predicted label volumes from running the inference on each volume in the test set directory will be saved in the `expt_dir/forward`. 
+Like `run_exp.sh` this script is intended to be run from the `tools/conv_net/pytorchutils` directory. The last line calls the python script `run_fwd.py` in that folder. See that python script for the details about the parameters. The inference will use the model saved at the checkpoint passed (12000 in the above example) in the arguments to create the predicted labels from the subvolumes in your test set directory. The predicted label volumes from running the inference on each volume in the test set directory will be saved in the `expt_dir/forward`.
 
-# CNN paralellization
+# CNN parallelization
 - For whole brain, cellular resolution image volumes (> 100 GB), the neural network inference is parallelized across multiple chunks of image volumes, and stitched together by taking the maxima at the overlaps of the chunks after inference.
 - The chunks are made by running `slurm_files/cnn_preprocess.sh` on a CPU based cluster.
 - Chunks can then be run for inference on a GPU based cluster (after transfer to the GPU based cluster server or on a server that has both CPU and GPU capabilities) by then navigating to `tools/conv_net/pytorchutils` and submitting an array batch job the range ("0-150") will depend on how many chunks were made for the whole brain volume, which are typically 80-200.
