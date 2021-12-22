@@ -221,7 +221,6 @@ A directory called `elastix` will be created in your `outputdirectory`, which wi
       <figcaption>Figure 2: The autofluorescence channel (green) before registration (left) to the atlas (red), after affine transformation (middle), and after affine + bspline transformations (right).  </figcaption>
 </div>
 
-
 Inside of `elastix`, a directory called `ch647_resized_ch00` will be created, which will contain the following contents:
 ```
 ch647_resized_ch00/
