@@ -26,8 +26,8 @@ For CNN Demo: [EXAMPLES: CNN Demo](EXAMPLES.md#cnn-demo) Note, trained CNN's are
 
 ![](./static/PMA.gif)
 
-The Princeton Mouse Atlas data can be found [here](https://brainmaps.princeton.edu/2020/09/princeton-mouse-brain-atlas-links/).
+The Princeton Mouse Atlas (PMA) is a light-sheet generated volumetric mouse atlas that is compatible with the Allen Brain Atlas. PMA data can be found [here](https://brainmaps.princeton.edu/2020/09/princeton-mouse-brain-atlas-links/).
 
 ## Aligned viral tracing injection data
 ![plot](/static/neuroglancer_injectionsite.png)
-Aligned viral tracing injection data from [Pisano et al. 2021](https://www.cell.com/cell-reports/pdf/S2211-1247(21)01170-0.pdf>) has been deposited [here](https://brainmaps.princeton.edu/2021/05/pisano_viral_tracing_injections/).
+Aligned anterograde (HSV-H129) and retrograde (PRV-Bartha) viral tracing injection data from [Pisano et al. 2021](https://www.cell.com/cell-reports/pdf/S2211-1247(21)01170-0.pdf>) has been deposited [here](https://brainmaps.princeton.edu/2021/05/pisano_viral_tracing_injections/).
