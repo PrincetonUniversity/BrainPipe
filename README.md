@@ -2,7 +2,7 @@
 
 ![plot](./static/SW_GrAbstr_STAR_1n.png)
 
-BrainPipe [Pisano et al. 2021](https://www.sciencedirect.com/science/article/pii/S2211124721011700) is an automated transsynaptic tracing pipeline that combines anatomical assignment using volumetric registration and injection site segmentation with convolutional neural networks for cell detection.
+BrainPipe ([Pisano et al. 2021](https://www.sciencedirect.com/science/article/pii/S2211124721011700)) is an automated transsynaptic tracing pipeline that combines anatomical assignment using volumetric registration and injection site segmentation with convolutional neural networks for cell detection.
 
 ### Light-sheet microscopy can visualize whole-brain transsynaptic tracing
 
