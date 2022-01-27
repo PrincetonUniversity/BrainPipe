@@ -303,7 +303,6 @@ demo
 ```
 where `train_img.h5` and `train_lbl.h5` are the training set data and labels, and `val_img.h5` and `val_lbl.h5` are the validation set data and labels, respectively. The `cnn_output` folder contains the result of running the inference from the trained model on the validation set.
 
->>>>>>> fe986e3a070604f635b5176c0554237bf9f288fa
 ## CNN Demo (real data)
 For running the CNN on real data, follow the instructions outlined in this jupyter notebook for your own data: [tutorials/make_UNet_training_set.ipynb](tutorials/make_UNet_training_set.ipynb). The inputs for training are pairs of subvolumes and their respective labels. Let's take a look at the script you will run to train the net on your own data. This is the file: `tools/conv_net/pytorchutils/slurm_scripts/run_exp.sh`:
 ```
@@ -358,6 +357,7 @@ Like `run_exp.sh` this script is intended to be run from the `tools/conv_net/pyt
 We provide two pre-trained models to use for transfer learning or for the purposes of understanding the model output format. The models are provided here: https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/CNN_pretrained_models.tar.gz. That compressed tar file unpacks into two files: 
 - `model295590_h129.chkpt`
 - `model410000_prv.chkpt`
+
 The file: `model295590_h129.chkpt` contains the model used for detecting HSV-H129-VC22 (Figures 1A and 1B in [Pisano et al. 2021](https://www.cell.com/cell-reports/pdf/S2211-1247(21)), an anterograde-transported herpes simplex virus (HSV) strain that expresses nuclear-targeted enhanced green fluorescent protein (EGFP)HSV-H129 anterograde viral labeling. The other file: `model410000_prv.chkpt` contains the model used for detecting the pseudorabies virus (PRV) Bartha strain. Both viruses were expressed in mouse brains and imaged using light-sheet microscopy at 2 micron resolution. For more details see [Pisano et al. 2021](https://www.cell.com/cell-reports/pdf/S2211-1247(21).
 
 # CNN parallelization
