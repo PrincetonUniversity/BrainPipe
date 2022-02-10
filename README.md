@@ -20,7 +20,7 @@ Please see [EXAMPLES.md](EXAMPLES.md) for basic BrainPipe use cases.
 
 Demonstration datasets to ensure proper usage of BrainPipe and trained CNNs for H129 and PRV detection can be found [here](https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/).
 
-For CNN Demo: [EXAMPLES: CNN Demo](EXAMPLES.md#cnn-demo). Note, trained CNN's are a good starting point for transfer learning, but probably will not work out-of-the-box for other projects' datasets. For a tutorial on making your own training set, see [tutorials/make_UNet_training_set.ipynb](tutorials/make_UNet_training_set.ipynb).
+For CNN Demo: [EXAMPLES: CNN Demo](EXAMPLES.md#cnn-demo). Note, pre-trained CNN's ([available here](https://lightsheetatlas.pni.princeton.edu/public/brainpipe_demo_datasets/CNN_pretrained_models.tar.gz)) are a good starting point for transfer learning, but probably will not work out-of-the-box for other projects' datasets. For a tutorial on making your own training set, see [tutorials/make_UNet_training_set.ipynb](tutorials/make_UNet_training_set.ipynb).
 
 For a deeper-dive into the BrainPipe pipeline, please see [IMPORTANT_FILES.md](IMPORTANT_FILES.md) for details. When starting to use your own data, BrainPipe expects certain formatting of images (see [FILE-FORMATTING.md](FILE-FORMATTING.md) for details).
 
